@@ -1,4 +1,4 @@
-package isa.projekat;
+package isa.putujIgumane.app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

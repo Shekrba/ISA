@@ -2,8 +2,6 @@ package isa.putujIgumane.model.avioKompanija;
 
 import java.util.ArrayList;
 
-import isa.putujIgumane.model.ProsecnaOcena;
-
 public class AvioKompanija {
 	private String naziv;
 	private String adresa;
@@ -12,7 +10,7 @@ public class AvioKompanija {
 	private ArrayList<Let> letovi;
 	private ArrayList<Karta> karateSaPopustima;
 	private ArrayList<Segment> segmenti;
-	private ProsecnaOcena prosecnaOcena;
+	private Double prosecnaOcena;
 	public String getNaziv() {
 		return naziv;
 	}
@@ -55,10 +53,10 @@ public class AvioKompanija {
 	public void setSegmenti(ArrayList<Segment> segmenti) {
 		this.segmenti = segmenti;
 	}
-	public ProsecnaOcena getProsecnaOcena() {
+	public Double getProsecnaOcena() {
 		return prosecnaOcena;
 	}
-	public void setProsecnaOcena(ProsecnaOcena prosecnaOcena) {
+	public void setProsecnaOcena(Double prosecnaOcena) {
 		this.prosecnaOcena = prosecnaOcena;
 	}
 	

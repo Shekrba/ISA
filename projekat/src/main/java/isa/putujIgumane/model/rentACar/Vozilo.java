@@ -2,7 +2,6 @@ package isa.putujIgumane.model.rentACar;
 
 import java.sql.Date;
 
-import isa.putujIgumane.model.ProsecnaOcena;
 
 public class Vozilo {
 	private String nazivVozila;
@@ -10,7 +9,7 @@ public class Vozilo {
 	private String modelVozila;
 	private int godinaProizvodnje;
 	private int brojSedista;
-	private ProsecnaOcena prosecnaOcenaVozila;
+	private Double prosecnaOcenaVozila;
 	private int cenaIznajmljivanjaVozilaPoDanu;
 	private boolean voziloJeIznajmljeno;
 	private Date datumKadaJeIznajmljeno;
@@ -19,7 +18,7 @@ public class Vozilo {
 	private int popust;
 	
 	public Vozilo(String nazivVozila, String markaVozila, String modelVozila, int godinaProizvodnje, int brojSedista,
-			ProsecnaOcena prosecnaOcenaVozila, int cenaIznajmljivanjaVozilaPoDanu, boolean voziloJeIznajmljeno,
+			Double prosecnaOcenaVozila, int cenaIznajmljivanjaVozilaPoDanu, boolean voziloJeIznajmljeno,
 			Date datumKadaJeIznajmljeno, Date datumDoKadaJeIznajmljeno, boolean voziloJeIzbrisano, int popust) {
 		super();
 		this.nazivVozila = nazivVozila;
@@ -36,22 +35,7 @@ public class Vozilo {
 		this.popust = popust;
 	}
 
-	public Vozilo() {
-		super();
-		this.nazivVozila = "";
-		this.markaVozila = "";
-		this.modelVozila = "";
-		this.godinaProizvodnje = 1900;
-		this.brojSedista = 4;
-		this.prosecnaOcenaVozila.setBrojOcena(0);
-		this.prosecnaOcenaVozila.setTrenutnaOcena(0);
-		this.cenaIznajmljivanjaVozilaPoDanu = 0;
-		this.voziloJeIznajmljeno = false;
-		this.datumKadaJeIznajmljeno = null;
-		this.datumDoKadaJeIznajmljeno = null;
-		this.voziloJeIzbrisano = false;
-		this.popust = 0;
-	}
+	
 
 	public String getNazivVozila() {
 		return nazivVozila;
@@ -93,11 +77,11 @@ public class Vozilo {
 		this.brojSedista = brojSedista;
 	}
 
-	public ProsecnaOcena getProsecnaOcenaVozila() {
+	public Double getProsecnaOcenaVozila() {
 		return prosecnaOcenaVozila;
 	}
 
-	public void setProsecnaOcenaVozila(ProsecnaOcena prosecnaOcenaVozila) {
+	public void setProsecnaOcenaVozila(Double prosecnaOcenaVozila) {
 		this.prosecnaOcenaVozila = prosecnaOcenaVozila;
 	}
 

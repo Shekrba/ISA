@@ -1,64 +1,56 @@
 package isa.putujIgumane.model.hotel;
 
-import java.sql.Date;
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
-enum TipSobe {
-	JEDNOKREVETNA,DVOKREVETNA,TROKREVETNA,CETVOROKREVETNA
-}
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Soba {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@Column(name = "brojSobe", unique = true, nullable = false)
 	private int brojSobe;
-	private HashMap<Date, Double> cenovnikNocenja;
-	private HashMap<String, Integer> cenovnikUsluga;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Hotel hotel;
+	
+	@Column(name = "sprat", unique = false, nullable = false)
 	private int sprat;
+	
+	@Column(name = "brojKreveta", unique = false, nullable = false)
 	private int brojKreveta;
-	private TipSobe tipSobe;
-	private Date datumDolaska;
-	private int brojNocenja;
-	private int brojGostuju;
 	
-	private boolean popust;
-	private int pocenatPopusta;
-	private Date datumPocetkaPopusta;
-	private Date datumZavrsetkaPopusta;
+	@OneToMany(mappedBy = "soba", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<StatusSobe> statusSobe = new HashSet<StatusSobe>();
 	
-	public Soba(int brojSobe, int sprat, int brojKreveta, TipSobe tipSobe) {
+	public Soba(Long id, int brojSobe, Hotel hotel, int sprat, int brojKreveta, Set<StatusSobe> statusSobe) {
 		super();
+		this.id = id;
 		this.brojSobe = brojSobe;
+		this.hotel = hotel;
 		this.sprat = sprat;
 		this.brojKreveta = brojKreveta;
-		this.tipSobe = tipSobe;
-		this.cenovnikNocenja = new HashMap<>();
-		this.cenovnikUsluga = new HashMap<>();
-		this.datumDolaska = null;
-		this.brojNocenja = 0;
-		this.brojGostuju = 0;
-		
-		this.popust = false;
-		this.pocenatPopusta = 0;
-		this.datumPocetkaPopusta = null;
-		this.datumZavrsetkaPopusta = null;
+		this.statusSobe = statusSobe;
 	}
-	
 	public int getBrojSobe() {
 		return brojSobe;
 	}
 	public void setBrojSobe(int brojSobe) {
 		this.brojSobe = brojSobe;
 	}
-	public HashMap<Date, Double> getCenovnikNocenja() {
-		return cenovnikNocenja;
-	}
-	public void setCenovnikNocenja(HashMap<Date, Double> cenovnikNocenja) {
-		this.cenovnikNocenja = cenovnikNocenja;
-	}
-	public HashMap<String, Integer> getCenovnikUsluga() {
-		return cenovnikUsluga;
-	}
-	public void setCenovnikUsluga(HashMap<String, Integer> cenovnikUsluga) {
-		this.cenovnikUsluga = cenovnikUsluga;
-	}
+	
 	public int getSprat() {
 		return sprat;
 	}
@@ -71,52 +63,29 @@ public class Soba {
 	public void setBrojKreveta(int brojKreveta) {
 		this.brojKreveta = brojKreveta;
 	}
-	public TipSobe getTipSobe() {
-		return tipSobe;
+	
+	
+	public Hotel getHotel() {
+		return hotel;
 	}
-	public void setTipSobe(TipSobe tipSobe) {
-		this.tipSobe = tipSobe;
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
-	public Date getDatumDolaska() {
-		return datumDolaska;
+	public Set<StatusSobe> getStatusSobe() {
+		return statusSobe;
 	}
-	public void setDatumDolaska(Date datumDolaska) {
-		this.datumDolaska = datumDolaska;
+	public void setStatusSobe(Set<StatusSobe> statusSobe) {
+		this.statusSobe = statusSobe;
 	}
-	public int getBrojNocenja() {
-		return brojNocenja;
+	public Long getId() {
+		return id;
 	}
-	public void setBrojNocenja(int brojNocenja) {
-		this.brojNocenja = brojNocenja;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public int getBrojGostuju() {
-		return brojGostuju;
-	}
-	public void setBrojGostuju(int brojGostuju) {
-		this.brojGostuju = brojGostuju;
-	}
-	public boolean isPopust() {
-		return popust;
-	}
-	public void setPopust(boolean popust) {
-		this.popust = popust;
-	}
-	public int getPocenatPopusta() {
-		return pocenatPopusta;
-	}
-	public void setPocenatPopusta(int pocenatPopusta) {
-		this.pocenatPopusta = pocenatPopusta;
-	}
-	public Date getDatumPocetkaPopusta() {
-		return datumPocetkaPopusta;
-	}
-	public void setDatumPocetkaPopusta(Date datumPocetkaPopusta) {
-		this.datumPocetkaPopusta = datumPocetkaPopusta;
-	}
-	public Date getDatumZavrsetkaPopusta() {
-		return datumZavrsetkaPopusta;
-	}
-	public void setDatumZavrsetkaPopusta(Date datumZavrsetkaPopusta) {
-		this.datumZavrsetkaPopusta = datumZavrsetkaPopusta;
-	}
+
+	
+
+	
 }

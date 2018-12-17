@@ -2,7 +2,6 @@ package isa.putujIgumane.model.rentACar;
 
 import java.util.ArrayList;
 
-import isa.putujIgumane.model.ProsecnaOcena;
 
 public class RentACar {
 	private String nazivServisa;
@@ -10,10 +9,10 @@ public class RentACar {
 	private String promotivniOpis;
 	private ArrayList<String> filijale;
 	private ArrayList<Vozilo> listaVozila;
-	private ProsecnaOcena prosecnaOcenaServisa;
+	private Double prosecnaOcenaServisa;
 	
 	public RentACar(String nazivServisa, String adresaServisa, String promotivniOpis, ArrayList<String> filijale,
-			ArrayList<Vozilo> listaVozila, ProsecnaOcena prosecnaOcenaServisa) {
+			ArrayList<Vozilo> listaVozila, Double prosecnaOcenaServisa) {
 		super();
 		this.nazivServisa = nazivServisa;
 		this.adresaServisa = adresaServisa;
@@ -21,17 +20,6 @@ public class RentACar {
 		this.filijale = filijale;
 		this.listaVozila = listaVozila;
 		this.prosecnaOcenaServisa = prosecnaOcenaServisa;
-	}
-
-	public RentACar() {
-		super();
-		this.nazivServisa = "";
-		this.adresaServisa = "";
-		this.promotivniOpis = "";
-		this.filijale = new ArrayList<String>();
-		this.listaVozila = new ArrayList<Vozilo>();
-		this.prosecnaOcenaServisa.setBrojOcena(0);
-		this.prosecnaOcenaServisa.setTrenutnaOcena(0);
 	}
 
 	public String getNazivServisa() {
@@ -74,11 +62,11 @@ public class RentACar {
 		this.listaVozila = listaVozila;
 	}
 
-	public ProsecnaOcena getProsecnaOcenaServisa() {
+	public Double getProsecnaOcenaServisa() {
 		return prosecnaOcenaServisa;
 	}
 
-	public void setProsecnaOcenaServisa(ProsecnaOcena prosecnaOcenaServisa) {
+	public void setProsecnaOcenaServisa(Double prosecnaOcenaServisa) {
 		this.prosecnaOcenaServisa = prosecnaOcenaServisa;
 	}
 	

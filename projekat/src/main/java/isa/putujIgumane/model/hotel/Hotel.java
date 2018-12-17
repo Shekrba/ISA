@@ -1,31 +1,55 @@
 package isa.putujIgumane.model.hotel;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
-import isa.putujIgumane.model.ProsecnaOcena;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+
+@Entity
 public class Hotel {
-	private String naziv;
-	private String adresa;
-	private String opis; 
-	private HashMap<String, Integer> cenovnikUsluga;
-	private ArrayList<Soba> sobe;
-	private ProsecnaOcena prosecnaOcena;
-	private HashMap<Date, Double> prihodi;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
-	public Hotel(String naziv, String adresa, String opis) {
+	@Column(name = "naziv", unique = false, nullable = false)
+	private String naziv;
+	
+	@Column(name = "adresa", unique = false, nullable = false)
+	private String adresa;
+	
+	@Column(name = "opis", unique = false, nullable = true)
+	private String opis; 
+	
+	@OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Soba> sobe = new HashSet<Soba>();
+	
+	@OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<CenovnikUslugaHotela> cenovnikUsluga = new HashSet<CenovnikUslugaHotela>();
+	
+	@Column(name = "prosecnaOcena", unique = false, nullable = true)
+	private Double prosecnaOcena;
+	
+	
+	
+	public Hotel(Long id, String naziv, String adresa, String opis, Set<Soba> sobe,
+			Set<CenovnikUslugaHotela> cenovnikUsluga, Double prosecnaOcena) {
 		super();
+		this.id = id;
 		this.naziv = naziv;
 		this.adresa = adresa;
 		this.opis = opis;
-		this.cenovnikUsluga = new HashMap<>();
-		this.sobe = new ArrayList<>();
-		this.prosecnaOcena = new ProsecnaOcena();
-		this.prihodi = new HashMap<>();
+		this.sobe = sobe;
+		this.cenovnikUsluga = cenovnikUsluga;
+		this.prosecnaOcena = prosecnaOcena;
 	}
-	
 	public String getNaziv() {
 		return naziv;
 	}
@@ -44,28 +68,35 @@ public class Hotel {
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
-	public HashMap<String, Integer> getCenovnikUsluga() {
-		return cenovnikUsluga;
-	}
-	public void setCenovnikUsluga(HashMap<String, Integer> cenovnikUsluga) {
-		this.cenovnikUsluga = cenovnikUsluga;
-	}
-	public ArrayList<Soba> getSobe() {
-		return sobe;
-	}
-	public void setSobe(ArrayList<Soba> sobe) {
-		this.sobe = sobe;
-	}
-	public ProsecnaOcena getProsecnaOcena() {
+	public Double getProsecnaOcena() {
 		return prosecnaOcena;
 	}
-	public void setProsecnaOcena(ProsecnaOcena prosecnaOcena) {
+	public void setProsecnaOcena(Double prosecnaOcena) {
 		this.prosecnaOcena = prosecnaOcena;
 	}
-	public HashMap<Date, Double> getPrihodi() {
-		return prihodi;
+
+	public Long getId() {
+		return id;
 	}
-	public void setPrihodi(HashMap<Date, Double> prihodi) {
-		this.prihodi = prihodi;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
+
+	public Set<Soba> getSobe() {
+		return sobe;
+	}
+
+	public void setSobe(Set<Soba> sobe) {
+		this.sobe = sobe;
+	}
+
+	public Set<CenovnikUslugaHotela> getCenovnikUsluga() {
+		return cenovnikUsluga;
+	}
+
+	public void setCenovnikUsluga(Set<CenovnikUslugaHotela> cenovnikUsluga) {
+		this.cenovnikUsluga = cenovnikUsluga;
+	}
+	
 }

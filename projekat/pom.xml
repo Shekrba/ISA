@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>projekat</name>
+	<name>PutujIgumane</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -96,6 +96,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
+			<version>8.0.13</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

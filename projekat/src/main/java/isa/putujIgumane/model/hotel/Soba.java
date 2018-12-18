@@ -35,7 +35,12 @@ public class Soba {
 	@OneToMany(mappedBy = "soba", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<StatusSobe> statusSobe = new HashSet<StatusSobe>();
 	
-	public Soba(Long id, int brojSobe, Hotel hotel, int sprat, int brojKreveta, Set<StatusSobe> statusSobe) {
+	@OneToMany(mappedBy = "soba", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<RezervacijaSobe> rezervacije = new HashSet<RezervacijaSobe>();
+	
+	
+	public Soba(Long id, int brojSobe, Hotel hotel, int sprat, int brojKreveta, Set<StatusSobe> statusSobe,
+			Set<RezervacijaSobe> rezervacije) {
 		super();
 		this.id = id;
 		this.brojSobe = brojSobe;
@@ -43,7 +48,23 @@ public class Soba {
 		this.sprat = sprat;
 		this.brojKreveta = brojKreveta;
 		this.statusSobe = statusSobe;
+		this.rezervacije = rezervacije;
 	}
+	
+	
+	
+	public Set<RezervacijaSobe> getRezervacije() {
+		return rezervacije;
+	}
+
+
+
+	public void setRezervacije(Set<RezervacijaSobe> rezervacije) {
+		this.rezervacije = rezervacije;
+	}
+
+
+
 	public int getBrojSobe() {
 		return brojSobe;
 	}

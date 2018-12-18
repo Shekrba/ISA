@@ -2,19 +2,45 @@ package isa.putujIgumane.model.hotel;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 public class RezervacijaSobe {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Soba soba;
+	
+	@Column(name = "datum", unique = false, nullable = false)
 	private Date datum;
+	
+	@Column(name = "otkazano", unique = false, nullable = false)
 	private boolean otkazano;
+	
+	@Column(name = "datumDolaska", unique = false, nullable = false)
 	private Date datumDolaska;
+	
+	@Column(name = "datumOdlaska", unique = false, nullable = false)
 	private Date datumOdlaska;
+	
+	@Column(name = "ukupnaCena", unique = false, nullable = false)
 	private double ukupnaCena;
 	
 	
 	
-	public RezervacijaSobe(Soba soba, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
+	
+	public RezervacijaSobe(Long id, Soba soba, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
 			double ukupnaCena) {
 		super();
+		this.id = id;
 		this.soba = soba;
 		this.datum = datum;
 		this.otkazano = otkazano;
@@ -22,6 +48,18 @@ public class RezervacijaSobe {
 		this.datumOdlaska = datumOdlaska;
 		this.ukupnaCena = ukupnaCena;
 	}
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 	public Soba getSoba() {
 		return soba;
 	}

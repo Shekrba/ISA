@@ -1,16 +1,41 @@
 package isa.putujIgumane.model.avioKompanija;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class AvioKompanija {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@Column(name = "naziv", unique = true, nullable = false)
 	private String naziv;
+	
+	@Column(name = "adresa", unique = false, nullable = false)
 	private String adresa;
+	
+	@Column(name = "promotivniOpis", unique = false, nullable = true)
 	private String promotivniOpis;
-	private ArrayList<String> destinacije;
-	private ArrayList<Let> letovi;
-	private ArrayList<Karta> karateSaPopustima;
+	
+	
+	private Set<String> destinacije=new HashSet<String>();
+	
+	private Set<Let> letovi=new HashSet<Let>();
+	private Set<Karta> karteSaPopustima = new HashSet<Karta>();
 	private ArrayList<Segment> segmenti;
+	
+	@Column(name = "prosecnaOcena", unique = false, nullable = true)
 	private Double prosecnaOcena;
+	
 	public String getNaziv() {
 		return naziv;
 	}
@@ -29,24 +54,7 @@ public class AvioKompanija {
 	public void setPromotivniOpis(String promotivniOpis) {
 		this.promotivniOpis = promotivniOpis;
 	}
-	public ArrayList<String> getDestinacije() {
-		return destinacije;
-	}
-	public void setDestinacije(ArrayList<String> destinacije) {
-		this.destinacije = destinacije;
-	}
-	public ArrayList<Let> getLetovi() {
-		return letovi;
-	}
-	public void setLetovi(ArrayList<Let> letovi) {
-		this.letovi = letovi;
-	}
-	public ArrayList<Karta> getKarateSaPopustima() {
-		return karateSaPopustima;
-	}
-	public void setKarateSaPopustima(ArrayList<Karta> karateSaPopustima) {
-		this.karateSaPopustima = karateSaPopustima;
-	}
+	
 	public ArrayList<Segment> getSegmenti() {
 		return segmenti;
 	}

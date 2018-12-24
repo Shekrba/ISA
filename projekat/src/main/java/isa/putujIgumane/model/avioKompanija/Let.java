@@ -19,7 +19,7 @@ public class Let {
 	
 	private int duzinaPutovanja;
 	
-	private Set<Destinacija> destinacije=new HashSet<Destinacija>();
+	private Set<Grad> destinacije=new HashSet<Grad>();
 
 	private double cena;
 }

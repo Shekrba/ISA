@@ -4,18 +4,24 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class AvioKompanija {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	
 	@Column(name = "naziv", unique = true, nullable = false)
 	private String naziv;
@@ -26,12 +32,14 @@ public class AvioKompanija {
 	@Column(name = "promotivniOpis", unique = false, nullable = true)
 	private String promotivniOpis;
 	
+	@ManyToMany
+    @JoinTable(name = "destinacije",
+               joinColumns = @JoinColumn(name="aviokompanija_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="grad_id", referencedColumnName="id"))
+	private Set<Grad> destinacijePoslovanja=new HashSet<Grad>();
 	
-	private Set<String> destinacije=new HashSet<String>();
-	
+	@OneToMany(mappedBy="avioKompanija",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Let> letovi=new HashSet<Let>();
-	private Set<Karta> karteSaPopustima = new HashSet<Karta>();
-	private ArrayList<Segment> segmenti;
 	
 	@Column(name = "prosecnaOcena", unique = false, nullable = true)
 	private Double prosecnaOcena;
@@ -55,12 +63,6 @@ public class AvioKompanija {
 		this.promotivniOpis = promotivniOpis;
 	}
 	
-	public ArrayList<Segment> getSegmenti() {
-		return segmenti;
-	}
-	public void setSegmenti(ArrayList<Segment> segmenti) {
-		this.segmenti = segmenti;
-	}
 	public Double getProsecnaOcena() {
 		return prosecnaOcena;
 	}

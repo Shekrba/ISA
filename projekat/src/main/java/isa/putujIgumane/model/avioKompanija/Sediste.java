@@ -1,8 +1,5 @@
 package isa.putujIgumane.model.avioKompanija;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Segment {
+public class Sediste {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,63 +21,41 @@ public class Segment {
 	private Short rbr;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Let let;
+	private Segment segment;
 	
-	@OneToMany(mappedBy="segment",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Sediste> sedista=new HashSet<Sediste>();
-	
-	
-	@Column(name = "cena", unique = false, nullable = false)
-	private Double cena;
-
+	@OneToOne(mappedBy = "sediste", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Karta karta;
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public Short getRbr() {
 		return rbr;
 	}
 
-
 	public void setRbr(Short rbr) {
 		this.rbr = rbr;
 	}
 
-
-	public Let getLet() {
-		return let;
+	public Segment getSegment() {
+		return segment;
 	}
 
-
-	public void setLet(Let let) {
-		this.let = let;
+	public void setSegment(Segment segment) {
+		this.segment = segment;
 	}
 
-
-	public Set<Sediste> getSedista() {
-		return sedista;
+	public Karta getKarta() {
+		return karta;
 	}
 
-
-	public void setSedista(Set<Sediste> sedista) {
-		this.sedista = sedista;
-	}
-
-
-	public Double getCena() {
-		return cena;
-	}
-
-
-	public void setCena(Double cena) {
-		this.cena = cena;
+	public void setKarta(Karta karta) {
+		this.karta = karta;
 	}
 	
 	

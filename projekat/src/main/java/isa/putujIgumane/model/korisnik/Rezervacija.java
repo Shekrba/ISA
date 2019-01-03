@@ -13,7 +13,7 @@ import isa.putujIgumane.model.avioKompanija.Karta;
 import isa.putujIgumane.model.hotel.RezervacijaSobe;
 import isa.putujIgumane.model.rentACar.RezervacijaVozila;
 
-public class Rezervacije {
+public class Rezervacija {
 	
 /*	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

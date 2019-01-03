@@ -2,6 +2,13 @@ package isa.putujIgumane.model.rentACar;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+
+import isa.putujIgumane.model.korisnik.Rezervacija;
+
 
 public class RezervacijaVozila {
 	
@@ -12,6 +19,8 @@ public class RezervacijaVozila {
 	private Date datumOdlaska;
 	private double ukupnaCena;
 	
+	/*@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Rezervacija rezervacija;*/
 	
 	public RezervacijaVozila(Vozilo vozilo, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
 			double ukupnaCena) {

@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import isa.putujIgumane.model.korisnik.Rezervacija;
+
 @Entity
 public class Karta {
 
@@ -26,7 +28,10 @@ public class Karta {
 	
 	@Column(name = "popust", unique = false, nullable = false)
 	private Double popust;
-
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Rezervacija rezervacija;
+	
 	public Integer getId() {
 		return id;
 	}

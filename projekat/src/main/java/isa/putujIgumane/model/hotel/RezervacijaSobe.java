@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import isa.putujIgumane.model.korisnik.Rezervacija;
+
 @Entity
 public class RezervacijaSobe {
 	
@@ -36,7 +38,8 @@ public class RezervacijaSobe {
 	@Column(name = "ukupnaCena", unique = false, nullable = false)
 	private double ukupnaCena;
 	
-	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Rezervacija rezervacija;
 	
 	
 	public RezervacijaSobe(Long id, Soba soba, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hoteli</title>
+</head>
+<body>
+<div ng-Controller="hoteliController">
+	<table>		
+		<tr ng-repeat="h in hoteli">
+			<td>{{h.naziv}}</td>
+			<td>{{h.adresa}}</td>
+			<td>{{h.opis}}</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

@@ -3,38 +3,42 @@ package isa.putujIgumane.model.korisnik;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import isa.putujIgumane.model.avioKompanija.Karta;
 import isa.putujIgumane.model.hotel.RezervacijaSobe;
 import isa.putujIgumane.model.rentACar.RezervacijaVozila;
 
+@Entity
 public class Rezervacija {
 	
-/*	@Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-//	@OneToOne(mappedBy = "rezervacija", optional = false)
-//	private Karta avionskaKarta = new Karta();
-	
+	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RezervacijaSobe> rezervacijaSobe = new HashSet<RezervacijaSobe>();
 	
-	private Set<RezervacijaVozila> rezervacijaVozila = new HashSet<RezervacijaVozila>();
+	/*@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<RezervacijaVozila> rezervacijaVozila = new HashSet<RezervacijaVozila>();*/
 	
+	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Karta> avionskaKarta = new HashSet<Karta>();
 	
-	public Rezervacije(Long id, Set<Karta> avionskaKarta, Set<RezervacijaSobe> rezervacijaSobe,
+	public Rezervacija(Long id, Set<Karta> avionskaKarta, Set<RezervacijaSobe> rezervacijaSobe,
 			Set<RezervacijaVozila> rezervacijaVozila) {
 		super();
 		this.id = id;
 		this.avionskaKarta = avionskaKarta;
 		this.rezervacijaSobe = rezervacijaSobe;
-		this.rezervacijaVozila = rezervacijaVozila;
+		//this.rezervacijaVozila = rezervacijaVozila;
 	}
 	public Long getId() {
 		return id;
@@ -54,7 +58,7 @@ public class Rezervacija {
 	public void setRezervacijaSobe(Set<RezervacijaSobe> rezervacijaSobe) {
 		this.rezervacijaSobe = rezervacijaSobe;
 	}
-	public Set<RezervacijaVozila> getRezervacijaVozila() {
+	/*public Set<RezervacijaVozila> getRezervacijaVozila() {
 		return rezervacijaVozila;
 	}
 	public void setRezervacijaVozila(Set<RezervacijaVozila> rezervacijaVozila) {

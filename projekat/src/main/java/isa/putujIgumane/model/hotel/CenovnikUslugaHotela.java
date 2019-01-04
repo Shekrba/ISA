@@ -37,6 +37,12 @@ public class CenovnikUslugaHotela {
 
 	
 	
+	public CenovnikUslugaHotela() {
+		super();
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}

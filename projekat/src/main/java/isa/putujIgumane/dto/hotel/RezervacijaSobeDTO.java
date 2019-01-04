@@ -1,68 +1,43 @@
-package isa.putujIgumane.model.hotel;
+package isa.putujIgumane.dto.hotel;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
+import isa.putujIgumane.model.hotel.RezervacijaSobe;
+import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.korisnik.Rezervacija;
 
-@Entity
-public class RezervacijaSobe {
+public class RezervacijaSobeDTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Soba soba;
 	
-	@Column(name = "datum", unique = false, nullable = false)
 	private Date datum;
 	
-	@Column(name = "otkazano", unique = false, nullable = false)
 	private boolean otkazano;
 	
-	@Column(name = "datumDolaska", unique = false, nullable = false)
 	private Date datumDolaska;
 	
-	@Column(name = "datumOdlaska", unique = false, nullable = false)
 	private Date datumOdlaska;
 	
-	@Column(name = "ukupnaCena", unique = false, nullable = false)
 	private double ukupnaCena;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Rezervacija rezervacija;
 	
 	
-	public RezervacijaSobe(Long id, Soba soba, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
-			double ukupnaCena, Rezervacija rezervacija) {
+	public RezervacijaSobeDTO(RezervacijaSobe rs) {
 		super();
-		this.id = id;
-		this.soba = soba;
-		this.datum = datum;
-		this.otkazano = otkazano;
-		this.datumDolaska = datumDolaska;
-		this.datumOdlaska = datumOdlaska;
-		this.ukupnaCena = ukupnaCena;
-		this.rezervacija = rezervacija;
+		this.id = rs.getId();
+		this.soba = rs.getSoba();
+		this.datum = rs.getDatum();
+		this.otkazano = rs.isOtkazano();
+		this.datumDolaska = rs.getDatumDolaska();
+		this.datumOdlaska = rs.getDatumOdlaska();
+		this.ukupnaCena = rs.getUkupnaCena();
+		this.rezervacija = rs.getRezervacija();
 	}
 	
 	
-	
-	public RezervacijaSobe() {
-		super();
-	}
-
-
-
 	public Long getId() {
 		return id;
 	}
@@ -119,7 +94,5 @@ public class RezervacijaSobe {
 	public void setRezervacija(Rezervacija rezervacija) {
 		this.rezervacija = rezervacija;
 	}
-	
-	
 	
 }

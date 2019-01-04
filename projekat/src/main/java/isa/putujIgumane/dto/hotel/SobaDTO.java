@@ -1,64 +1,43 @@
-package isa.putujIgumane.model.hotel;
+package isa.putujIgumane.dto.hotel;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import isa.putujIgumane.model.hotel.Hotel;
+import isa.putujIgumane.model.hotel.RezervacijaSobe;
+import isa.putujIgumane.model.hotel.Soba;
+import isa.putujIgumane.model.hotel.StatusSobe;
 
-@Entity
-public class Soba {
+public class SobaDTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "brojSobe", unique = true, nullable = false)
 	private int brojSobe;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Hotel hotel;
 	
-	@Column(name = "sprat", unique = false, nullable = false)
 	private int sprat;
 	
-	@Column(name = "brojKreveta", unique = false, nullable = false)
 	private int brojKreveta;
 	
-	@OneToMany(mappedBy = "soba", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<StatusSobe> statusSobe = new HashSet<StatusSobe>();
 	
-	@OneToMany(mappedBy = "soba", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<RezervacijaSobe> rezervacije = new HashSet<RezervacijaSobe>();
 	
 	
-	public Soba(Long id, int brojSobe, Hotel hotel, int sprat, int brojKreveta, Set<StatusSobe> statusSobe,
-			Set<RezervacijaSobe> rezervacije) {
+	public SobaDTO(Soba s) {
 		super();
-		this.id = id;
-		this.brojSobe = brojSobe;
-		this.hotel = hotel;
-		this.sprat = sprat;
-		this.brojKreveta = brojKreveta;
-		this.statusSobe = statusSobe;
-		this.rezervacije = rezervacije;
+		this.id = s.getId();
+		this.brojSobe = s.getBrojSobe();
+		this.hotel = s.getHotel();
+		this.sprat = s.getSprat();
+		this.brojKreveta = s.getBrojKreveta();
+		this.statusSobe = s.getStatusSobe();
+		this.rezervacije = s.getRezervacije();
 	}
 	
 	
 	
-	public Soba() {
-		super();
-	}
-
-
-
 	public Set<RezervacijaSobe> getRezervacije() {
 		return rezervacije;
 	}
@@ -111,8 +90,5 @@ public class Soba {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
-
 	
 }

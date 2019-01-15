@@ -1,58 +1,33 @@
-package isa.putujIgumane.model.rentACar;
+package isa.putujIgumane.dto.rentacar;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
 import isa.putujIgumane.model.korisnik.Rezervacija;
+import isa.putujIgumane.model.rentACar.RezervacijaVozila;
+import isa.putujIgumane.model.rentACar.Vozilo;
 
-@Entity
-public class RezervacijaVozila {
+public class RezervacijaVozilaDTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Vozilo vozilo;
-	
-	@Column(name = "datum", unique = false, nullable = false)
 	private Date datum;
-	
-	@Column(name = "otkazano", unique = false, nullable = false)
 	private boolean otkazano;
-	
-	@Column(name = "datumDolaska", unique = false, nullable = false)
 	private Date datumDolaska;
-	
-	@Column(name = "datumOdlaska", unique = false, nullable = false)
 	private Date datumOdlaska;
-	
-	@Column(name = "ukupnaCena", unique = false, nullable = false)
 	private double ukupnaCena;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Rezervacija rezervacija;
 	
 	
-	public RezervacijaVozila(Long id, Vozilo vozilo, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
-			double ukupnaCena, Rezervacija rezervacija) {
+	public RezervacijaVozilaDTO(RezervacijaVozila r) {
 		super();
-		this.id = id;
-		this.vozilo = vozilo;
-		this.datum = datum;
-		this.otkazano = otkazano;
-		this.datumDolaska = datumDolaska;
-		this.datumOdlaska = datumOdlaska;
-		this.ukupnaCena = ukupnaCena;
-		this.rezervacija = rezervacija;
+		this.id = r.getId();
+		this.vozilo = r.getVozilo();
+		this.datum = r.getDatum();
+		this.otkazano = r.isOtkazano();
+		this.datumDolaska = r.getDatumDolaska();
+		this.datumOdlaska = r.getDatumOdlaska();
+		this.ukupnaCena = r.getUkupnaCena();
+		this.rezervacija = r.getRezervacija();
 	}
 
 
@@ -134,7 +109,6 @@ public class RezervacijaVozila {
 	public void setRezervacija(Rezervacija rezervacija) {
 		this.rezervacija = rezervacija;
 	}
-
 	
-
+	
 }

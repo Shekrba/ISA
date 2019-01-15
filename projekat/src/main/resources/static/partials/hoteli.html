@@ -6,13 +6,23 @@
 </head>
 <body>
 <div ng-Controller="hoteliController">
-	<table>		
-		<tr ng-repeat="h in hoteli">
-			<td>{{h.naziv}}</td>
-			<td>{{h.adresa}}</td>
-			<td>{{h.opis}}</td>
-		</tr>
-	</table>
+	<div class="container">
+		<div class="page-header">
+			<h1>Putuj Igumane</h1>
+			<h2>Hoteli</h2>
+		</div>
+		
+		<div ng-repeat="h in hoteli" align="center">
+		<div class="col-lg-4">
+			<h3 align="center">Hotel: {{h.naziv}}</h3>
+			<p>Adresa: {{h.adresa}}</p>
+			<p>Opis: {{h.opis}}</p>
+			<p>Prosečna ocena: {{h.prosecnaOcena}}</p>
+		</div>
+		<p></p>
+		</div>
+		
+	</div>
 </div>
 </body>
 </html>

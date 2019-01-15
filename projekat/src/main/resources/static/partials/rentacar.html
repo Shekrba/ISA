@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rent a car</title>
+</head>
+<body>
+<div ng-Controller="hoteliController">
+	<div class="container">
+		<div class="page-header">
+			<h1>Putuj Igumane</h1>
+			<h2>Rent a car</h2>
+		</div>
+		
+		<div ng-repeat="r in rentacar" align="center">
+		<div class="col-lg-4">
+			<h3 align="center">Rent a car: {{r.naziv}}</h3>
+			<p>Adresa: {{r.adresa}}</p>
+			<p>Opis: {{r.opis}}</p>
+			<p>Prosečna ocena: {{r.prosecnaOcena}}</p>
+		</div>
+		<p></p>
+		</div>
+		
+	</div>
+</div>
+</body>
+</html>

@@ -6,7 +6,24 @@
 </head>
 <body>
 <div ng-Controller="mainController">
-<button ng-click="prikaz()">Prikazi hotele</button>
+	<div class="container">
+		<div class="page-header">
+			<h1>Putuj Igumane</h1>
+		</div>
+		
+		<div class="row ml-1 mr-1">	
+			<img src="images/aviokompanija.jpg" class="img-responsive" ng-click="prikazAvioKompanija()">
+		</div>
+		
+		<div class="row ml-1 mr-1">
+			<img src="images/hotel.jpg" class="img-responsive" ng-click="prikazHotela()">
+		</div>
+		
+		<div class="row ml-1 mr-1">
+			<img src="images/rentacar.jpg" class="img-responsive" ng-click="prikazRentacar()">
+		</div>
+		
+	</div>
 </div>
 </body>
 </html>

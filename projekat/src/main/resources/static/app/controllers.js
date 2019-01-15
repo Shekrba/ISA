@@ -7,10 +7,17 @@ webApp.controller('mainController', function($scope, $location) {
 
 	init();
 	
-	$scope.prikaz=function(){
+	$scope.prikazHotela=function(){
 		$location.path("/hoteli");
 	};
 	
+	$scope.prikazAvioKompanija=function(){
+		$location.path("/avioKompanije");
+	};
+	
+	$scope.prikazRentacar=function(){
+		$location.path("/rentacar");
+	};
 });
 
 webApp.controller('hoteliController', function($scope, $location, hotelFactory) {
@@ -27,6 +34,30 @@ webApp.controller('hoteliController', function($scope, $location, hotelFactory) 
 	
 });
 
+webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {
+	
+	function init() {
+    	avioKompanijeFactory.getAll().then(function success(response) {
+    		$scope.avioKompanije=response.data;
+		}, function error(response) {
+			$scope.avioKompanije="Greska";
+		});
+    };
 
+	init();
+	
+});
 
+webApp.controller('rentacarController', function($scope, $location, rentacarFactory) {
+	
+	function init() {
+		rentacarFactory.getAll().then(function success(response) {
+    		$scope.rentacar=response.data;
+		}, function error(response) {
+			$scope.rentacar="Greska";
+		});
+    };
 
+	init();
+	
+});

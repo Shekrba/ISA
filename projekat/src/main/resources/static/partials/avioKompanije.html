@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Avio kompanije</title>
+</head>
+<body>
+<div ng-Controller="avioKompanijaController">
+	<div class="container">
+		<div class="page-header">
+			<h1>Putuj Igumane</h1>
+			<h2>Avio kompanije</h2>
+		</div>
+		
+		<div ng-repeat="a in avioKompanija" align="center">
+		<div class="col-lg-4">
+			<h3 align="center">Avio kompanija: {{a.naziv}}</h3>
+			<p>Adresa: {{a.adresa}}</p>
+			<p>Opis: {{a.opis}}</p>
+			<p>Prosečna ocena: {{a.prosecnaOcena}}</p>
+		</div>
+		<p></p>
+		</div>
+		
+	</div>
+</div>
+</body>
+</html>

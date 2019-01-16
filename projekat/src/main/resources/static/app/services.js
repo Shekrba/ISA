@@ -41,14 +41,3 @@ webApp.factory('hotelProfilFactory', function($http,$routeParams) {
 	return factory;
 	
 });
-
-webApp.factory('cenovniciHotelaFactory', function($http) {
-	
-	var factory = {};
-	factory.getAll = function() {
-		return $http.get('/PutujIgumane/api/cenovniciUslugaHotela/');
-	};
-	
-	return factory;
-	
-});

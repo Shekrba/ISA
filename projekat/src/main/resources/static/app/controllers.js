@@ -20,13 +20,19 @@ webApp.controller('mainController', function($scope, $location) {
 	};
 });
 
-webApp.controller('hoteliController', function($scope, $location, hotelFactory) {
+webApp.controller('hoteliController', function($scope, $location, hotelFactory, hotelProfilFactory) {
 	
     function init() {
     	hotelFactory.getAll().then(function success(response) {
 			$scope.hoteli=response.data;
 		}, function error(response) {
 			$scope.hoteli="Greska";
+		});
+    	
+    	hotelProfilFactory.getHotel().then(function success(response) {
+    		$scope.hotel=response.data;
+		}, function error(response) {
+			$scope.hotel="Greska";
 		});
     };
 
@@ -58,25 +64,6 @@ webApp.controller('rentacarController', function($scope, $location, rentacarFact
     		$scope.rentacar=response.data;
 		}, function error(response) {
 			$scope.rentacar="Greska";
-		});
-    };
-
-	init();
-	
-});
-
-webApp.controller('hotelProfilController', function($scope, $location,$routeParams, hotelProfilFactory, cenovniciHotelaFactory) {
-	function init() {
-		hotelProfilFactory.getHotel().then(function success(response) {
-    		$scope.hotel=response.data;
-		}, function error(response) {
-			$scope.hotel="Greska";
-		});
-		
-		cenovniciHotelaFactory.getAll().then(function success(response) {
-    		$scope.cenovnici=response.data;
-		}, function error(response) {
-			$scope.cenovnici="Greska";
 		});
     };
 

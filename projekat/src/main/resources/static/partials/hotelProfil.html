@@ -5,7 +5,7 @@
 <title>Profil hotela</title>
 </head>
 <body>
-<div ng-Controller="hotelProfilController">
+<div ng-Controller="hoteliController">
 	<nav class="navbar navbar-expand-sm bg-light fixed-top">
 		<a href="#" class="navbar-brand">Putuj Igumane</a>
 		<div class="collapse navbar-collapse navbar-light">
@@ -67,7 +67,7 @@
 							Cena:
 						</td>
 					</tr>
-					<tr ng-repeat="c in cenovnici" ng-if="hotel.id === c.hotel.id">
+					<tr ng-repeat="c in hotel.cenovnikUsluga">
 						<td align="center">
 							{{c.usluga}}
 						</td>

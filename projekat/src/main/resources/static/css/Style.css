@@ -46,3 +46,8 @@ body {
 .table{
 	color: #fdf2e9; 
 }
+.head{
+	background: #fdf2e9;
+	color: #FA8072;
+	border: 2px solid #FA8072;
+}

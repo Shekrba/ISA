@@ -4,9 +4,9 @@ import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 
 public class CenovnikUslugaHotelaDTO {
-private Long id;
+	private Long id;
 	
-	private Hotel hotel;
+	private HotelDTO hotel;
 	
 	private String usluga;
 	
@@ -15,11 +15,10 @@ private Long id;
 	
 	
 	public CenovnikUslugaHotelaDTO(CenovnikUslugaHotela cuh) {
-		super();
-		this.id = cuh.getId();
-		this.hotel = cuh.getHotel();
-		this.usluga = cuh.getUsluga();
-		this.cena = cuh.getCena();
+		id = cuh.getId();
+		hotel = new HotelDTO(cuh.getHotel());
+		usluga = cuh.getUsluga();
+		cena = cuh.getCena();
 	}
 
 	
@@ -36,11 +35,11 @@ private Long id;
 
 
 
-	public Hotel getHotel() {
+	public HotelDTO getHotel() {
 		return hotel;
 	}
 
-	public void setHotel(Hotel hotel) {
+	public void setHotel(HotelDTO hotel) {
 		this.hotel = hotel;
 	}
 

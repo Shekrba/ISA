@@ -55,20 +55,23 @@
 				</table>
 			</div>
 			<div class="col-lg-4">
-				<table class="table" ng-repeat="h in hoteli" ngIf="h.id === c">
-					<tr>
-						<td>
+				<table class="table ml-5">
+					<tr class="head">
+						<td colspan="2" align="center"><b>CENOVNIK</b></td>
+					</tr>
+					<tr class="head">
+						<td align="center">
 							Usluga:
 						</td>
-						<td>
-							{{c.usluga}}
-						</td>
-					</tr>
-					<tr>
-						<td>
+						<td align="center">
 							Cena:
 						</td>
-						<td>
+					</tr>
+					<tr ng-repeat="c in cenovnici" ng-if="hotel.id === c.hotel.id">
+						<td align="center">
+							{{c.usluga}}
+						</td>
+						<td align="center">
 							{{c.cena}}
 						</td>
 					</tr>

@@ -19,14 +19,13 @@ public class RentACarDTO {
 	
 	
 	public RentACarDTO(RentACar r) {
-		super();
-		this.id = r.getId();
-		this.nazivServisa = r.getNazivServisa();
-		this.opisServisa = r.getOpisServisa();
-		this.filijale = r.getFilijale();
-		this.prosecnaOcenaServisa = r.getProsecnaOcenaServisa();
-		this.adresaServisa = r.getAdresaServisa();
-		this.listaVozila = r.getListaVozila();
+		id = r.getId();
+		nazivServisa = r.getNazivServisa();
+		opisServisa = r.getOpisServisa();
+		filijale = r.getFilijale();
+		prosecnaOcenaServisa = r.getProsecnaOcenaServisa();
+		adresaServisa = r.getAdresaServisa();
+		listaVozila = r.getListaVozila();
 	}
 
 

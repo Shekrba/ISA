@@ -12,4 +12,6 @@ import isa.putujIgumane.model.hotel.Hotel;
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 	
 	Page<Hotel> findAll(Pageable pageable);
+	
+	Hotel findOneById(Long id);
 }

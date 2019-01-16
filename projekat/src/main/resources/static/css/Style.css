@@ -1,0 +1,48 @@
+.jumbotron{
+		background-color: #2E2DD88;
+		color: white;
+	}
+	
+body {
+	background-image: url(../images/background.png);
+}
+	
+.tab-content {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+}
+.nav-tabs {
+	margin-bottom: 0;
+}
+
+.page-header {
+	color: #fdf2e9;
+}
+.col-lg-4 {
+	padding-top: 30px;
+}
+.card {
+	padding: 10px;
+	background: #fdf2e9;
+	border: 2px solid #FA8072;
+	color: #FA8072;
+}
+.card:hover {
+	-webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+	-moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+	box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+}
+.navbar-brand {
+	color: #FA8072;
+}
+.imgStart{
+	opacity: 0.5;
+}
+.imgStart:hover{
+	opacity: 1;
+}
+.table{
+	color: #fdf2e9; 
+}

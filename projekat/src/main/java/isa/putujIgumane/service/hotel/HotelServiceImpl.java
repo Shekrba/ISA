@@ -18,4 +18,9 @@ public class HotelServiceImpl implements HotelService {
 	public List<Hotel> findAll() {
 		return hotelRepository.findAll();
 	}
+	
+	@Override
+	public Hotel findById(Long id) {
+		return hotelRepository.findOneById(id);
+	}
 }

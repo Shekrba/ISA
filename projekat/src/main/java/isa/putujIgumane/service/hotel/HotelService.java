@@ -11,5 +11,6 @@ import isa.putujIgumane.model.hotel.Hotel;
 public interface HotelService {
 	
 	public abstract List<Hotel> findAll();
+	public abstract Hotel findById(Long id);
 
 }

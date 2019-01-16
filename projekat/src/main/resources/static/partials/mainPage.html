@@ -3,24 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <title>Pocetna</title>
+
+<style>
+	
+	.row{
+		border-style: solid;
+		border-color: white;
+		border-width: 2px;
+	}
+	
+	.row:hover {
+		-webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+		box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+	}
+	
+</style>
+
 </head>
 <body>
 <div ng-Controller="mainController">
+	<nav class="navbar navbar-expand-sm bg-light fixed-top">
+		<a href="#" class="navbar-brand">Putuj Igumane</a>
+		<div class="collapse navbar-collapse navbar-light">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a href="#" class="nav-link">Prijava</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Registracija</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
-		<div class="page-header">
-			<h1>Putuj Igumane</h1>
+		<div class="row mt-5">
+		</div>
+		<div class="row mt-3">	
+			<img src="images/aviokompanija.jpg" class="imgStart" ng-click="prikazAvioKompanija()">
 		</div>
 		
-		<div class="row ml-1 mr-1">	
-			<img src="images/aviokompanija.jpg" class="img-responsive" ng-click="prikazAvioKompanija()">
+		<div class="row">
+			<img src="images/hotel.jpg" class="imgStart" ng-click="prikazHotela()">
 		</div>
 		
-		<div class="row ml-1 mr-1">
-			<img src="images/hotel.jpg" class="img-responsive" ng-click="prikazHotela()">
-		</div>
-		
-		<div class="row ml-1 mr-1">
-			<img src="images/rentacar.jpg" class="img-responsive" ng-click="prikazRentacar()">
+		<div class="row mb-3">
+			<img src="images/rentacar.jpg" class="imgStart" ng-click="prikazRentacar()">
 		</div>
 		
 	</div>

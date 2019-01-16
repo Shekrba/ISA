@@ -5,31 +5,19 @@
 <title>Rent a car</title>
 </head>
 <body>
-<div ng-Controller="hoteliController">
-	<nav class="navbar navbar-expand-sm bg-light fixed-top">
-		<a href="#" class="navbar-brand">Putuj Igumane</a>
-		<div class="collapse navbar-collapse navbar-light">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a href="#" class="nav-link">Prijava</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">Registracija</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
+<div ng-Controller="rentacarController">
 	<div class="container">
 		<div class="page-header">
-			<h1>Rent a car</h1>
+			<h1>Putuj Igumane</h1>
+			<h2>Rent a car</h2>
 		</div>
 		
 		<div ng-repeat="r in rentacar" align="center">
 		<div class="col-lg-4">
-			<h3 align="center">Rent a car: {{r.naziv}}</h3>
-			<p>Adresa: {{r.adresa}}</p>
-			<p>Opis: {{r.opis}}</p>
-			<p>Prosečna ocena: {{r.prosecnaOcena}}</p>
+			<h3 align="center">Rent a car: {{r.nazivServisa}}</h3>
+			<p>Adresa: {{r.adresaServisa}}</p>
+			<p>Opis: {{r.opisServisa}}</p>
+			<p>Prosečna ocena: {{r.prosecnaOcenaServisa}}</p>
 		</div>
 		<p></p>
 		</div>

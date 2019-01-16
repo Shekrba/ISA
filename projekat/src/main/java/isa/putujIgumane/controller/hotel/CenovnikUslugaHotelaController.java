@@ -21,16 +21,4 @@ public class CenovnikUslugaHotelaController {
 	@Autowired
 	private CenovnikUslugaHotelaServiceImpl cenovnikUslugaHotelaServiceImpl;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<CenovnikUslugaHotelaDTO>> getAllCenovnikUslugaHotela() {
-		
-		List<CenovnikUslugaHotela> cenovnici = cenovnikUslugaHotelaServiceImpl.findAll();
-		
-		List<CenovnikUslugaHotelaDTO> cenovniciDTO = new ArrayList<>();
-		for (CenovnikUslugaHotela c : cenovnici) {
-			cenovniciDTO.add(new CenovnikUslugaHotelaDTO(c));
-		}
-		
-		return new ResponseEntity<>(cenovniciDTO, HttpStatus.OK);
-	}
 }

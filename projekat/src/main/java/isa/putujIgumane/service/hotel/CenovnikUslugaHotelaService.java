@@ -9,6 +9,5 @@ import isa.putujIgumane.model.hotel.Hotel;
 
 @Service
 public interface CenovnikUslugaHotelaService {
-	public abstract List<CenovnikUslugaHotela> findAll();
-	public abstract List<CenovnikUslugaHotela> findByHotel(Hotel hotel);
+	
 }

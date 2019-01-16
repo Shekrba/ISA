@@ -16,13 +16,4 @@ public class CenovnikUslugaHotelaServiceImpl implements CenovnikUslugaHotelaServ
 	@Autowired
 	private CenovnikUslugaHotelaRepository cenovnikUslugaHotelaRepository;
 	
-	@Override
-	public List<CenovnikUslugaHotela> findAll() {
-		return cenovnikUslugaHotelaRepository.findAll();
-	}
-	
-	@Override
-	public List<CenovnikUslugaHotela> findByHotel(Hotel hotel) {
-		return cenovnikUslugaHotelaRepository.findByHotel(hotel);
-	}
 }

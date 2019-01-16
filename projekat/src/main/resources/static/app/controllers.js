@@ -20,7 +20,7 @@ webApp.controller('mainController', function($scope, $location) {
 	};
 });
 
-webApp.controller('hoteliController', function($scope, $location, hotelFactory, hotelProfilFactory) {
+webApp.controller('hoteliController', function($scope, $location, hotelFactory) {
 	
     function init() {
     	hotelFactory.getAll().then(function success(response) {
@@ -29,7 +29,7 @@ webApp.controller('hoteliController', function($scope, $location, hotelFactory, 
 			$scope.hoteli="Greska";
 		});
     	
-    	hotelProfilFactory.getHotel().then(function success(response) {
+    	hotelFactory.getHotel().then(function success(response) {
     		$scope.hotel=response.data;
 		}, function error(response) {
 			$scope.hotel="Greska";

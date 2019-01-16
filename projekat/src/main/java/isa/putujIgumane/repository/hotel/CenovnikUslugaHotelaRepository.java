@@ -12,7 +12,6 @@ import isa.putujIgumane.model.hotel.Hotel;
 
 @Repository
 public interface CenovnikUslugaHotelaRepository  extends JpaRepository<CenovnikUslugaHotela, Long> {
-	Page<CenovnikUslugaHotela> findAll(Pageable pageable);
 	
 	List<CenovnikUslugaHotela> findByHotel(Hotel hotel);
 }

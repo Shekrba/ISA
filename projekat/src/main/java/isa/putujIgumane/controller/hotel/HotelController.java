@@ -28,9 +28,6 @@ public class HotelController {
 	@Autowired
 	private HotelServiceImpl hotelServiceImpl;
 	
-	@Autowired
-	private CenovnikUslugaHotelaServiceImpl cenovnikUslugaHotelaServiceImpl;
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<HotelDTO>> getAllHotels() {
 		
@@ -56,7 +53,7 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		List<CenovnikUslugaHotela> cenovnici = cenovnikUslugaHotelaServiceImpl.findByHotel(hotel);
+		List<CenovnikUslugaHotela> cenovnici = hotelServiceImpl.findByHotel(hotel);
 		HashSet<CenovnikUslugaHotelaDTO> cenovniciDTO = new HashSet<CenovnikUslugaHotelaDTO>();
 			
 		for (CenovnikUslugaHotela c : cenovnici) {

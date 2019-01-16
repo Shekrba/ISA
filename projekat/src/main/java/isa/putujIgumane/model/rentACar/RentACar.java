@@ -39,6 +39,10 @@ public class RentACar {
 	private Set<Vozilo> listaVozila = new HashSet<Vozilo>();
 	//
 	
+	public RentACar() {
+		
+	}
+	
 	public RentACar(Long id, String nazivServisa, String adresaServisa, String promotivniOpis, Set<Filijala> filijale,
 			Set<Vozilo> listaVozila, Double prosecnaOcenaServisa) {
 		super();
@@ -48,6 +52,7 @@ public class RentACar {
 		this.opisServisa = promotivniOpis;
 		this.filijale = filijale;
 		this.prosecnaOcenaServisa = prosecnaOcenaServisa;
+		this.listaVozila = listaVozila;
 	}
 
 	public String getNazivServisa() {

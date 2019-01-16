@@ -43,7 +43,7 @@ public class RezervacijaSobe {
 	
 	
 	public RezervacijaSobe(Long id, Soba soba, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
-			double ukupnaCena) {
+			double ukupnaCena, Rezervacija rezervacija) {
 		super();
 		this.id = id;
 		this.soba = soba;
@@ -52,9 +52,17 @@ public class RezervacijaSobe {
 		this.datumDolaska = datumDolaska;
 		this.datumOdlaska = datumOdlaska;
 		this.ukupnaCena = ukupnaCena;
+		this.rezervacija = rezervacija;
 	}
 	
 	
+	
+	public RezervacijaSobe() {
+		super();
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -100,6 +108,16 @@ public class RezervacijaSobe {
 	}
 	public void setUkupnaCena(double ukupnaCena) {
 		this.ukupnaCena = ukupnaCena;
+	}
+
+
+	public Rezervacija getRezervacija() {
+		return rezervacija;
+	}
+
+
+	public void setRezervacija(Rezervacija rezervacija) {
+		this.rezervacija = rezervacija;
 	}
 	
 	

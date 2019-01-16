@@ -33,8 +33,14 @@ public class StatusSobe {
 	@Column(name = "popust", unique = false, nullable = false)
 	private short popust;
 
-	public StatusSobe(Soba soba, Date datum, boolean zauzeto, double cena, short popust) {
+	
+	public StatusSobe() {
 		super();
+	}
+
+	public StatusSobe(Long id, Soba soba, Date datum, boolean zauzeto, double cena, short popust) {
+		super();
+		this.id = id;
 		this.soba = soba;
 		this.datum = datum;
 		this.zauzeto = zauzeto;
@@ -81,6 +87,13 @@ public class StatusSobe {
 	public void setCena(double cena) {
 		this.cena = cena;
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 }

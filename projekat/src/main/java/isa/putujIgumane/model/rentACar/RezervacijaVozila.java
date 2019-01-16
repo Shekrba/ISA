@@ -3,34 +3,66 @@ package isa.putujIgumane.model.rentACar;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import isa.putujIgumane.model.korisnik.Rezervacija;
 
-
+@Entity
 public class RezervacijaVozila {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Vozilo vozilo;
+	
+	@Column(name = "datum", unique = false, nullable = false)
 	private Date datum;
+	
+	@Column(name = "otkazano", unique = false, nullable = false)
 	private boolean otkazano;
+	
+	@Column(name = "datumDolaska", unique = false, nullable = false)
 	private Date datumDolaska;
+	
+	@Column(name = "datumOdlaska", unique = false, nullable = false)
 	private Date datumOdlaska;
+	
+	@Column(name = "ukupnaCena", unique = false, nullable = false)
 	private double ukupnaCena;
 	
-	/*@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Rezervacija rezervacija;*/
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Rezervacija rezervacija;
 	
-	public RezervacijaVozila(Vozilo vozilo, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
-			double ukupnaCena) {
+	
+	public RezervacijaVozila(Long id, Vozilo vozilo, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
+			double ukupnaCena, Rezervacija rezervacija) {
 		super();
+		this.id = id;
 		this.vozilo = vozilo;
 		this.datum = datum;
 		this.otkazano = otkazano;
 		this.datumDolaska = datumDolaska;
 		this.datumOdlaska = datumOdlaska;
 		this.ukupnaCena = ukupnaCena;
+		this.rezervacija = rezervacija;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 
@@ -92,4 +124,17 @@ public class RezervacijaVozila {
 	public void setUkupnaCena(double ukupnaCena) {
 		this.ukupnaCena = ukupnaCena;
 	}
+
+
+	public Rezervacija getRezervacija() {
+		return rezervacija;
+	}
+
+
+	public void setRezervacija(Rezervacija rezervacija) {
+		this.rezervacija = rezervacija;
+	}
+
+	
+
 }

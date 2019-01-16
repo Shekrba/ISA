@@ -3,16 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <title>Hoteli</title>
+<style>
+	
+	.row{
+		border-style: none;
+	}
+	.row:hover {
+	}
+}
+	
+</style>
+
 </head>
 <body>
 <div ng-Controller="hoteliController">
-	<table>		
-		<tr ng-repeat="h in hoteli">
-			<td>{{h.naziv}}</td>
-			<td>{{h.adresa}}</td>
-			<td>{{h.opis}}</td>
-		</tr>
-	</table>
+	<nav class="navbar navbar-expand-sm bg-light fixed-top">
+		<a href="#" class="navbar-brand">Putuj Igumane</a>
+		<div class="collapse navbar-collapse navbar-light">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a href="#" class="nav-link">Prijava</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Registracija</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	
+	<div class="container">
+		<div class="row mt-5">
+		</div>
+		<div class="page-header mt-5">
+			<h1>Hoteli</h1>
+		</div>
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="h in hoteli">
+				<div class="card" ng-click="prikazProfilaHotela(h.id)">
+					<h3 align="center">Hotel: {{h.naziv}}</h3>
+					<p>Adresa: {{h.adresa}}</p>
+					<p>Opis: {{h.opis}}</p>
+					<p>Prosečna ocena: {{h.prosecnaOcena}}</p>
+				</div>
+			</div>
+		</div>	
+	</div>
 </div>
+
 </body>
 </html>

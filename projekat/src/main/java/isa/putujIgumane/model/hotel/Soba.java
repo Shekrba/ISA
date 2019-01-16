@@ -53,6 +53,12 @@ public class Soba {
 	
 	
 	
+	public Soba() {
+		super();
+	}
+
+
+
 	public Set<RezervacijaSobe> getRezervacije() {
 		return rezervacije;
 	}

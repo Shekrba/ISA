@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Avio kompanije</title>
+</head>
+<body>
+<div ng-Controller="avioKompanijaController">
+	<nav class="navbar navbar-expand-sm bg-light fixed-top">
+		<a href="#" class="navbar-brand">Putuj Igumane</a>
+		<div class="collapse navbar-collapse navbar-light">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a href="#" class="nav-link">Prijava</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Registracija</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="page-header">
+			<h1>Avio kompanije</h1>
+		</div>
+		
+		<div ng-repeat="a in avioKompanija" align="center">
+		<div class="col-lg-4">
+			<h3 align="center">Avio kompanija: {{a.naziv}}</h3>
+			<p>Adresa: {{a.adresa}}</p>
+			<p>Opis: {{a.opis}}</p>
+			<p>Prosečna ocena: {{a.prosecnaOcena}}</p>
+		</div>
+		<p></p>
+		</div>
+		
+	</div>
+</div>
+</body>
+</html>

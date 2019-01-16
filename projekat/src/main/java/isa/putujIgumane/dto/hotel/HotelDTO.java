@@ -14,7 +14,7 @@ public class HotelDTO {
 	private String adresa;
 	private String opis; 
 	private Set<Soba> sobe = new HashSet<Soba>();
-	private Set<CenovnikUslugaHotela> cenovnikUsluga = new HashSet<CenovnikUslugaHotela>();
+	private Set<CenovnikUslugaHotelaDTO> cenovnikUsluga = new HashSet<CenovnikUslugaHotelaDTO>();
 	private Double prosecnaOcena;
 	
 	public HotelDTO(Hotel h) {
@@ -23,7 +23,7 @@ public class HotelDTO {
 		adresa = h.getAdresa();
 		opis = h.getOpis();
 		sobe = h.getSobe();
-		cenovnikUsluga = h.getCenovnikUsluga();
+		//cenovnikUsluga = h.getCenovnikUsluga();
 		prosecnaOcena = h.getProsecnaOcena();
 	}
 	
@@ -57,10 +57,10 @@ public class HotelDTO {
 	public void setSobe(Set<Soba> sobe) {
 		this.sobe = sobe;
 	}
-	public Set<CenovnikUslugaHotela> getCenovnikUsluga() {
+	public Set<CenovnikUslugaHotelaDTO> getCenovnikUsluga() {
 		return cenovnikUsluga;
 	}
-	public void setCenovnikUsluga(Set<CenovnikUslugaHotela> cenovnikUsluga) {
+	public void setCenovnikUsluga(Set<CenovnikUslugaHotelaDTO> cenovnikUsluga) {
 		this.cenovnikUsluga = cenovnikUsluga;
 	}
 	public Double getProsecnaOcena() {

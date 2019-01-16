@@ -4,3 +4,7 @@ insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (3, 'Four Sea
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (4, 'Beli Dvor', 'Marsala Tita 55, Sarajevo, Bosna i Hercegovina','Hotel je skoro renoviran',0);
 insert into avio_kompanija (id, naziv, adresa, promotivni_opis, prosecna_Ocena) values (1, 'WizzAir', 'Nikole Tesle 2, Beograd, Srbija','Najpopularniji u Srbiji',0);
 insert into rentacar (id, naziv_servisa, adresa_servisa, opis_servisa, prosecna_Ocena_servisa) values (1, 'Get Your Ride', 'Terazije 14, Beograd, Srbija','Veliki broj novih modela Fijata',0);
+
+insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (12131, 500, 'Klima',1);
+insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (55553, 150, 'Wi-Fi',1);
+insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (23123, 3000, 'Djakuzi',3);

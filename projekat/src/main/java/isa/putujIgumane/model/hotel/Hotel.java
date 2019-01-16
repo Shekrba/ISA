@@ -37,7 +37,9 @@ public class Hotel {
 	@Column(name = "prosecnaOcena", unique = false, nullable = true)
 	private Double prosecnaOcena;
 	
-	
+	public Hotel() {
+		
+	}
 	
 	public Hotel(Long id, String naziv, String adresa, String opis, Set<Soba> sobe,
 			Set<CenovnikUslugaHotela> cenovnikUsluga, Double prosecnaOcena) {

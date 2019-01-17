@@ -14,37 +14,37 @@ public class SobaDTO {
 	
 	private int brojSobe;
 	
-	private Hotel hotel;
+	private HotelDTO hotel;
 	
 	private int sprat;
 	
 	private int brojKreveta;
 	
-	private Set<StatusSobe> statusSobe = new HashSet<StatusSobe>();
+	private Set<StatusSobeDTO> statusSobe = new HashSet<StatusSobeDTO>();
 	
-	private Set<RezervacijaSobe> rezervacije = new HashSet<RezervacijaSobe>();
+	private Set<RezervacijaSobeDTO> rezervacije = new HashSet<RezervacijaSobeDTO>();
 	
 	
 	public SobaDTO(Soba s) {
 		super();
 		this.id = s.getId();
 		this.brojSobe = s.getBrojSobe();
-		this.hotel = s.getHotel();
+		this.hotel = new HotelDTO(s.getHotel());
 		this.sprat = s.getSprat();
 		this.brojKreveta = s.getBrojKreveta();
-		this.statusSobe = s.getStatusSobe();
-		this.rezervacije = s.getRezervacije();
+		//this.statusSobe = s.getStatusSobe();
+		//this.rezervacije = s.getRezervacije();
 	}
 	
 	
 	
-	public Set<RezervacijaSobe> getRezervacije() {
+	public Set<RezervacijaSobeDTO> getRezervacije() {
 		return rezervacije;
 	}
 
 
 
-	public void setRezervacije(Set<RezervacijaSobe> rezervacije) {
+	public void setRezervacije(Set<RezervacijaSobeDTO> rezervacije) {
 		this.rezervacije = rezervacije;
 	}
 
@@ -71,17 +71,17 @@ public class SobaDTO {
 	}
 	
 	
-	public Hotel getHotel() {
+	public HotelDTO getHotel() {
 		return hotel;
 	}
 
-	public void setHotel(Hotel hotel) {
+	public void setHotel(HotelDTO hotel) {
 		this.hotel = hotel;
 	}
-	public Set<StatusSobe> getStatusSobe() {
+	public Set<StatusSobeDTO> getStatusSobe() {
 		return statusSobe;
 	}
-	public void setStatusSobe(Set<StatusSobe> statusSobe) {
+	public void setStatusSobe(Set<StatusSobeDTO> statusSobe) {
 		this.statusSobe = statusSobe;
 	}
 	public Long getId() {

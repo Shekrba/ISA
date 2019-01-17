@@ -9,7 +9,7 @@ public class StatusSobeDTO {
 	
 	private Long id;
 	
-	private Soba soba;
+	private SobaDTO soba;
 	
 	private Date datum;
 	
@@ -22,18 +22,18 @@ public class StatusSobeDTO {
 	public StatusSobeDTO(StatusSobe ss) {
 		super();
 		this.id = ss.getId();
-		this.soba = ss.getSoba();
+		//this.soba = ss.getSoba();
 		this.datum = ss.getDatum();
 		this.zauzeto = ss.isZauzeto();
 		this.cena = ss.getCena();
 		this.popust = ss.getPopust();
 	}
 
-	public Soba getSoba() {
+	public SobaDTO getSoba() {
 		return soba;
 	}
 
-	public void setSoba(Soba soba) {
+	public void setSoba(SobaDTO soba) {
 		this.soba = soba;
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
+import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.repository.hotel.CenovnikUslugaHotelaRepository;
 
 
@@ -14,10 +15,5 @@ public class CenovnikUslugaHotelaServiceImpl implements CenovnikUslugaHotelaServ
 
 	@Autowired
 	private CenovnikUslugaHotelaRepository cenovnikUslugaHotelaRepository;
-	
-	@Override
-	public List<CenovnikUslugaHotela> findAll() {
-		return cenovnikUslugaHotelaRepository.findAll();
-	}
 	
 }

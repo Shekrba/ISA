@@ -22,8 +22,14 @@ public class HotelDTO {
 		naziv = h.getNaziv();
 		adresa = h.getAdresa();
 		opis = h.getOpis();
-		//sobe = h.getSobe();
-		//cenovnikUsluga = h.getCenovnikUsluga();
+		
+		for (Soba s : h.getSobe()) {
+			sobe.add(new SobaDTO(s));
+		}
+		
+		for (CenovnikUslugaHotela c : h.getCenovnikUsluga()) {
+			cenovnikUsluga.add(new CenovnikUslugaHotelaDTO(c));
+		}
 		prosecnaOcena = h.getProsecnaOcena();
 	}
 	

@@ -94,13 +94,16 @@
 					<input id="from" name="from" type="date" class="form-control" ng-model="from"/>
 					<label class="textColor">Do:</label>
 					<input id="to" name="to" type="date" class="form-control" ng-model="to"/>
-					<button type="submit" class="btn btn-dark mt-3" ng-click="prikazProfilaHotela(hotel.id)">Prikaži</button>
+					<button type="submit" class="btn btn-dark mt-3" ng-click="prikazProfilaHotela(hotel.id,from,to)">Prikaži</button>
 				</div>
 				</form>
 			</div>
 		</div>
+		<div class="page-header" ng-if="hotel.sobe != 0">
+				<h4>Slobodne sobe:</h4>
+			</div>
 		<div class="row">
-			<div class="col-lg-4" ng-repeat="s in sobeZaPrikaz">
+			<div class="col-lg-4" ng-repeat="s in hotel.sobe">
 				<div class="card">
 					<h3 align="center">Broj sobe: {{s.brojSobe}}</h3>
 					<p>Sprat: {{s.sprat}}</p>

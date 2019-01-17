@@ -1,5 +1,6 @@
 package isa.putujIgumane.service.hotel;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,9 @@ public class SobaServiceImpl implements SobaService {
 
 	@Autowired
 	private SobaRepository sobaRepository;
-	private StatusSobeRepository statusSobeReposatory;
 	
 	@Override
 	public List<Soba> findAll() {
 		return sobaRepository.findAll();
-	}
-	
-	@Override
-	public List<StatusSobe> findStatusBySoba(Soba soba) {
-		return statusSobeReposatory.findBySoba(soba);
 	}
 }

@@ -1,5 +1,6 @@
 package isa.putujIgumane.repository.hotel;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,5 +14,5 @@ import isa.putujIgumane.model.hotel.Hotel;
 @Repository
 public interface CenovnikUslugaHotelaRepository  extends JpaRepository<CenovnikUslugaHotela, Long> {
 	
-	List<CenovnikUslugaHotela> findByHotel(Hotel hotel);
+	HashSet<CenovnikUslugaHotela> findByHotel(Hotel hotel);
 }

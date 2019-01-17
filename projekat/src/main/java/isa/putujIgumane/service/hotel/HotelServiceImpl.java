@@ -1,11 +1,15 @@
 package isa.putujIgumane.service.hotel;
 
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
+import isa.putujIgumane.dto.hotel.SobaDTO;
+import isa.putujIgumane.dto.hotel.StatusSobeDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
@@ -29,26 +33,62 @@ public class HotelServiceImpl implements HotelService {
 	
 	@Override
 	public List<Hotel> findAll() {
-		return hotelRepository.findAll();
+		
+		List<Hotel> hoteli = hotelRepository.findAll();
+		for (Hotel hotel : hoteli) {
+			hotel.setCenovnikUsluga(cenovnikUslugaHotelaRepository.findByHotel(hotel));
+			
+			hotel.setSobe(sobaRepository.findByHotel(hotel));
+		}
+		
+		return hoteli;
 	}
 	
 	@Override
 	public Hotel findById(Long id) {
-		return hotelRepository.findOneById(id);
+		Hotel hotel = hotelRepository.findOneById(id);
+		hotel.setCenovnikUsluga(cenovnikUslugaHotelaRepository.findByHotel(hotel));
+		for (CenovnikUslugaHotela cuh : hotel.getCenovnikUsluga()) {
+			cuh.setHotel(hotel);
+		}
+		hotel.setSobe(sobaRepository.findByHotel(hotel));
+		for (Soba s : hotel.getSobe()) {
+			s.setHotel(hotel);
+		}
+		return hotel;
 	}
 	
 	@Override
-	public List<CenovnikUslugaHotela> findCenovnikByHotel(Hotel hotel) {
-		return cenovnikUslugaHotelaRepository.findByHotel(hotel);
-	}
-	
-	@Override
-	public List<Soba> findSobeByHotel(Hotel hotel) {
+	public HashSet<Soba> findSobeByHotel(Hotel hotel) {
 		return sobaRepository.findByHotel(hotel);
 	}
 	
 	@Override
-	public List<StatusSobe> findStatusBySoba(Soba soba) {
+	public HashSet<StatusSobe> findStatusBySoba(Soba soba) {
 		return statusSobeReposatory.findBySoba(soba);
+	}
+	
+	@Override
+	public HashSet<SobaDTO> getFreeSoba(Hotel h, Date from, Date to){
+		HashSet<Soba> sveSobe = sobaRepository.findByHotel(h);
+		HashSet<SobaDTO> freeSobe = new HashSet<SobaDTO>();
+		
+		for (Soba soba : sveSobe) {
+			HashSet<StatusSobe> statusi = statusSobeReposatory.findBySoba(soba);
+			boolean flag = true;
+			for (StatusSobe ss : statusi) {
+				if((ss.getDatum().after(from) && ss.getDatum().before(to)) || ss.getDatum().equals(from) || ss.getDatum().equals(to)) {
+					if(ss.isZauzeto()) {
+						flag = false;
+					}
+				}
+			}
+			
+			if(flag) {
+				freeSobe.add(new SobaDTO(soba));
+			}
+				
+		}
+		return freeSobe;
 	}
 }

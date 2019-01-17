@@ -1,5 +1,6 @@
 package isa.putujIgumane.repository.hotel;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,5 @@ import isa.putujIgumane.model.hotel.StatusSobe;
 @Repository
 public interface StatusSobeRepository extends JpaRepository<StatusSobe, Long> {
 	
-	List<StatusSobe> findBySoba(Soba soba);
+	HashSet<StatusSobe> findBySoba(Soba soba);
 }

@@ -10,5 +10,7 @@ insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (55553, 1
 insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (23123, 3000, 'Djakuzi',3);
 
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1123,1,1,2,4);
+insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1124,1,2,1,2);
+insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1125,2,1,3,3);
 
 insert into status_sobe(id,soba_id,datum,zauzeto,cena,popust) values(332,1123,'2019-11-01',1,0,0);

@@ -16,7 +16,7 @@ public class CenovnikUslugaHotelaDTO {
 	
 	public CenovnikUslugaHotelaDTO(CenovnikUslugaHotela cuh) {
 		id = cuh.getId();
-		hotel = new HotelDTO(cuh.getHotel());
+		//hotel = new HotelDTO(cuh.getHotel());
 		usluga = cuh.getUsluga();
 		cena = cuh.getCena();
 	}

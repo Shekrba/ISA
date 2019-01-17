@@ -20,7 +20,7 @@ public class Soba {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "brojSobe", unique = true, nullable = false)
+	@Column(name = "brojSobe", unique = false, nullable = false)
 	private int brojSobe;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

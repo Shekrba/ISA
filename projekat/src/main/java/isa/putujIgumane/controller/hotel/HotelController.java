@@ -1,5 +1,7 @@
 package isa.putujIgumane.controller.hotel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -48,48 +50,28 @@ public class HotelController {
 		return new ResponseEntity<>(hoteliDTO, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<HotelDTO> getHotel(@PathVariable("id")Long id){
-		System.out.println("ULAZI");
+	@RequestMapping(value="/{id}/{from}/{to}", method=RequestMethod.GET)
+	public ResponseEntity<HotelDTO> getHotel(@PathVariable("id")Long id,@PathVariable("from")String from,@PathVariable("to")String to){
+		
 		Hotel hotel = hotelServiceImpl.findById(id);
 		
-		// studen must exist
 		if(hotel == null){			
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		List<CenovnikUslugaHotela> cenovnici = hotelServiceImpl.findCenovnikByHotel(hotel);
-		HashSet<CenovnikUslugaHotelaDTO> cenovniciDTO = new HashSet<CenovnikUslugaHotelaDTO>();
-			
-		for (CenovnikUslugaHotela c : cenovnici) {
-			cenovniciDTO.add(new CenovnikUslugaHotelaDTO(c));
-		}
-		
-		
-		List<Soba> sobe = hotelServiceImpl.findSobeByHotel(hotel);
-		HashSet<SobaDTO> sobeDTO = new HashSet<SobaDTO>();
-		
-		for (Soba s : sobe) {
-			
-			List<StatusSobe> statusiSobe = hotelServiceImpl.findStatusBySoba(s);
-			HashSet<StatusSobeDTO> statusiSobeDTO = new HashSet<StatusSobeDTO>();
-			
-			for (StatusSobe ss : statusiSobe) {
-				statusiSobeDTO.add(new StatusSobeDTO(ss));
-			}
-			
-			
-			SobaDTO sobaDTO = new SobaDTO(s);
-			
-			sobaDTO.setStatusSobe(statusiSobeDTO);
-			
-			sobeDTO.add(sobaDTO);
-		}
-		
 				
 		HotelDTO hotelDTO = new HotelDTO(hotel);
-		hotelDTO.setCenovnikUsluga(cenovniciDTO);
-		hotelDTO.setSobe(sobeDTO);
+		
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy-dd-MM");
+			Date fromDate = format.parse(from);
+			Date toDate = format.parse(to);
+			
+			HashSet<SobaDTO> freeSobe = hotelServiceImpl.getFreeSoba(hotel, fromDate, toDate);
+			hotelDTO.setSobe(freeSobe);
+		}catch (Exception e) {
+			hotelDTO.setSobe(new HashSet<SobaDTO>());
+		}
 		
 		return new ResponseEntity<>(hotelDTO, HttpStatus.OK);
 	}

@@ -10,5 +10,4 @@ import isa.putujIgumane.model.hotel.StatusSobe;
 @Service
 public interface SobaService {
 	public abstract List<Soba> findAll();
-	public abstract List<StatusSobe> findStatusBySoba(Soba soba);
 }

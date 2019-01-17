@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Profil hotela</title>
+
+<script>
+	$(function(){
+		$('.dates #from').datepicker({
+			'format':'yyyy-mm-dd',
+			'autoclose' : true;
+		});
+	});
+</script>
 </head>
 <body>
 <div ng-Controller="hoteliController">
@@ -55,7 +64,7 @@
 				</table>
 			</div>
 			<div class="col-lg-4">
-				<table class="table ml-5">
+				<table class="table">
 					<tr class="head">
 						<td colspan="2" align="center"><b>CENOVNIK</b></td>
 					</tr>
@@ -76,6 +85,27 @@
 						</td>
 					</tr>
 				</table>
+			</div>
+			<div class="col-lg-4">
+				<label class="textColor ml-4">Vremenski period prikaza slobodnih soba:</label>
+				<form #datesForm="ngForm">
+				<div class="form-group ml-4">
+					<label class="textColor">Od:</label>
+					<input id="from" name="from" type="date" class="form-control" ng-model="from"/>
+					<label class="textColor">Do:</label>
+					<input id="to" name="to" type="date" class="form-control" ng-model="to"/>
+					<button type="submit" class="btn btn-dark mt-3" ng-click="prikazProfilaHotela(hotel.id)">Prikaži</button>
+				</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="s in sobeZaPrikaz">
+				<div class="card">
+					<h3 align="center">Broj sobe: {{s.brojSobe}}</h3>
+					<p>Sprat: {{s.sprat}}</p>
+					<p>Broj kreveta: {{s.brojKreveta}}</p>
+				</div>
 			</div>
 		</div>
 	</div>

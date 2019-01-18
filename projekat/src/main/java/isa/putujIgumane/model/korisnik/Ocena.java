@@ -3,11 +3,16 @@ package isa.putujIgumane.model.korisnik;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.avioKompanija.Let;
@@ -16,50 +21,41 @@ import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.rentACar.RentACar;
 import isa.putujIgumane.model.rentACar.Vozilo;
 
+@Entity
 public class Ocena {
-	/*
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToMany(mappedBy = "ocena")
-	private Set<Korisnik> korisnik = new HashSet<Korisnik>();
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=false)
+	private Korisnik korisnik;
 	
-	@ManyToMany(mappedBy = "ocena")
-	private Set<AvioKompanija> avioKompanija = new HashSet<AvioKompanija>();
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	private AvioKompanija avioKompanija;
 	
-	@ManyToMany(mappedBy = "ocena")
-	private Set<Hotel> hotel = new HashSet<Hotel>();
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	private Hotel hotel;
 	
-	@ManyToMany(mappedBy = "ocena")
-	private Set<RentACar> rentACar = new HashSet<RentACar>();
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	private RentACar rentACar;
 	
-	@ManyToMany(mappedBy = "ocena")
-	private Set<Let> let = new HashSet<Let>();
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	private Let let;
 	
-	@ManyToMany(mappedBy = "ocena")
-	private Set<Soba> soba = new HashSet<Soba>();
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	private Soba soba;
 	
-	@ManyToMany(mappedBy = "ocena")
-	private Set<Vozilo> vozilo = new HashSet<Vozilo>();
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	private Vozilo vozilo;
 	
 	@Column(name = "vrednost", unique = false, nullable = false)
 	private byte vrednost;
 
-	public Ocena(Long id, Set<Korisnik> korisnik, Set<AvioKompanija> avioKompanija, Set<Hotel> hotel,
-			Set<RentACar> rentACar, Set<Let> let, Set<Soba> soba, Set<Vozilo> vozilo, byte vrednost) {
-		super();
-		this.id = id;
-		this.korisnik = korisnik;
-		this.avioKompanija = avioKompanija;
-		this.hotel = hotel;
-		this.rentACar = rentACar;
-		this.let = let;
-		this.soba = soba;
-		this.vozilo = vozilo;
-		this.vrednost = vrednost;
+	public Ocena() {
+		
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -68,59 +64,59 @@ public class Ocena {
 		this.id = id;
 	}
 
-	public Set<Korisnik> getKorisnik() {
+	public Korisnik getKorisnik() {
 		return korisnik;
 	}
 
-	public void setKorisnik(Set<Korisnik> korisnik) {
+	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
 	}
 
-	public Set<AvioKompanija> getAvioKompanija() {
+	public AvioKompanija getAvioKompanija() {
 		return avioKompanija;
 	}
 
-	public void setAvioKompanija(Set<AvioKompanija> avioKompanija) {
+	public void setAvioKompanija(AvioKompanija avioKompanija) {
 		this.avioKompanija = avioKompanija;
 	}
 
-	public Set<Hotel> getHotel() {
+	public Hotel getHotel() {
 		return hotel;
 	}
 
-	public void setHotel(Set<Hotel> hotel) {
+	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
 
-	public Set<RentACar> getRentACar() {
+	public RentACar getRentACar() {
 		return rentACar;
 	}
 
-	public void setRentACar(Set<RentACar> rentACar) {
+	public void setRentACar(RentACar rentACar) {
 		this.rentACar = rentACar;
 	}
 
-	public Set<Let> getLet() {
+	public Let getLet() {
 		return let;
 	}
 
-	public void setLet(Set<Let> let) {
+	public void setLet(Let let) {
 		this.let = let;
 	}
 
-	public Set<Soba> getSoba() {
+	public Soba getSoba() {
 		return soba;
 	}
 
-	public void setSoba(Set<Soba> soba) {
+	public void setSoba(Soba soba) {
 		this.soba = soba;
 	}
 
-	public Set<Vozilo> getVozilo() {
+	public Vozilo getVozilo() {
 		return vozilo;
 	}
 
-	public void setVozilo(Set<Vozilo> vozilo) {
+	public void setVozilo(Vozilo vozilo) {
 		this.vozilo = vozilo;
 	}
 
@@ -131,6 +127,8 @@ public class Ocena {
 	public void setVrednost(byte vrednost) {
 		this.vrednost = vrednost;
 	}
+
 	
-	*/
+
+	
 }

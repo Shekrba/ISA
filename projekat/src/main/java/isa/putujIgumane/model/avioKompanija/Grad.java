@@ -26,6 +26,10 @@ public class Grad {
 	@ManyToMany(mappedBy = "destinacijePoslovanja")
 	private Set<AvioKompanija> destinacija=new HashSet<AvioKompanija>();
 	
+	public Grad() {
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}

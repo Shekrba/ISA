@@ -20,5 +20,5 @@ public interface HotelService {
 	public abstract Hotel findById(Long id);
 	public abstract HashSet<Soba> findSobeByHotel(Hotel hotel);
 	public abstract HashSet<StatusSobe> findStatusBySoba(Soba soba);
-	public abstract HashSet<SobaDTO> getFreeSoba(Hotel h, Date from, Date to);
+	public abstract HashSet<SobaDTO> getFreeSoba(Hotel h, Date from, Date to); 	
 }

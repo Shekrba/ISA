@@ -33,6 +33,9 @@ public class Segment {
 	@Column(name = "cena", unique = false, nullable = false)
 	private Double cena;
 
+	public Segment() {
+		
+	}
 
 	public Integer getId() {
 		return id;

@@ -18,6 +18,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import isa.putujIgumane.model.korisnik.Ocena;
+
 @Entity
 public class Let {
 
@@ -48,6 +50,19 @@ public class Let {
                joinColumns = @JoinColumn(name="let_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="grad_id", referencedColumnName="id"))
 	private Set<Grad> presedanja=new HashSet<Grad>();
+	
+	@OneToMany(mappedBy="let",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Ocena> ocene=new HashSet<Ocena>();
+
+	
+	
+	public Set<Ocena> getOcene() {
+		return ocene;
+	}
+
+	public void setOcene(Set<Ocena> ocene) {
+		this.ocene = ocene;
+	}
 
 	public Long getId() {
 		return id;

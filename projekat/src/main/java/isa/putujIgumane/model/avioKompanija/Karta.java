@@ -32,6 +32,10 @@ public class Karta {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Rezervacija rezervacija;
 	
+	public Karta() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}

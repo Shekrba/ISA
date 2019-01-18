@@ -39,7 +39,7 @@ webApp.controller('hoteliController', function($scope, $location, hotelFactory) 
 	init();
 	
 	$scope.prikazProfilaHotela=function(id,from,to){
-		$location.path("/hoteli/"+id);
+		$location.path("/hoteli/"+id+'/'+from+'/'+to);
 	};
 });
 

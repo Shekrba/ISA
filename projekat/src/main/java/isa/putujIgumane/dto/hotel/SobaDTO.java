@@ -29,7 +29,7 @@ public class SobaDTO {
 		super();
 		this.id = s.getId();
 		this.brojSobe = s.getBrojSobe();
-		this.hotel = new HotelDTO(s.getHotel());
+		//this.hotel = new HotelDTO(s.getHotel());
 		this.sprat = s.getSprat();
 		this.brojKreveta = s.getBrojKreveta();
 		//this.statusSobe = s.getStatusSobe();

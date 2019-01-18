@@ -6,7 +6,7 @@ webApp.factory('hotelFactory', function($http,$routeParams) {
 	};
 	
 	factory.getHotel = function() {
-		return $http.get('/PutujIgumane/api/hoteli/'+$routeParams.id);
+		return $http.get('/PutujIgumane/api/hoteli/'+$routeParams.id+'/'+$routeParams.from+'/'+$routeParams.to);
 	};
 	
 	return factory;

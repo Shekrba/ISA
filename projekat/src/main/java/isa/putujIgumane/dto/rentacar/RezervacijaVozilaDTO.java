@@ -4,12 +4,11 @@ import java.sql.Date;
 
 import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.rentACar.RezervacijaVozila;
-import isa.putujIgumane.model.rentACar.Vozilo;
 
 public class RezervacijaVozilaDTO {
 	
 	private Long id;
-	private Vozilo vozilo;
+	private VoziloDTO vozilo;
 	private Date datum;
 	private boolean otkazano;
 	private Date datumDolaska;
@@ -21,7 +20,6 @@ public class RezervacijaVozilaDTO {
 	public RezervacijaVozilaDTO(RezervacijaVozila r) {
 		super();
 		this.id = r.getId();
-		this.vozilo = r.getVozilo();
 		this.datum = r.getDatum();
 		this.otkazano = r.isOtkazano();
 		this.datumDolaska = r.getDatumDolaska();
@@ -41,12 +39,12 @@ public class RezervacijaVozilaDTO {
 	}
 
 
-	public Vozilo getVozilo() {
+	public VoziloDTO getVozilo() {
 		return vozilo;
 	}
 
 
-	public void setVozilo(Vozilo vozilo) {
+	public void setVozilo(VoziloDTO vozilo) {
 		this.vozilo = vozilo;
 	}
 

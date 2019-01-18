@@ -1,12 +1,12 @@
 package isa.putujIgumane.dto.rentacar;
 
 import isa.putujIgumane.model.rentACar.Filijala;
-import isa.putujIgumane.model.rentACar.RentACar;
+import isa.putujIgumane.dto.rentacar.RentACarDTO;
 
 public class FilijalaDTO {
 
 	private long id;
-	private RentACar rentACar;
+	private RentACarDTO rentACar;
 	private String drzava;
 	private String grad;
 	
@@ -14,7 +14,6 @@ public class FilijalaDTO {
 	public FilijalaDTO(Filijala f) {
 		super();
 		this.id = f.getId();
-		this.rentACar = f.getRentACar();
 		this.drzava = f.getDrzava();
 		this.grad = f.getGrad();
 	}
@@ -30,12 +29,12 @@ public class FilijalaDTO {
 	}
 
 
-	public RentACar getRentACar() {
+	public RentACarDTO getRentACar() {
 		return rentACar;
 	}
 
 
-	public void setRentACar(RentACar rentACar) {
+	public void setRentACar(RentACarDTO rentACar) {
 		this.rentACar = rentACar;
 	}
 

@@ -26,6 +26,10 @@ public class Filijala {
 	private String grad;
 	
 	
+	public Filijala() {
+		
+	}
+	
 	public Filijala(long id, RentACar rentACar, String drzava, String grad) {
 		super();
 		this.id = id;

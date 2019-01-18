@@ -34,6 +34,10 @@ public class StatusVozila {
 	private short popust;
 	
 	
+	public StatusVozila() {
+		
+	}
+	
 	public StatusVozila(Long id, Vozilo vozilo, double cena, boolean voziloJeIznajmljeno, Date datum, short popust) {
 		super();
 		this.id = id;

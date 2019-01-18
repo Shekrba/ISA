@@ -3,12 +3,11 @@ package isa.putujIgumane.dto.rentacar;
 import java.sql.Date;
 
 import isa.putujIgumane.model.rentACar.StatusVozila;
-import isa.putujIgumane.model.rentACar.Vozilo;
 
 public class StatusVozilaDTO {
 
 	private Long id;
-	private Vozilo vozilo;
+	private VoziloDTO vozilo;
 	private double cena;
 	private boolean voziloJeIznajmljeno;
 	private Date datum;
@@ -18,7 +17,6 @@ public class StatusVozilaDTO {
 	public StatusVozilaDTO(StatusVozila s) {
 		super();
 		this.id = s.getId();
-		this.vozilo = s.getVozilo();
 		this.cena = s.getCena();
 		this.voziloJeIznajmljeno = s.isVoziloJeIznajmljeno();
 		this.datum = s.getDatum();
@@ -30,10 +28,10 @@ public class StatusVozilaDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Vozilo getVozilo() {
+	public VoziloDTO getVozilo() {
 		return vozilo;
 	}
-	public void setVozilo(Vozilo vozilo) {
+	public void setVozilo(VoziloDTO vozilo) {
 		this.vozilo = vozilo;
 	}
 	public double getCena() {

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+
 @Entity
 public class Vozilo {
 	
@@ -44,9 +45,15 @@ public class Vozilo {
 	@OneToMany(mappedBy = "vozilo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<StatusVozila> statusVozila = new HashSet<StatusVozila>();
 	
+	@OneToMany(mappedBy = "vozilo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<RezervacijaVozila> rezervacije = new HashSet<RezervacijaVozila>();
+	
+	public Vozilo() {
+		
+	}
 	
 	public Vozilo(Long id, RentACar rentACar, String nazivVozila, String markaVozila, String modelVozila,
-			int godinaProizvodnje, int brojSedista, Double prosecnaOcenaVozila, Set<StatusVozila> statusVozila) {
+			int godinaProizvodnje, int brojSedista, Double prosecnaOcenaVozila, Set<StatusVozila> statusVozila, Set<RezervacijaVozila> rezervacije) {
 		super();
 		this.id = id;
 		this.rentACar = rentACar;
@@ -57,6 +64,7 @@ public class Vozilo {
 		this.brojSedista = brojSedista;
 		this.prosecnaOcenaVozila = prosecnaOcenaVozila;
 		this.statusVozila = statusVozila;
+		this.rezervacije = rezervacije;
 	}
 
 
@@ -147,6 +155,14 @@ public class Vozilo {
 
 	public void setRegistracijaVozila(String registracijaVozila) {
 		this.registracijaVozila = registracijaVozila;
+	}
+
+	public Set<RezervacijaVozila> getRezervacije() {
+		return rezervacije;
+	}
+
+	public void setRezervacije(Set<RezervacijaVozila> rezervacije) {
+		this.rezervacije = rezervacije;
 	}
 	
 	

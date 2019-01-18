@@ -12,20 +12,26 @@ public class RentACarDTO {
 	private Long id;
 	private String nazivServisa;
 	private String opisServisa;
-	private Set<Filijala> filijale = new HashSet<Filijala>();
+	private Set<FilijalaDTO> filijale = new HashSet<FilijalaDTO>();
 	private Double prosecnaOcenaServisa;
 	private String adresaServisa;
-	private Set<Vozilo> listaVozila = new HashSet<Vozilo>();
+	private Set<VoziloDTO> listaVozila = new HashSet<VoziloDTO>();
 	
 	
 	public RentACarDTO(RentACar r) {
 		id = r.getId();
 		nazivServisa = r.getNazivServisa();
 		opisServisa = r.getOpisServisa();
-		filijale = r.getFilijale();
 		prosecnaOcenaServisa = r.getProsecnaOcenaServisa();
 		adresaServisa = r.getAdresaServisa();
-		listaVozila = r.getListaVozila();
+
+		for(Filijala f : r.getFilijale()) {
+			filijale.add(new FilijalaDTO(f));
+		}
+		
+		for(Vozilo v : r.getListaVozila()) {
+			listaVozila.add(new VoziloDTO(v));
+		}
 	}
 
 
@@ -59,12 +65,12 @@ public class RentACarDTO {
 	}
 
 
-	public Set<Filijala> getFilijale() {
+	public Set<FilijalaDTO> getFilijale() {
 		return filijale;
 	}
 
 
-	public void setFilijale(Set<Filijala> filijale) {
+	public void setFilijale(Set<FilijalaDTO> filijale) {
 		this.filijale = filijale;
 	}
 
@@ -89,12 +95,12 @@ public class RentACarDTO {
 	}
 
 
-	public Set<Vozilo> getListaVozila() {
+	public Set<VoziloDTO> getListaVozila() {
 		return listaVozila;
 	}
 
 
-	public void setListaVozila(Set<Vozilo> listaVozila) {
+	public void setListaVozila(Set<VoziloDTO> listaVozila) {
 		this.listaVozila = listaVozila;
 	}
 

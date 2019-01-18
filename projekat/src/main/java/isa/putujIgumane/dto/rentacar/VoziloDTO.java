@@ -3,34 +3,31 @@ package isa.putujIgumane.dto.rentacar;
 import java.util.HashSet;
 import java.util.Set;
 
-import isa.putujIgumane.model.rentACar.RentACar;
-import isa.putujIgumane.model.rentACar.StatusVozila;
 import isa.putujIgumane.model.rentACar.Vozilo;
 
 public class VoziloDTO {
 
 	private Long id;
-	private RentACar rentACar;
+	private RentACarDTO rentACar;
 	private String registracijaVozila;
 	private String markaVozila;
 	private String modelVozila;
 	private int godinaProizvodnje;
 	private int brojSedista;
 	private Double prosecnaOcenaVozila;
-	private Set<StatusVozila> statusVozila = new HashSet<StatusVozila>();
+	private Set<StatusVozilaDTO> statusVozila = new HashSet<StatusVozilaDTO>();
+	private Set<RezervacijaVozilaDTO> rezervacije = new HashSet<RezervacijaVozilaDTO>();
 	
 	
 	public VoziloDTO(Vozilo v) {
 		super();
 		this.id = v.getId();
-		this.rentACar = v.getRentACar();
 		this.registracijaVozila = v.getRegistracijaVozila();
 		this.markaVozila = v.getMarkaVozila();
 		this.modelVozila = v.getModelVozila();
 		this.godinaProizvodnje = v.getGodinaProizvodnje();
 		this.brojSedista = v.getBrojSedista();
 		this.prosecnaOcenaVozila = v.getProsecnaOcenaVozila();
-		this.statusVozila = v.getStatusVozila();
 	}
 
 
@@ -44,12 +41,12 @@ public class VoziloDTO {
 	}
 
 
-	public RentACar getRentACar() {
+	public RentACarDTO getRentACar() {
 		return rentACar;
 	}
 
 
-	public void setRentACar(RentACar rentACar) {
+	public void setRentACar(RentACarDTO rentACar) {
 		this.rentACar = rentACar;
 	}
 
@@ -114,13 +111,23 @@ public class VoziloDTO {
 	}
 
 
-	public Set<StatusVozila> getStatusVozila() {
+	public Set<StatusVozilaDTO> getStatusVozila() {
 		return statusVozila;
 	}
 
 
-	public void setStatusVozila(Set<StatusVozila> statusVozila) {
+	public void setStatusVozila(Set<StatusVozilaDTO> statusVozila) {
 		this.statusVozila = statusVozila;
+	}
+
+
+	public Set<RezervacijaVozilaDTO> getRezervacije() {
+		return rezervacije;
+	}
+
+
+	public void setRezervacije(Set<RezervacijaVozilaDTO> rezervacije) {
+		this.rezervacije = rezervacije;
 	}
 
 }

@@ -42,6 +42,10 @@ public class RezervacijaVozila {
 	private Rezervacija rezervacija;
 	
 	
+	public RezervacijaVozila() {
+		
+	}
+	
 	public RezervacijaVozila(Long id, Vozilo vozilo, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
 			double ukupnaCena, Rezervacija rezervacija) {
 		super();

@@ -13,16 +13,60 @@ public class AvioKompanijaDTO {
 	private String adresa;
 	private String promotivniOpis;
 	private Set<GradDTO> destinacijePoslovanja;
-	public AvioKompanijaDTO(AvioKompanija ak) {
-		super();
-		this.id = ak.getId();
-		this.naziv = ak.getNaziv();
-		this.adresa = ak.getAdresa();
-		this.promotivniOpis = ak.getPromotivniOpis();
-		for(Grad g : ak.getDestinacijePoslovanja()) {
-			GradDTO gdto=new GradDTO(g);
-			destinacijePoslovanja.add(gdto);
-		}
+	
+	
+	public AvioKompanijaDTO() {
+		
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public String getNaziv() {
+		return naziv;
+	}
+
+
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
+
+
+	public String getAdresa() {
+		return adresa;
+	}
+
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+
+
+	public String getPromotivniOpis() {
+		return promotivniOpis;
+	}
+
+
+	public void setPromotivniOpis(String promotivniOpis) {
+		this.promotivniOpis = promotivniOpis;
+	}
+
+
+	public Set<GradDTO> getDestinacijePoslovanja() {
+		return destinacijePoslovanja;
+	}
+
+
+	public void setDestinacijePoslovanja(Set<GradDTO> destinacijePoslovanja) {
+		this.destinacijePoslovanja = destinacijePoslovanja;
 	}
 	
 	

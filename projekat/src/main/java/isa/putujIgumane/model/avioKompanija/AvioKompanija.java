@@ -1,6 +1,6 @@
 package isa.putujIgumane.model.avioKompanija;
 
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import isa.putujIgumane.model.korisnik.Ocena;
+
 @Entity
 public class AvioKompanija {
 	
@@ -25,7 +27,38 @@ public class AvioKompanija {
 	
 	@Column(name = "naziv", unique = true, nullable = false)
 	private String naziv;
+
+	@Column(name = "adresa", unique = false, nullable = false)
+	private String adresa;
 	
+	@Column(name = "promotivniOpis", unique = false, nullable = true)
+	private String promotivniOpis;
+	
+	@ManyToMany
+    @JoinTable(name = "destinacije",
+               joinColumns = @JoinColumn(name="aviokompanija_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="grad_id", referencedColumnName="id"))
+	private Set<Grad> destinacijePoslovanja=new HashSet<Grad>();
+	
+	@OneToMany(mappedBy="avioKompanija",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Let> letovi=new HashSet<Let>();
+	
+	@Column(name = "prosecnaOcena", unique = false, nullable = true)
+	private Double prosecnaOcena;
+	
+	@OneToMany(mappedBy="avioKompanija",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Ocena> ocene=new HashSet<Ocena>();
+	
+	public AvioKompanija() {
+		
+	}
+	
+	public Set<Ocena> getOcene() {
+		return ocene;
+	}
+	public void setOcene(Set<Ocena> ocene) {
+		this.ocene = ocene;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -44,23 +77,6 @@ public class AvioKompanija {
 	public void setLetovi(Set<Let> letovi) {
 		this.letovi = letovi;
 	}
-	@Column(name = "adresa", unique = false, nullable = false)
-	private String adresa;
-	
-	@Column(name = "promotivniOpis", unique = false, nullable = true)
-	private String promotivniOpis;
-	
-	@ManyToMany
-    @JoinTable(name = "destinacije",
-               joinColumns = @JoinColumn(name="aviokompanija_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="grad_id", referencedColumnName="id"))
-	private Set<Grad> destinacijePoslovanja=new HashSet<Grad>();
-	
-	@OneToMany(mappedBy="avioKompanija",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Let> letovi=new HashSet<Let>();
-	
-	@Column(name = "prosecnaOcena", unique = false, nullable = true)
-	private Double prosecnaOcena;
 	
 	public String getNaziv() {
 		return naziv;

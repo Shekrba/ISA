@@ -26,6 +26,11 @@ public class Sediste {
 	@OneToOne(mappedBy = "sediste", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Karta karta;
 
+	
+	public Sediste() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}

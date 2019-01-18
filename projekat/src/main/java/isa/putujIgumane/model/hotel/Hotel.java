@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import isa.putujIgumane.model.korisnik.Ocena;
+
 
 @Entity
 public class Hotel {
@@ -37,6 +39,18 @@ public class Hotel {
 	@Column(name = "prosecnaOcena", unique = false, nullable = true)
 	private Double prosecnaOcena;
 	
+	@OneToMany(mappedBy="hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Ocena> ocene=new HashSet<Ocena>();
+
+	
+	public Set<Ocena> getOcene() {
+		return ocene;
+	}
+
+	public void setOcene(Set<Ocena> ocene) {
+		this.ocene = ocene;
+	}
+
 	public Hotel() {
 		
 	}

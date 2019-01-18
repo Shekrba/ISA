@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import isa.putujIgumane.model.korisnik.Ocena;
+
 @Entity
 public class Vozilo {
 	
@@ -44,7 +46,21 @@ public class Vozilo {
 	@OneToMany(mappedBy = "vozilo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<StatusVozila> statusVozila = new HashSet<StatusVozila>();
 	
+	@OneToMany(mappedBy="vozilo",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Ocena> ocene=new HashSet<Ocena>();
+
 	
+	
+	public Set<Ocena> getOcene() {
+		return ocene;
+	}
+
+
+	public void setOcene(Set<Ocena> ocene) {
+		this.ocene = ocene;
+	}
+
+
 	public Vozilo(Long id, RentACar rentACar, String nazivVozila, String markaVozila, String modelVozila,
 			int godinaProizvodnje, int brojSedista, Double prosecnaOcenaVozila, Set<StatusVozila> statusVozila) {
 		super();

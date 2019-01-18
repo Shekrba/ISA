@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -23,6 +24,9 @@ public class Rezervacija {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=false)
+	private Korisnik korisnik;
+	
 	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RezervacijaSobe> rezervacijaSobe = new HashSet<RezervacijaSobe>();
 	
@@ -31,6 +35,10 @@ public class Rezervacija {
 	
 	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Karta> avionskaKarta = new HashSet<Karta>();
+	
+	public Rezervacija() {
+		
+	}
 	
 	public Rezervacija(Long id, Set<Karta> avionskaKarta, Set<RezervacijaSobe> rezervacijaSobe,
 			Set<RezervacijaVozila> rezervacijaVozila) {

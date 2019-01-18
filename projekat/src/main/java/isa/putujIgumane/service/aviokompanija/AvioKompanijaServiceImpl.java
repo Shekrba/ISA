@@ -16,11 +16,6 @@ public class AvioKompanijaServiceImpl implements AvioKompanijaService{
 		return avioKompRepo.findAll(pageable);
 	}
 
-	@Override
-	public Page<AvioKompanija> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	
 }

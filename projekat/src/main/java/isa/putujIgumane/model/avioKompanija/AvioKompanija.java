@@ -26,6 +26,24 @@ public class AvioKompanija {
 	@Column(name = "naziv", unique = true, nullable = false)
 	private String naziv;
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Set<Grad> getDestinacijePoslovanja() {
+		return destinacijePoslovanja;
+	}
+	public void setDestinacijePoslovanja(Set<Grad> destinacijePoslovanja) {
+		this.destinacijePoslovanja = destinacijePoslovanja;
+	}
+	public Set<Let> getLetovi() {
+		return letovi;
+	}
+	public void setLetovi(Set<Let> letovi) {
+		this.letovi = letovi;
+	}
 	@Column(name = "adresa", unique = false, nullable = false)
 	private String adresa;
 	

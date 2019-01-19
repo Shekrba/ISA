@@ -11,7 +11,8 @@ import isa.putujIgumane.repository.aviokompanija.AvioKompanijaRepository;
 @Service
 public class AvioKompanijaServiceImpl implements AvioKompanijaService{
 
-	@Autowired AvioKompanijaRepository avioKompRepo; 
+	@Autowired 
+	AvioKompanijaRepository avioKompRepo; 
 	
 	@Override
 	public Page<AvioKompanija> getAll(Pageable pageable) {

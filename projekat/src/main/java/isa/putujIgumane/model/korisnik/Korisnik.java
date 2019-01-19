@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -21,6 +23,10 @@ enum TipKorisnika {
 public class Korisnik {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@Column(name = "username", unique = true, nullable = false)
 	private String username;
 	
 	@Column(name = "password", unique = false, nullable = false)
@@ -43,18 +49,19 @@ public class Korisnik {
 	
 	@ManyToMany
 	@JoinTable(name="prijatelji",
-	 joinColumns=@JoinColumn(name="firstUsername"),
-	 inverseJoinColumns=@JoinColumn(name="secondUsername")
+	 joinColumns=@JoinColumn(name="firstUserID"),
+	 inverseJoinColumns=@JoinColumn(name="secondUserID")
 	)
 	private Set<Korisnik> prijatelji = new HashSet<Korisnik>();
 	
 	@ManyToMany
 	@JoinTable(name="prijatelji",
-	 joinColumns=@JoinColumn(name="secondUsername"),
-	 inverseJoinColumns=@JoinColumn(name="firstUsername")
+	 joinColumns=@JoinColumn(name="secondUserID"),
+	 inverseJoinColumns=@JoinColumn(name="firstUserID")
 	)
 	private Set<Korisnik> prijateljOd = new HashSet<Korisnik>();
 	
+
 	@OneToMany(mappedBy="salje",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Zahtev> poslatiZahtevi = new HashSet<Zahtev>();
 	
@@ -70,6 +77,14 @@ public class Korisnik {
 	
 	public Korisnik() {
 		
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	public String getUsername() {

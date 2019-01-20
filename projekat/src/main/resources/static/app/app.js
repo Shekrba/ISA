@@ -13,6 +13,9 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/rentacar.html'
 	}).when('/hoteli/:id/:from/:to',{
 		templateUrl: 'partials/hotelProfil.html'
+	}).when('/login',{
+		templateUrl: 'partials/login.html'
 	});
+	$routeProvider.otherwise({redirectTo: '/'});
 	
 });

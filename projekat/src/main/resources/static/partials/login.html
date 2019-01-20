@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+</head>
+<body>
+<div ng-Controller="loginController">
+    <form role="form" ng-submit="login()">
+        <div >
+            <label for="username">Username:</label>
+            <input type="text" placeholder="user/admin"  id="username" name="username" ng-model="credentials.username"/>
+        </div>
+        <div >
+            <label for="password">Password:</label>
+            <input type="password" placeholder="123"  id="password" name="password" ng-model="credentials.password"/>
+        </div>
+        <button type="submit" >Submit</button>
+    </form>
+</div>
+</body>
+</html>

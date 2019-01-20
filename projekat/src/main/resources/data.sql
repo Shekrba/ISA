@@ -12,5 +12,12 @@ insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1123,1,1,2,4)
 insert into status_sobe(id,soba_id,datum,zauzeto,cena,popust) values(332,1123,'2019-11-01',1,0,0);
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1124,1,2,1,2);
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1125,2,1,3,3);
+INSERT INTO korisnik (id, username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES (1, 'user', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Marko', 'Markovic', 'user@example.com', true, '2017-10-01 21:58:58.508-07');
+INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date) VALUES (2, 'admin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Nikola', 'Nikolic', 'admin@example.com', true, '2017-10-01 18:57:58.508-07');
 
+INSERT INTO AUTHORITY (id, name) VALUES (1, 'ROLE_USER');
+INSERT INTO AUTHORITY (id, name) VALUES (2, 'ROLE_ADMIN');
+
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 2);
 

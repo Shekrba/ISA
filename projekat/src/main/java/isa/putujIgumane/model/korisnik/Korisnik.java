@@ -1,6 +1,9 @@
 package isa.putujIgumane.model.korisnik;
 
+import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,18 +16,30 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.joda.time.DateTime;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
 
-enum TipKorisnika {
-	REGISTROVANI, AVIOADMIN, HOTELADMIN, RENTACARADMIN, ADMIN
-}
+
 
 @Entity
-public class Korisnik {
+public class Korisnik implements UserDetails{
 	
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	 @Column(name = "id")
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 private Long id;
 	
 	@Column(name = "username", unique = true, nullable = false)
 	private String username;
@@ -38,8 +53,7 @@ public class Korisnik {
 	@Column(name = "prezime", unique = false, nullable = false)
 	private String prezime;
 	
-	@Column(name = "tip", unique = false, nullable = false)
-	private TipKorisnika tip;
+	
 	
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
@@ -73,7 +87,18 @@ public class Korisnik {
 	
 	@OneToMany(mappedBy="korisnik",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Rezervacija> rezervacije = new HashSet<Rezervacija>();
-
+	
+	@Column(name = "last_password_reset_date")
+    private Timestamp lastPasswordResetDate;
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
+	
+	@Column(name = "enabled")
+    private boolean enabled;
 	
 	public Korisnik() {
 		
@@ -100,7 +125,17 @@ public class Korisnik {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		Timestamp now = new Timestamp(DateTime.now().getMillis());
+        this.setLastPasswordResetDate( now );
+        this.password = password;
+	}
+
+	public Timestamp getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+
+	public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
 
 	public String getIme() {
@@ -119,14 +154,7 @@ public class Korisnik {
 		this.prezime = prezime;
 	}
 
-	public TipKorisnika getTip() {
-		return tip;
-	}
-
-	public void setTip(TipKorisnika tip) {
-		this.tip = tip;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -190,6 +218,48 @@ public class Korisnik {
 	public void setRezervacije(Set<Rezervacija> rezervacije) {
 		this.rezervacije = rezervacije;
 	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+	        return this.authorities;
+	}
+
+	
+
+	@JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+	
 	
 	
 	

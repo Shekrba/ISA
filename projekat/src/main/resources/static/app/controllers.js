@@ -1,8 +1,13 @@
 
-webApp.controller('mainController', function($scope, $location) {
+webApp.controller('mainController', function($rootScope,$scope, $location) {
 	
     function init() {
-    	
+    	$rootScope.getImage= (url, imageType = 'image/jpeg') => {
+    		  return $http.get(url, {responseType: 'arraybuffer'}).then((res) => {
+    			    let blob = new Blob([res.data], {type: imageType});
+    			    return (window.URL || window.webkitURL).createObjectURL(blob);
+    			  });
+    			};
     };
 
 	init();

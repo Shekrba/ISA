@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
@@ -32,14 +33,9 @@ public class HotelServiceImpl implements HotelService {
 	private StatusSobeRepository statusSobeReposatory;
 	
 	@Override
-	public List<Hotel> findAll() {
+	public List<Hotel> getAll() {
 		
 		List<Hotel> hoteli = hotelRepository.findAll();
-		for (Hotel hotel : hoteli) {
-			hotel.setCenovnikUsluga(cenovnikUslugaHotelaRepository.findByHotel(hotel));
-			
-			hotel.setSobe(sobaRepository.findByHotel(hotel));
-		}
 		
 		return hoteli;
 	}
@@ -69,26 +65,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	@Override
-	public HashSet<SobaDTO> getFreeSoba(Hotel h, Date from, Date to){
-		HashSet<Soba> sveSobe = sobaRepository.findByHotel(h);
-		HashSet<SobaDTO> freeSobe = new HashSet<SobaDTO>();
+	public List<Soba> getFreeSoba(Long hotelId, LocalDate from, LocalDate to){
 		
-		for (Soba soba : sveSobe) {
-			HashSet<StatusSobe> statusi = statusSobeReposatory.findBySoba(soba);
-			boolean flag = true;
-			for (StatusSobe ss : statusi) {
-				if((ss.getDatum().after(from) && ss.getDatum().before(to)) || ss.getDatum().equals(from) || ss.getDatum().equals(to)) {
-					if(ss.isZauzeto()) {
-						flag = false;
-					}
-				}
-			}
-			
-			if(flag) {
-				freeSobe.add(new SobaDTO(soba));
-			}
-				
-		}
-		return freeSobe;
+		return sobaRepository.findFreeSobe(hotelId, from, to);
 	}
 }

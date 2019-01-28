@@ -2,6 +2,8 @@ package isa.putujIgumane.dto.hotel;
 
 import java.sql.Date;
 
+import org.joda.time.LocalDate;
+
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.hotel.StatusSobe;
 
@@ -9,9 +11,7 @@ public class StatusSobeDTO {
 	
 	private Long id;
 	
-	private SobaDTO soba;
-	
-	private Date datum;
+	private LocalDate datum;
 	
 	private boolean zauzeto;
 	
@@ -19,29 +19,15 @@ public class StatusSobeDTO {
 	
 	private short popust;
 
-	public StatusSobeDTO(StatusSobe ss) {
-		super();
-		this.id = ss.getId();
-		//this.soba = ss.getSoba();
-		this.datum = ss.getDatum();
-		this.zauzeto = ss.isZauzeto();
-		this.cena = ss.getCena();
-		this.popust = ss.getPopust();
+	public StatusSobeDTO() {
+		
 	}
 
-	public SobaDTO getSoba() {
-		return soba;
-	}
-
-	public void setSoba(SobaDTO soba) {
-		this.soba = soba;
-	}
-
-	public Date getDatum() {
+	public LocalDate getDatum() {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 

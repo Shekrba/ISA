@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.joda.time.LocalDate;
+
 @Entity
 public class StatusSobe {
 	
@@ -22,7 +24,7 @@ public class StatusSobe {
 	private Soba soba;
 	
 	@Column(name = "datum", unique = false, nullable = false)
-	private Date datum;
+	private LocalDate datum;
 	
 	@Column(name = "zauzeto", unique = false, nullable = false)
 	private boolean zauzeto;
@@ -38,7 +40,7 @@ public class StatusSobe {
 		super();
 	}
 
-	public StatusSobe(Long id, Soba soba, Date datum, boolean zauzeto, double cena, short popust) {
+	public StatusSobe(Long id, Soba soba, LocalDate datum, boolean zauzeto, double cena, short popust) {
 		super();
 		this.id = id;
 		this.soba = soba;
@@ -56,11 +58,11 @@ public class StatusSobe {
 		this.soba = soba;
 	}
 
-	public Date getDatum() {
+	public LocalDate getDatum() {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 

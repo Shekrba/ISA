@@ -25,16 +25,8 @@ public class RezervacijaSobeDTO {
 	private Rezervacija rezervacija;
 	
 	
-	public RezervacijaSobeDTO(RezervacijaSobe rs) {
-		super();
-		this.id = rs.getId();
-		this.soba = rs.getSoba();
-		this.datum = rs.getDatum();
-		this.otkazano = rs.isOtkazano();
-		this.datumDolaska = rs.getDatumDolaska();
-		this.datumOdlaska = rs.getDatumOdlaska();
-		this.ukupnaCena = rs.getUkupnaCena();
-		this.rezervacija = rs.getRezervacija();
+	public RezervacijaSobeDTO() {
+		
 	}
 	
 	

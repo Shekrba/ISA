@@ -13,24 +13,11 @@ public class HotelDTO {
 	private String naziv;
 	private String adresa;
 	private String opis; 
-	private Set<SobaDTO> sobe = new HashSet<SobaDTO>();
-	private Set<CenovnikUslugaHotelaDTO> cenovnikUsluga = new HashSet<CenovnikUslugaHotelaDTO>();
+	private Set<CenovnikUslugaHotelaDTO> cenovnikUsluga;
 	private Double prosecnaOcena;
 	
-	public HotelDTO(Hotel h) {
-		id = h.getId();
-		naziv = h.getNaziv();
-		adresa = h.getAdresa();
-		opis = h.getOpis();
+	public HotelDTO(){
 		
-		for (Soba s : h.getSobe()) {
-			sobe.add(new SobaDTO(s));
-		}
-		
-		for (CenovnikUslugaHotela c : h.getCenovnikUsluga()) {
-			cenovnikUsluga.add(new CenovnikUslugaHotelaDTO(c));
-		}
-		prosecnaOcena = h.getProsecnaOcena();
 	}
 	
 	public Long getId() {
@@ -56,12 +43,6 @@ public class HotelDTO {
 	}
 	public void setOpis(String opis) {
 		this.opis = opis;
-	}
-	public Set<SobaDTO> getSobe() {
-		return sobe;
-	}
-	public void setSobe(Set<SobaDTO> sobe) {
-		this.sobe = sobe;
 	}
 	public Set<CenovnikUslugaHotelaDTO> getCenovnikUsluga() {
 		return cenovnikUsluga;

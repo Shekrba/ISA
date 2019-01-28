@@ -31,21 +31,36 @@ webApp.controller('hoteliController', function($scope, $location, hotelFactory) 
     	hotelFactory.getAll().then(function success(response) {
 			$scope.hoteli=response.data;
 		}, function error(response) {
-			$scope.hoteli="Greska";
-		});
-    	
-    	hotelFactory.getHotel().then(function success(response) {
-    		$scope.hotel=response.data;
-		}, function error(response) {
-			$scope.hotel="Greska";
+			$scope.error="Greska";
 		});
     };
 
 	init();
 	
-	$scope.prikazProfilaHotela=function(id,from,to){
-		$location.path("/hoteli/"+id+'/'+from+'/'+to);
+	$scope.prikazProfilaHotela=function(id){
+		$location.path("/hoteli/"+id);
 	};
+});
+
+webApp.controller('hotelProfilController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getHotel($routeParams.id).then(function success(response) {
+    		$scope.hotel=response.data;
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.prikazSoba=function(from,to){
+		hotelFactory.getFreeRooms($routeParams.id,from,to).then(function success(response) {
+    		$scope.freeSobe=response.data;
+		}, function error(response) {
+			$scope.errorSobe="Greska";
+		});
+	}
 });
 
 webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {
@@ -54,7 +69,7 @@ webApp.controller('avioKompanijeController', function($scope, $location, avioKom
     	avioKompanijeFactory.getAll().then(function success(response) {
     		$scope.avioKompanije=response.data;
 		}, function error(response) {
-			$scope.avioKompanije="Greska";
+			$scope.error="Greska";
 		});
     };
 
@@ -68,7 +83,7 @@ webApp.controller('rentacarController', function($scope, $location, rentacarFact
 		rentacarFactory.getAll().then(function success(response) {
     		$scope.rentacar=response.data;
 		}, function error(response) {
-			$scope.rentacar="Greska";
+			$scope.error="Greska";
 		});
     };
 

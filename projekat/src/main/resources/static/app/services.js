@@ -1,12 +1,16 @@
-webApp.factory('hotelFactory', function($http,$routeParams) {
+webApp.factory('hotelFactory', function($http) {
 	
 	var factory = {};
 	factory.getAll = function() {
 		return $http.get('/PutujIgumane/api/hoteli/');
 	};
 	
-	factory.getHotel = function() {
-		return $http.get('/PutujIgumane/api/hoteli/'+$routeParams.id+'/'+$routeParams.from+'/'+$routeParams.to);
+	factory.getHotel = function(id) {
+		return $http.get('/PutujIgumane/api/hoteli/'+id);
+	};
+	
+	factory.getFreeRooms = function(id,from,to) {
+		return $http.get('/PutujIgumane/api/hoteli/freeRooms/'+id+'/'+from+'/'+to);
 	};
 	
 	return factory;

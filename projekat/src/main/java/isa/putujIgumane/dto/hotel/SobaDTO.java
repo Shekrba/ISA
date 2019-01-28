@@ -25,15 +25,8 @@ public class SobaDTO {
 	private Set<RezervacijaSobeDTO> rezervacije = new HashSet<RezervacijaSobeDTO>();
 	
 	
-	public SobaDTO(Soba s) {
-		super();
-		this.id = s.getId();
-		this.brojSobe = s.getBrojSobe();
-		//this.hotel = new HotelDTO(s.getHotel());
-		this.sprat = s.getSprat();
-		this.brojKreveta = s.getBrojKreveta();
-		//this.statusSobe = s.getStatusSobe();
-		//this.rezervacije = s.getRezervacije();
+	public SobaDTO() {
+		
 	}
 	
 	

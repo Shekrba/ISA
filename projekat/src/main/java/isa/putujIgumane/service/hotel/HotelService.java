@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
 
 import isa.putujIgumane.dto.hotel.SobaDTO;
@@ -16,9 +17,9 @@ import isa.putujIgumane.model.hotel.StatusSobe;
 @Service
 public interface HotelService {
 	
-	public abstract List<Hotel> findAll();
+	public abstract List<Hotel> getAll();
 	public abstract Hotel findById(Long id);
 	public abstract HashSet<Soba> findSobeByHotel(Hotel hotel);
 	public abstract HashSet<StatusSobe> findStatusBySoba(Soba soba);
-	public abstract HashSet<SobaDTO> getFreeSoba(Hotel h, Date from, Date to); 	
+	public abstract List<Soba> getFreeSoba(Long hotelId, LocalDate from, LocalDate to); 	
 }

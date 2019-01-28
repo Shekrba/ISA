@@ -16,8 +16,8 @@ import isa.putujIgumane.model.hotel.Soba;
 @Repository
 public interface SobaRepository extends JpaRepository<Soba, Long> {
 	
-	@Query("SELECT DISTINCT s FROM Soba s JOIN FETCH s.statusSobe ss WHERE s.hotel.id=?1 AND ss.datum>=?2 AND ss.datum<=?3 AND ss.zauzeto=false")
-	List<Soba> findFreeSobe(Long hotelId, LocalDate from, LocalDate to);
+	@Query("SELECT DISTINCT s FROM Soba s LEFT OUTER JOIN s.statusSobe ss WHERE s.hotel.id=?1 AND ss.datum>=?2 AND ss.datum<=?3 AND ss.zauzeto=false GROUP BY s HAVING COUNT(s)=?4")
+	List<Soba> findFreeSobe(Long hotelId, LocalDate from, LocalDate to,Long days);
 	
 	HashSet<Soba> findByHotel(Hotel hotel);
 }

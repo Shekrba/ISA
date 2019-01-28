@@ -21,7 +21,7 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 2);
 
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (1, 1123, '2019-01-01', 0, 2000, 0);
-insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (2, 1123, '2019-01-02', 0, 2000, 0);
+insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (2, 1123, '2019-01-02', 1, 2000, 0);
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (3, 1123, '2019-01-03', 0, 2000, 0);
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (4, 1123, '2019-01-04', 0, 2000, 0);
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (5, 1123, '2019-01-05', 0, 2000, 0);

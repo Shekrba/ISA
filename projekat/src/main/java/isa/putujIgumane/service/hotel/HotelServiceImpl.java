@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-
-
+import java.time.temporal.ChronoUnit;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
@@ -68,6 +68,8 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<Soba> getFreeSoba(Long hotelId, LocalDate from, LocalDate to){
 		
-		return sobaRepository.findFreeSobe(hotelId, from, to);
+		Long days = ChronoUnit.DAYS.between(from, to) + 1;
+		
+		return sobaRepository.findFreeSobe(hotelId, from, to,days);
 	}
 }

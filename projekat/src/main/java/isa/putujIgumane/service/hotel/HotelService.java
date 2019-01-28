@@ -1,10 +1,10 @@
 package isa.putujIgumane.service.hotel;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
 
 import isa.putujIgumane.dto.hotel.SobaDTO;

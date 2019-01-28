@@ -10,7 +10,7 @@ webApp.factory('hotelFactory', function($http) {
 	};
 	
 	factory.getFreeRooms = function(id,from,to) {
-		return $http.get('/PutujIgumane/api/hoteli/freeRooms/'+id+'/'+from+'/'+to);
+		return $http.get('/PutujIgumane/api/hoteli/freeRooms/'+id,{params: {from:from, to:to}});
 	};
 	
 	return factory;

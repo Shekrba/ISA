@@ -1,8 +1,7 @@
 package isa.putujIgumane.dto.hotel;
 
 import java.sql.Date;
-
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.hotel.StatusSobe;

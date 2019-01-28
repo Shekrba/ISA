@@ -2,16 +2,17 @@ package isa.putujIgumane.controller.hotel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.mapping.Set;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -67,14 +68,9 @@ public class HotelController {
 		return new ResponseEntity<>(hotelDTO, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/freeRooms/{id}/{from}/{to}", method=RequestMethod.GET)
-	public ResponseEntity<?> getFreeRooms(@PathVariable("id")Long id,@PathVariable("from") String from,@PathVariable("to") String to){
+	@RequestMapping(value="/freeRooms/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> getFreeRooms(@PathVariable("id")Long id,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate toDate){
 		
-		
-			DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-			
-			LocalDate fromDate = formatter.parseLocalDate(from);
-			LocalDate toDate = formatter.parseLocalDate(to);
 			
 			List<SobaDTO> freeSobeDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getFreeSoba(id, fromDate, toDate), SobaDTO.class);
 			return new ResponseEntity<>(freeSobeDTO, HttpStatus.OK);

@@ -1,5 +1,6 @@
 package isa.putujIgumane.model.korisnik;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import org.joda.time.DateTime;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -125,7 +126,7 @@ public class Korisnik implements UserDetails{
 	}
 
 	public void setPassword(String password) {
-		Timestamp now = new Timestamp(DateTime.now().getMillis());
+		Timestamp now = new Timestamp(new java.util.Date().getTime());
         this.setLastPasswordResetDate( now );
         this.password = password;
 	}

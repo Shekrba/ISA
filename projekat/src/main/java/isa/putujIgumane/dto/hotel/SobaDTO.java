@@ -20,10 +20,10 @@ public class SobaDTO {
 	
 	private int brojKreveta;
 	
-	private Set<StatusSobeDTO> statusSobe = new HashSet<StatusSobeDTO>();
+	/*private Set<StatusSobeDTO> statusSobe = new HashSet<StatusSobeDTO>();
 	
 	private Set<RezervacijaSobeDTO> rezervacije = new HashSet<RezervacijaSobeDTO>();
-	
+	*/
 	
 	public SobaDTO() {
 		
@@ -31,7 +31,7 @@ public class SobaDTO {
 	
 	
 	
-	public Set<RezervacijaSobeDTO> getRezervacije() {
+	/*public Set<RezervacijaSobeDTO> getRezervacije() {
 		return rezervacije;
 	}
 
@@ -39,7 +39,7 @@ public class SobaDTO {
 
 	public void setRezervacije(Set<RezervacijaSobeDTO> rezervacije) {
 		this.rezervacije = rezervacije;
-	}
+	}*/
 
 
 
@@ -71,12 +71,12 @@ public class SobaDTO {
 	public void setHotel(HotelDTO hotel) {
 		this.hotel = hotel;
 	}
-	public Set<StatusSobeDTO> getStatusSobe() {
+	/*public Set<StatusSobeDTO> getStatusSobe() {
 		return statusSobe;
 	}
 	public void setStatusSobe(Set<StatusSobeDTO> statusSobe) {
 		this.statusSobe = statusSobe;
-	}
+	}*/
 	public Long getId() {
 		return id;
 	}

@@ -3,35 +3,19 @@ package isa.putujIgumane.dto.rentacar;
 import java.util.HashSet;
 import java.util.Set;
 
-import isa.putujIgumane.model.rentACar.Filijala;
-import isa.putujIgumane.model.rentACar.RentACar;
-import isa.putujIgumane.model.rentACar.Vozilo;
 
 public class RentACarDTO {
 	
 	private Long id;
 	private String nazivServisa;
 	private String opisServisa;
-	private Set<FilijalaDTO> filijale = new HashSet<FilijalaDTO>();
+	private Set<FilijalaDTO> filijale;
 	private Double prosecnaOcenaServisa;
 	private String adresaServisa;
-	private Set<VoziloDTO> listaVozila = new HashSet<VoziloDTO>();
 	
 	
-	public RentACarDTO(RentACar r) {
-		id = r.getId();
-		nazivServisa = r.getNazivServisa();
-		opisServisa = r.getOpisServisa();
-		prosecnaOcenaServisa = r.getProsecnaOcenaServisa();
-		adresaServisa = r.getAdresaServisa();
+	public RentACarDTO() {
 
-		for(Filijala f : r.getFilijale()) {
-			filijale.add(new FilijalaDTO(f));
-		}
-		
-		for(Vozilo v : r.getListaVozila()) {
-			listaVozila.add(new VoziloDTO(v));
-		}
 	}
 
 
@@ -95,13 +79,5 @@ public class RentACarDTO {
 	}
 
 
-	public Set<VoziloDTO> getListaVozila() {
-		return listaVozila;
-	}
-
-
-	public void setListaVozila(Set<VoziloDTO> listaVozila) {
-		this.listaVozila = listaVozila;
-	}
 
 }

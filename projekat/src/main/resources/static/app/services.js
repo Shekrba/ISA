@@ -27,14 +27,3 @@ webApp.factory('avioKompanijeFactory', function($http) {
 	return factory;
 	
 });
-
-webApp.factory('rentacarFactory', function($http) {
-	
-	var factory = {};
-	factory.getAll = function() {
-		return $http.get('/PutujIgumane/api/rentacar/');
-	};
-	
-	return factory;
-	
-});

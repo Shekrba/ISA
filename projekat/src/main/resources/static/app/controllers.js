@@ -76,17 +76,3 @@ webApp.controller('avioKompanijeController', function($scope, $location, avioKom
 	init();
 	
 });
-
-webApp.controller('rentacarController', function($scope, $location, rentacarFactory) {
-	
-	function init() {
-		rentacarFactory.getAll().then(function success(response) {
-    		$scope.rentacar=response.data;
-		}, function error(response) {
-			$scope.error="Greska";
-		});
-    };
-
-	init();
-	
-});

@@ -39,7 +39,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-4" ng-repeat="r in rentacar">
-				<div class="card">
+				<div class="card" ng-click="prikazProfilaRentacara(r.id)">
 					<h3 align="center">Rent a car: {{r.nazivServisa}}</h3>
 					<p>Adresa: {{r.adresaServisa}}</p>
 					<p>Opis: {{r.opisServisa}}</p>

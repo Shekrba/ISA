@@ -13,6 +13,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/rentacar.html'
 	}).when('/hoteli/:id',{
 		templateUrl: 'partials/hotelProfil.html'
+	}).when('/rentacar/:id',{
+		templateUrl: 'partials/rentacarProfil.html'
 	}).when('/login',{
 		templateUrl: 'partials/login.html'
 	});

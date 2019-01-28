@@ -6,16 +6,12 @@ import isa.putujIgumane.dto.rentacar.RentACarDTO;
 public class FilijalaDTO {
 
 	private long id;
-	private RentACarDTO rentACar;
 	private String drzava;
 	private String grad;
 	
 	
-	public FilijalaDTO(Filijala f) {
-		super();
-		this.id = f.getId();
-		this.drzava = f.getDrzava();
-		this.grad = f.getGrad();
+	public FilijalaDTO() {
+
 	}
 
 
@@ -26,16 +22,6 @@ public class FilijalaDTO {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-
-	public RentACarDTO getRentACar() {
-		return rentACar;
-	}
-
-
-	public void setRentACar(RentACarDTO rentACar) {
-		this.rentACar = rentACar;
 	}
 
 

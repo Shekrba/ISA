@@ -31,7 +31,7 @@ public class KorisnikController{
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getKorisnikLike(@RequestParam("name") String name,@RequestParam("page") int page){
 		String loggedUser=SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.println(loggedUser);
+		name=name.replace('+', ' ');
 		Page<Korisnik> korisnici=korisnikService.getKorisnikLike(new PageRequest(page-1,10),name,loggedUser);
 		List<KorisnikDTO> korisniciDTO=ObjectMapperUtils.mapAll(korisnici.getContent(), KorisnikDTO.class);
 		return new ResponseEntity<List<KorisnikDTO>>(korisniciDTO,HttpStatus.OK);

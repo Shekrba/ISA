@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmena informacija hotela</title>
+</head>
+<body>
+<div ng-Controller="hotelIzmenaInfController">
+	<nav class="navbar navbar-expand-sm bg-light fixed-top">
+		<a href="#" class="navbar-brand">Putuj Igumane</a>
+		<div class="collapse navbar-collapse navbar-light">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a href="#" class="nav-link">Prijava</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Registracija</a>
+				</li>
+			</ul>
+		</div>
+	</nav>	
+	<div class="container">
+		<div class="row mt-5">
+		</div>
+		<div class="page-header mt-5 ml-auto">
+			<h2>Izmena hotela: {{hotel.naziv}}</h2>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Naziv:</label>
+				<input id="ime" name="ime" type="text" class="form-control" ng-model="hotel.naziv"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Adresa:</label>
+				<input id="adresa" name="adresa" type="text" class="form-control" ng-model="hotel.adresa"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Promotivni opis:</label>
+				<input id="opis" name="opis" type="text" class="form-control" ng-model="hotel.opis"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="izmenaHotela(hotel)">Izmeni</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

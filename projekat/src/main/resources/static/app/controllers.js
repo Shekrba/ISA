@@ -1,14 +1,7 @@
 
 webApp.controller('mainController', function($rootScope,$scope, $location) {
 	
-    function init() {
-    	$rootScope.getImage= (url, imageType = 'image/jpeg') => {
-    		  return $http.get(url, {responseType: 'arraybuffer'}).then((res) => {
-    			    let blob = new Blob([res.data], {type: imageType});
-    			    return (window.URL || window.webkitURL).createObjectURL(blob);
-    			  });
-    			};
-    };
+  
 
 	init();
 	
@@ -23,6 +16,10 @@ webApp.controller('mainController', function($rootScope,$scope, $location) {
 	$scope.prikazRentacar=function(){
 		$location.path("/rentacar");
 	};
+	
+	$scope.izmenaInfHotela=function(){
+		$location.path("/hoteli/editHotel/1")
+	}
 });
 
 webApp.controller('hoteliController', function($scope, $location, hotelFactory) {
@@ -59,6 +56,28 @@ webApp.controller('hotelProfilController', function($scope, $location, hotelFact
     		$scope.freeSobe=response.data;
 		}, function error(response) {
 			$scope.errorSobe="Greska";
+		});
+	}
+});
+
+webApp.controller('hotelIzmenaInfController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getHotel($routeParams.id).then(function success(response) {
+    		$scope.hotel=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaHotela=function(h){
+		hotelFactory.updateHotel(h).then(function success(response) {
+    		$scope.updatedHotel=response.data;
+    		$location.path("/");
+    	}, function error(response) {
+			$scope.error="Greska";
 		});
 	}
 });

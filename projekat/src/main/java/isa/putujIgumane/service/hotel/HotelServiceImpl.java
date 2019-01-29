@@ -1,17 +1,14 @@
 package isa.putujIgumane.service.hotel;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
-import isa.putujIgumane.dto.hotel.SobaDTO;
-import isa.putujIgumane.dto.hotel.StatusSobeDTO;
+import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
@@ -72,4 +69,18 @@ public class HotelServiceImpl implements HotelService {
 		
 		return sobaRepository.findFreeSobe(hotelId, from, to,days);
 	}
+	
+	@Override
+	public Hotel update(HotelDTO hotel) throws Exception {
+		
+        Hotel hotelToUpdate = new Hotel();//findById(hotel.getId());
+        hotelToUpdate.setNaziv(hotel.getNaziv());
+        hotelToUpdate.setAdresa(hotel.getAdresa());
+        hotelToUpdate.setOpis(hotel.getOpis());
+        hotelToUpdate.setProsecnaOcena(hotel.getProsecnaOcena());
+        hotelToUpdate.setId(hotel.getId());
+        hotelRepository.save(hotelToUpdate);
+      
+        return hotelToUpdate;
+    }
 }

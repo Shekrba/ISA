@@ -1,6 +1,8 @@
 // napravimo modul
 var webApp = angular.module('webApp', ['ngRoute']);
 
+
+
 webApp.config(function($routeProvider) {
 	$routeProvider.when('/',
 	{
@@ -17,7 +19,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/rentacarProfil.html'
 	}).when('/login',{
 		templateUrl: 'partials/login.html'
+	}).when('/users/:name',{
+		templateUrl: 'partials/pretragaKorisnika.html'
 	});
 	$routeProvider.otherwise({redirectTo: '/'});
-	
 });

@@ -21,7 +21,7 @@ import isa.putujIgumane.service.korisnik.KorisnikServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
 @RestController
-@RequestMapping(value = "/korisnik", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/korisnik", produces = MediaType.APPLICATION_JSON_VALUE)
 public class KorisnikController{
 
 	@Autowired
@@ -31,7 +31,8 @@ public class KorisnikController{
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getKorisnikLike(@RequestParam("name") String name,@RequestParam("page") int page){
 		String loggedUser=SecurityContextHolder.getContext().getAuthentication().getName();
-		Page<Korisnik> korisnici=korisnikService.getKorisnikLike(new PageRequest(page,10),name,loggedUser);
+		System.out.println(loggedUser);
+		Page<Korisnik> korisnici=korisnikService.getKorisnikLike(new PageRequest(page-1,10),name,loggedUser);
 		List<KorisnikDTO> korisniciDTO=ObjectMapperUtils.mapAll(korisnici.getContent(), KorisnikDTO.class);
 		return new ResponseEntity<List<KorisnikDTO>>(korisniciDTO,HttpStatus.OK);
 	}

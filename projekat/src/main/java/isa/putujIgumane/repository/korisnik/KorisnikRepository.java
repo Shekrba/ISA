@@ -13,6 +13,6 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
 	
 	Korisnik findByUsername(String username);
 	
-	@Query("FROM Korisnik k WHERE k.ime LIKE  '%?2%' OR k.prezime LIKE '%?2%' AND k.username!=?3 ")
-	Page<Korisnik> searchByFullName(Pageable pageable,String s,String loggedUser);
+	@Query("SELECT k FROM Korisnik k WHERE concat(k.ime,' ',k.prezime) LIKE %?1% AND k.username!=?2")
+	Page<Korisnik> searchByFullName(String s,String loggedUser,Pageable pageable);
 }

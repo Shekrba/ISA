@@ -21,7 +21,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 
 	@Override
 	public Page<Korisnik> getKorisnikLike(Pageable pageable, String s,String loggedUser) {
-		return korisnikRepo.searchByFullName(pageable, s, loggedUser);
+		return korisnikRepo.searchByFullName(s, loggedUser,pageable );
 	}
 
 	

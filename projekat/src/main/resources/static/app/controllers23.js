@@ -27,10 +27,34 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
   };
 }]);
 
-webApp.controller('navController', function($scope, $location) {
+webApp.controller('navController', function($scope, $location,$rootScope,AuthService) {
 	
 	function init(){
 		
+	};
+	
+	init();
+	
+	$scope.logout = function() {
+	      AuthService.removeJwtToken();
+	      $rootScope.authenticated = false;
+	      $location.path("#/");
+	}
+	
+	$scope.searchUsers = function(name){
+		var replaced = name.split(' ').join('+');
+		$location.path("/users/"+replaced);
+	}
+});
+
+webApp.controller('pretragaKorisnikaController', function($scope, $location,$routeParams, korisnikFactory) {
+	
+	function init(){
+		korisnikFactory.searchUsers($routeParams.name,1).then(function success(response){
+			$scope.korisnici=response.data;
+		},function error(response){
+			
+		});
 	};
 	
 	init();

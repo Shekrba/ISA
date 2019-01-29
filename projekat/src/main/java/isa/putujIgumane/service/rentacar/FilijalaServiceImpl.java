@@ -14,8 +14,4 @@ public class FilijalaServiceImpl implements FilijalaService{
 	@Autowired
 	private FilijalaRepository filijalaRepository;
 
-	@Override
-	public List<Filijala> findAll() {
-		return filijalaRepository.findAll();
-	}
 }

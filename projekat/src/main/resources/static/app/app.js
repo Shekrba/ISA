@@ -13,8 +13,13 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/rentacar.html'
 	}).when('/hoteli/:id',{
 		templateUrl: 'partials/hotelProfil.html'
+<<<<<<< HEAD
 	}).when('/hoteli/editHotel/:id',{
 		templateUrl: 'partials/hotelIzmenaInf.html'
+=======
+	}).when('/rentacar/:id',{
+		templateUrl: 'partials/rentacarProfil.html'
+>>>>>>> branch 'master' of https://github.com/Shekrba/ISA.git
 	}).when('/login',{
 		templateUrl: 'partials/login.html'
 	});

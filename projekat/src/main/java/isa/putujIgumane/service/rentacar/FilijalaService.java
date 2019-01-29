@@ -9,7 +9,5 @@ import isa.putujIgumane.model.rentACar.Filijala;
 @Service
 public interface FilijalaService {
 
-	public abstract List<Filijala> findAll();
-
 }
 

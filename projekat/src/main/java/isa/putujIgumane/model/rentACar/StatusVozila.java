@@ -1,6 +1,6 @@
 package isa.putujIgumane.model.rentACar;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ public class StatusVozila {
 	private boolean voziloJeIznajmljeno;
 	
 	@Column(name = "datum", unique = false, nullable = false)
-	private Date datum;
+	private LocalDate datum;
 	
 	@Column(name = "popust", unique = false, nullable = false)
 	private short popust;
@@ -38,7 +38,7 @@ public class StatusVozila {
 		
 	}
 	
-	public StatusVozila(Long id, Vozilo vozilo, double cena, boolean voziloJeIznajmljeno, Date datum, short popust) {
+	public StatusVozila(Long id, Vozilo vozilo, double cena, boolean voziloJeIznajmljeno, LocalDate datum, short popust) {
 		super();
 		this.id = id;
 		this.vozilo = vozilo;
@@ -89,12 +89,12 @@ public class StatusVozila {
 	}
 
 
-	public Date getDatum() {
+	public LocalDate getDatum() {
 		return datum;
 	}
 
 
-	public void setDatum(Date datum) {
+	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 

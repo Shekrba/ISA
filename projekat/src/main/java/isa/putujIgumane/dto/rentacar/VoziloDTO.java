@@ -15,19 +15,12 @@ public class VoziloDTO {
 	private int godinaProizvodnje;
 	private int brojSedista;
 	private Double prosecnaOcenaVozila;
-	private Set<StatusVozilaDTO> statusVozila = new HashSet<StatusVozilaDTO>();
+	/*private Set<StatusVozilaDTO> statusVozila = new HashSet<StatusVozilaDTO>();
 	private Set<RezervacijaVozilaDTO> rezervacije = new HashSet<RezervacijaVozilaDTO>();
+	*/
 	
-	
-	public VoziloDTO(Vozilo v) {
-		super();
-		this.id = v.getId();
-		this.registracijaVozila = v.getRegistracijaVozila();
-		this.markaVozila = v.getMarkaVozila();
-		this.modelVozila = v.getModelVozila();
-		this.godinaProizvodnje = v.getGodinaProizvodnje();
-		this.brojSedista = v.getBrojSedista();
-		this.prosecnaOcenaVozila = v.getProsecnaOcenaVozila();
+	public VoziloDTO() {
+
 	}
 
 
@@ -111,23 +104,14 @@ public class VoziloDTO {
 	}
 
 
-	public Set<StatusVozilaDTO> getStatusVozila() {
-		return statusVozila;
-	}
 
-
-	public void setStatusVozila(Set<StatusVozilaDTO> statusVozila) {
-		this.statusVozila = statusVozila;
-	}
-
-
-	public Set<RezervacijaVozilaDTO> getRezervacije() {
+	/*public Set<RezervacijaVozilaDTO> getRezervacije() {
 		return rezervacije;
 	}
 
 
 	public void setRezervacije(Set<RezervacijaVozilaDTO> rezervacije) {
 		this.rezervacije = rezervacije;
-	}
+	}*/
 
 }

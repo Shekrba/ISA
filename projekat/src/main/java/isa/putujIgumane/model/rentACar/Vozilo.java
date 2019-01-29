@@ -23,7 +23,7 @@ public class Vozilo {
 	private Long id;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private RentACar rentACar;//Filijala filijala
+	private RentACar rentACar;
 	
 	@Column(name = "registracijaVozila", unique = true, nullable = false)
 	private String registracijaVozila;

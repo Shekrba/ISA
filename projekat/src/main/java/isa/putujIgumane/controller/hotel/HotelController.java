@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.hibernate.mapping.Set;
 
@@ -74,5 +75,19 @@ public class HotelController {
 			
 			List<SobaDTO> freeSobeDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getFreeSoba(id, fromDate, toDate), SobaDTO.class);
 			return new ResponseEntity<>(freeSobeDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/editHotel", method=RequestMethod.PUT)
+	public ResponseEntity<?> updateHotel(@RequestBody HotelDTO hotel){
+		
+		Hotel updatedHotel = null;
+		
+		try {
+			updatedHotel = hotelServiceImpl.update(hotel);
+		} catch (Exception e) {
+			return new ResponseEntity<Hotel>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		return new ResponseEntity<Hotel>(updatedHotel, HttpStatus.OK);
 	}
 }

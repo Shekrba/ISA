@@ -25,7 +25,23 @@
 <div ng-Controller="mainController">
 	<nav class="navbar navbar-expand-sm bg-light fixed-top">
 		<a href="#" class="navbar-brand">Putuj Igumane</a>
+		
 		<div class="collapse navbar-collapse navbar-light">
+			<ul class="navbar-nav mr-auto ml-5">
+				<li class="dropdown">
+					<a href=""  class="nav-link" data-toggle="dropdown">Hotel Menadžment <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="" class="nav-link" ng-click="izmenaInfHotela()">Izmena informacija</a></li>
+						<li><a href="" class="nav-link">Izmena cenovnika</a></li>
+						<li><a href="" class="nav-link">Izmena soba</a></li>
+						<li><a href="" class="nav-link">Uvid u ocene hotela</a></li>
+						<li><a href="" class="nav-link">Uvid u ocene soba</a></li>
+						<li><a href="" class="nav-link">Uvid u prihode</a></li>
+					</ul>
+				</li>
+			</ul>
+			
+			
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<a href="#" class="nav-link">Prijava</a>

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
@@ -21,5 +22,6 @@ public interface HotelService {
 	public abstract Hotel findById(Long id);
 	public abstract HashSet<Soba> findSobeByHotel(Hotel hotel);
 	public abstract HashSet<StatusSobe> findStatusBySoba(Soba soba);
-	public abstract List<Soba> getFreeSoba(Long hotelId, LocalDate from, LocalDate to); 	
+	public abstract List<Soba> getFreeSoba(Long hotelId, LocalDate from, LocalDate to);
+	public abstract Hotel update(HotelDTO hotel) throws Exception;
 }

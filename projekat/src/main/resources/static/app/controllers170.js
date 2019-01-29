@@ -1,7 +1,9 @@
 
 webApp.controller('mainController', function($rootScope,$scope, $location) {
 	
-  
+	function init() {
+
+    };
 
 	init();
 	

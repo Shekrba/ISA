@@ -15,7 +15,6 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/rentacar.html'
 	}).when('/hoteli/:id',{
 		templateUrl: 'partials/hotelProfil.html'
-
 	}).when('/hoteli/editHotel/:id',{
 		templateUrl: 'partials/hotelIzmenaInf.html'
 	}).when('/rentacar/:id',{

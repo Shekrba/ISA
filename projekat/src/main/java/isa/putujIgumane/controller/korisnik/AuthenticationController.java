@@ -1,4 +1,4 @@
-package isa.putujIgumane.korisnik.controller;
+package isa.putujIgumane.controller.korisnik;
 
 import java.io.IOException;
 import java.util.HashMap;

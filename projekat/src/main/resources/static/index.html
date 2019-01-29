@@ -11,7 +11,21 @@
 </head> 
 
 <body>
-
+<div ng-Controller="navController">
+	<nav class="navbar navbar-expand-sm bg-light fixed-top">
+		<a href="#" class="navbar-brand">Putuj Igumane</a>
+		<div class="collapse navbar-collapse navbar-light">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a href="#/login" class="nav-link">Prijava</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Registracija</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>
 
 	<div ng-view></div>
 

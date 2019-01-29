@@ -26,3 +26,13 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
     });
   };
 }]);
+
+webApp.controller('navController', function($scope, $location) {
+	
+	function init(){
+		
+	};
+	
+	init();
+	
+});

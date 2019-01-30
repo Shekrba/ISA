@@ -27,7 +27,7 @@ public class AvioKompanijaController {
 	
 	@RequestMapping(value="/{pageNumber}", method=RequestMethod.GET)
 	public ResponseEntity<List<AvioKompanijaDTO>> getAksPage(@PathVariable("pageNumber") int pageNumber) {
-		PageRequest p=new PageRequest(pageNumber,5);
+		PageRequest p=new PageRequest(pageNumber-1,5);
 		List<AvioKompanijaDTO> akList=ObjectMapperUtils.mapAll(akService.getAll(p).getContent(), AvioKompanijaDTO.class);
 		return new ResponseEntity<>(akList, HttpStatus.OK);
 		

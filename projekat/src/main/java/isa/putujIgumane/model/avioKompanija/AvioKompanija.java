@@ -15,7 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Ocena;
 
 @Entity
@@ -48,6 +50,9 @@ public class AvioKompanija {
 	
 	@OneToMany(mappedBy="avioKompanija",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Ocena> ocene=new HashSet<Ocena>();
+	
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, optional=true)
+	private Korisnik admin;
 	
 	public AvioKompanija() {
 		

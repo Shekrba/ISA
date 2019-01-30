@@ -69,6 +69,11 @@ public class KorisnikServiceImpl implements KorisnikService{
 		return zahtevRepo.findRequestsOfUser(username);
 	}
 
+	@Override
+	public Korisnik getKorisnik(String username) {
+		return korisnikRepo.findByUsername(username);
+	}
+
 	
 
 }

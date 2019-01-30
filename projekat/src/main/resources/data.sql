@@ -1,4 +1,8 @@
-/*INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (3, 'user1', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pera', 'Peric', 'user1@example.com', true, '2017-10-01 21:58:58',true);
+/*INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (4, 'akadmin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Luka', 'Lukic', 'akadmin@example.com', true, '2017-10-01 21:58:58',true);
+INSERT INTO AUTHORITY (id, name) VALUES (3, 'ROLE_AKADMIN');
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 3);
+
+INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (3, 'user1', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pera', 'Peric', 'user1@example.com', true, '2017-10-01 21:58:58',true);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
 
 
@@ -6,7 +10,7 @@ insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (1, 'Fontana'
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (2, 'Vojvodina', 'Sutjeska 12, Herceg Novi, Crna Gora','Hotel je veoma popularan leti',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (3, 'Four Seasons', 'Boticelijeva 52c, Firenca, Italija','Veoma blizu autobuske stanice',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (4, 'Beli Dvor', 'Marsala Tita 55, Sarajevo, Bosna i Hercegovina','Hotel je skoro renoviran',0);
-insert into avio_kompanija (id, naziv, adresa, promotivni_opis, prosecna_Ocena) values (1, 'WizzAir', 'Nikole Tesle 2, Beograd, Srbija','Najpopularniji u Srbiji',0);
+insert into avio_kompanija (id, naziv, adresa, promotivni_opis, prosecna_Ocena,admin_id) values (1, 'WizzAir', 'Nikole Tesle 2, Beograd, Srbija','Najpopularniji u Srbiji',0,4);
 insert into rentacar (id, naziv_servisa, adresa_servisa, opis_servisa, prosecna_Ocena_servisa) values (1, 'Get Your Ride', 'Terazije 14, Beograd, Srbija','Veliki broj novih modela Fijata',0);
 insert into filijala (id, drzava, grad, rentacar_id) values (1, 'Srbija', 'Beograd', 1);
 insert into filijala (id, drzava, grad, rentacar_id) values (2, 'Srbija', 'Novi Sad', 1);

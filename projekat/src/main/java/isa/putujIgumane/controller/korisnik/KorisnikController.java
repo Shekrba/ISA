@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
+import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.ZahtevDTO;
+import isa.putujIgumane.model.korisnik.Authority;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Zahtev;
 import isa.putujIgumane.service.korisnik.KorisnikServiceImpl;
@@ -67,6 +70,26 @@ public class KorisnikController{
 		List<Zahtev> potentialFriends=korisnikService.getFriendsRequests(loggedUser);
 		List<ZahtevDTO> zahtevi=ObjectMapperUtils.mapAll(potentialFriends, ZahtevDTO.class);
 		return new ResponseEntity<List<ZahtevDTO>>(zahtevi,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/data", method=RequestMethod.GET)
+	public ResponseEntity<?> getUserData() {
+		Korisnik k=korisnikService.getKorisnik(SecurityContextHolder.getContext().getAuthentication().getName());
+		Authority a=((List<Authority>)k.getAuthorities()).get(0);
+		switch(a.getName()) {
+		case "ROLE_USER":{
+			KorisnikDTO kDTO=ObjectMapperUtils.map(k, KorisnikDTO.class);
+			return new ResponseEntity<KorisnikDTO>(kDTO,HttpStatus.OK);
+		}
+		case "ROLE_ADMIN":{
+			
+		}break;
+		case "ROLE_AKADMIN":{
+			AKAdminDTO akaDTO=ObjectMapperUtils.map(k, AKAdminDTO.class);
+			return new ResponseEntity<AKAdminDTO>(akaDTO,HttpStatus.OK);
+		}
+		}
+		return new ResponseEntity<String>("Error",HttpStatus.OK);
 	}
 	
 }

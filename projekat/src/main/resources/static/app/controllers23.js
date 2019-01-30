@@ -1,5 +1,5 @@
-webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$location', 'AuthService',
-  function($scope, $rootScope, $http, $location, authService) {
+webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$location', 'AuthService','korisnikFactory','$log',
+  function($scope, $rootScope, $http, $location, authService,korisnikFactory,$log) {
   $scope.error = false;
   $rootScope.selectedTab = $location.path() || '/';
 
@@ -18,6 +18,10 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
       authService.setJwtToken(res.accessToken);
       $location.path("#/");
       $scope.error = false;
+      korisnikFactory.getUserData().then(function success(response){
+    	 $rootScope.userData=response.data; 
+    	 $log.log(response.data);
+      });
     })
     .catch(function() {
       authService.removeJwtToken();

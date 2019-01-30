@@ -17,13 +17,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 
 import javax.persistence.JoinColumn;
 
@@ -32,9 +34,7 @@ import javax.persistence.JoinColumn;
 @Entity
 public class Korisnik implements UserDetails{
 	
-	 /**
-	 * 
-	 */
+	 
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -44,7 +44,7 @@ public class Korisnik implements UserDetails{
 	
 	@Column(name = "username", unique = true, nullable = false)
 	private String username;
-	
+
 	@Column(name = "password", unique = false, nullable = false)
 	private String password;
 	
@@ -53,8 +53,6 @@ public class Korisnik implements UserDetails{
 	
 	@Column(name = "prezime", unique = false, nullable = false)
 	private String prezime;
-	
-	
 	
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
@@ -87,6 +85,8 @@ public class Korisnik implements UserDetails{
 	@Column(name = "enabled")
     private boolean enabled;
 	
+	@OneToOne(mappedBy="admin",fetch=FetchType.EAGER, cascade=CascadeType.ALL, optional=true)
+	private AvioKompanija avioKompanija;
 	
 	public Korisnik() {
 		
@@ -198,6 +198,13 @@ public class Korisnik implements UserDetails{
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	public AvioKompanija getAvioKompanija() {
+		return avioKompanija;
+	}
+
+	public void setAvioKompanija(AvioKompanija avioKompanija) {
+		this.avioKompanija = avioKompanija;
 	}
 	
 	@Override

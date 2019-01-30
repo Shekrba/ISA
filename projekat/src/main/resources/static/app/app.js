@@ -33,6 +33,18 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/rentacarProfil.html'
 	}).when('/login',{
 		templateUrl: 'partials/login.html'
+	}).when('/regUserMainPage',{
+		templateUrl: 'partials/regUserMainPage.html'
+	}).when('/regUserHoteli',{
+		templateUrl: 'partials/regUserHoteli.html'
+	}).when('/regUserHoteli/:id',{
+		templateUrl: 'partials/regUserHotelProfil.html'
+	}).when('/regUserAvioKompanije',{
+		templateUrl: 'partials/regUserAvioKompanije.html'
+	}).when('/regUserRentacar',{
+		templateUrl: 'partials/regUserRentacar.html'
+	}).when('/regUserRentacar/:id',{
+		templateUrl: 'partials/regUserRentacarProfil.html'
 	}).when('/users/:name',{
 		templateUrl: 'partials/pretragaKorisnika.html'
 	}).when('/zahtevi',{

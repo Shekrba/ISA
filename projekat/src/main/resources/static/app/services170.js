@@ -17,6 +17,25 @@ webApp.factory('hotelFactory', function($http) {
 		return $http.put('/PutujIgumane/api/hoteli/editHotel/',hotel);
 	}
 	
+	factory.getCenovnik = function(hotelId){
+		return $http.get('/PutujIgumane/api/hoteli/cenovnik/'+hotelId);
+	}
+	
+	factory.getUsluga = function(uslugaId){
+		return $http.get('/PutujIgumane/api/hoteli/editUsluga/'+uslugaId);
+	}
+	
+	factory.updateUsluga = function(usluga){
+		return $http.put('/PutujIgumane/api/hoteli/updateUsluga/',usluga);
+	}
+	
+	factory.addUsluga = function(usluga,hotelId){
+		return $http.put('/PutujIgumane/api/hoteli/addUsluga/'+hotelId,usluga);
+	}
+	factory.deleteUsluga = function(id,hotelId){
+		return $http.delete('/PutujIgumane/api/hoteli/delete/usluga/',{params: {id:id, hotelId:hotelId}});
+	}
+	
 	return factory;
 	
 });

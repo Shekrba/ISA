@@ -17,6 +17,12 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/hotelProfil.html'
 	}).when('/hoteli/editHotel/:id',{
 		templateUrl: 'partials/hotelIzmenaInf.html'
+	}).when('/hoteli/cenovnik/:hotelId',{
+		templateUrl: 'partials/izmenaCenovnikaHotela.html'
+	}).when('/hoteli/editUsluga/:uslugaId',{
+		templateUrl: 'partials/izmenaUsluge.html'
+	}).when('/hoteli/addUsluga/:hotelId',{
+		templateUrl: 'partials/dodavanjeUsluge.html'
 	}).when('/rentacar/:id',{
 		templateUrl: 'partials/rentacarProfil.html'
 	}).when('/login',{

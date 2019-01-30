@@ -16,6 +16,6 @@ public interface ZahtevRepository extends JpaRepository<Zahtev,Long> {
 	@Query("SELECT z.salje.id FROM Zahtev z WHERE z.prima.username=?1 AND (z.status=1 OR z.status=2)")
 	List<Long> findFriendsAndRecievedRequests(String username);
 	
-	@Query("SELECT z FROM Korisnik k JOIN  k.primljeniZahtevi z JOIN z.salje s WHERE k.username=?1 AND z.status=2")
+	@Query("SELECT z FROM Korisnik k JOIN  k.primljeniZahtevi z JOIN FETCH z.salje s WHERE k.username=?1 AND z.status=2")
 	List<Zahtev> findRequestsOfUser(String username);
 }

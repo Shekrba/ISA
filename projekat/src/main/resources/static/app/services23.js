@@ -77,6 +77,9 @@ webApp.factory('korisnikFactory', function($http) {
 	factory.searchUsers = function(name,page) {
 		return $http.get('/PutujIgumane/api/korisnik/search',{params:{name:name,page:page}});
 	};
+	factory.addFriend = function(id) {
+		return $http.post('/PutujIgumane/api/korisnik/friend/'+id);
+	};
 	
 	return factory;
 	

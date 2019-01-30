@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,18 @@ public class KorisnikController{
 		Page<Korisnik> korisnici=korisnikService.getKorisnikLike(new PageRequest(page-1,10),name,loggedUser);
 		List<KorisnikDTO> korisniciDTO=ObjectMapperUtils.mapAll(korisnici.getContent(), KorisnikDTO.class);
 		return new ResponseEntity<List<KorisnikDTO>>(korisniciDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/friend/{id}", method=RequestMethod.POST)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> addFriend(@PathVariable("id") Long id){
+		String loggedUser=SecurityContextHolder.getContext().getAuthentication().getName();
+		try {
+			korisnikService.sendFriendRequest(loggedUser, id);
+		}catch(Exception e) {
+			return new ResponseEntity<String>("Greska pri slanju zahteva!",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<String>("Zahtev je uspešno poslat!",HttpStatus.OK);
 	}
 	
 }

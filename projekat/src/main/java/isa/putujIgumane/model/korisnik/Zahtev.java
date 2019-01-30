@@ -12,9 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-enum StatusZahteva {
-	ODBIJEN, PRIHVACEN, POSLAT
-}
 
 @Entity
 public class Zahtev {

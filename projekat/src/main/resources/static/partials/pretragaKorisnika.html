@@ -12,7 +12,10 @@
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4">
 				<div class="card">
-					<h5 class="card-title" align="center">{{k.ime}} {{k.prezime}}</h5>
+					<div class="card-body">
+						<h5 class="card-title" align="center">{{k.ime}} {{k.prezime}}</h5>
+						<button class="btn btn-primary" ng-click="addFriend(k.id)">Dodaj za prijatelja</button>
+					</div>
 				</div>
 			</div>	
 			<div class="col-lg-4"></div>

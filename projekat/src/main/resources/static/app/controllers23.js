@@ -59,4 +59,11 @@ webApp.controller('pretragaKorisnikaController', function($scope, $location,$rou
 	
 	init();
 	
+	$scope.addFriend = function(id){
+		korisnikFactory.addFriend(id).then(function success(response){
+			toast(response.data);
+		}, function error(response){
+			toast(response.data);
+		});
+	}
 });

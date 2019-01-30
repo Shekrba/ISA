@@ -13,4 +13,6 @@ public interface KorisnikService {
 	
 	public abstract Page<Korisnik> getKorisnikLike(Pageable pageable,String s,String loggedUser);
 	
+	public abstract void sendFriendRequest(String username,Long friend) throws Exception;
+	
 }

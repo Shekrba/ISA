@@ -1,6 +1,7 @@
 package isa.putujIgumane.model.hotel;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,16 +25,16 @@ public class RezervacijaSobe {
 	private Soba soba;
 	
 	@Column(name = "datum", unique = false, nullable = false)
-	private Date datum;
+	private LocalDate datum;
 	
 	@Column(name = "otkazano", unique = false, nullable = false)
 	private boolean otkazano;
 	
 	@Column(name = "datumDolaska", unique = false, nullable = false)
-	private Date datumDolaska;
+	private LocalDate datumDolaska;
 	
 	@Column(name = "datumOdlaska", unique = false, nullable = false)
-	private Date datumOdlaska;
+	private LocalDate datumOdlaska;
 	
 	@Column(name = "ukupnaCena", unique = false, nullable = false)
 	private double ukupnaCena;
@@ -42,7 +43,7 @@ public class RezervacijaSobe {
 	private Rezervacija rezervacija;
 	
 	
-	public RezervacijaSobe(Long id, Soba soba, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
+	public RezervacijaSobe(Long id, Soba soba, LocalDate datum, boolean otkazano, LocalDate datumDolaska, LocalDate datumOdlaska,
 			double ukupnaCena, Rezervacija rezervacija) {
 		super();
 		this.id = id;
@@ -79,10 +80,10 @@ public class RezervacijaSobe {
 	public void setSoba(Soba soba) {
 		this.soba = soba;
 	}
-	public Date getDatum() {
+	public LocalDate getDatum() {
 		return datum;
 	}
-	public void setDatum(Date datum) {
+	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 	public boolean isOtkazano() {
@@ -91,16 +92,16 @@ public class RezervacijaSobe {
 	public void setOtkazano(boolean otkazano) {
 		this.otkazano = otkazano;
 	}
-	public Date getDatumDolaska() {
+	public LocalDate getDatumDolaska() {
 		return datumDolaska;
 	}
-	public void setDatumDolaska(Date datumDolaska) {
+	public void setDatumDolaska(LocalDate datumDolaska) {
 		this.datumDolaska = datumDolaska;
 	}
-	public Date getDatumOdlaska() {
+	public LocalDate getDatumOdlaska() {
 		return datumOdlaska;
 	}
-	public void setDatumOdlaska(Date datumOdlaska) {
+	public void setDatumOdlaska(LocalDate datumOdlaska) {
 		this.datumOdlaska = datumOdlaska;
 	}
 	public double getUkupnaCena() {

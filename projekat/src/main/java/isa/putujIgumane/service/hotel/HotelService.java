@@ -1,7 +1,6 @@
 package isa.putujIgumane.service.hotel;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -30,4 +29,10 @@ public interface HotelService {
 	public abstract CenovnikUslugaHotela updateCenovnik(CenovnikUslugaHotelaDTO cenovnik);
 	public abstract CenovnikUslugaHotela addCenovnik(CenovnikUslugaHotelaDTO cenovnik,Long hotelId);
 	public abstract HashSet<CenovnikUslugaHotela> deleteCenovnik(Long id,Long hotelId);
+	public abstract HashSet<Soba> getNerezervisaneSobe(Long hotelId);
+	public abstract List<Soba> getRezervisaneSobe(Long hotelId);
+	public abstract Soba getSoba(Long id);
+	public abstract Soba updateSoba(SobaDTO soba);
+	public abstract Soba addSoba(SobaDTO soba,Long hotelId);
+	public abstract HashSet<Soba> deleteSoba(Long id,Long hotelId);
 }

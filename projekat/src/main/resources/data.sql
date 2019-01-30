@@ -1,3 +1,4 @@
+
 /*INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (3, 'user1', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pera', 'Peric', 'user1@example.com', true, '2017-10-01 21:58:58',true);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
 
@@ -20,6 +21,7 @@ insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (23123, 3
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1123,1,1,2,4);
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1124,1,2,1,2);
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1125,2,1,3,3);
+insert into rezervacija_sobe (id, datum, datum_dolaska, datum_odlaska, otkazano, ukupna_cena, rezervacija_id, soba_id) values (1,'2019-01-01','2019-10-10','2019-10-12',0,3000,null,1123);
 INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (1, 'user', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Marko', 'Markovic', 'user@example.com', true, '2017-10-01 21:58:58',true);
 INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (2, 'admin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Nikola', 'Nikolic', 'admin@example.com', true, '2017-10-01 18:57:58',true);
 

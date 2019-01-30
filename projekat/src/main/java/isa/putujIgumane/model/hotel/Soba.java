@@ -34,13 +34,13 @@ public class Soba {
 	@Column(name = "brojKreveta", unique = false, nullable = false)
 	private int brojKreveta;
 	
-	@OneToMany(mappedBy = "soba", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "soba", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<StatusSobe> statusSobe = new HashSet<StatusSobe>();
 	
-	@OneToMany(mappedBy = "soba", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "soba", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RezervacijaSobe> rezervacije = new HashSet<RezervacijaSobe>();
 	
-	@OneToMany(mappedBy="soba",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="soba",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Ocena> ocene=new HashSet<Ocena>();
 
 	

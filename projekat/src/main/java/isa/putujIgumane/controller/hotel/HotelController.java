@@ -90,4 +90,67 @@ public class HotelController {
 		
 		return new ResponseEntity<Hotel>(updatedHotel, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/cenovnik/{hotelId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getCenovnik(@PathVariable("hotelId")Long hotelId){
+		
+		HashSet<CenovnikUslugaHotela> cuh = hotelServiceImpl.getCenovnik(hotelId);
+		
+		List<CenovnikUslugaHotelaDTO> cuhDTO = ObjectMapperUtils.mapAll(cuh, CenovnikUslugaHotelaDTO.class);
+		
+		return new ResponseEntity<>(cuhDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/editUsluga/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> getUsluga(@PathVariable("id")Long id){
+		
+		CenovnikUslugaHotela cuh = hotelServiceImpl.getUsluga(id);
+		
+		if(cuh == null){			
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+				
+		CenovnikUslugaHotelaDTO cuhDTO=ObjectMapperUtils.map(cuh, CenovnikUslugaHotelaDTO.class);
+		
+		return new ResponseEntity<>(cuhDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/updateUsluga", method=RequestMethod.PUT)
+	public ResponseEntity<?> updateCenovnik(@RequestBody CenovnikUslugaHotelaDTO cuh){
+		
+		CenovnikUslugaHotela updatedCuh = null;
+		
+		try {
+			updatedCuh = hotelServiceImpl.updateCenovnik(cuh);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		return new ResponseEntity<>(updatedCuh, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/addUsluga/{hotelId}", method=RequestMethod.PUT)
+	public ResponseEntity<?> addCenovnik(@PathVariable("hotelId")Long hotelId,@RequestBody CenovnikUslugaHotelaDTO cuh){
+		
+		CenovnikUslugaHotela addedCuh = null;
+		
+		try {
+			addedCuh = hotelServiceImpl.addCenovnik(cuh,hotelId);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		return new ResponseEntity<>(addedCuh, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/delete/usluga", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteCenovnik(@RequestParam("id") Long id,@RequestParam("hotelId") Long hotelId) {
+		
+		HashSet<CenovnikUslugaHotela> cuh = hotelServiceImpl.deleteCenovnik(id,hotelId);
+		
+		List<CenovnikUslugaHotelaDTO> cuhDTO = ObjectMapperUtils.mapAll(cuh, CenovnikUslugaHotelaDTO.class);
+		
+		return new ResponseEntity<>(cuhDTO,HttpStatus.OK);
+	}
 }

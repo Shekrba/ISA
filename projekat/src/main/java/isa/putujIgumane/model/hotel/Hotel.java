@@ -30,10 +30,10 @@ public class Hotel {
 	@Column(name = "opis", unique = false, nullable = true)
 	private String opis; 
 	
-	@OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Soba> sobe = new HashSet<Soba>();
 	
-	@OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER)
 	private Set<CenovnikUslugaHotela> cenovnikUsluga = new HashSet<CenovnikUslugaHotela>();
 	
 	@Column(name = "prosecnaOcena", unique = false, nullable = true)

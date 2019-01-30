@@ -1,7 +1,9 @@
 
 webApp.controller('mainController', function($rootScope,$scope, $location) {
 	
-  
+	function init() {
+
+    };
 
 	init();
 	
@@ -16,10 +18,6 @@ webApp.controller('mainController', function($rootScope,$scope, $location) {
 	$scope.prikazRentacar=function(){
 		$location.path("/rentacar");
 	};
-	
-	$scope.izmenaInfHotela=function(){
-		$location.path("/hoteli/editHotel/1")
-	}
 });
 
 webApp.controller('hoteliController', function($scope, $location, hotelFactory) {
@@ -76,6 +74,75 @@ webApp.controller('hotelIzmenaInfController', function($scope, $location, hotelF
 		hotelFactory.updateHotel(h).then(function success(response) {
     		$scope.updatedHotel=response.data;
     		$location.path("/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('izmenaCenovnikaController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getCenovnik($routeParams.hotelId).then(function success(response) {
+    		$scope.cenovnik=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaUsluge=function(id){
+		$location.path("/hoteli/editUsluga/"+id);
+	}
+	
+	$scope.dodavanjeUsluge=function(){
+		$location.path("/hoteli/addUsluga/"+1);
+	}
+	
+	$scope.brisanjeUsluge=function(id){
+		hotelFactory.deleteUsluga(id,$routeParams.hotelId).then(function success(response) {
+    		$scope.cenovnik=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('cenovnikIzmenaUslugeController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getUsluga($routeParams.uslugaId).then(function success(response) {
+    		$scope.usluga=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaUsluge=function(u){
+		hotelFactory.updateUsluga(u).then(function success(response) {
+    		$scope.updatedUsluga=response.data;
+    		$location.path("/hoteli/cenovnik/1");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('cenovnikDodajUsluguController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.dodavanjeUsluge=function(u){
+		hotelFactory.addUsluga(u,1).then(function success(response) {
+    		$scope.addedUsluga=response.data;
+    		$location.path("/hoteli/cenovnik/1");
     	}, function error(response) {
 			$scope.error="Greska";
 		});

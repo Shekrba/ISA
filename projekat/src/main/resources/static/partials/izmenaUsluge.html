@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmena usluge</title>
+</head>
+<body>
+<div ng-Controller="cenovnikIzmenaUslugeController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena usluge</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Usluga:</label>
+				<input id="ime" name="ime" type="text" class="form-control" ng-model="usluga.usluga"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Cena:</label>
+				<input id="adresa" name="adresa" type="text" class="form-control" ng-model="usluga.cena"/>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="izmenaUsluge(usluga)">Izmeni</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmena cenovnika usluga hotela</title>
+</head>
+<body>
+<div ng-Controller="izmenaCenovnikaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena cenovnika usluga hotela</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				
+				<button class="btn btn-info btn-sm" ng-click="dodavanjeUsluge()"><i class="fa fa-plus"></i></button>
+								
+				<table class="table">
+					<tr class="head">
+						<td colspan="4" align="center"><b>CENOVNIK</b></td>
+					</tr>
+					<tr class="head">
+						<td align="center">
+							Usluga:
+						</td>
+						<td align="center">
+							Cena:
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr ng-repeat="c in cenovnik">
+						<td align="center">
+							{{c.usluga}}
+						</td>
+						<td align="center">
+							{{c.cena}}
+						</td>
+						<td align="right">
+							<button class="btn btn-secondary btn-sm" ng-click="izmenaUsluge(c.id)"><i class="fa fa-edit"></i></button>
+						</td>
+						<td align="left">
+							<button class="btn btn-danger btn-sm" ng-click="brisanjeUsluge(c.id)"><i class="fa fa-remove"></i></button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</div>
+</body>
+</html>

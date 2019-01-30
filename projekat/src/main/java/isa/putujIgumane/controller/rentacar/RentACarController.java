@@ -20,7 +20,7 @@ import isa.putujIgumane.service.rentacar.RentACarServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
 @RestController
-@RequestMapping(value="api/rentacar", produces="application/json;charset=UTF-8")
+@RequestMapping(value= {"api/rentacar", "api/regUserRentacar"}, produces="application/json;charset=UTF-8")
 public class RentACarController {
 	@Autowired
 	private RentACarServiceImpl rentacarServiceImpl;

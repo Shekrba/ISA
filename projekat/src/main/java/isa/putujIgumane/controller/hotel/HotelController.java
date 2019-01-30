@@ -1,5 +1,6 @@
 package isa.putujIgumane.controller.hotel;
 
+import java.lang.annotation.Repeatable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -39,8 +40,9 @@ import isa.putujIgumane.service.hotel.HotelServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 import scala.annotation.meta.setter;
 
+
 @RestController
-@RequestMapping(value="api/hoteli", produces="application/json;charset=UTF-8")
+@RequestMapping(value= {"api/regUserHoteli", "api/hoteli"}, produces="application/json;charset=UTF-8")
 public class HotelController {
 	@Autowired
 	private HotelServiceImpl hotelServiceImpl;

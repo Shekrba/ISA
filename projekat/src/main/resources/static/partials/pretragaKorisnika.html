@@ -14,7 +14,7 @@
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title" align="center">{{k.ime}} {{k.prezime}}</h5>
-						<button class="btn btn-primary" ng-click="addFriend(k.id)">Dodaj za prijatelja</button>
+						<button class="btn btn-primary" ng-click="addFriend(k.id)" ng-disabled="sent[k.id]" align="center">{{buttonText[k.id]}}</button>
 					</div>
 				</div>
 			</div>	

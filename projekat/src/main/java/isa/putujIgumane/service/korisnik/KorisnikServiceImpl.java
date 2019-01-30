@@ -1,5 +1,7 @@
 package isa.putujIgumane.service.korisnik;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +43,30 @@ public class KorisnikServiceImpl implements KorisnikService{
 		z.setStatus(StatusZahteva.POSLAT);
 		
 		zahtevRepo.save(z);
+	}
+
+	@Override
+	public List<Long> getFriendsAndRequests(String username) {
+		List<Long> sent = zahtevRepo.findFriendsAndSentRequests(username);
+		List<Long> rec= zahtevRepo.findFriendsAndRecievedRequests(username);
+		sent.addAll(rec);
+		return sent;
+	}
+
+	@Override
+	public void answerRequest(Long id,boolean flag) {
+		Zahtev z=zahtevRepo.findOne(id);
+		if(flag) {
+			z.setStatus(StatusZahteva.PRIHVACEN);
+		}else {
+			z.setStatus(StatusZahteva.ODBIJEN);
+		}
+		zahtevRepo.save(z);
+	}
+
+	@Override
+	public List<Zahtev> getFriendsRequests(String username) {
+		return zahtevRepo.findRequestsOfUser(username);
 	}
 
 	

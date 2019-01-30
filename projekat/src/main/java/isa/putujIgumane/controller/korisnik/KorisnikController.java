@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
+import isa.putujIgumane.dto.korisnik.ZahtevDTO;
 import isa.putujIgumane.model.korisnik.Korisnik;
+import isa.putujIgumane.model.korisnik.Zahtev;
 import isa.putujIgumane.service.korisnik.KorisnikServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -48,6 +50,23 @@ public class KorisnikController{
 			return new ResponseEntity<String>("Greska pri slanju zahteva!",HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<String>("Zahtev je uspešno poslat!",HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/friendship", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> getFriendsAndRequests(){
+		String loggedUser=SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Long> potentialFriends=korisnikService.getFriendsAndRequests(loggedUser);
+		return new ResponseEntity<List<Long>>(potentialFriends,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/requests", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> getFriendRequests(){
+		String loggedUser=SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Zahtev> potentialFriends=korisnikService.getFriendsRequests(loggedUser);
+		List<ZahtevDTO> zahtevi=ObjectMapperUtils.mapAll(potentialFriends, ZahtevDTO.class);
+		return new ResponseEntity<List<ZahtevDTO>>(zahtevi,HttpStatus.OK);
 	}
 	
 }

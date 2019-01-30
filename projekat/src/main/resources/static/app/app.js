@@ -29,6 +29,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/login.html'
 	}).when('/users/:name',{
 		templateUrl: 'partials/pretragaKorisnika.html'
+	}).when('/zahtevi',{
+		templateUrl: 'partials/zahtevi.html'
 	});
 	$routeProvider.otherwise({redirectTo: '/'});
 });

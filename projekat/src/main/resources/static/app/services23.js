@@ -80,6 +80,12 @@ webApp.factory('korisnikFactory', function($http) {
 	factory.addFriend = function(id) {
 		return $http.post('/PutujIgumane/api/korisnik/friend/'+id);
 	};
+	factory.getFriendsAndRequests = function() {
+		return $http.get('/PutujIgumane/api/korisnik/friendship');
+	};
+	factory.getFriendRequests = function() {
+		return $http.get('/PutujIgumane/api/korisnik/requests');
+	};
 	
 	return factory;
 	

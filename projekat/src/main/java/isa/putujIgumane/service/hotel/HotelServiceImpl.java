@@ -1,16 +1,15 @@
 package isa.putujIgumane.service.hotel;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
 
-import isa.putujIgumane.dto.hotel.SobaDTO;
-import isa.putujIgumane.dto.hotel.StatusSobeDTO;
+import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
+import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
@@ -44,13 +43,7 @@ public class HotelServiceImpl implements HotelService {
 	public Hotel findById(Long id) {
 		Hotel hotel = hotelRepository.findOneById(id);
 		hotel.setCenovnikUsluga(cenovnikUslugaHotelaRepository.findByHotel(hotel));
-		for (CenovnikUslugaHotela cuh : hotel.getCenovnikUsluga()) {
-			cuh.setHotel(hotel);
-		}
 		hotel.setSobe(sobaRepository.findByHotel(hotel));
-		for (Soba s : hotel.getSobe()) {
-			s.setHotel(hotel);
-		}
 		return hotel;
 	}
 	
@@ -71,4 +64,73 @@ public class HotelServiceImpl implements HotelService {
 		
 		return sobaRepository.findFreeSobe(hotelId, from, to,days);
 	}
+	
+	@Override
+	public Hotel update(HotelDTO hotel) throws Exception {
+		
+        Hotel hotelToUpdate = new Hotel();//findById(hotel.getId());
+        hotelToUpdate.setNaziv(hotel.getNaziv());
+        hotelToUpdate.setAdresa(hotel.getAdresa());
+        hotelToUpdate.setOpis(hotel.getOpis());
+        hotelToUpdate.setProsecnaOcena(hotel.getProsecnaOcena());
+        hotelToUpdate.setId(hotel.getId());
+        hotelRepository.save(hotelToUpdate);
+      
+        return hotelToUpdate;
+    }
+	
+	@Override
+	public HashSet<CenovnikUslugaHotela> getCenovnik(Long hotelId){
+		Hotel hotel = findById(hotelId);
+		
+		return cenovnikUslugaHotelaRepository.findByHotel(hotel);
+	}
+	
+	@Override
+	public CenovnikUslugaHotela getUsluga(Long id) {
+		return cenovnikUslugaHotelaRepository.findOneById(id);
+	}
+	
+	@Override
+	public CenovnikUslugaHotela updateCenovnik(CenovnikUslugaHotelaDTO cenovnik) {
+		CenovnikUslugaHotela cenovnikToUpdate = new CenovnikUslugaHotela();
+		cenovnikToUpdate.setId(cenovnik.getId());
+		cenovnikToUpdate.setCena(cenovnik.getCena());
+		cenovnikToUpdate.setUsluga(cenovnik.getUsluga());
+	
+		Hotel hotel = getUsluga(cenovnik.getId()).getHotel();
+		
+		cenovnikToUpdate.setHotel(new Hotel(hotel.getId(),hotel.getNaziv(),hotel.getAdresa(),hotel.getOpis(),new HashSet<Soba>(),new HashSet<CenovnikUslugaHotela>(),hotel.getProsecnaOcena()));
+
+        cenovnikUslugaHotelaRepository.save(cenovnikToUpdate);
+      
+        return cenovnikToUpdate;
+	}
+	
+	@Override
+	public HashSet<CenovnikUslugaHotela> deleteCenovnik(Long id,Long hotelId) {
+		
+		cenovnikUslugaHotelaRepository.delete(getUsluga(id));
+		
+		return getCenovnik(hotelId);
+	}
+	
+	@Override
+	public CenovnikUslugaHotela addCenovnik(CenovnikUslugaHotelaDTO cenovnik,Long hotelId) {
+		CenovnikUslugaHotela cenovnikNew = new CenovnikUslugaHotela();
+		cenovnikNew.setCena(cenovnik.getCena());
+		cenovnikNew.setUsluga(cenovnik.getUsluga());
+	
+		Hotel hotel = findById(hotelId);
+		
+		//cenovnikNew.setHotel(new Hotel(hotel.getId(),hotel.getNaziv(),hotel.getAdresa(),hotel.getOpis(),hotel.getSobe(),hotel.getCenovnikUsluga(),hotel.getProsecnaOcena()));
+		
+		cenovnikNew.setHotel(hotel);
+		
+        cenovnikUslugaHotelaRepository.save(cenovnikNew);
+      
+        return cenovnikNew;
+	}
+	
+	
 }

@@ -62,20 +62,6 @@ public class Korisnik implements UserDetails{
 	@Column(name = "verifikovan")
 	private boolean verifikovan;
 	
-	@ManyToMany
-	@JoinTable(name="prijatelji",
-	 joinColumns=@JoinColumn(name="firstUserID"),
-	 inverseJoinColumns=@JoinColumn(name="secondUserID")
-	)
-	private Set<Korisnik> prijatelji = new HashSet<Korisnik>();
-	
-	@ManyToMany
-	@JoinTable(name="prijatelji",
-	 joinColumns=@JoinColumn(name="secondUserID"),
-	 inverseJoinColumns=@JoinColumn(name="firstUserID")
-	)
-	private Set<Korisnik> prijateljOd = new HashSet<Korisnik>();
-	
 
 	@OneToMany(mappedBy="salje",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Zahtev> poslatiZahtevi = new HashSet<Zahtev>();
@@ -100,6 +86,7 @@ public class Korisnik implements UserDetails{
 	
 	@Column(name = "enabled")
     private boolean enabled;
+	
 	
 	public Korisnik() {
 		
@@ -172,21 +159,6 @@ public class Korisnik implements UserDetails{
 		this.verifikovan = verifikovan;
 	}
 
-	public Set<Korisnik> getPrijatelji() {
-		return prijatelji;
-	}
-
-	public void setPrijatelji(Set<Korisnik> prijatelji) {
-		this.prijatelji = prijatelji;
-	}
-
-	public Set<Korisnik> getPrijateljOd() {
-		return prijateljOd;
-	}
-
-	public void setPrijateljOd(Set<Korisnik> prijateljOd) {
-		this.prijateljOd = prijateljOd;
-	}
 
 	public Set<Zahtev> getPoslatiZahtevi() {
 		return poslatiZahtevi;

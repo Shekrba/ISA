@@ -1,9 +1,9 @@
 function toast(sMessage) {
 	var container = $(document.createElement("div"));
-	container.addClass("toast");
+	container.addClass("toasttt");
 
 	var message = $(document.createElement("div"));
-	message.addClass("message");
+	message.addClass("messageee");
 	message.text(sMessage);
 	message.appendTo(container);
 

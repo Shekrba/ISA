@@ -83,18 +83,13 @@
 		</dependency>
 		<dependency>
 	<groupId>org.hibernate</groupId>
-	<artifactId>hibernate-java8</artifactId>
-	<version>5.1.0.Final</version>
-</dependency>
+		<artifactId>hibernate-java8</artifactId>
+		<version>5.1.0.Final</version>
+	</dependency>
 		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>
-				spring-boot-starter-data-elasticsearch
-			</artifactId>
-		</dependency>
+		
 	</dependencies>
 
 	<build>

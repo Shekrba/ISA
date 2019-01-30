@@ -15,4 +15,5 @@ import isa.putujIgumane.model.hotel.Hotel;
 public interface CenovnikUslugaHotelaRepository  extends JpaRepository<CenovnikUslugaHotela, Long> {
 	
 	HashSet<CenovnikUslugaHotela> findByHotel(Hotel hotel);
+	CenovnikUslugaHotela findOneById(Long id);
 }

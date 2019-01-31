@@ -16,11 +16,14 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
     .success(function(res) {
       $rootScope.authenticated = true;
       authService.setJwtToken(res.accessToken);
-      $location.path("#/");
+     
       $scope.error = false;
       korisnikFactory.getUserData().then(function success(response){
     	 $rootScope.userData=response.data; 
     	 $log.log(response.data);
+    	 if(response.data.avioKompanija!=undefined){
+    		 $location.path("/izmena/ak"); 
+    	 };
       });
     })
     .catch(function() {
@@ -103,3 +106,108 @@ webApp.controller('zahteviController', function($scope, $location,$routeParams, 
 	
 	
 });
+
+webApp.controller('avioKompanijaIzmenaController', function($scope, $location,$routeParams, korisnikFactory,$log) {
+	
+	function init(){
+		$scope.locations=[];
+	};
+	
+	init();
+	
+	
+});
+
+//googlemaps
+webApp.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyDYe0ScGgppIy_3rpGBk7SVofqRFjvir08',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'places' // Required for SearchBox.
+    });
+});
+
+webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', function ($scope, $log, GoogleMapApi) {
+	angular.extend($scope, {
+        map: {center: 
+          {
+            latitude: 40.1451, 
+            longitude: -99.6680  
+          }, 
+          zoom: 4,
+          events: {
+              tilesloaded: function (map) {
+                  $scope.$apply(function () {
+                      $scope.gmap=map;
+                  });
+              }
+          }
+        },
+        searchbox: { 
+          template:'searchbox.tpl.html', 
+          events:{
+            places_changed: function (searchBox) {
+            	var markers = [];
+            	var map=$scope.gmap;
+            	var places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                  return;
+                }
+
+                // Clear out the old markers.
+                markers.forEach(function(marker) {
+                  marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                  if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                  }
+                  var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                  };
+
+                  // Create a marker for each place.
+                  markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    title: place.name,
+                    position: place.geometry.location
+                  }));
+
+                  if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                  } else {
+                    bounds.extend(place.geometry.location);
+                  }
+                  map.fitBounds(bounds);
+                  $scope.location=searchBox.getPlaces()[0];
+                });
+               
+            }
+          }
+        },
+        options: {
+          scrollwheel: false
+        }
+      });
+    
+	$scope.addLocation= function(){
+		$scope.locations.push($scope.location);
+		$('.modal').modal('hide');
+	}
+	
+      GoogleMapApi.then(function(maps) {
+        maps.visualRefresh = true;
+      });
+  }]);

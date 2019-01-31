@@ -1,5 +1,5 @@
 // napravimo modul
-var webApp = angular.module('webApp', ['ngRoute']);
+var webApp = angular.module('webApp', ['ngRoute','uiGmapgoogle-maps']);
 
 
 
@@ -43,6 +43,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/pretragaKorisnika.html'
 	}).when('/zahtevi',{
 		templateUrl: 'partials/zahtevi.html'
+	}).when('/izmena/ak',{
+		templateUrl: 'partials/avioKompanijaIzmena.html'
 	});
 	$routeProvider.otherwise({redirectTo: '/'});
 });

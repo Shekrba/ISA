@@ -28,25 +28,25 @@ public class Ocena {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=false)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER,optional=false)
 	private Korisnik korisnik;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER,optional=true)
 	private AvioKompanija avioKompanija;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER,optional=true)
 	private Hotel hotel;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER,optional=true)
 	private RentACar rentACar;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER,optional=true)
 	private Let let;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER,optional=true)
 	private Soba soba;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=true)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER,optional=true)
 	private Vozilo vozilo;
 	
 	@Column(name = "vrednost", unique = false, nullable = false)

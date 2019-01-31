@@ -23,6 +23,14 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/izmenaUsluge.html'
 	}).when('/hoteli/addUsluga/:hotelId',{
 		templateUrl: 'partials/dodavanjeUsluge.html'
+	}).when('/hoteli/sobe/:hotelId',{
+		templateUrl: 'partials/konfiguracijaSoba.html'
+	}).when('/hoteli/editSoba/:sobaId',{
+		templateUrl: 'partials/izmenaSobe.html'
+	}).when('/hoteli/addSoba/:hotelId',{
+		templateUrl: 'partials/dodavanjeSobe.html'
+	}).when('/hoteli/oceneHotela/:hotelId',{
+		templateUrl: 'partials/izvestajOcenaHotela.html'
 	}).when('/rentacar/:id',{
 		templateUrl: 'partials/rentacarProfil.html'
 	}).when('/login',{

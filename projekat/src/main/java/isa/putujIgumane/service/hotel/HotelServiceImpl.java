@@ -5,19 +5,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
+
 import org.springframework.stereotype.Service;
 
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.dto.hotel.SobaDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.hotel.StatusSobe;
+import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.repository.hotel.CenovnikUslugaHotelaRepository;
 import isa.putujIgumane.repository.hotel.HotelRepository;
 import isa.putujIgumane.repository.hotel.SobaRepository;
 import isa.putujIgumane.repository.hotel.StatusSobeRepository;
+import isa.putujIgumane.repository.korisnik.OcenaRepository;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -30,6 +33,8 @@ public class HotelServiceImpl implements HotelService {
 	private SobaRepository sobaRepository;
 	@Autowired
 	private StatusSobeRepository statusSobeReposatory;
+	@Autowired
+	private OcenaRepository ocenaRepository;
 	
 	@Override
 	public List<Hotel> getAll() {
@@ -132,5 +137,76 @@ public class HotelServiceImpl implements HotelService {
         return cenovnikNew;
 	}
 	
+	@Override
+	public HashSet<Soba> getNerezervisaneSobe(Long hotelId){
+		Hotel hotel = findById(hotelId);
+		
+		HashSet<Soba> sobe = sobaRepository.findByHotel(hotel);
+		
+		for (Soba soba : sobaRepository.findRezSobe(hotelId, LocalDate.now())) {
+			sobe.remove(soba);
+		}
+		
+		return sobe;
+	}
 	
+	@Override
+	public List<Soba> getRezervisaneSobe(Long hotelId){
+		LocalDate today = LocalDate.now();
+		return sobaRepository.findRezSobe(hotelId, today);
+	}
+
+	@Override
+	public Soba getSoba(Long id) {
+		return sobaRepository.findOneById(id);
+	}
+
+	@Override
+	public Soba updateSoba(SobaDTO soba) {
+		Soba sobaToUpdate = new Soba();
+		sobaToUpdate.setId(soba.getId());
+		sobaToUpdate.setBrojSobe(soba.getBrojSobe());
+		sobaToUpdate.setSprat(soba.getSprat());
+		sobaToUpdate.setBrojKreveta(soba.getBrojKreveta());
+	
+		Hotel hotel = getSoba(soba.getId()).getHotel();
+		
+		sobaToUpdate.setHotel(new Hotel(hotel.getId(),hotel.getNaziv(),hotel.getAdresa(),hotel.getOpis(),new HashSet<Soba>(),new HashSet<CenovnikUslugaHotela>(),hotel.getProsecnaOcena()));
+
+        sobaRepository.save(sobaToUpdate);
+      
+        return sobaToUpdate;
+	}
+	
+	@Override
+	public Soba addSoba(SobaDTO soba,Long hotelId) {
+		Soba sobaNew = new Soba();
+
+		sobaNew.setBrojSobe(soba.getBrojSobe());
+		sobaNew.setSprat(soba.getSprat());
+		sobaNew.setBrojKreveta(soba.getBrojKreveta());
+	
+		Hotel hotel = findById(hotelId);
+		
+		//cenovnikNew.setHotel(new Hotel(hotel.getId(),hotel.getNaziv(),hotel.getAdresa(),hotel.getOpis(),hotel.getSobe(),hotel.getCenovnikUsluga(),hotel.getProsecnaOcena()));
+		
+		sobaNew.setHotel(hotel);
+		
+        sobaRepository.save(sobaNew);
+      
+        return sobaNew;
+	}
+	
+	@Override
+	public HashSet<Soba> deleteSoba(Long id,Long hotelId) {
+		
+		sobaRepository.delete(getSoba(id));
+		
+		return getNerezervisaneSobe(hotelId);
+	}
+	
+	@Override
+	public List<Ocena> getOceneHotela(Hotel hotel){
+		return ocenaRepository.findByHotel(hotel);
+	}
 }

@@ -149,6 +149,94 @@ webApp.controller('cenovnikDodajUsluguController', function($scope, $location, h
 	}
 });
 
+webApp.controller('konfSobaController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getSobe($routeParams.hotelId).then(function success(response) {
+    		$scope.sobe=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaSobe=function(id){
+		$location.path("/hoteli/editSoba/"+id);
+	}
+	
+	$scope.dodavanjeSobe=function(){
+		$location.path("/hoteli/addSoba/"+$routeParams.hotelId);
+	}
+	
+	$scope.brisanjeSobe=function(id){
+		hotelFactory.deleteSoba(id,$routeParams.hotelId).then(function success(response) {
+    		$scope.sobe[0]=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('izmenaSobeController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getSoba($routeParams.sobaId).then(function success(response) {
+    		$scope.soba=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaSobe=function(s){
+		hotelFactory.updateSoba(s).then(function success(response) {
+    		$scope.updatedUsluga=response.data;
+    		$location.path("/hoteli/sobe/1");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('dodavanjeSobeController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.dodavanjeSobe=function(s){
+		hotelFactory.addSoba(s,1).then(function success(response) {
+    		$scope.addedSoba=response.data;
+    		$location.path("/hoteli/sobe/1");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('izvestajOcenaHotelaController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getHotel($routeParams.hotelId).then(function success(response) {
+    		$scope.hotel=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    	
+    	hotelFactory.getOceneHotela($routeParams.hotelId).then(function success(response) {
+    		$scope.ocene=response.data;
+    	}, function error(response) {
+    		$scope.error="Greska";
+    	});
+    };
+
+	init();
+});
+
 webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {
 	
 	function init() {

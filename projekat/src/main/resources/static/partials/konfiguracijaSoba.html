@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmena soba</title>
+</head>
+<body>
+<div ng-Controller="konfSobaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena soba</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				
+				<button class="btn btn-info btn-sm" ng-click="dodavanjeSobe()"><i class="fa fa-plus"></i></button>
+								
+				<table class="table">
+					<tr class="head">
+						<td colspan="5" align="center"><b>SOBE</b></td>
+					</tr>
+					<tr class="head">
+						<td align="center">
+							Broj sobe:
+						</td>
+						<td align="center">
+							Sprat:
+						</td>
+						<td align="center">
+							Broj kreveta:
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr ng-repeat="s in sobe[0]">
+						<td align="center">
+							{{s.brojSobe}}
+						</td>
+						<td align="center">
+							{{s.sprat}}
+						</td>
+						<td align="center">
+							{{s.brojKreveta}}
+						</td>
+						<td align="right">
+							<button class="btn btn-secondary btn-sm" ng-click="izmenaSobe(s.id)"><i class="fa fa-edit"></i></button>
+						</td>
+						<td align="left">
+							<button class="btn btn-danger btn-sm" ng-click="brisanjeSobe(s.id)"><i class="fa fa-remove"></i></button>
+						</td>
+					</tr>
+					<tr ng-repeat="s in sobe[1]">
+						<td align="center">
+							{{s.brojSobe}}
+						</td>
+						<td align="center">
+							{{s.sprat}}
+						</td>
+						<td align="center">
+							{{s.brojKreveta}}
+						</td>
+						<td colspan="2" align="right">
+							<label>Soba je rezervisana</label>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</div>
+</body>
+</html>

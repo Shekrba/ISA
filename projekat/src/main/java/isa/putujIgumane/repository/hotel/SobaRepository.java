@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
 
@@ -20,4 +19,9 @@ public interface SobaRepository extends JpaRepository<Soba, Long> {
 	List<Soba> findFreeSobe(Long hotelId, LocalDate from, LocalDate to,Long days);
 	
 	HashSet<Soba> findByHotel(Hotel hotel);
+	
+	@Query("select distinct s from Soba s LEFT OUTER JOIN s.rezervacije r WHERE s.hotel.id=?1 AND r.otkazano=false AND r.datumOdlaska>=?2")
+	List<Soba> findRezSobe(Long hotelId, LocalDate today);
+
+	Soba findOneById(Long id);
 }

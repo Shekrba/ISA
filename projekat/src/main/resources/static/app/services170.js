@@ -36,6 +36,31 @@ webApp.factory('hotelFactory', function($http) {
 		return $http.delete('/PutujIgumane/api/hoteli/delete/usluga/',{params: {id:id, hotelId:hotelId}});
 	}
 	
+	factory.getSobe = function(hotelId){
+		return $http.get('/PutujIgumane/api/hoteli/sobe/'+hotelId);
+	}
+	
+	factory.getSoba = function(sobaId){
+		return $http.get('/PutujIgumane/api/hoteli/editSoba/'+sobaId);
+	}
+	
+	factory.updateSoba = function(soba){
+		return $http.put('/PutujIgumane/api/hoteli/updateSoba/',soba);
+	}
+	
+	factory.addSoba = function(soba,hotelId){
+		return $http.put('/PutujIgumane/api/hoteli/addSoba/'+hotelId,soba);
+	}
+	
+	factory.deleteSoba = function(id,hotelId){
+		return $http.delete('/PutujIgumane/api/hoteli/delete/soba/',{params: {id:id, hotelId:hotelId}});
+	}
+	
+	factory.getOceneHotela = function(hotelId){
+		return $http.get('/PutujIgumane/api/hoteli/ocene/hotel/'+hotelId);
+	}
+	
+	
 	return factory;
 	
 });

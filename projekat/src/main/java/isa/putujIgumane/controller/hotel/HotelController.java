@@ -1,45 +1,36 @@
 package isa.putujIgumane.controller.hotel;
 
+
 import java.lang.annotation.Repeatable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.hibernate.mapping.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.dto.hotel.OcenaHotelaDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
-import isa.putujIgumane.dto.hotel.StatusSobeDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
-import isa.putujIgumane.model.hotel.StatusSobe;
-import isa.putujIgumane.service.hotel.CenovnikUslugaHotelaServiceImpl;
+import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.service.hotel.HotelServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
-import scala.annotation.meta.setter;
 
 
 @RestController
@@ -154,5 +145,92 @@ public class HotelController {
 		List<CenovnikUslugaHotelaDTO> cuhDTO = ObjectMapperUtils.mapAll(cuh, CenovnikUslugaHotelaDTO.class);
 		
 		return new ResponseEntity<>(cuhDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/sobe/{hotelId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getSobe(@PathVariable("hotelId")Long hotelId){
+		
+		HashSet<Soba> sobe = hotelServiceImpl.getNerezervisaneSobe(hotelId);
+		List<Soba> rezSobe = hotelServiceImpl.getRezervisaneSobe(hotelId);
+		
+		List<SobaDTO> sobeDTO = ObjectMapperUtils.mapAll(sobe, SobaDTO.class);
+		List<SobaDTO> rezSobeDTO = ObjectMapperUtils.mapAll(rezSobe, SobaDTO.class);
+		
+		List<List<SobaDTO>> sveSobe = new ArrayList<>();
+		sveSobe.add(sobeDTO);
+		sveSobe.add(rezSobeDTO);
+		
+		return new ResponseEntity<>(sveSobe, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/editSoba/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> getSoba(@PathVariable("id")Long id){
+		
+		Soba soba = hotelServiceImpl.getSoba(id);
+		
+		if(soba == null){			
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+				
+		SobaDTO sobaDTO=ObjectMapperUtils.map(soba, SobaDTO.class);
+		
+		return new ResponseEntity<>(sobaDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/updateSoba", method=RequestMethod.PUT)
+	public ResponseEntity<?> updateSoba(@RequestBody SobaDTO soba){
+		
+		Soba updatedSoba = null;
+		
+		try {
+			updatedSoba = hotelServiceImpl.updateSoba(soba);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		return new ResponseEntity<>(updatedSoba, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/addSoba/{hotelId}", method=RequestMethod.PUT)
+	public ResponseEntity<?> addSoba(@PathVariable("hotelId")Long hotelId,@RequestBody SobaDTO soba){
+		
+		Soba addedSoba = null;
+		
+		try {
+			addedSoba = hotelServiceImpl.addSoba(soba,hotelId);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		return new ResponseEntity<>(addedSoba, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/delete/soba", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteSoba(@RequestParam("id") Long id,@RequestParam("hotelId") Long hotelId) {
+		
+		HashSet<Soba> soba = hotelServiceImpl.deleteSoba(id,hotelId);
+		
+		List<SobaDTO> sobaDTO = ObjectMapperUtils.mapAll(soba, SobaDTO.class);
+		
+		return new ResponseEntity<>(sobaDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/ocene/hotel/{hotelId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getOceneHotela(@PathVariable("hotelId")Long hotelId){
+		
+		Hotel h = new Hotel();
+		h.setId(hotelId);
+		
+		List<Ocena> ocene = hotelServiceImpl.getOceneHotela(h);
+		
+		List<OcenaHotelaDTO> oceneDTO = new ArrayList<>();
+		
+		for (Ocena ocena : ocene) {
+			OcenaHotelaDTO ocenaDTO = new OcenaHotelaDTO(ocena.getKorisnik().getUsername(),ocena.getVrednost());
+			oceneDTO.add(ocenaDTO);
+		}
+		
+		return new ResponseEntity<>(oceneDTO, HttpStatus.OK);
 	}
 }

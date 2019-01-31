@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmena sobe</title>
+</head>
+<body>
+<div ng-Controller="izmenaSobeController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena sobe</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Broj sobe:</label>
+				<input id="ime" name="ime" type="text" class="form-control" ng-model="soba.brojSobe"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Sprat:</label>
+				<input id="adresa" name="adresa" type="text" class="form-control" ng-model="soba.sprat"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Broj kreveta:</label>
+				<input id="adresa" name="adresa" type="text" class="form-control" ng-model="soba.brojKreveta"/>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="izmenaSobe(soba)">Izmeni</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.dto.hotel.OcenaHotelaDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
+import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.service.hotel.HotelServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -212,5 +214,23 @@ public class HotelController {
 		List<SobaDTO> sobaDTO = ObjectMapperUtils.mapAll(soba, SobaDTO.class);
 		
 		return new ResponseEntity<>(sobaDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/ocene/hotel/{hotelId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getOceneHotela(@PathVariable("hotelId")Long hotelId){
+		
+		Hotel h = new Hotel();
+		h.setId(hotelId);
+		
+		List<Ocena> ocene = hotelServiceImpl.getOceneHotela(h);
+		
+		List<OcenaHotelaDTO> oceneDTO = new ArrayList<>();
+		
+		for (Ocena ocena : ocene) {
+			OcenaHotelaDTO ocenaDTO = new OcenaHotelaDTO(ocena.getKorisnik().getUsername(),ocena.getVrednost());
+			oceneDTO.add(ocenaDTO);
+		}
+		
+		return new ResponseEntity<>(oceneDTO, HttpStatus.OK);
 	}
 }

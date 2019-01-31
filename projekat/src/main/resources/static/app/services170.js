@@ -56,6 +56,10 @@ webApp.factory('hotelFactory', function($http) {
 		return $http.delete('/PutujIgumane/api/hoteli/delete/soba/',{params: {id:id, hotelId:hotelId}});
 	}
 	
+	factory.getOceneHotela = function(hotelId){
+		return $http.get('/PutujIgumane/api/hoteli/ocene/hotel/'+hotelId);
+	}
+	
 	
 	return factory;
 	

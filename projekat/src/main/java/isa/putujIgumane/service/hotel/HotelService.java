@@ -13,6 +13,7 @@ import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.hotel.StatusSobe;
+import isa.putujIgumane.model.korisnik.Ocena;
 
 
 @Service
@@ -35,4 +36,5 @@ public interface HotelService {
 	public abstract Soba updateSoba(SobaDTO soba);
 	public abstract Soba addSoba(SobaDTO soba,Long hotelId);
 	public abstract HashSet<Soba> deleteSoba(Long id,Long hotelId);
+	public abstract List<Ocena> getOceneHotela(Hotel hotel);
 }

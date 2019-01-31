@@ -15,10 +15,12 @@ import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.hotel.StatusSobe;
+import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.repository.hotel.CenovnikUslugaHotelaRepository;
 import isa.putujIgumane.repository.hotel.HotelRepository;
 import isa.putujIgumane.repository.hotel.SobaRepository;
 import isa.putujIgumane.repository.hotel.StatusSobeRepository;
+import isa.putujIgumane.repository.korisnik.OcenaRepository;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -31,6 +33,8 @@ public class HotelServiceImpl implements HotelService {
 	private SobaRepository sobaRepository;
 	@Autowired
 	private StatusSobeRepository statusSobeReposatory;
+	@Autowired
+	private OcenaRepository ocenaRepository;
 	
 	@Override
 	public List<Hotel> getAll() {
@@ -199,5 +203,10 @@ public class HotelServiceImpl implements HotelService {
 		sobaRepository.delete(getSoba(id));
 		
 		return getNerezervisaneSobe(hotelId);
+	}
+	
+	@Override
+	public List<Ocena> getOceneHotela(Hotel hotel){
+		return ocenaRepository.findByHotel(hotel);
 	}
 }

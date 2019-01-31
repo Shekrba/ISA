@@ -1,21 +1,10 @@
-<<<<<<< HEAD
 
-/*INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (3, 'user1', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pera', 'Peric', 'user1@example.com', true, '2017-10-01 21:58:58',true);
-=======
-/*INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (4, 'akadmin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Luka', 'Lukic', 'akadmin@example.com', true, '2017-10-01 21:58:58',true);
-INSERT INTO AUTHORITY (id, name) VALUES (3, 'ROLE_AKADMIN');
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 3);
-
-INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (3, 'user1', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pera', 'Peric', 'user1@example.com', true, '2017-10-01 21:58:58',true);
->>>>>>> branch 'master' of https://github.com/Shekrba/ISA.git
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
-
-
+/*
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (1, 'Fontana', 'Kralja Petra I 21, Novi Sad, Srbija','Hotel ima veliko dvoriste',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (2, 'Vojvodina', 'Sutjeska 12, Herceg Novi, Crna Gora','Hotel je veoma popularan leti',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (3, 'Four Seasons', 'Boticelijeva 52c, Firenca, Italija','Veoma blizu autobuske stanice',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (4, 'Beli Dvor', 'Marsala Tita 55, Sarajevo, Bosna i Hercegovina','Hotel je skoro renoviran',0);
-insert into avio_kompanija (id, naziv, adresa, promotivni_opis, prosecna_Ocena,admin_id) values (1, 'WizzAir', 'Nikole Tesle 2, Beograd, Srbija','Najpopularniji u Srbiji',0,4);
+
 insert into rentacar (id, naziv_servisa, adresa_servisa, opis_servisa, prosecna_Ocena_servisa) values (1, 'Get Your Ride', 'Terazije 14, Beograd, Srbija','Veliki broj novih modela Fijata',0);
 insert into filijala (id, drzava, grad, rentacar_id) values (1, 'Srbija', 'Beograd', 1);
 insert into filijala (id, drzava, grad, rentacar_id) values (2, 'Srbija', 'Novi Sad', 1);
@@ -29,7 +18,6 @@ insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (23123, 3
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1123,1,1,2,4);
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1124,1,2,1,2);
 insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1125,2,1,3,3);
-insert into rezervacija_sobe (id, datum, datum_dolaska, datum_odlaska, otkazano, ukupna_cena, rezervacija_id, soba_id) values (1,'2019-01-01','2019-10-10','2019-10-12',0,3000,null,1123);
 INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (1, 'user', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Marko', 'Markovic', 'user@example.com', true, '2017-10-01 21:58:58',true);
 INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (2, 'admin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Nikola', 'Nikolic', 'admin@example.com', true, '2017-10-01 18:57:58',true);
 
@@ -38,6 +26,20 @@ INSERT INTO AUTHORITY (id, name) VALUES (2, 'ROLE_ADMIN');
 
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 2);
+
+INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (4, 'akadmin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Luka', 'Lukic', 'akadmin@example.com', true, '2017-10-01 21:58:58',true);
+INSERT INTO AUTHORITY (id, name) VALUES (3, 'ROLE_AKADMIN');
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 3);
+
+INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (3, 'user1', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pera', 'Peric', 'user1@example.com', true, '2017-10-01 21:58:58',true);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
+
+insert into avio_kompanija (id, naziv, adresa, promotivni_opis, prosecna_Ocena,admin_id) values (1, 'WizzAir', 'Nikole Tesle 2, Beograd, Srbija','Najpopularniji u Srbiji',0,4);
+
+insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (1, 4, null,1,3,null,null,null,null);
+insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (2, 5, null,1,1,null,null,null,null);
+insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (3, 3, null,2,3,null,null,null,null);
+
 
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (1, 1123, '2019-01-01', 0, 2000, 0);
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (2, 1123, '2019-01-02', 1, 2000, 0);
@@ -2236,3 +2238,5 @@ insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, pop
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (6846, 3, '2019-12-30', 0, 3000, 0);
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (6847, 3, '2019-12-31', 0, 3000, 0);
 */
+
+

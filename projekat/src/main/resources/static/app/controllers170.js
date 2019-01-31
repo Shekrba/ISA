@@ -218,6 +218,25 @@ webApp.controller('dodavanjeSobeController', function($scope, $location, hotelFa
 	}
 });
 
+webApp.controller('izvestajOcenaHotelaController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getHotel($routeParams.hotelId).then(function success(response) {
+    		$scope.hotel=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    	
+    	hotelFactory.getOceneHotela($routeParams.hotelId).then(function success(response) {
+    		$scope.ocene=response.data;
+    	}, function error(response) {
+    		$scope.error="Greska";
+    	});
+    };
+
+	init();
+});
+
 webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {
 	
 	function init() {

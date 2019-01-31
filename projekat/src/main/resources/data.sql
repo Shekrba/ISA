@@ -1,4 +1,5 @@
 
+
 /*
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (1, 'Fontana', 'Kralja Petra I 21, Novi Sad, Srbija','Hotel ima veliko dvoriste',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (2, 'Vojvodina', 'Sutjeska 12, Herceg Novi, Crna Gora','Hotel je veoma popularan leti',0);
@@ -36,14 +37,16 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
 
 insert into avio_kompanija (id, naziv, adresa, promotivni_opis, prosecna_Ocena,admin_id) values (1, 'WizzAir', 'Nikole Tesle 2, Beograd, Srbija','Najpopularniji u Srbiji',0,4);
 
-<<<<<<< HEAD
-=======
 insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (1, 4, null,1,3,null,null,null,null);
 insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (2, 5, null,1,1,null,null,null,null);
 insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (3, 3, null,2,3,null,null,null,null);
 
+insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (4, 4, null,null,3,null,null,1123,null);
+insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (5, 2, null,null,1,null,null,1123,null);
+insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (6, 3, null,null,3,null,null,1125,null);
 
->>>>>>> 60ccda9f9831ef678a7d8ab26795824bf9eba80f
+
+
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (1, 1123, '2019-01-01', 0, 2000, 0);
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (2, 1123, '2019-01-02', 1, 2000, 0);
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (3, 1123, '2019-01-03', 0, 2000, 0);

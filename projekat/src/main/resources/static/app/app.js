@@ -31,6 +31,10 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/dodavanjeSobe.html'
 	}).when('/hoteli/oceneHotela/:hotelId',{
 		templateUrl: 'partials/izvestajOcenaHotela.html'
+	}).when('/hoteli/oceneSobaHotela/:hotelId',{
+		templateUrl: 'partials/oceneSobaKartice.html'
+	}).when('/hoteli/oceneSobe/:sobaId',{
+		templateUrl: 'partials/izvestajOcenaSobe.html'
 	}).when('/rentacar/:id',{
 		templateUrl: 'partials/rentacarProfil.html'
 	}).when('/login',{

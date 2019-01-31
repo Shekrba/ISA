@@ -237,6 +237,48 @@ webApp.controller('izvestajOcenaHotelaController', function($scope, $location, h
 	init();
 });
 
+webApp.controller('oceneSobaHotelaController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getHotel($routeParams.hotelId).then(function success(response) {
+    		$scope.hotel=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    	
+    	hotelFactory.getSveSobe($routeParams.hotelId).then(function success(response) {
+    		$scope.sobe=response.data;
+    	}, function error(response) {
+    		$scope.error="Greska";
+    	});
+    };
+
+	init();
+	
+	$scope.prikaziOceneSobe=function(id){
+		$location.path("/hoteli/oceneSobe/"+id);
+	};
+});
+
+webApp.controller('izvestajOcenaSobeController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getSoba($routeParams.sobaId).then(function success(response) {
+    		$scope.soba=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    	
+    	hotelFactory.getOceneSobe($routeParams.sobaId).then(function success(response) {
+    		$scope.ocene=response.data;
+    	}, function error(response) {
+    		$scope.error="Greska";
+    	});
+    };
+
+	init();
+});
+
 webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {
 	
 	function init() {

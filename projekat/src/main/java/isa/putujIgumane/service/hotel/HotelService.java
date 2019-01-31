@@ -21,7 +21,7 @@ public interface HotelService {
 	
 	public abstract List<Hotel> getAll();
 	public abstract Hotel findById(Long id);
-	public abstract HashSet<Soba> findSobeByHotel(Hotel hotel);
+	public abstract HashSet<Soba> getSveSobe(Hotel hotel);
 	public abstract HashSet<StatusSobe> findStatusBySoba(Soba soba);
 	public abstract List<Soba> getFreeSoba(Long hotelId, LocalDate from, LocalDate to);
 	public abstract Hotel update(HotelDTO hotel) throws Exception;
@@ -37,4 +37,5 @@ public interface HotelService {
 	public abstract Soba addSoba(SobaDTO soba,Long hotelId);
 	public abstract HashSet<Soba> deleteSoba(Long id,Long hotelId);
 	public abstract List<Ocena> getOceneHotela(Hotel hotel);
+	public abstract List<Ocena> getOceneSobe(Soba soba);
 }

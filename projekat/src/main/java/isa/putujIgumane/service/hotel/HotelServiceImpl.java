@@ -53,7 +53,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	@Override
-	public HashSet<Soba> findSobeByHotel(Hotel hotel) {
+	public HashSet<Soba> getSveSobe(Hotel hotel) {
 		return sobaRepository.findByHotel(hotel);
 	}
 	
@@ -208,5 +208,10 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<Ocena> getOceneHotela(Hotel hotel){
 		return ocenaRepository.findByHotel(hotel);
+	}
+	
+	@Override
+	public List<Ocena> getOceneSobe(Soba soba){
+		return ocenaRepository.findBySoba(soba);
 	}
 }

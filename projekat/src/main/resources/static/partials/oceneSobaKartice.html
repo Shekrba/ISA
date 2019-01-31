@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ocene soba hotela</title>
+
+<style>
+	
+</style>
+</head>
+<body>
+<div ng-Controller="oceneSobaHotelaController">
+	
+	<div class="container">
+		<div class="page-header">
+			<h2>Ocene soba hotela {{hotel.naziv}}</h2>
+		</div>
+				
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="s in sobe">
+				<div class="card" ng-click="prikaziOceneSobe(s.id)">
+					<h3 align="center">Broj sobe: {{s.brojSobe}}</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

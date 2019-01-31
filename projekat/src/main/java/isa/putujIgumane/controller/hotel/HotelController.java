@@ -233,4 +233,34 @@ public class HotelController {
 		
 		return new ResponseEntity<>(oceneDTO, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/oceneSoba/{hotelId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getSveSobe(@PathVariable("hotelId")Long hotelId){
+		
+		Hotel h = new Hotel();
+		h.setId(hotelId);
+		
+		HashSet<Soba> sobe = hotelServiceImpl.getSveSobe(h);
+		List<SobaDTO> sobeDTO = ObjectMapperUtils.mapAll(sobe, SobaDTO.class);
+		
+		return new ResponseEntity<>(sobeDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/ocene/soba/{sobaId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getOceneSobe(@PathVariable("sobaId")Long sobaId){
+		
+		Soba s = new Soba();
+		s.setId(sobaId);
+		
+		List<Ocena> ocene = hotelServiceImpl.getOceneSobe(s);
+		
+		List<OcenaHotelaDTO> oceneDTO = new ArrayList<>();
+		
+		for (Ocena ocena : ocene) {
+			OcenaHotelaDTO ocenaDTO = new OcenaHotelaDTO(ocena.getKorisnik().getUsername(),ocena.getVrednost());
+			oceneDTO.add(ocenaDTO);
+		}
+		
+		return new ResponseEntity<>(oceneDTO, HttpStatus.OK);
+	}
 }

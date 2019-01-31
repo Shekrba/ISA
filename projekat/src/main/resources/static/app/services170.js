@@ -59,7 +59,14 @@ webApp.factory('hotelFactory', function($http) {
 	factory.getOceneHotela = function(hotelId){
 		return $http.get('/PutujIgumane/api/hoteli/ocene/hotel/'+hotelId);
 	}
+		
+	factory.getSveSobe = function(hotelId){
+		return $http.get('/PutujIgumane/api/hoteli/oceneSoba/'+hotelId);
+	}
 	
+	factory.getOceneSobe = function(sobaId){
+		return $http.get('/PutujIgumane/api/hoteli/ocene/soba/'+sobaId);
+	}
 	
 	return factory;
 	

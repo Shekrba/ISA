@@ -195,6 +195,10 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
                 });
                
             }
+          },
+          options: {
+        	  	  autocomplete: true,
+        		  types: ['(cities)']
           }
         },
         options: {

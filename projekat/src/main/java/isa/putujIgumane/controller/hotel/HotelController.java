@@ -133,7 +133,9 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
 		}
 		
-		return new ResponseEntity<>(addedCuh, HttpStatus.OK);
+		CenovnikUslugaHotelaDTO cuhDTO=ObjectMapperUtils.map(addedCuh, CenovnikUslugaHotelaDTO.class);
+		
+		return new ResponseEntity<>(cuhDTO, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/delete/usluga", method = RequestMethod.DELETE)
@@ -202,7 +204,9 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
 		}
 		
-		return new ResponseEntity<>(addedSoba, HttpStatus.OK);
+		SobaDTO sobaDTO=ObjectMapperUtils.map(addedSoba, SobaDTO.class);
+		
+		return new ResponseEntity<>(sobaDTO, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/delete/soba", method = RequestMethod.DELETE)

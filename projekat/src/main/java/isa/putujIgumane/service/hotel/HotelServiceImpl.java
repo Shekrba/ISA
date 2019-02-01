@@ -1,6 +1,7 @@
 package isa.putujIgumane.service.hotel;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
@@ -127,13 +128,13 @@ public class HotelServiceImpl implements HotelService {
 		cenovnikNew.setUsluga(cenovnik.getUsluga());
 	
 		Hotel hotel = findById(hotelId);
-		
-		//cenovnikNew.setHotel(new Hotel(hotel.getId(),hotel.getNaziv(),hotel.getAdresa(),hotel.getOpis(),hotel.getSobe(),hotel.getCenovnikUsluga(),hotel.getProsecnaOcena()));
-		
+	
 		cenovnikNew.setHotel(hotel);
 		
         cenovnikUslugaHotelaRepository.save(cenovnikNew);
       
+        
+        
         return cenovnikNew;
 	}
 	
@@ -188,12 +189,26 @@ public class HotelServiceImpl implements HotelService {
 	
 		Hotel hotel = findById(hotelId);
 		
-		//cenovnikNew.setHotel(new Hotel(hotel.getId(),hotel.getNaziv(),hotel.getAdresa(),hotel.getOpis(),hotel.getSobe(),hotel.getCenovnikUsluga(),hotel.getProsecnaOcena()));
-		
 		sobaNew.setHotel(hotel);
 		
         sobaRepository.save(sobaNew);
-      
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate datum = LocalDate.parse("2019-01-01", formatter);
+        
+        for(int i = 0; i < 365; i++) {
+        	StatusSobe ss = new StatusSobe();
+        	ss.setSoba(sobaNew);
+        	ss.setDatum(datum);
+        	ss.setZauzeto(false);
+        	ss.setCena(2000);
+        	ss.setPopust((short)0);
+        	statusSobeReposatory.save(ss);
+        	
+        	datum = datum.plusDays(1);
+        	System.out.println(datum);
+        }
+        
         return sobaNew;
 	}
 	

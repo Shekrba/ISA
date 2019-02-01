@@ -214,4 +214,9 @@ public class HotelServiceImpl implements HotelService {
 	public List<Ocena> getOceneSobe(Soba soba){
 		return ocenaRepository.findBySoba(soba);
 	}
+	
+	@Override
+	public Double getPrihode(Long hotelId, LocalDate from, LocalDate to) {
+		return sobaRepository.findPrihodeHotela(hotelId, from, to);
+	}
 }

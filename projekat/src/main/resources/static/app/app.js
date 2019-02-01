@@ -35,6 +35,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/oceneSobaKartice.html'
 	}).when('/hoteli/oceneSobe/:sobaId',{
 		templateUrl: 'partials/izvestajOcenaSobe.html'
+	}).when('/hoteli/prihodi/:hotelId',{
+		templateUrl: 'partials/uvidPrihodaHotela.html'
 	}).when('/rentacar/:id',{
 		templateUrl: 'partials/rentacarProfil.html'
 	}).when('/login',{

@@ -23,5 +23,8 @@ public interface SobaRepository extends JpaRepository<Soba, Long> {
 	@Query("select distinct s from Soba s LEFT OUTER JOIN s.rezervacije r WHERE s.hotel.id=?1 AND r.otkazano=false AND r.datumOdlaska>=?2")
 	List<Soba> findRezSobe(Long hotelId, LocalDate today);
 
+	@Query("select sum(r.ukupnaCena) from Soba s LEFT OUTER JOIN s.rezervacije r WHERE s.hotel.id=?1 AND r.otkazano=false AND r.datum>=?2 AND r.datum<=?3")
+	Double findPrihodeHotela(Long hotelId, LocalDate from, LocalDate to);
+	
 	Soba findOneById(Long id);
 }

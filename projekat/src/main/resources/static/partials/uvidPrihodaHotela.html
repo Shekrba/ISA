@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Uvid prihoda hotela</title>
+</head>
+<body>
+<div ng-Controller="uvidPrihodaHotelaController">
+	
+	<div class="container">
+		<div class="page-header">
+			<h2>Uvid prihoda hotela {{hote.naziv}}</h2>
+		</div>
+		<div class="row">		
+			<div class="col-lg-4">
+				<label class="textColor ml-4">Vremenski period prikaza prihoda hotela:</label>
+				<form>
+				<div class="form-group ml-4">
+					<label class="textColor">Od:</label>
+					<input id="from" name="from" type="date"  class="form-control" ng-model="from"/>
+					<label class="textColor">Do:</label>
+					<input id="to" name="to" type="date" class="form-control" ng-model="to"/>
+					<button type="submit" class="btn btn-dark mt-3" ng-click="prikazPrihoda(from,to)">Prikaži</button>
+				</div>
+				<label class="textColor">Prihodi:</label>
+				<input id="to" name="to" type="text" class="form-control" ng-model="prihodi" readonly/>
+				</form>
+			</div>
+			<div class="col-lg-4">
+				
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

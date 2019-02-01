@@ -14,12 +14,21 @@ public class HotelDTO {
 	private String adresa;
 	private String opis; 
 	private Set<CenovnikUslugaHotelaDTO> cenovnikUsluga;
+	private Set<SobaDTO> sobe;
 	private Double prosecnaOcena;
 	
 	public HotelDTO(){
 		
 	}
 	
+	public Set<SobaDTO> getSobe() {
+		return sobe;
+	}
+
+	public void setSobe(Set<SobaDTO> sobe) {
+		this.sobe = sobe;
+	}
+
 	public Long getId() {
 		return id;
 	}

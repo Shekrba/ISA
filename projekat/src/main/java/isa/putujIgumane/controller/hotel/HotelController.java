@@ -48,7 +48,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<HotelDTO> getHotel(@PathVariable("id")Long id){
+	public ResponseEntity<?> getHotel(@PathVariable("id")Long id){
 		
 		Hotel hotel = hotelServiceImpl.findById(id);
 		
@@ -56,7 +56,6 @@ public class HotelController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-				
 		HotelDTO hotelDTO=ObjectMapperUtils.map(hotelServiceImpl.findById(id), HotelDTO.class);
 		
 		return new ResponseEntity<>(hotelDTO, HttpStatus.OK);
@@ -234,18 +233,6 @@ public class HotelController {
 		return new ResponseEntity<>(oceneDTO, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/oceneSoba/{hotelId}", method=RequestMethod.GET)
-	public ResponseEntity<?> getSveSobe(@PathVariable("hotelId")Long hotelId){
-		
-		Hotel h = new Hotel();
-		h.setId(hotelId);
-		
-		HashSet<Soba> sobe = hotelServiceImpl.getSveSobe(h);
-		List<SobaDTO> sobeDTO = ObjectMapperUtils.mapAll(sobe, SobaDTO.class);
-		
-		return new ResponseEntity<>(sobeDTO, HttpStatus.OK);
-	}
-	
 	@RequestMapping(value="/ocene/soba/{sobaId}", method=RequestMethod.GET)
 	public ResponseEntity<?> getOceneSobe(@PathVariable("sobaId")Long sobaId){
 		
@@ -262,5 +249,16 @@ public class HotelController {
 		}
 		
 		return new ResponseEntity<>(oceneDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/prihodi/{hotelId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getPrihode(@PathVariable("hotelId")Long hotelId,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate toDate){
+		
+		Double prihodi = hotelServiceImpl.getPrihode(hotelId,fromDate,toDate);
+		
+		if(prihodi==null)
+			prihodi = new Double(0);
+		
+		return new ResponseEntity<>(prihodi, HttpStatus.OK);
 	}
 }

@@ -38,4 +38,5 @@ public interface HotelService {
 	public abstract HashSet<Soba> deleteSoba(Long id,Long hotelId);
 	public abstract List<Ocena> getOceneHotela(Hotel hotel);
 	public abstract List<Ocena> getOceneSobe(Soba soba);
+	public abstract Double getPrihode(Long hotelId, LocalDate from, LocalDate to);
 }

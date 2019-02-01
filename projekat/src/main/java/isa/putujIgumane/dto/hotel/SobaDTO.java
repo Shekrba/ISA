@@ -14,7 +14,7 @@ public class SobaDTO {
 	
 	private int brojSobe;
 	
-	private HotelDTO hotel;
+	//private HotelDTO hotel;
 	
 	private int sprat;
 	
@@ -64,13 +64,13 @@ public class SobaDTO {
 	}
 	
 	
-	public HotelDTO getHotel() {
+	/*public HotelDTO getHotel() {
 		return hotel;
 	}
 
 	public void setHotel(HotelDTO hotel) {
 		this.hotel = hotel;
-	}
+	}*/
 	/*public Set<StatusSobeDTO> getStatusSobe() {
 		return statusSobe;
 	}

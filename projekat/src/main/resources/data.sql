@@ -37,6 +37,12 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
 
 insert into avio_kompanija (id, naziv, adresa, promotivni_opis, prosecna_Ocena,admin_id) values (1, 'WizzAir', 'Nikole Tesle 2, Beograd, Srbija','Najpopularniji u Srbiji',0,4);
 
+insert into rezervacija_sobe(id,datum,datum_dolaska,datum_odlaska,otkazano,ukupna_cena,rezervacija_id,soba_id) values(1,'2019-01-10','2019-10-10','2019-10-11',0,6500,null,1123);
+insert into rezervacija_sobe(id,datum,datum_dolaska,datum_odlaska,otkazano,ukupna_cena,rezervacija_id,soba_id) values(2,'2019-01-20','2019-11-10','2019-11-11',1,6500,null,1123);
+insert into rezervacija_sobe(id,datum,datum_dolaska,datum_odlaska,otkazano,ukupna_cena,rezervacija_id,soba_id) values(3,'2019-01-25','2019-11-10','2019-11-11',1,6500,null,1125);
+insert into rezervacija_sobe(id,datum,datum_dolaska,datum_odlaska,otkazano,ukupna_cena,rezervacija_id,soba_id) values(4,'2019-01-01','2019-01-02','2019-01-03',0,3500,null,1125);
+
+
 insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (1, 4, null,1,3,null,null,null,null);
 insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (2, 5, null,1,1,null,null,null,null);
 insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (3, 3, null,2,3,null,null,null,null);

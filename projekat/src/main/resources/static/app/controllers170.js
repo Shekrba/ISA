@@ -245,12 +245,6 @@ webApp.controller('oceneSobaHotelaController', function($scope, $location, hotel
     	}, function error(response) {
 			$scope.error="Greska";
 		});
-    	
-    	hotelFactory.getSveSobe($routeParams.hotelId).then(function success(response) {
-    		$scope.sobe=response.data;
-    	}, function error(response) {
-    		$scope.error="Greska";
-    	});
     };
 
 	init();
@@ -277,6 +271,27 @@ webApp.controller('izvestajOcenaSobeController', function($scope, $location, hot
     };
 
 	init();
+});
+
+webApp.controller('uvidPrihodaHotelaController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getHotel($routeParams.hotelId).then(function success(response) {
+    		$scope.hotel=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.prikazPrihoda=function(from,to){
+		hotelFactory.getPrihode($routeParams.hotelId,from,to).then(function success(response) {
+    		$scope.prihodi=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	};
 });
 
 webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {

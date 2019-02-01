@@ -72,6 +72,16 @@ webApp.factory('hotelFactory', function($http) {
 		return $http.put('/PutujIgumane/api/hoteli/setStatusi/'+sobaId,{},{params: {cena:cena, popust:popust, from:from, to:to}});
 	};
 	
+	factory.getSobeZaRez = function(cenaFrom,cenaTo,datumFrom,datumTo,brojKreveta){
+		return $http({
+		    url: '/PutujIgumane/api/hoteli/sobe/rez/', 
+		    method: "GET",
+		    params: {cenaFrom:cenaFrom,cenaTo:cenaTo,datumFrom:datumFrom,datumTo:datumTo,brojKreveta:brojKreveta}
+		 });
+	};
+	
+	
+	
 	return factory;
 	
 });

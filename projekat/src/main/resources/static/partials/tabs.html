@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rezervacija</title>
+</head>
+<body>
+<div ng-Controller="tabController">
+	<div class="container">
+		<ul class="nav nav-tabs">
+			<li class="nav-link disabled">
+				<h5>Let</h5>
+			</li>
+			<li class="nav-link active">
+				<h5>Hotel</h5>
+			</li>
+			<li class="nav-link disabled">
+				<h5>Rent a car</h5>
+			</li>
+		</ul>
+		
+		<div class="tab-content">
+			<div ng-include="putanja"></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

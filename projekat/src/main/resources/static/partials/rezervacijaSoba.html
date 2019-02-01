@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rezervacija soba</title>
+</head>
+<body>
+<div ng-Controller="rezervacijaSobaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Rezervacija soba hotela {{hotelRezervacija}}</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Datum dolaska:</label>
+				<input  type="date" class="form-control" ng-model="$root.datumDolaskaHotel"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Datum odlaska:</label>
+				<input  type="date" class="form-control" ng-model="$root.datumOdlaskaHotel"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Broj gostiju:</label>
+				<input  type="text" class="form-control" ng-model="$root.brojGostijuHotel"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Broj soba :</label>
+				<input  type="text" class="form-control" ng-model="$root.brSoba"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Broj kreveta po sobi :</label>
+				<input  type="text" class="form-control" ng-model="$root.brKreveta"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Cena od :</label>
+				<input  type="text" class="form-control" ng-model="$root.cenaOd"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Cena do :</label>
+				<input  type="text" class="form-control" ng-model="$root.cenaDo"/>
+			</div>
+		</div>
+				
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="prikazi()">Prikaži</button>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="s in freeSobe">
+				<div class="card">
+					<h3 align="center">Broj sobe: {{s.brojSobe}}</h3>
+					<p>Sprat: {{s.sprat}}</p>
+					<p>Broj kreveta: {{s.brojKreveta}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

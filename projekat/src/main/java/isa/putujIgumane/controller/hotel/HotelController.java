@@ -284,4 +284,22 @@ public class HotelController {
 		
 		return new ResponseEntity<>(ssDTO, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/sobe/rez", method=RequestMethod.GET)
+	public ResponseEntity<?> getSobeZaRez(@RequestParam("cenaFrom") Double cenaFrom,@RequestParam("cenaTo") Double cenaTo,@RequestParam("datumFrom") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumFrom,@RequestParam("datumTo") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumTo,@RequestParam("brojKreveta") int brojKreveta){
+		List<SobaDTO> SobeDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getSobeZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojKreveta), SobaDTO.class);
+		
+		System.out.println(cenaFrom);
+		System.out.println(cenaTo);
+		System.out.println(datumFrom);
+		System.out.println(datumTo);
+		System.out.println(brojKreveta);
+		
+		for (SobaDTO sobaDTO : SobeDTO) {
+			System.out.println(sobaDTO.getId());
+		}
+		
+		return new ResponseEntity<>(SobeDTO, HttpStatus.OK); 
+	}
+	
 }

@@ -249,4 +249,14 @@ public class HotelServiceImpl implements HotelService {
 		
 		return statusiSobe;
 	}
+	
+	@Override
+	public List<Soba> getSobeZaRez(Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo, int brojKreveta){
+		
+		Long days = ChronoUnit.DAYS.between(datumFrom, datumTo) + 1;
+		
+		System.out.println(days);
+		
+		return sobaRepository.findSobeZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojKreveta, days);
+	}
 }

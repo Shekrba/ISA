@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rezervacija soba</title>
+
+<style>
+	
+</style>
+</head>
+<body>
+<div ng-Controller="rezervacijaSoba2Controller">
+	
+	<div class="container">
+		<div class="page-header">
+			<h2>Izbor soba za rezervacuju</h2>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="s in sobeZaRez">
+				<div class="card">
+					<h3 align="center">Broj sobe: {{s.brojSobe}}</h3>
+					<p>Sprat: {{s.sprat}}</p>
+					<p>Broj kreveta: {{s.brojKreveta}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

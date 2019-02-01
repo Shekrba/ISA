@@ -320,6 +320,69 @@ webApp.controller('podesavanjeCeneSobeController', function($scope, $location, h
 	};
 });
 
+webApp.controller('biranjeRezervacijeHotelaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.regularna=function(){
+		$rootScope.putanja='partials/rezervacijaHotel.html'
+	};
+	
+	$scope.brza=function(){
+		
+	};
+});
+
+webApp.controller('rezervacijaHotelaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+	
+	function init() {
+    	hotelFactory.getAll().then(function success(response) {
+			$scope.hoteli=response.data;
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izaberiHotel=function(hId){
+		$rootScope.hotelRezervacija=hId;
+		$rootScope.putanja='partials/rezervacijaSoba.html'
+	};
+});
+
+webApp.controller('rezervacijaSobaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+	
+	function init() {
+		
+    };
+
+	init();
+	
+	$scope.prikazi=function(){
+		$rootScope.putanja='partials/rezervacijaSoba2.html'
+	};
+});
+
+webApp.controller('rezervacijaSoba2Controller', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+	
+	function init() {
+		
+		hotelFactory.getSobeZaRez($rootScope.cenaOd,$rootScope.cenaDo,$rootScope.datumDolaskaHotel,$rootScope.datumOdlaskaHotel,$rootScope.brKreveta).then(function success(response) {
+			$scope.sobeZaRez=response.data;
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+		
+    };
+
+	init();
+});
+
 webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {
 	
 	function init() {
@@ -331,5 +394,4 @@ webApp.controller('avioKompanijeController', function($scope, $location, avioKom
     };
 
 	init();
-	
 });

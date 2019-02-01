@@ -40,4 +40,5 @@ public interface HotelService {
 	public abstract List<Ocena> getOceneSobe(Soba soba);
 	public abstract Double getPrihode(Long hotelId, LocalDate from, LocalDate to);
 	public abstract List<StatusSobe> setStatuse(Long sobaId,Double cena, Short popust, LocalDate from, LocalDate to);
+	public abstract List<Soba> getSobeZaRez(Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo, int brojKreveta);
 }

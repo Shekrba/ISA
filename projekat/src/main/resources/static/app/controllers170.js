@@ -176,6 +176,10 @@ webApp.controller('konfSobaController', function($scope, $location, hotelFactory
 			$scope.error="Greska";
 		});
 	}
+	
+	$scope.podesiCene=function(id){
+		$location.path("/hoteli/setStatuse/"+id);
+	}
 });
 
 webApp.controller('izmenaSobeController', function($scope, $location, hotelFactory,$routeParams) {
@@ -291,6 +295,28 @@ webApp.controller('uvidPrihodaHotelaController', function($scope, $location, hot
     	}, function error(response) {
 			$scope.error="Greska";
 		});
+	};
+});
+
+webApp.controller('podesavanjeCeneSobeController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getSoba($routeParams.sobaId).then(function success(response) {
+    		$scope.soba=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.podesiSobu=function(cena,popust,from,to){
+		hotelFactory.setStatuse($routeParams.sobaId,cena,popust,from,to).then(function success(response) {
+    		$scope.statusi=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+    	});
+		$location.path("/hoteli/sobe/"+1);
 	};
 });
 

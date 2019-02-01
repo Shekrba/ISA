@@ -27,7 +27,7 @@
 								
 				<table class="table">
 					<tr class="head">
-						<td colspan="5" align="center"><b>SOBE</b></td>
+						<td colspan="6" align="center"><b>SOBE</b></td>
 					</tr>
 					<tr class="head">
 						<td align="center">
@@ -39,6 +39,7 @@
 						<td align="center">
 							Broj kreveta:
 						</td>
+						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
@@ -58,6 +59,9 @@
 						<td align="left">
 							<button class="btn btn-danger btn-sm" ng-click="brisanjeSobe(s.id)"><i class="fa fa-remove"></i></button>
 						</td>
+						<td align="left">
+							<button type="submit" class="btn btn-light btn-sm" ng-click="podesiCene(s.id)"><b>Podesi cene</b></button>
+						</td>
 					</tr>
 					<tr ng-repeat="s in sobe[1]">
 						<td align="center">
@@ -69,7 +73,7 @@
 						<td align="center">
 							{{s.brojKreveta}}
 						</td>
-						<td colspan="2" align="right">
+						<td colspan="3" align="center">
 							<label>Soba je rezervisana</label>
 						</td>
 					</tr>

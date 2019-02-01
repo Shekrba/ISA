@@ -2,6 +2,7 @@ package isa.putujIgumane.service.hotel;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
@@ -206,7 +207,6 @@ public class HotelServiceImpl implements HotelService {
         	statusSobeReposatory.save(ss);
         	
         	datum = datum.plusDays(1);
-        	System.out.println(datum);
         }
         
         return sobaNew;
@@ -233,5 +233,20 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public Double getPrihode(Long hotelId, LocalDate from, LocalDate to) {
 		return sobaRepository.findPrihodeHotela(hotelId, from, to);
+	}
+	
+	@Override
+	public List<StatusSobe> setStatuse(Long sobaId,Double cena, Short popust, LocalDate from, LocalDate to){
+		
+		List<StatusSobe> statusiSobe = statusSobeReposatory.findInDateBySoba(sobaId,from,to);
+		
+		for (StatusSobe ss : statusiSobe) {
+			ss.setCena(cena);
+			ss.setPopust(popust);
+			
+			statusSobeReposatory.save(ss);
+		}
+		
+		return statusiSobe;
 	}
 }

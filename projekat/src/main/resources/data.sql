@@ -1,6 +1,6 @@
 
-
 /*
+
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (1, 'Fontana', 'Kralja Petra I 21, Novi Sad, Srbija','Hotel ima veliko dvoriste',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (2, 'Vojvodina', 'Sutjeska 12, Herceg Novi, Crna Gora','Hotel je veoma popularan leti',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (3, 'Four Seasons', 'Boticelijeva 52c, Firenca, Italija','Veoma blizu autobuske stanice',0);
@@ -2249,6 +2249,6 @@ insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, pop
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (6845, 3, '2019-12-29', 0, 3000, 0);
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (6846, 3, '2019-12-30', 0, 3000, 0);
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (6847, 3, '2019-12-31', 0, 3000, 0);
+
+
 */
-
-

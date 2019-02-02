@@ -122,7 +122,7 @@ webApp.controller('avioKompanijaIzmenaController', function($scope, $location,$r
 webApp.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyDYe0ScGgppIy_3rpGBk7SVofqRFjvir08',
-        v: '3.20', //defaults to latest 3.X anyhow
+        v: '3.35', //defaults to latest 3.X anyhow
         libraries: 'places' // Required for SearchBox.
     });
 });
@@ -146,14 +146,14 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
         searchbox: { 
           template:'searchbox.tpl.html', 
           events:{
-            places_changed: function (searchBox) {
+            place_changed: function (searchBox) {
             	var markers = [];
             	var map=$scope.gmap;
-            	var places = searchBox.getPlaces();
+            	var place = searchBox.getPlace();
 
-                if (places.length == 0) {
+                /*if (places.length == 0) {
                   return;
-                }
+                }*/
 
                 // Clear out the old markers.
                 markers.forEach(function(marker) {
@@ -163,7 +163,7 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
 
                 // For each place, get the icon, name and location.
                 var bounds = new google.maps.LatLngBounds();
-                places.forEach(function(place) {
+                /*places.forEach(function(place) {*/
                   if (!place.geometry) {
                     console.log("Returned place contains no geometry");
                     return;
@@ -191,10 +191,10 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
                     bounds.extend(place.geometry.location);
                   }
                   map.fitBounds(bounds);
-                  $scope.location=searchBox.getPlaces()[0];
-                });
+                  $scope.location=searchBox.getPlace();
+                }
                
-            }
+            //}
           },
           options: {
         	  	  autocomplete: true,
@@ -215,3 +215,41 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
         maps.visualRefresh = true;
       });
   }]);
+
+
+webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $location,$routeParams,$window, korisnikFactory,$log) {
+	
+	function init(){
+		$window.jQuery.event.props.push('dataTransfer');
+		$scope.locations=[];
+	};
+	
+	init();
+	
+	
+});
+
+webApp.controller('ddController', ['$scope' , function($scope){
+	$scope.dropped = function(dragEl, dropEl) { // function referenced by the drop target
+		//this is application logic, for the demo we just want to color the grid squares
+		//the directive provides a native dom object, wrap with jqlite
+		var drop = angular.element(dropEl);
+		var drag = angular.element(dragEl);
+	
+		//clear the previously applied color, if it exists
+		var bgClass = drop.attr('data-color');
+		if (bgClass) {
+			drop.removeClass(bgClass);
+		}
+
+		//add the dragged color
+		bgClass = drag.attr("data-color");
+		drop.addClass(bgClass);
+		drop.attr('data-color', bgClass);
+
+		//if element has been dragged from the grid, clear dragged color
+		if (drag.attr("x-lvl-drop-target")) {
+			drag.removeClass(bgClass);
+		}
+	}
+}]);

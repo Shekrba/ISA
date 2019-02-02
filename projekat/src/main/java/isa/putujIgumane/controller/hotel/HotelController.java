@@ -25,9 +25,11 @@ import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.OcenaHotelaDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
+import isa.putujIgumane.dto.hotel.StatusSobeDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
+import isa.putujIgumane.model.hotel.StatusSobe;
 import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.service.hotel.HotelServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
@@ -265,4 +267,39 @@ public class HotelController {
 		
 		return new ResponseEntity<>(prihodi, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/setStatusi/{sobaId}", method=RequestMethod.PUT)
+	public ResponseEntity<?> setStatuse(@PathVariable("sobaId")Long sobaId, @RequestParam("cena") Double cena,@RequestParam("popust") Short popust,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to){
+		
+		
+		System.out.println(sobaId);
+		System.out.println(cena);
+		System.out.println(popust);
+		System.out.println(from);
+		System.out.println(to);
+		
+		List<StatusSobe> statusiSobe=hotelServiceImpl.setStatuse(sobaId,cena,popust,from,to);
+		
+		List<StatusSobeDTO> ssDTO = ObjectMapperUtils.mapAll(statusiSobe, StatusSobeDTO.class);
+		
+		return new ResponseEntity<>(ssDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/sobe/rez", method=RequestMethod.GET)
+	public ResponseEntity<?> getSobeZaRez(@RequestParam("cenaFrom") Double cenaFrom,@RequestParam("cenaTo") Double cenaTo,@RequestParam("datumFrom") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumFrom,@RequestParam("datumTo") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumTo,@RequestParam("brojKreveta") int brojKreveta){
+		List<SobaDTO> SobeDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getSobeZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojKreveta), SobaDTO.class);
+		
+		System.out.println(cenaFrom);
+		System.out.println(cenaTo);
+		System.out.println(datumFrom);
+		System.out.println(datumTo);
+		System.out.println(brojKreveta);
+		
+		for (SobaDTO sobaDTO : SobeDTO) {
+			System.out.println(sobaDTO.getId());
+		}
+		
+		return new ResponseEntity<>(SobeDTO, HttpStatus.OK); 
+	}
+	
 }

@@ -37,6 +37,7 @@ body {
 .navbar-brand {
 	color: #FA8072;
 }
+
 .imgStart{
 	opacity: 0.5;
 	width: 100%;
@@ -55,4 +56,8 @@ body {
 }
 .textColor{
 	color: #fdf2e9;
+}
+
+.textColor2{
+	color: #FA8072;
 }

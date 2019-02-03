@@ -2249,6 +2249,5 @@ insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, pop
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (6845, 3, '2019-12-29', 0, 3000, 0);
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (6846, 3, '2019-12-30', 0, 3000, 0);
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (6847, 3, '2019-12-31', 0, 3000, 0);
-
-
 */
+

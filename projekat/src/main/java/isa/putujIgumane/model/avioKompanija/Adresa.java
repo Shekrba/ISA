@@ -11,14 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Grad {
+public class Adresa {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	@Column(name = "naziv", unique = false, nullable = false)
-	private String naziv;
+	private String place_id;
 	
 	@ManyToMany(mappedBy = "presedanja")
 	private Set<Let> presedanje=new HashSet<Let>();
@@ -26,25 +22,23 @@ public class Grad {
 	@ManyToMany(mappedBy = "destinacijePoslovanja")
 	private Set<AvioKompanija> destinacija=new HashSet<AvioKompanija>();
 	
-	public Grad() {
+	public Adresa() {
 		
 	}
 	
-	public Long getId() {
-		return id;
+	
+
+	public String getPlace_id() {
+		return place_id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+
+
+	public void setPlace_id(String place_id) {
+		this.place_id = place_id;
 	}
 
-	public String getNaziv() {
-		return naziv;
-	}
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
-	}
 
 	public Set<Let> getPresedanje() {
 		return presedanje;

@@ -9,8 +9,6 @@ import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 @Service
 public interface AvioKompanijaService {
 
-	
-
 	public abstract Page<AvioKompanija> getAll(Pageable pageable);
-	
+	public abstract AvioKompanija editAk(AvioKompanija ak);
 }

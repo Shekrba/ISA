@@ -22,6 +22,7 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
     	 $rootScope.userData=response.data; 
     	 $log.log(response.data);
     	 if(response.data.avioKompanija!=undefined){
+    		 $rootScope.avioKompanija=response.data.avioKompanija;
     		 $location.path("/izmena/ak"); 
     	 };
       });
@@ -34,7 +35,7 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
   };
 }]);
 
-webApp.controller('navController', function($scope, $location,$rootScope,AuthService) {
+webApp.controller('navController', function($scope, $location,$window,$log,$rootScope,AuthService) {
 	
 	function init(){
 		
@@ -46,6 +47,15 @@ webApp.controller('navController', function($scope, $location,$rootScope,AuthSer
 	      AuthService.removeJwtToken();
 	      $rootScope.authenticated = false;
 	      $location.path("#/");
+	      for (var prop in $rootScope) {
+
+	    	   // Check is not $rootScope default properties, functions
+	    	   if (typeof $rootScope[prop] !== 'function' && prop.indexOf('$') == -1 && prop.indexOf('$$') == -1) {
+
+	    	      delete $rootScope[prop];
+
+	    	   }
+	    	}
 	}
 	
 	$scope.searchUsers = function(name){
@@ -107,17 +117,6 @@ webApp.controller('zahteviController', function($scope, $location,$routeParams, 
 	
 });
 
-webApp.controller('avioKompanijaIzmenaController', function($scope, $location,$routeParams, korisnikFactory,$log) {
-	
-	function init(){
-		$scope.locations=[];
-	};
-	
-	init();
-	
-	
-});
-
 //googlemaps
 webApp.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
@@ -126,6 +125,129 @@ webApp.config(function(uiGmapGoogleMapApiProvider) {
         libraries: 'places' // Required for SearchBox.
     });
 });
+
+
+webApp.controller('avioKompanijaIzmenaController', function($rootScope,$scope, $location,$routeParams, korisnikFactory,$log,uiGmapGoogleMapApi,akFactory,uiGmapIsReady) {
+	
+	angular.extend($scope, {
+        showingMap: {center: 
+          {
+            latitude: 40.1451, 
+            longitude: -99.6680  
+          }, 
+          zoom: 4,
+          events: {
+              tilesloaded: function (map) {
+                  $scope.$apply(function () {
+                      $scope.smap=map;
+                  });
+              }
+          },
+          control:{}
+        }});
+	
+	
+	function init(){
+		
+    		$scope.locations=[];
+		//$scope.showingMap={ control : {}, };
+		
+		
+	};
+	
+	init();
+		
+	
+	uiGmapIsReady.promise(2).then(function(instances) {
+        
+        var map = instances[0].map;
+        var service = new google.maps.places.PlacesService(map);
+        $rootScope.avioKompanija.destinacijePoslovanja.forEach(function(i,x){
+        	$log.log(service);
+        	service.getDetails(
+        		    {placeId: i.place_id},
+        		    function(results, status) {
+        		    	$log.log(results);
+        		    	$scope.locations.push(results);
+        		    	$scope.$apply();
+        		    }
+        		);
+
+   
+        });
+	});
+	
+	
+	$scope.confirmEdit=function(){
+		$rootScope.avioKompanija.destinacijePoslovanja=$scope.locations;
+		akFactory.editAk($rootScope.avioKompanija).then(function success(response){
+			toast("Uspesno izmenjeno");
+			$rootScope.avioKompanija=response.data;
+		});
+	};
+	
+	$scope.showPlace=function(id){
+		var map=$scope.smap;
+	        var geocoder = new google.maps.Geocoder;
+	        var infowindow = new google.maps.InfoWindow;
+
+	        
+
+	      // This function is called when the user clicks the UI button requesting
+	      // a geocode of a place ID.
+	   
+	        var placeId = id;
+	        geocoder.geocode({'placeId': placeId}, function(results, status) {
+	          if (status === 'OK') {
+	            if (results[0]) {
+	              map.setZoom(8);
+	              map.setCenter(results[0].geometry.location);
+	              var marker = new google.maps.Marker({
+	                map: map,
+	                position: results[0].geometry.location
+	              });
+	              infowindow.setContent(results[0].formatted_address);
+	              infowindow.open(map, marker);
+	            } else {
+	              toast('No results found');
+	            }
+	          } else {
+	            toast('Geocoder failed due to: ' + status);
+	          }
+	        });
+	}
+	
+	
+           
+ 
+	
+	
+	uiGmapGoogleMapApi.then(function(maps) {
+        maps.visualRefresh = true;
+        
+       /* var geocoder = new google.maps.Geocoder;
+		$rootScope.avioKompanija.destinacijePoslovanja.forEach(function(i){
+			  var placeId = i.place_id;
+		      geocoder.geocode({'placeId': placeId}, function(results, status) {
+		          if (status === 'OK') {
+		            if (results[0]) {
+		              $log.log(results[0]);
+		            } else {
+		              toast('No results found');
+		            }
+		          } else {
+		            toast('Geocoder failed due to: ' + status);
+		          }
+		        });
+		});*/
+        
+       
+        
+        
+      });
+});
+
+
 
 webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', function ($scope, $log, GoogleMapApi) {
 	angular.extend($scope, {
@@ -209,7 +331,8 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
 	$scope.addLocation= function(){
 		$scope.locations.push($scope.location);
 		$('.modal').modal('hide');
-	}
+		
+	};
 	
       GoogleMapApi.then(function(maps) {
         maps.visualRefresh = true;
@@ -217,39 +340,319 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
   }]);
 
 
-webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $location,$routeParams,$window, korisnikFactory,$log) {
+webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $location,$routeParams,$window,$log, korisnikFactory,$log) {
 	
 	function init(){
-		$window.jQuery.event.props.push('dataTransfer');
-		$scope.locations=[];
+		var canvas = new fabric.Canvas('canvas');
+		var canvasWidth = document.getElementById('canvas').width;
+		var canvasHeight = document.getElementById('canvas').height;
+		var counter = 0;
+		rectLeft = 0;
+		snap = 20; //Pixels to snap
+
+		canvas.selection = false;
+		
+
+		function plusrect(top, left, width, height, fill) {
+			var rect = new fabric.Rect({
+				top: 300,
+				name: 'rectangle ' + counter,
+				left: 0 + rectLeft,
+				width: 100,
+				height: 100,
+				fill: 'rgba(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ', 0.75)',
+				lockRotation: true,
+				originX: 'left',
+				originY: 'top',
+				cornerSize: 15,
+				hasRotatingPoint: false,
+				perPixelTargetFind: true,
+				minScaleLimit: 1,
+				maxWidth: canvasWidth,
+				maxHeight: canvasHeight
+			});
+
+			rect.custom = {};
+			rect.custom.counter = counter;
+
+			canvas.add(rect);
+			counter++;
+			rectLeft += 200;
+		}
+
+		function findNewPos(distX, distY, target, obj) {
+			// See whether to focus on X or Y axis
+			if(Math.abs(distX) > Math.abs(distY)) {
+				if (distX > 0) {
+					target.left=(obj.left - target.width);
+				} else {
+					target.left=obj.left + obj.width;
+				}
+			} else {
+				if (distY > 0) {
+					target.top=obj.top - target.height;
+				} else {
+					target.top=obj.top + obj.height;
+				}
+			}
+		}
+
+		canvas.on('object:moving', function (options) {
+			// Sets corner position coordinates based on current angle, width and height
+			options.target.setCoords();
+
+			// Don't allow objects off the canvas
+			if(options.target.left < snap) {
+				options.target.left=0;
+			}
+
+			if(options.target.top < snap) {
+				options.target.top=0;
+			}
+
+			if((options.target.width + options.target.left) > (canvasWidth - snap)) {
+				options.target.left=canvasWidth - options.target.width;
+			}
+
+			if((options.target.height + options.target.top) > (canvasHeight - snap)) {
+				options.target.top=canvasHeight - options.target.height;
+			}
+
+			// Loop through objects
+			canvas.forEachObject(function (obj) {
+				if (obj === options.target) return;
+
+				// If objects intersect
+				if (options.target.isContainedWithinObject(obj) || options.target.intersectsWithObject(obj) || obj.isContainedWithinObject(options.target)) {
+
+					var distX = ((obj.left + obj.width) / 2) - ((options.target.left + options.target.width) / 2);
+					var distY = ((obj.top + obj.height) / 2) - ((options.target.top + options.target.height) / 2);
+
+					// Set new position
+					findNewPos(distX, distY, options.target, obj);
+				}
+
+				// Snap objects to each other horizontally
+
+				// If bottom points are on same Y axis
+				if(Math.abs((options.target.top + options.target.height) - (obj.top + obj.height)) < snap) {
+					// Snap target BL to object BR
+					if(Math.abs(options.target.left - (obj.left + obj.width)) < snap) {
+						options.target.left=obj.left + obj.width;
+						options.target.top=obj.top + obj.height - options.target.height;
+					}
+
+					// Snap target BR to object BL
+					if(Math.abs((options.target.left + options.target.width) - obj.left) < snap) {
+						options.target.left=obj.left - options.target.width;
+						options.target.top=obj.top + obj.height - options.target.height;
+					}
+				}
+
+				// If top points are on same Y axis
+				if(Math.abs(options.target.top - obj.top) < snap) {
+					// Snap target TL to object TR
+					if(Math.abs(options.target.left - (obj.left + obj.width)) < snap) {
+						options.target.left=obj.left + obj.width;
+						options.target.top=obj.top;
+					}
+
+					// Snap target TR to object TL
+					if(Math.abs((options.target.left + options.target.width) - obj.left) < snap) {
+						options.target.left=obj.left - options.target.width;
+						options.target.top=obj.top;
+					}
+				}
+
+				// Snap objects to each other vertically
+
+				// If right points are on same X axis
+				if(Math.abs((options.target.left + options.target.width) - (obj.left + obj.width)) < snap) {
+					// Snap target TR to object BR
+					if(Math.abs(options.target.top - (obj.top + obj.height)) < snap) {
+						options.target.left=obj.left + obj.width - options.target.width;
+						options.target.top=obj.top + obj.height;
+					}
+
+					// Snap target BR to object TR
+					if(Math.abs((options.target.top + options.target.height) - obj.top) < snap) {
+						options.target.left=obj.left + obj.width - options.target.width;
+						options.target.top=obj.top - options.target.height;
+					}
+				}
+
+				// If left points are on same X axis
+				if(Math.abs(options.target.left - obj.left) < snap) {
+					// Snap target TL to object BL
+					if(Math.abs(options.target.top - (obj.top + obj.height)) < snap) {
+						options.target.left=obj.left;
+						options.target.top=obj.top + obj.height;
+					}
+
+					// Snap target BL to object TL
+					if(Math.abs((options.target.top + options.target.height) - obj.top) < snap) {
+						options.target.left=obj.left;
+						options.target.top=obj.top - options.target.height;
+					}
+				}
+			});
+
+			options.target.setCoords();
+
+			// If objects still overlap
+
+			var outerAreaLeft = null,
+			outerAreaTop = null,
+			outerAreaRight = null,
+			outerAreaBottom = null;
+
+			canvas.forEachObject(function (obj) {
+				if (obj === options.target) return;
+
+				if (options.target.isContainedWithinObject(obj) || options.target.intersectsWithObject(obj) || obj.isContainedWithinObject(options.target)) {
+
+					var intersectLeft = null,
+					intersectTop = null,
+					intersectWidth = null,
+					intersectHeight = null,
+					intersectSize = null,
+					targetLeft = options.target.left,
+					targetRight = targetLeft + options.target.width,
+					targetTop = options.target.top,
+					targetBottom = targetTop + options.target.height,
+					objectLeft = obj.left,
+					objectRight = objectLeft + obj.width,
+					objectTop = obj.top,
+					objectBottom = objectTop + obj.height;
+
+					// Find intersect information for X axis
+					if(targetLeft >= objectLeft && targetLeft <= objectRight) {
+						intersectLeft = targetLeft;
+						intersectWidth = obj.width - (intersectLeft - objectLeft);
+
+					} else if(objectLeft >= targetLeft && objectLeft <= targetRight) {
+						intersectLeft = objectLeft;
+						intersectWidth = options.target.width - (intersectLeft - targetLeft);
+					}
+
+					// Find intersect information for Y axis
+					if(targetTop >= objectTop && targetTop <= objectBottom) {
+						intersectTop = targetTop;
+						intersectHeight = obj.height - (intersectTop - objectTop);
+
+					} else if(objectTop >= targetTop && objectTop <= targetBottom) {
+						intersectTop = objectTop;
+						intersectHeight = options.target.height - (intersectTop - targetTop);
+					}
+
+					// Find intersect size (this will be 0 if objects are touching but not overlapping)
+					if(intersectWidth > 0 && intersectHeight > 0) {
+						intersectSize = intersectWidth * intersectHeight;
+					}
+
+					// Set outer snapping area
+					if(obj.left < outerAreaLeft || outerAreaLeft == null) {
+						outerAreaLeft = obj.left;
+					}
+
+					if(obj.top < outerAreaTop || outerAreaTop == null) {
+						outerAreaTop = obj.top;
+					}
+
+					if((obj.left + obj.width) > outerAreaRight || outerAreaRight == null) {
+						outerAreaRight = obj.left + obj.width;
+					}
+
+					if((obj.top + obj.height) > outerAreaBottom || outerAreaBottom == null) {
+						outerAreaBottom = obj.top + obj.height;
+					}
+
+					// If objects are intersecting, reposition outside all shapes which touch
+					if(intersectSize) {
+						var distX = (outerAreaRight / 2) - ((options.target.left + options.target.width) / 2);
+						var distY = (outerAreaBottom / 2) - ((options.target.top + options.target.height) / 2);
+
+						// Set new position
+						findNewPos(distX, distY, options.target, obj);
+					}
+				}
+			});
+		});
+
+		
+		$scope.canvas=canvas;
+		$scope.rbr=1;
+		
 	};
 	
 	init();
 	
+	$scope.addSegment=function(){
+		
+		
+		var rect = new fabric.Rect({
+		  left: 0,
+		  top: 0,
+		  fill: 'white',
+		  width: 30*$scope.columns,
+		  height: 30*$scope.rows,
+		  originX: 'center',
+		  originY: 'center'
+		});
+		
+		/*$scope.rbr="1";
+		
+		var text = new fabric.Text($scope.rbr, { 
+			 
+			  left: 15*$scope.columns, 
+			  top: 15*$scope.rows
+			});
+		
+		
+		*/
+		
+		
+		var t1 = new fabric.Textbox($scope.rbr.toString(), {
+			height: 30*$scope.rows,
+		    width: 20*$scope.columns,
+		    top: 0,
+		    left: 0,
+		    fontSize: 16,
+		    textAlign: 'center',
+		    backgroundColor: 'white',
+		    editable: false, 
+		    cursorWidth: 0,
+		    originX: 'center',
+			originY: 'center'
+		});
+		
+		var group=new fabric.Group([rect,t1],{top:0,left:0});
+		
+		group.lockScalingX=true;
+		group.lockScalingY=true;
+		group.lockUniScaling=true;
+		group.lockRotation=true;
+		
+		var flag=true;
+		obj = $scope.canvas._objects;
+		if(obj!=undefined){
+			
+			obj.forEach(function(i,x) {
+					
+					if (i.top<30*$scope.rows && i.left<30*$scope.columns){
+						flag=false;
+						toast("Postavite prvo poziciju proslog segmenta!");
+						return;
+					}
+			});
+		}
+		if(flag){
+			$scope.canvas.add(group);
+			$scope.rbr++;
+		}
+		
+		//$scope.$apply();
+	};
 	
 });
 
-webApp.controller('ddController', ['$scope' , function($scope){
-	$scope.dropped = function(dragEl, dropEl) { // function referenced by the drop target
-		//this is application logic, for the demo we just want to color the grid squares
-		//the directive provides a native dom object, wrap with jqlite
-		var drop = angular.element(dropEl);
-		var drag = angular.element(dragEl);
-	
-		//clear the previously applied color, if it exists
-		var bgClass = drop.attr('data-color');
-		if (bgClass) {
-			drop.removeClass(bgClass);
-		}
-
-		//add the dragged color
-		bgClass = drag.attr("data-color");
-		drop.addClass(bgClass);
-		drop.attr('data-color', bgClass);
-
-		//if element has been dragged from the grid, clear dragged color
-		if (drag.attr("x-lvl-drop-target")) {
-			drag.removeClass(bgClass);
-		}
-	}
-}]);

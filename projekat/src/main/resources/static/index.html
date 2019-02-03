@@ -38,8 +38,9 @@
   						<a href="#/hoteli/prihodi/1" class="dropdown-item">Uvid u prihode</a>
   					</div>
   				</li>
-				
-						
+				<li ng-if="authenticated" class="nav-item">
+					<a href="#/izmena/letovi" class="nav-link">Letovi</a>
+				</li>		
 				<li ng-if="!authenticated" class="nav-item">
 					<a href="#/login" class="nav-link">Prijava</a>
 				</li>
@@ -66,6 +67,8 @@
 <script src="js/angular.js"></script>
 <script src="js/angular-route.js"></script>
 <script src="js/jquery.min.js"></script>
+<script src="js/fabric.min.js"></script>
+
 <script src="js/toast.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 <script src="js/loodash.js"></script>

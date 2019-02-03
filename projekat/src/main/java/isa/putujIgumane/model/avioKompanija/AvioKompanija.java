@@ -30,17 +30,18 @@ public class AvioKompanija {
 	@Column(name = "naziv", unique = true, nullable = false)
 	private String naziv;
 
+	
 	@Column(name = "adresa", unique = false, nullable = false)
 	private String adresa;
 	
 	@Column(name = "promotivniOpis", unique = false, nullable = true)
 	private String promotivniOpis;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "destinacije",
                joinColumns = @JoinColumn(name="aviokompanija_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="grad_id", referencedColumnName="id"))
-	private Set<Grad> destinacijePoslovanja=new HashSet<Grad>();
+               inverseJoinColumns = @JoinColumn(name="grad_id", referencedColumnName="place_id"))
+	private Set<Adresa> destinacijePoslovanja=new HashSet<Adresa>();
 	
 	@OneToMany(mappedBy="avioKompanija",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Let> letovi=new HashSet<Let>();
@@ -70,10 +71,10 @@ public class AvioKompanija {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Set<Grad> getDestinacijePoslovanja() {
+	public Set<Adresa> getDestinacijePoslovanja() {
 		return destinacijePoslovanja;
 	}
-	public void setDestinacijePoslovanja(Set<Grad> destinacijePoslovanja) {
+	public void setDestinacijePoslovanja(Set<Adresa> destinacijePoslovanja) {
 		this.destinacijePoslovanja = destinacijePoslovanja;
 	}
 	public Set<Let> getLetovi() {
@@ -107,6 +108,14 @@ public class AvioKompanija {
 	}
 	public void setProsecnaOcena(Double prosecnaOcena) {
 		this.prosecnaOcena = prosecnaOcena;
+	}
+	
+	public Korisnik getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Korisnik admin) {
+		this.admin = admin;
 	}
 	
 }

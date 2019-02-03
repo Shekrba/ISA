@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
-import isa.putujIgumane.model.avioKompanija.Grad;
+import isa.putujIgumane.model.avioKompanija.Adresa;
 
 public class AvioKompanijaDTO {
 
@@ -12,7 +12,7 @@ public class AvioKompanijaDTO {
 	private String naziv;
 	private String adresa;
 	private String promotivniOpis;
-	private Set<GradDTO> destinacijePoslovanja;
+	private Set<AdresaDTO> destinacijePoslovanja;
 	
 	
 	public AvioKompanijaDTO() {
@@ -60,12 +60,12 @@ public class AvioKompanijaDTO {
 	}
 
 
-	public Set<GradDTO> getDestinacijePoslovanja() {
+	public Set<AdresaDTO> getDestinacijePoslovanja() {
 		return destinacijePoslovanja;
 	}
 
 
-	public void setDestinacijePoslovanja(Set<GradDTO> destinacijePoslovanja) {
+	public void setDestinacijePoslovanja(Set<AdresaDTO> destinacijePoslovanja) {
 		this.destinacijePoslovanja = destinacijePoslovanja;
 	}
 	

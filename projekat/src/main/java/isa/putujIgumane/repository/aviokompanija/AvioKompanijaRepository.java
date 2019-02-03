@@ -11,7 +11,7 @@ import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.hotel.Hotel;
 
 @Repository
-public interface AvioKompanijaRepository extends JpaRepository<AvioKompanija, Long>{
+public interface AvioKompanijaRepository extends JpaRepository<AvioKompanija, Integer>{
 
 	public Page<AvioKompanija> findAll(Pageable pageable);
 	public List<AvioKompanija> findAll();

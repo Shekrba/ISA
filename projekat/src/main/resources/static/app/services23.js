@@ -93,3 +93,16 @@ webApp.factory('korisnikFactory', function($http) {
 	return factory;
 	
 });
+
+webApp.factory('akFactory', function($http) {
+	
+	var factory = {};
+	factory.editAk = function(ak) {
+		return $http.put('/PutujIgumane/api/aviokompanije/edit',ak);
+	};
+
+	
+	
+	return factory;
+	
+});

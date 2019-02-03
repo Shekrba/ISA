@@ -16,45 +16,130 @@
 <body>
 <div ng-Controller="avioKompanijaIzmenaController">
 	
-	<a href="#/izmena/letovi">Letovi</a>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena Avio Kompanije</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Naziv:</label>
+				<input id="ime" name="ime" type="text" class="form-control" ng-model="avioKompanija.naziv"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Adresa:</label>
+				<input id="adresa" name="adresa" type="text" class="form-control" ng-model="avioKompanija.adresa"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Promotivni opis:</label>
+				<input id="opis" name="opis" type="text" class="form-control" ng-model="avioKompanija.promotivniOpis"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#example1Modal">
+				 Pogledaj lokacije na mapi
+				</button><br/>
+				<div ng-repeat="l in locations"><span class="label label-default">{{l.formatted_address}}</span><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button><br/></div>
 	
-	<p ng-repeat="l in locations">{{l.formatted_address}}</p>
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-	  Izaberi lokacije
-	</button>
-	
-	<!-- Modal -->
-	<div ng-Controller="gmapsController" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Google Maps</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        	<div  id="map_canvas" >
-
-				    <script id="searchbox.tpl.html" type="text/ng-template">
+				
+				
+				<!-- Modal -->
+				<div  class="modal fade" id="example1Modal" tabindex="-1" role="dialog"  aria-labelledby="exampleModal1Label" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModal1Label">Google Maps</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        	<div  id="map_canvas" >
+							    <ui-gmap-google-map control="showingMap.control" center="showingMap.center" zoom="showingMap.zoom" draggable="true" options="options" events="showingMap.events">
+							    </ui-gmap-google-map>
+							</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+				        <div class="dropdown">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Izaberi grad
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						    <button ng-repeat="l in locations" class="dropdown-item" ng-click="showPlace(l.place_id)">{{l.name}}</button>
+						  </div>
+						</div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+				
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+				 Dodaj lokacije
+				</button>
+				
+				<!-- Modal -->
+				<div ng-Controller="gmapsController" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">Google Maps</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        	<div  id="map_canvas" >
+			
+							    <script id="searchbox.tpl.html" type="text/ng-template">
      						 <input type="text" placeholder="Search" >
    					 </script>
-				    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" events="map.events">
-				        <ui-gmap-search-box template="searchbox.template" events="searchbox.events" options="searchbox.options"></ui-gmap-search-box>
-				    </ui-gmap-google-map>
+							    <ui-gmap-google-map  center="map.center" zoom="map.zoom" draggable="true" options="options" events="map.events">
+							        <ui-gmap-search-box template="searchbox.template" events="searchbox.events" options="searchbox.options"></ui-gmap-search-box>
+							    </ui-gmap-google-map>
+							</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+				        <button type="button" class="btn btn-primary" ng-click="addLocation()">Potvrdi</button>
+				      </div>
+				    </div>
+				  </div>
 				</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-	        <button type="button" class="btn btn-primary" ng-click="addLocation()">Potvrdi</button>
-	      </div>
-	    </div>
-	  </div>
+				
+				
+				
+				
+			</div>
+		</div>
+		
+	<div class="row">
+		<div class="col-lg-4 ml-auto mr-auto text-center">
+			<button type="submit" class="btn btn-dark mt-3" ng-click="confirmEdit()">Potvrdi izmene</button>
+		</div>
 	</div>
-
 
   
 </div>
-</div>
+
 </body>
 </html>

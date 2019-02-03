@@ -8,12 +8,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.service.aviokompanija.AvioKompanijaServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -31,6 +34,14 @@ public class AvioKompanijaController {
 		List<AvioKompanijaDTO> akList=ObjectMapperUtils.mapAll(akService.getAll(p).getContent(), AvioKompanijaDTO.class);
 		return new ResponseEntity<>(akList, HttpStatus.OK);
 		
+	}
+	
+	@RequestMapping(value="/edit", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('AKADMIN')")
+	public ResponseEntity<?> editAk(@RequestBody AvioKompanijaDTO akDTO) {
+		AvioKompanija ak=ObjectMapperUtils.map(akDTO, AvioKompanija.class);
+		AvioKompanija ret=akService.editAk(ak);
+		return new ResponseEntity<AvioKompanijaDTO>(ObjectMapperUtils.map(ret, AvioKompanijaDTO.class),HttpStatus.OK);
 	}
 	
 }

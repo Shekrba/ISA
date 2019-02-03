@@ -19,6 +19,13 @@ public class AvioKompanijaServiceImpl implements AvioKompanijaService{
 		return avioKompRepo.findAll(pageable);
 	}
 
+	@Override
+	public AvioKompanija editAk(AvioKompanija ak) {
+		AvioKompanija ak1=avioKompRepo.findOne(ak.getId());
+		ak.setAdmin(ak1.getAdmin());
+		return avioKompRepo.save(ak);
+	}
+
 	
 	
 }

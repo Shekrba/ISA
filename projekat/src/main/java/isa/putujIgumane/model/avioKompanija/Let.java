@@ -48,8 +48,8 @@ public class Let {
 	@ManyToMany
     @JoinTable(name = "presedanja",
                joinColumns = @JoinColumn(name="let_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="grad_id", referencedColumnName="id"))
-	private Set<Grad> presedanja=new HashSet<Grad>();
+               inverseJoinColumns = @JoinColumn(name="grad_id", referencedColumnName="place_id"))
+	private Set<Adresa> presedanja=new HashSet<Adresa>();
 	
 	@OneToMany(mappedBy="let",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Ocena> ocene=new HashSet<Ocena>();
@@ -120,11 +120,11 @@ public class Let {
 		this.duzinaPutovanja = duzinaPutovanja;
 	}
 
-	public Set<Grad> getPresedanja() {
+	public Set<Adresa> getPresedanja() {
 		return presedanja;
 	}
 
-	public void setPresedanja(Set<Grad> presedanja) {
+	public void setPresedanja(Set<Adresa> presedanja) {
 		this.presedanja = presedanja;
 	}
 	

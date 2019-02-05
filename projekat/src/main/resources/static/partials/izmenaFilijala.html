@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmena filijala hotela</title>
+</head>
+<body>
+<div ng-Controller="izmenaSpiskaFilijalaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena filijala rent a car</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				
+				<button class="btn btn-info btn-sm" ng-click="dodavanjeFilijale()"><i class="fa fa-plus"></i></button>
+								
+				<table class="table">
+					<tr class="head">
+						<td colspan="4" align="center"><b>FILIJALE</b></td>
+					</tr>
+					<tr class="head">
+						<td align="center">
+							Drzava:
+						</td>
+						<td align="center">
+							Grad:
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr ng-repeat="f in spisakFilijala">
+						<td align="center">
+							{{f.drzava}}
+						</td>
+						<td align="center">
+							{{f.grad}}
+						</td>
+						<td align="right">
+							<button class="btn btn-secondary btn-sm" ng-click="izmenaFilijale(f.id)"><i class="fa fa-edit"></i></button>
+						</td>
+						<td align="left">
+							<button class="btn btn-danger btn-sm" ng-click="brisanjeFilijale(f.id)"><i class="fa fa-remove"></i></button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</div>
+</body>
+</html>

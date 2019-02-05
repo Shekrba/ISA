@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.StatusZahteva;
 import isa.putujIgumane.model.korisnik.Zahtev;
@@ -72,6 +73,22 @@ public class KorisnikServiceImpl implements KorisnikService{
 	@Override
 	public Korisnik getKorisnik(String username) {
 		return korisnikRepo.findByUsername(username);
+	}
+
+	@Override
+	public Korisnik addKorisnik(KorisnikDTO korisnik) {
+		Korisnik korisnikToAdd = new Korisnik();
+
+		korisnikToAdd.setUsername(korisnik.getUsername());
+		korisnikToAdd.setPassword("123");
+		korisnikToAdd.setIme(korisnik.getIme());
+		korisnikToAdd.setPrezime(korisnik.getPrezime());
+		korisnikToAdd.setEmail(korisnik.getEmail());
+		korisnikToAdd.setEnabled(true);
+						
+		korisnikRepo.save(korisnikToAdd);
+        
+        return korisnikToAdd;
 	}
 
 	

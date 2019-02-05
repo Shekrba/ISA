@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izveštaj ocena servisa</title>
+</head>
+<body>
+<div ng-Controller="izvestajOcenaRentacarController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izveštaj ocena rent a car servisa {{rentacar.nazivServisa}}</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+								
+				<table class="table">
+					<tr class="head">
+						<td colspan="2" align="center"><b>IZVEŠTAJ OCENA</b></td>
+					</tr>
+					<tr class="head">
+						<td align="center">
+							Korisnik:
+						</td>
+						<td align="center">
+							Ocena:
+						</td>
+					</tr>
+					<tr ng-repeat="o in ocene">
+						<td align="center">
+							{{o.username}}
+						</td>
+						<td align="center">
+							{{o.vrednost}}
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</div>
+</div>
+</body>
+</html>

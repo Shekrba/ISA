@@ -45,8 +45,34 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/biranjeRezervacijeHotela.html'
 	}).when('/rentacar/:id',{
 		templateUrl: 'partials/rentacarProfil.html'
+	}).when('/rentacar/editRentacar/:id',{
+		templateUrl: 'partials/rentacarIzmenaInf.html'
+	}).when('/rentacar/filijala/:rentacarId',{
+		templateUrl: 'partials/izmenaFilijala.html'
+	}).when('/rentacar/editFilijala/:filijalaId',{
+		templateUrl: 'partials/izmenaJedneFilijale.html'
+	}).when('/rentacar/addFilijala/:rentacarId',{
+		templateUrl: 'partials/dodavanjeFilijale.html'
+	}).when('/rentacar/vozila/:rentacarId',{
+		templateUrl: 'partials/konfiguracijaVozila.html'
+	}).when('/rentacar/editVozilo/:voziloId',{
+		templateUrl: 'partials/izmenaVozila.html'
+	}).when('/rentacar/addVozilo/:rentacarId',{
+		templateUrl: 'partials/dodavanjeVozila.html'
+	}).when('/rentacar/oceneRentacar/:rentacarId',{
+		templateUrl: 'partials/izvestajOcenaRentacar.html'
+	}).when('/rentacar/oceneVozilaServisa/:rentacarId',{
+		templateUrl: 'partials/oceneVozilaKartice.html'
+	}).when('/rentacar/oceneVozila/:voziloId',{
+		templateUrl: 'partials/izvestajOcenaVozila.html'
+	}).when('/rentacar/prihodi/:rentacarId',{
+		templateUrl: 'partials/uvidPrihodaRentacar.html'
+	}).when('/rentacar/setStatuse/:voziloId',{
+		templateUrl: 'partials/podesavanjeCeneVozila.html'
 	}).when('/login',{
 		templateUrl: 'partials/login.html'
+	}).when('/korisnik/addKorisnik',{
+		templateUrl: 'partials/registracija.html'
 	}).when('/regUserMainPage',{
 		templateUrl: 'partials/regUserMainPage.html'
 	}).when('/regUserHoteli',{

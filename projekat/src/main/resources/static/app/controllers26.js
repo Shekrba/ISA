@@ -36,3 +36,328 @@ webApp.controller('rentacarProfilController', function($scope, $location, rentac
 		});
 	}
 });
+
+webApp.controller('rentacarIzmenaInfController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getRentACar($routeParams.id).then(function success(response) {
+    		$scope.rentacar=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaRentacar=function(r){
+		rentacarFactory.updateRentacar(r).then(function success(response) {
+    		$scope.updatedRentacar=response.data;
+    		$location.path("/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('izmenaSpiskaFilijalaController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getSpisakFilijala($routeParams.rentacarId).then(function success(response) {
+    		$scope.spisakFilijala=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaFilijale=function(id){
+		$location.path("/rentacar/editFilijala/"+id);
+	}
+	
+	$scope.dodavanjeFilijale=function(){
+		$location.path("/rentacar/addFilijala/"+1);
+	}
+	
+	$scope.brisanjeFilijale=function(id){
+		rentacarFactory.deleteFilijala(id,$routeParams.rentacarId).then(function success(response) {
+    		$scope.spisakFilijala=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('izmenaFilijaleController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getFilijala($routeParams.filijalaId).then(function success(response) {
+    		$scope.filijala=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaJedneFilijale=function(f){
+		rentacarFactory.updateFilijala(f).then(function success(response) {
+    		$scope.updatedFilijala=response.data;
+    		$location.path("/rentacar/filijala/1");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('dodajFilijaluController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.dodavanjeFilijale=function(f){
+		rentacarFactory.addFilijala(f,1).then(function success(response) {
+    		$scope.addedFilijala=response.data;
+    		$location.path("/rentacar/spisakFilijala/1");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('konfVozilaController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getVozilaJednogServisa($routeParams.rentacarId).then(function success(response) {
+    		$scope.vozila=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaVozila=function(id){
+		$location.path("/rentacar/editVozilo/"+id);
+	}
+	
+	$scope.dodavanjeVozila=function(){
+		$location.path("/rentacar/addVozilo/"+$routeParams.rentacarId);
+	}
+	
+	$scope.brisanjeVozila=function(id){
+		rentacarFactory.deleteVozilo(id,$routeParams.rentacarId).then(function success(response) {
+    		$scope.vozila[0]=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+	
+	$scope.podesiCene=function(id){
+		$location.path("/rentacar/setStatuse/"+id);
+	}
+});
+
+webApp.controller('izmenaVozilaController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getVozilo($routeParams.voziloId).then(function success(response) {
+    		$scope.vozilo=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izmenaVozila=function(v){
+		rentacarFactory.updateVozilo(v).then(function success(response) {
+    		$scope.updatedVozilo=response.data;
+    		$location.path("/rentacar/vozila/1");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('dodavanjeVozilaController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.dodavanjeVozila=function(v){
+		rentacarFactory.addVozilo(v,1).then(function success(response) {
+    		$scope.addedVozilo=response.data;
+    		$location.path("/rentacar/vozila/1");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('izvestajOcenaRentacarController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getRentACar($routeParams.rentacarId).then(function success(response) {
+    		$scope.rentacar=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    	
+    	rentacarFactory.getOceneRentacar($routeParams.rentacarId).then(function success(response) {
+    		$scope.ocene=response.data;
+    	}, function error(response) {
+    		$scope.error="Greska";
+    	});
+    };
+
+	init();
+});
+
+webApp.controller('oceneVozilaServisaController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getRentACar($routeParams.rentacarId).then(function success(response) {
+    		$scope.rentacar=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.prikaziOceneVozila=function(id){
+		$location.path("/rentacar/oceneVozila/"+id);
+	};
+});
+
+webApp.controller('izvestajOcenaVozilaController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getVozilo($routeParams.voziloId).then(function success(response) {
+    		$scope.vozilo=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    	
+    	rentacarFactory.getOceneVozila($routeParams.voziloId).then(function success(response) {
+    		$scope.ocene=response.data;
+    	}, function error(response) {
+    		$scope.error="Greska";
+    	});
+    };
+
+	init();
+});
+
+webApp.controller('uvidPrihodaRentacarController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getRentACar($routeParams.rentacarId).then(function success(response) {
+    		$scope.rentacar=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.prikazPrihoda=function(from,to){
+		rentacarFactory.getPrihode($routeParams.rentacarId,from,to).then(function success(response) {
+    		$scope.prihodi=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	};
+});
+
+webApp.controller('podesavanjeCeneVozilaController', function($scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	rentacarFactory.getVozilo($routeParams.voziloId).then(function success(response) {
+    		$scope.vozilo=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.podesiVozilo=function(cena,popust,from,to){
+		rentacarFactory.setStatuse($routeParams.voziloId,cena,popust,from,to).then(function success(response) {
+    		$scope.statusi=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+    	});
+		$location.path("/rentacar/vozilo/"+1);
+	};
+});
+
+webApp.controller('biranjeRezervacijeRentacarController', function($rootScope,$scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.regularna=function(){
+		$rootScope.putanja='partials/rezervacijaRentacar.html'
+	};
+	
+	$scope.brza=function(){
+		
+	};
+});
+
+webApp.controller('rezervacijaRentacarController', function($rootScope,$scope, $location, rentacarFactory,$routeParams) {
+	
+	function init() {
+		rentacarFactory.getAll().then(function success(response) {
+			$scope.rentacars=response.data;
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.izaberiRentacar=function(rId){
+		$rootScope.rentacarRezervacija=rId;
+		$rootScope.putanja='partials/rezervacijaVozila.html'
+	};
+});
+
+webApp.controller('rezervacijaVozilaController', function($rootScope,$scope, $location, rentacarFactory,$routeParams) {
+	
+	function init() {
+		
+    };
+
+	init();
+	
+	$scope.prikazi=function(){
+		$rootScope.putanja='partials/rezervacijaVozila2.html'
+	};
+});
+
+webApp.controller('rezervacijaVozila2Controller', function($rootScope,$scope, $location, rentacarFactory,$routeParams) {
+	
+	function init() {
+		
+		rentacarFactory.getVoziloZaRez($rootScope.cenaOd,$rootScope.cenaDo,$rootScope.datumDolaskaRentacar,$rootScope.datumOdlaskaRentacar,$rootScope.brSedista).then(function success(response) {
+			$scope.voziloZaRez=response.data;
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+		
+    };
+
+	init();
+});

@@ -8,7 +8,6 @@ import isa.putujIgumane.model.rentACar.StatusVozila;
 public class StatusVozilaDTO {
 
 	private Long id;
-	private VoziloDTO vozilo;
 	private double cena;
 	private boolean voziloJeIznajmljeno;
 	private LocalDate datum;
@@ -25,12 +24,6 @@ public class StatusVozilaDTO {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public VoziloDTO getVozilo() {
-		return vozilo;
-	}
-	public void setVozilo(VoziloDTO vozilo) {
-		this.vozilo = vozilo;
 	}
 	public double getCena() {
 		return cena;

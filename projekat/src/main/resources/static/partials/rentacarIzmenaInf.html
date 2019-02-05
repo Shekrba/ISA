@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmena informacija rent a car</title>
+</head>
+<body>
+<div ng-Controller="rentacarIzmenaInfController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena rent a car</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Naziv:</label>
+				<input id="ime" name="ime" type="text" class="form-control" ng-model="rentacar.nazivServisa"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Adresa:</label>
+				<input id="adresa" name="adresa" type="text" class="form-control" ng-model="rentacar.adresaServisa"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Promotivni opis:</label>
+				<input id="opis" name="opis" type="text" class="form-control" ng-model="rentacar.opisServisa"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="izmenaRentacar(rentacar)">Izmeni</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

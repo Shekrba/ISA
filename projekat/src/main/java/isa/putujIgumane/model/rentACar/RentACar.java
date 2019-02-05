@@ -27,19 +27,17 @@ public class RentACar {
 	@Column(name = "opisServisa", unique = false, nullable = true)
 	private String opisServisa;
 	
-	@OneToMany(mappedBy = "rentACar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "rentACar", fetch = FetchType.EAGER)
 	private Set<Filijala> filijale = new HashSet<Filijala>();
 	
 	@Column(name = "prosecnaOcenaServisa", unique = false, nullable = true)
 	private Double prosecnaOcenaServisa;
 	
-	//PREMESTITI U FILIJALU
 	@Column(name = "adresaServisa", unique = false, nullable = false)
 	private String adresaServisa;
 	
-	@OneToMany(mappedBy = "rentACar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)//"filijala"
+	@OneToMany(mappedBy = "rentACar", fetch = FetchType.EAGER)
 	private Set<Vozilo> listaVozila = new HashSet<Vozilo>();
-	//
 	
 	@OneToMany(mappedBy="rentACar",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Ocena> ocene=new HashSet<Ocena>();

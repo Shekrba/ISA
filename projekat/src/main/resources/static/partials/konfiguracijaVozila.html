@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmena vozila</title>
+</head>
+<body>
+<div ng-Controller="konfVozilaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena vozila</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				
+				<button class="btn btn-info btn-sm" ng-click="dodavanjeVozila()"><i class="fa fa-plus"></i></button>
+								
+				<table class="table">
+					<tr class="head">
+						<td colspan="5" align="center"><b>VOZILA</b></td>
+					</tr>
+					<tr class="head">
+						<td align="center">
+							Registracija:
+						</td>
+						<td align="center">
+							Marka:
+						</td>
+						<td align="center">
+							Model:
+						</td>
+						<td align="center">
+							Godina:
+						</td>
+						<td align="center">
+							Broj sedista:
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr ng-repeat="v in vozila[0]">
+						<td align="center">
+							{{v.registracijaVozila}}
+						</td>
+						<td align="center">
+							{{v.markaVozila}}
+						</td>
+						<td align="center">
+							{{v.modelVozila}}
+						</td>
+						<td align="center">
+							{{v.godinaProizvodnje}}
+						</td>
+						<td align="center">
+							{{v.brojSedista}}
+						</td>
+						<td align="right">
+							<button class="btn btn-secondary btn-sm" ng-click="izmenaVozila(v.id)"><i class="fa fa-edit"></i></button>
+						</td>
+						<td align="left">
+							<button class="btn btn-danger btn-sm" ng-click="brisanjeVozila(v.id)"><i class="fa fa-remove"></i></button>
+						</td>
+						<td align="left">
+							<button type="submit" class="btn btn-light btn-sm" ng-click="podesiCene(v.id)"><b>Podesi cene</b></button>
+						</td>
+					</tr>
+					<tr ng-repeat="v in vozila[1]">
+						<td align="center">
+							{{v.registracijaVozila}}
+						</td>
+						<td align="center">
+							{{v.markaVozila}}
+						</td>
+						<td align="center">
+							{{v.modelVozila}}
+						</td>
+						<td align="center">
+							{{v.godinaProizvodnje}}
+						</td>
+						<td align="center">
+							{{v.brojSedista}}
+						</td>
+						<td colspan="2" align="right">
+							<label>Vozilo je rezervisano</label>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</div>
+</body>
+</html>

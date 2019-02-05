@@ -40,13 +40,13 @@ public class Vozilo {
 	@Column(name = "brojSedista", unique = false, nullable = false)
 	private int brojSedista;
 	
-	@Column(name = "prosecnaOcenaVozila", unique = false, nullable = true)
-	private Double prosecnaOcenaVozila;
+	@OneToMany(mappedBy="vozilo",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Ocena> ocene=new HashSet<Ocena>();
 	
-	@OneToMany(mappedBy = "vozilo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "vozilo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<StatusVozila> statusVozila = new HashSet<StatusVozila>();
 	
-	@OneToMany(mappedBy = "vozilo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "vozilo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RezervacijaVozila> rezervacije = new HashSet<RezervacijaVozila>();
 	
 	public Vozilo() {
@@ -54,7 +54,7 @@ public class Vozilo {
 	}
 	
 	public Vozilo(Long id, RentACar rentACar, String nazivVozila, String markaVozila, String modelVozila,
-			int godinaProizvodnje, int brojSedista, Double prosecnaOcenaVozila, Set<StatusVozila> statusVozila, Set<RezervacijaVozila> rezervacije) {
+			int godinaProizvodnje, int brojSedista, Set<Ocena> prosecnaOcenaVozila, Set<StatusVozila> statusVozila, Set<RezervacijaVozila> rezervacije) {
 		super();
 		this.id = id;
 		this.rentACar = rentACar;
@@ -63,7 +63,7 @@ public class Vozilo {
 		this.modelVozila = modelVozila;
 		this.godinaProizvodnje = godinaProizvodnje;
 		this.brojSedista = brojSedista;
-		this.prosecnaOcenaVozila = prosecnaOcenaVozila;
+		this.ocene = prosecnaOcenaVozila;
 		this.statusVozila = statusVozila;
 		this.rezervacije = rezervacije;
 	}
@@ -129,13 +129,13 @@ public class Vozilo {
 	}
 
 
-	public Double getProsecnaOcenaVozila() {
-		return prosecnaOcenaVozila;
+	public Set<Ocena> getProsecnaOcenaVozila() {
+		return ocene;
 	}
 
 
-	public void setProsecnaOcenaVozila(Double prosecnaOcenaVozila) {
-		this.prosecnaOcenaVozila = prosecnaOcenaVozila;
+	public void setProsecnaOcenaVozila(Set<Ocena> prosecnaOcenaVozila) {
+		this.ocene = prosecnaOcenaVozila;
 	}
 
 

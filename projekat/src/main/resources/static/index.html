@@ -26,6 +26,17 @@
   			
 			<ul class="navbar-nav ml-auto">
 			
+				<li class="nav-item dropdown" ng-if="authenticated">
+  					<a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target">Rent a car <span class="caret"></span></a>
+  					<div class="dropdown-menu" aria-labelledby="dropdown_targt">
+  						<a href="#/rentacar/editRentacar/1" class="dropdown-item">Izmena servisa</a>
+  						<a href="#/rentacar/filijala/1" class="dropdown-item">Izmena filijala servisa</a>
+  						<a href="#/rentacar/vozila/1" class="dropdown-item">Izmena vozila</a>
+  						<a href="#/rentacar/oceneRentacar/1" class="dropdown-item">Izveštaj prosečne ocene servisa</a>
+  						<a href="#/rentacar/oceneVozilaServisa/1" class="dropdown-item">Izveštaj prosečne ocene vozila</a>
+  						<a href="#/rentacar/prihodi/1" class="dropdown-item">Uvid u prihode</a>
+  					</div>
+  				</li>
 				
 				<li class="nav-item dropdown" ng-if="authenticated">
   					<a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target">Menadžment hotela <span class="caret"></span></a>
@@ -45,7 +56,7 @@
 					<a href="#/login" class="nav-link">Prijava</a>
 				</li>
 				<li ng-if="!authenticated" class="nav-item">
-					<a href="#" class="nav-link">Registracija</a>
+					<a href="#/korisnik/addKorisnik" class="nav-link">Registracija</a>
 				</li>
 				<li ng-if="authenticated" class="nav-item">
 					<a href="#/zahtevi" class="nav-link">Zahtevi za prijateljstvo</a>
@@ -80,6 +91,8 @@
 <script src="app/controllers26.js"></script>
 <script src="app/controllers27.js"></script>
 <script src="app/controllersRez.js"></script>
+<script src="app/controllersRegistracija.js"></script>
+<script src="app/servicesRegistracija.js"></script>
 <script src="app/services170.js"></script>
 <script src="app/services23.js"></script>
 <script src="app/services26.js"></script>

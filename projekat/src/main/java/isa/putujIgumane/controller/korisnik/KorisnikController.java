@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,9 +21,11 @@ import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.ZahtevDTO;
+import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.korisnik.Authority;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Zahtev;
+import isa.putujIgumane.model.rentACar.Vozilo;
 import isa.putujIgumane.service.korisnik.KorisnikServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -90,6 +93,22 @@ public class KorisnikController{
 		}
 		}
 		return new ResponseEntity<String>("Error",HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/addKorisnik", method=RequestMethod.PUT)
+	public ResponseEntity<?> addKorisnik(@RequestBody KorisnikDTO korisnik){
+		
+		Korisnik addedKorisnik = null;
+		
+		try {
+			addedKorisnik = korisnikService.addKorisnik(korisnik);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		KorisnikDTO korisnikDTO=ObjectMapperUtils.map(addedKorisnik, KorisnikDTO.class);
+		
+		return new ResponseEntity<>(korisnikDTO, HttpStatus.OK);
 	}
 	
 }

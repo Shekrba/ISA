@@ -12,6 +12,7 @@ public class KorisnikDTO {
 	private String ime;
 	private String prezime;
 	private String email;
+	private String password;
 	
 	public KorisnikDTO() {
 		
@@ -55,6 +56,14 @@ public class KorisnikDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

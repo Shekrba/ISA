@@ -1,13 +1,18 @@
 package isa.putujIgumane.service.korisnik;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
+import isa.putujIgumane.model.korisnik.Authority;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.StatusZahteva;
 import isa.putujIgumane.model.korisnik.Zahtev;
@@ -17,6 +22,9 @@ import isa.putujIgumane.repository.korisnik.ZahtevRepository;
 @Service
 public class KorisnikServiceImpl implements KorisnikService{
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Autowired 
 	KorisnikRepository korisnikRepo;
 	
@@ -80,13 +88,15 @@ public class KorisnikServiceImpl implements KorisnikService{
 		Korisnik korisnikToAdd = new Korisnik();
 
 		korisnikToAdd.setUsername(korisnik.getUsername());
-		korisnikToAdd.setPassword("123");
+		korisnikToAdd.setPassword(passwordEncoder.encode(korisnik.getPassword()));
 		korisnikToAdd.setIme(korisnik.getIme());
 		korisnikToAdd.setPrezime(korisnik.getPrezime());
 		korisnikToAdd.setEmail(korisnik.getEmail());
-						
+		korisnikToAdd.setEnabled(true);
+					        
+		
 		korisnikRepo.save(korisnikToAdd);
-        
+		
         return korisnikToAdd;
 	}
 

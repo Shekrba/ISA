@@ -36,7 +36,7 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 
 
 @RestController
-@RequestMapping(value= {"api/regUserHoteli", "api/hoteli"}, produces="application/json;charset=UTF-8")
+@RequestMapping(value="api/hoteli", produces="application/json;charset=UTF-8")
 public class HotelController {
 	@Autowired
 	private HotelServiceImpl hotelServiceImpl;

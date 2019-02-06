@@ -84,7 +84,6 @@ public class KorisnikServiceImpl implements KorisnikService{
 		korisnikToAdd.setIme(korisnik.getIme());
 		korisnikToAdd.setPrezime(korisnik.getPrezime());
 		korisnikToAdd.setEmail(korisnik.getEmail());
-		korisnikToAdd.setEnabled(true);
 						
 		korisnikRepo.save(korisnikToAdd);
         

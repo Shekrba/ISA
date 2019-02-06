@@ -7,6 +7,7 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
 
   $scope.login = function() {
     // We are using formLogin in our backend, so here we need to serialize our form data
+	  $location.path("/");
     $http({
       url: 'auth/login',
       method: 'POST',

@@ -10,10 +10,10 @@ webApp.controller('dodavanjeKorisnikaController', function($scope, $location, ko
 
 	init();
 	
-	$scope.dodavanjeKorisnika=function(k){
-		korisnikFactory.addKorisnik(k).then(function success(response) {
+	$scope.dodavanjeKorisnika=function(korisnik){
+		korisnikFactory.addKorisnik(korisnik).then(function success(response) {
     		$scope.addedKorisnik=response.data;
-    		$location.path("/rentacar/vozila/1");
+    		$location.path("/korisnik/addKorisnik");
     	}, function error(response) {
 			$scope.error="Greska";
 		});

@@ -9,4 +9,6 @@ factory.addKorisnik = function(korisnik){
 		return $http.put('/PutujIgumane/api/korisnik/addKorisnik/',korisnik);
 	}
 
-})
+return factory;
+
+});

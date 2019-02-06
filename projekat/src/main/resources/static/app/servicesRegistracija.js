@@ -1,7 +1,7 @@
 /**
  * 
  */
-webApp.factory('korisnikFactory', function($http) {
+webApp.factory('korisnik1Factory', function($http) {
 	
 	var factory = {};
 

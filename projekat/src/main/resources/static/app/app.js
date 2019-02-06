@@ -75,6 +75,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/login.html'
 	}).when('/korisnik/addKorisnik',{
 		templateUrl: 'partials/registracija.html'
+	}).when('/korisnik/uspesnaRegistracija',{
+		templateUrl: 'partials/postRegistracija.html'
 	}).when('/users/:name',{
 		templateUrl: 'partials/pretragaKorisnika.html'
 	}).when('/zahtevi',{

@@ -8,13 +8,13 @@
 <div ng-Controller="tabController">
 	<div class="container">
 		<ul class="nav nav-tabs">
-			<li class="nav-link disabled">
+			<li ng-class="$root.letClass">
 				<h5>Let</h5>
 			</li>
-			<li class="nav-link active">
+			<li ng-class="$root.hotelClass">
 				<h5>Hotel</h5>
 			</li>
-			<li class="nav-link disabled">
+			<li ng-class="$root.rentClass">
 				<h5>Rent a car</h5>
 			</li>
 		</ul>

@@ -503,6 +503,17 @@ webApp.controller('hotelFinishRezController', function($rootScope,$scope, $locat
 	$scope.zavrsiRez=function(){
 		$location.path("/#/");
 	};
+	
+	$scope.rezervisiRent=function(){
+		
+		$rootScope.letClass = 'nav-link disabled';
+		
+		$rootScope.hotelClass = 'nav-link disabled';
+		
+		$rootScope.rentClass = 'nav-link active';
+		
+		$rootScope.putanja='partials/rezervacijaRentacar.html'
+	};
 });
 
 webApp.controller('dodavanjeHotelaController', function($scope, $location, hotelFactory,$routeParams) {

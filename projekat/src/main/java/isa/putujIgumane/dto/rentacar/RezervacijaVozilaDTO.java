@@ -1,10 +1,7 @@
 package isa.putujIgumane.dto.rentacar;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
-import isa.putujIgumane.model.korisnik.Rezervacija;
-import isa.putujIgumane.model.rentACar.RezervacijaVozila;
 
 public class RezervacijaVozilaDTO {
 	
@@ -15,7 +12,6 @@ public class RezervacijaVozilaDTO {
 	private LocalDate datumDolaska;
 	private LocalDate datumOdlaska;
 	private double ukupnaCena;
-	private Rezervacija rezervacija;
 	
 	
 	public RezervacijaVozilaDTO() {
@@ -90,16 +86,6 @@ public class RezervacijaVozilaDTO {
 
 	public void setUkupnaCena(double ukupnaCena) {
 		this.ukupnaCena = ukupnaCena;
-	}
-
-
-	public Rezervacija getRezervacija() {
-		return rezervacija;
-	}
-
-
-	public void setRezervacija(Rezervacija rezervacija) {
-		this.rezervacija = rezervacija;
 	}
 	
 	

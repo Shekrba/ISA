@@ -402,6 +402,10 @@ webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scop
     	$scope.selektovaneSobe++;
     	$scope.selektovaniKreveti+= 1 * s['brojKreveta'];
     	
+    	var rs = {'id'=null,'soba':s,'datumDolaska':$rootScope.datumDolaskaHotel,'datumOdlaska':$rootScope.datumOdlaskaHotel};
+    	
+    	$rootScope.rezervacija.rezervacijaSobe.push(rs);
+    	
     	if($scope.selektovaneSobe == $rootScope.brSoba){
     		$scope.classSobe = 'fa fa-check-circle';
     		$scope.styleSobe = {color:'#99CA27'};
@@ -430,6 +434,15 @@ webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scop
     $scope.izbaciSobu=function(s){
     	$scope.selektovaneSobe--;
     	$scope.selektovaniKreveti-= 1 * s['brojKreveta'];
+    	
+    	var i = 0;
+    	for ( var rs in $rootScope.rezervacija.rezervacijaSobe) {
+			if(rs.soba.id==s.id){
+				$rootScope.rezervacija.rezervacijaSobe.splice(i, 1);
+				break;
+			}
+			i++;
+		}
     	
     	if($scope.selektovaneSobe == $rootScope.brSoba){
     		$scope.classSobe = 'fa fa-check-circle';
@@ -487,12 +500,13 @@ webApp.controller('rezUslugaController', function($route,$rootScope,$scope, $loc
     }
     
     $scope.finishRez = function(){
+    	
     	$rootScope.putanja='partials/hotelFinishRez.html'
     }
 	
 });
 
-webApp.controller('hotelFinishRezController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+webApp.controller('hotelFinishRezController', function($rootScope,$scope, $location, hotelFactory,$routeParams,rezFactory) {
 	
     function init() {
     	
@@ -501,6 +515,13 @@ webApp.controller('hotelFinishRezController', function($rootScope,$scope, $locat
 	init();
 	
 	$scope.zavrsiRez=function(){
+		
+		rezFactory.makeRez($rootScope.rezervacija).then(function success(response) {
+    		$scope.madeRez=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+		
 		$location.path("/#/");
 	};
 	

@@ -18,4 +18,7 @@ public interface StatusSobeRepository extends JpaRepository<StatusSobe, Long> {
 	
 	@Query("select ss from StatusSobe ss where ss.soba.id=?1 and datum>=?2 and datum<=?3")
 	List<StatusSobe> findInDateBySoba(Long sobaId, LocalDate from, LocalDate to);
+	
+	@Query("select sum(ss.cena) from StatusSobe ss where ss.soba.id = ?1 and ss.datum>=?2 and ss.datum<=?3 group by ss.cena")
+	Double findUkupnaCena(Long sobaId, LocalDate from, LocalDate to);
 }

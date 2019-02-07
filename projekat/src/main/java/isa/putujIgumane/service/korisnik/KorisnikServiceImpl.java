@@ -1,35 +1,44 @@
 package isa.putujIgumane.service.korisnik;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.dto.hotel.RezervacijaSobeDTO;
+import isa.putujIgumane.dto.hotel.SobaDTO;
 import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.AdminRentDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
+import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.hotel.Hotel;
-import isa.putujIgumane.model.korisnik.Authority;
+import isa.putujIgumane.model.hotel.RezervacijaSobe;
+import isa.putujIgumane.model.hotel.Soba;
+import isa.putujIgumane.model.hotel.StatusSobe;
 import isa.putujIgumane.model.korisnik.Korisnik;
+import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.korisnik.StatusZahteva;
 import isa.putujIgumane.model.korisnik.Zahtev;
 import isa.putujIgumane.model.rentACar.RentACar;
 import isa.putujIgumane.repository.aviokompanija.AvioKompanijaRepository;
 import isa.putujIgumane.repository.hotel.HotelRepository;
+import isa.putujIgumane.repository.hotel.StatusSobeRepository;
 import isa.putujIgumane.repository.korisnik.KorisnikRepository;
+import isa.putujIgumane.repository.korisnik.RezervacijaRepository;
 import isa.putujIgumane.repository.korisnik.ZahtevRepository;
 import isa.putujIgumane.repository.rentacar.RentACarRepository;
+import isa.putujIgumane.utils.ObjectMapperUtils;
 
+@Transactional(readOnly = true)
 @Service
 public class KorisnikServiceImpl implements KorisnikService{
 
@@ -50,6 +59,12 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Autowired
 	RentACarRepository rentRepo;
+	
+	@Autowired
+	RezervacijaRepository rezRepo;
+	
+	@Autowired
+	StatusSobeRepository statusSobeRepo;
 	
 	@Override
 	public Korisnik getKorisnik(Long id) {
@@ -190,6 +205,29 @@ public class KorisnikServiceImpl implements KorisnikService{
         rentRepo.save(rent);
         
         return adminNew;
+	}
+	
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Override
+	public Rezervacija makeRez(RezervacijaDTO rez) {
+		Rezervacija rezNew = new Rezervacija();
+		
+		for (RezervacijaSobeDTO rs : rez.getRezervacijaSobe()) {
+			RezervacijaSobe rsNew = new RezervacijaSobe();
+			rsNew.setDatum(LocalDate.now());
+			rsNew.setDatumDolaska(rs.getDatumDolaska());
+			rsNew.setDatumOdlaska(rs.getDatumOdlaska());
+			rsNew.setOtkazano(false);
+			Soba soba = ObjectMapperUtils.map(rs.getSoba(), Soba.class);
+			rsNew.setSoba(soba);
+			rsNew.setUkupnaCena(statusSobeRepo.findUkupnaCena(soba.getId(),rsNew.getDatumDolaska(),rsNew.getDatumOdlaska()));
+			rsNew.setRezervacija(rezNew);
+			
+			rezNew.getRezervacijaSobe().add(rsNew);
+		}
+        
+        return rezRepo.save(rezNew);
 	}
 	
 }

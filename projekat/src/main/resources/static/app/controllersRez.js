@@ -1,4 +1,4 @@
-webApp.controller('tabController', function($rootScope,$scope, $location) {
+webApp.controller('tabController', function($rootScope,$scope, $location, $log, rezFactory) {
 	
 	function init() {
 		$rootScope.putanja='partials/biranjeRezervacijeHotela.html';
@@ -8,6 +8,15 @@ webApp.controller('tabController', function($rootScope,$scope, $location) {
 		$rootScope.hotelClass = 'nav-link active';
 		
 		$rootScope.rentClass = 'nav-link disabled';
+		
+		
+	    rezFactory.getEmptyRez().then(function success(response) {
+			$rootScope.rezervacija=response.data;
+			$log.log(response.data);
+	    }, function error(response) {
+			$scope.error="Greska";
+		});
+	   
     };
 
 	init();

@@ -14,6 +14,15 @@
 	<div class="container">
 		<div class="page-header">
 			<h2>Izbor soba za rezervacuju</h2>
+			<div class="row">
+				<div class="col-lg-4">
+					<label class="textColor">Broj selektovanih soba: {{selektovaneSobe}}/{{$root.brSoba}} <i ng-class="classSobe" ng-style="styleSobe"></i></label>
+					<label class="textColor">Broj kreveta: {{selektovaniKreveti}}/{{$root.brojGostijuHotel}} <i ng-class="classKreveti" ng-style="styleKreveti"></i></label>
+				</div>
+				<div class="col-lg-4 ml-auto">
+					<button class="btn btn-dark" ng-disabled="disabledButton" ng-click="finishRez()">Dodaj u rezervaciju</button>
+				</div>
+			</div>
 		</div>
 		
 		<div class="row">
@@ -22,6 +31,8 @@
 					<h3 align="center">Broj sobe: {{s.brojSobe}}</h3>
 					<p>Sprat: {{s.sprat}}</p>
 					<p>Broj kreveta: {{s.brojKreveta}}</p>
+					<button ng-if="s.dodata==false" class="btn btn-outline-success my-2 my-sm-0" ng-click="s.dodata=dodajSobu(s)">Dodaj</button>
+					<button ng-if="s.dodata==true" class="btn btn-outline-danger my-2 my-sm-0" ng-click="s.dodata=izbaciSobu(s)">Izbaci</button>
 				</div>
 			</div>
 		</div>

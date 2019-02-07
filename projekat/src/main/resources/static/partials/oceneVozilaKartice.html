@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ocene vozila servisa</title>
+
+<style>
+	
+</style>
+</head>
+<body>
+<div ng-Controller="oceneVozilaServisaController">
+	
+	<div class="container">
+		<div class="page-header">
+			<h2>Ocene vozila rent a car servisa {{rentacar.nazivServisa}}</h2>
+		</div>
+				
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="v in rentacar.listaVozila">
+			<h2>{{rentacar.listaVozila}}</h2>
+			<h2>{{rentacar.vozila}}</h2>
+			<h2>{{rentacar.vozilo}}</h2>
+			<h2>{{freeVozila}}</h2>
+				<div class="card" ng-click="prikaziOceneVozila(v.id)">
+					<h3 align="center">Registracija: {{v.registracijaVozila}}</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -5,6 +5,10 @@ webApp.factory('hotelFactory', function($http) {
 		return $http.get('/PutujIgumane/api/hoteli/');
 	};
 	
+	factory.getHotelsNull = function() {
+		return $http.get('/PutujIgumane/api/hoteli/null/h');
+	};
+	
 	factory.getHotel = function(id) {
 		return $http.get('/PutujIgumane/api/hoteli/'+id);
 	};
@@ -72,11 +76,19 @@ webApp.factory('hotelFactory', function($http) {
 		return $http.put('/PutujIgumane/api/hoteli/setStatusi/'+sobaId,{},{params: {cena:cena, popust:popust, from:from, to:to}});
 	};
 	
-	factory.getSobeZaRez = function(cenaFrom,cenaTo,datumFrom,datumTo,brojKreveta){
+	factory.addHotel = function(hotel){
+		return $http.put('/PutujIgumane/api/hoteli/add/hotel/',hotel);
+	};
+	
+	factory.addAdminHotel = function(admin){
+		return $http.put('/PutujIgumane/api/korisnik/add/admin/hotel',admin);
+	};
+	
+	factory.getSobeZaRez = function(hotelId,cenaFrom,cenaTo,datumFrom,datumTo,kreveti){
 		return $http({
 		    url: '/PutujIgumane/api/hoteli/sobe/rez/', 
 		    method: "GET",
-		    params: {cenaFrom:cenaFrom,cenaTo:cenaTo,datumFrom:datumFrom,datumTo:datumTo,brojKreveta:brojKreveta}
+		    params: {hotelId:hotelId,cenaFrom:cenaFrom,cenaTo:cenaTo,datumFrom:datumFrom,datumTo:datumTo,kreveti:kreveti}
 		 });
 	};
 	
@@ -92,6 +104,50 @@ webApp.factory('avioKompanijeFactory', function($http) {
 	factory.getAll = function() {
 		return $http.get('/PutujIgumane/api/avioKompanije/');
 	};
+	
+	factory.addAvio = function(avio){
+		return $http.put('/PutujIgumane/api/aviokompanije/add/aviokompanija/',avio);
+	};
+	
+	factory.getAvioNull = function() {
+		return $http.get('/PutujIgumane/api/aviokompanije/null/a');
+	};
+	
+	factory.addAdminAvio = function(admin){
+		return $http.put('/PutujIgumane/api/korisnik/add/admin/aviokompanija',admin);
+	};
+	
+	return factory;
+	
+});
+
+webApp.factory('rentFactory', function($http) {
+		
+	var factory = {};	
+	factory.addRentacar = function(rentacar){
+		return $http.put('/PutujIgumane/api/rentacar/add/rent/',rentacar);
+	};
+
+	factory.getRentNull = function() {
+		return $http.get('/PutujIgumane/api/rentacar/null/r');
+	};
+	
+	factory.addAdminRent = function(admin){
+		return $http.put('/PutujIgumane/api/korisnik/add/admin/rentacar',admin);
+	};
+	
+	return factory;
+	
+});
+
+webApp.factory('sisFactory', function($http) {
+	
+	var factory = {};	
+	
+	/*
+	factory.addAdminSis = function(admin){
+		return $http.put('/PutujIgumane/api/korisnik/add/admin/sistem',admin);
+	};*/
 	
 	return factory;
 	

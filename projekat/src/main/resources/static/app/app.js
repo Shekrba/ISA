@@ -38,26 +38,58 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/uvidPrihodaHotela.html'
 	}).when('/hoteli/setStatuse/:sobaId',{
 		templateUrl: 'partials/podesavanjeCeneSobe.html'
+	}).when('/add/hotel',{
+		templateUrl: 'partials/dodavanjeHotela.html'
+	}).when('/add/aviokompanija',{
+		templateUrl: 'partials/dodavanjeAvio.html'
+	}).when('/add/rentacar',{
+		templateUrl: 'partials/dodavanjeRentacar.html'
+	}).when('/add/admin/hotel',{
+		templateUrl: 'partials/regAdminHotel.html'
+	}).when('/add/admin/aviokompanija',{
+		templateUrl: 'partials/regAdminAvio.html'
+	}).when('/add/admin/rentacar',{
+		templateUrl: 'partials/regAdminRent.html'
+	}).when('/add/admin/sistem',{
+		templateUrl: 'partials/regAdminSis.html'
 	}).when('/rezervacija/',{
 		templateUrl: 'partials/tabs.html'
 	}).when('/rezervacija/hotel/',{
 		templateUrl: 'partials/biranjeRezervacijeHotela.html'
+	}).when('/rezervacija/rentacar/',{
+		templateUrl: 'partials/biranjeRezervacijeRentacara.html'
 	}).when('/rentacar/:id',{
 		templateUrl: 'partials/rentacarProfil.html'
+	}).when('/rentacar/editRentacar/:id',{
+		templateUrl: 'partials/rentacarIzmenaInf.html'
+	}).when('/rentacar/filijala/:rentacarId',{
+		templateUrl: 'partials/izmenaFilijala.html'
+	}).when('/rentacar/editFilijala/:filijalaId',{
+		templateUrl: 'partials/izmenaJedneFilijale.html'
+	}).when('/rentacar/addFilijala/:rentacarId',{
+		templateUrl: 'partials/dodavanjeFilijale.html'
+	}).when('/rentacar/vozila/:rentacarId',{
+		templateUrl: 'partials/konfiguracijaVozila.html'
+	}).when('/rentacar/editVozilo/:voziloId',{
+		templateUrl: 'partials/izmenaVozila.html'
+	}).when('/rentacar/addVozilo/:rentacarId',{
+		templateUrl: 'partials/dodavanjeVozila.html'
+	}).when('/rentacar/oceneRentacar/:rentacarId',{
+		templateUrl: 'partials/izvestajOcenaRentacar.html'
+	}).when('/rentacar/oceneVozilaServisa/:rentacarId',{
+		templateUrl: 'partials/oceneVozilaKartice.html'
+	}).when('/rentacar/oceneVozila/:voziloId',{
+		templateUrl: 'partials/izvestajOcenaVozila.html'
+	}).when('/rentacar/prihodi/:rentacarId',{
+		templateUrl: 'partials/uvidPrihodaRentacar.html'
+	}).when('/rentacar/setStatuse/:voziloId',{
+		templateUrl: 'partials/podesavanjeCeneVozila.html'
 	}).when('/login',{
 		templateUrl: 'partials/login.html'
-	}).when('/regUserMainPage',{
-		templateUrl: 'partials/regUserMainPage.html'
-	}).when('/regUserHoteli',{
-		templateUrl: 'partials/regUserHoteli.html'
-	}).when('/regUserHoteli/:id',{
-		templateUrl: 'partials/regUserHotelProfil.html'
-	}).when('/regUserAvioKompanije',{
-		templateUrl: 'partials/regUserAvioKompanije.html'
-	}).when('/regUserRentacar',{
-		templateUrl: 'partials/regUserRentacar.html'
-	}).when('/regUserRentacar/:id',{
-		templateUrl: 'partials/regUserRentacarProfil.html'
+	}).when('/korisnik/addKorisnik',{
+		templateUrl: 'partials/registracija.html'
+	}).when('/korisnik/uspesnaRegistracija',{
+		templateUrl: 'partials/postRegistracija.html'
 	}).when('/users/:name',{
 		templateUrl: 'partials/pretragaKorisnika.html'
 	}).when('/zahtevi',{

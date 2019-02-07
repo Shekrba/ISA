@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dodavanje vozila</title>
+</head>
+<body>
+<div ng-Controller="dodavanjeVozilaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Dodavanje vozila</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Registracija:</label>
+				<input id="registracija" name="registracija" type="text" class="form-control" ng-model="vozilo.registracijaVozila"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Marka:</label>
+				<input id="marka" name="marka" type="text" class="form-control" ng-model="vozilo.markaVozila"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Model:</label>
+				<input id="model" name="model" type="text" class="form-control" ng-model="vozilo.modelVozila"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Godina:</label>
+				<input id="godina" name="godina" type="text" class="form-control" ng-model="vozilo.godinaProizvodnje"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Broj sedista:</label>
+				<input id="sedista" name="sedista" type="text" class="form-control" ng-model="vozilo.brojSedista"/>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="dodavanjeVozila(vozilo)">Dodaj</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

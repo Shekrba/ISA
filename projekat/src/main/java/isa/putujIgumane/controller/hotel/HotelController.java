@@ -1,9 +1,6 @@
 package isa.putujIgumane.controller.hotel;
 
 
-import java.lang.annotation.Repeatable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,18 +22,21 @@ import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.OcenaHotelaDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
+import isa.putujIgumane.dto.hotel.SobaZaRezDTO;
 import isa.putujIgumane.dto.hotel.StatusSobeDTO;
+import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.hotel.StatusSobe;
+import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.service.hotel.HotelServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
 
 @RestController
-@RequestMapping(value= {"api/regUserHoteli", "api/hoteli"}, produces="application/json;charset=UTF-8")
+@RequestMapping(value="api/hoteli", produces="application/json;charset=UTF-8")
 public class HotelController {
 	@Autowired
 	private HotelServiceImpl hotelServiceImpl;
@@ -46,6 +46,14 @@ public class HotelController {
 		
 		List<HotelDTO> hoteliDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getAll(), HotelDTO.class);
 
+		return new ResponseEntity<>(hoteliDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/null/h", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllHotelsNull() {
+		
+		List<HotelDTO> hoteliDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getAllNull(), HotelDTO.class);
+		
 		return new ResponseEntity<>(hoteliDTO, HttpStatus.OK);
 	}
 	
@@ -272,12 +280,6 @@ public class HotelController {
 	public ResponseEntity<?> setStatuse(@PathVariable("sobaId")Long sobaId, @RequestParam("cena") Double cena,@RequestParam("popust") Short popust,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to){
 		
 		
-		System.out.println(sobaId);
-		System.out.println(cena);
-		System.out.println(popust);
-		System.out.println(from);
-		System.out.println(to);
-		
 		List<StatusSobe> statusiSobe=hotelServiceImpl.setStatuse(sobaId,cena,popust,from,to);
 		
 		List<StatusSobeDTO> ssDTO = ObjectMapperUtils.mapAll(statusiSobe, StatusSobeDTO.class);
@@ -286,20 +288,32 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/sobe/rez", method=RequestMethod.GET)
-	public ResponseEntity<?> getSobeZaRez(@RequestParam("cenaFrom") Double cenaFrom,@RequestParam("cenaTo") Double cenaTo,@RequestParam("datumFrom") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumFrom,@RequestParam("datumTo") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumTo,@RequestParam("brojKreveta") int brojKreveta){
-		List<SobaDTO> SobeDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getSobeZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojKreveta), SobaDTO.class);
+	public ResponseEntity<?> getSobeZaRez(@RequestParam("hotelId") Long hotelId,@RequestParam("cenaFrom") Double cenaFrom,@RequestParam("cenaTo") Double cenaTo,@RequestParam("datumFrom") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumFrom,@RequestParam("datumTo") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumTo,@RequestParam("kreveti") List<Boolean> kreveti){
 		
-		System.out.println(cenaFrom);
-		System.out.println(cenaTo);
-		System.out.println(datumFrom);
-		System.out.println(datumTo);
-		System.out.println(brojKreveta);
+		boolean jed = kreveti.get(0);
+		boolean dvo = kreveti.get(1);
+		boolean tro = kreveti.get(2);
+		boolean cet = kreveti.get(3);
 		
-		for (SobaDTO sobaDTO : SobeDTO) {
-			System.out.println(sobaDTO.getId());
+		List<SobaZaRezDTO> sobeZaRezDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getSobeZaRez(hotelId,cenaFrom, cenaTo, datumFrom, datumTo,jed,dvo,tro,cet), SobaZaRezDTO.class);
+		
+		return new ResponseEntity<>(sobeZaRezDTO, HttpStatus.OK); 
+	}
+	
+	@RequestMapping(value="/add/hotel", method=RequestMethod.PUT)
+	public ResponseEntity<?> addHotel(@RequestBody HotelDTO hotel){
+		
+		Hotel addedHotel = null;
+		
+		try {
+			addedHotel = hotelServiceImpl.addHotel(hotel);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
 		}
 		
-		return new ResponseEntity<>(SobeDTO, HttpStatus.OK); 
+		HotelDTO hotelDTO=ObjectMapperUtils.map(addedHotel, HotelDTO.class);
+		
+		return new ResponseEntity<>(hotelDTO, HttpStatus.OK);
 	}
 	
 }

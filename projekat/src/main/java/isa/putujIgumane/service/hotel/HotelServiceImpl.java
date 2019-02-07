@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -44,6 +45,22 @@ public class HotelServiceImpl implements HotelService {
 		List<Hotel> hoteli = hotelRepository.findAll();
 		
 		return hoteli;
+	}
+	
+	@Override
+	public List<Hotel> getAllNull() {
+		
+		List<Hotel> hoteli = hotelRepository.findAll();
+		
+		List<Hotel> hoteliNull = new ArrayList<>();
+		
+		for (Hotel hotel : hoteli) {
+			if(hotel.getAdmin()==null) {
+				hoteliNull.add(hotel);
+			}
+		}
+		
+		return hoteliNull;
 	}
 	
 	@Override
@@ -251,12 +268,50 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	@Override
-	public List<Soba> getSobeZaRez(Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo, int brojKreveta){
+	public List<Soba> getSobeZaRez(Long hotelId,Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo, boolean jed, boolean dvo, boolean tro, boolean cet){
 		
 		Long days = ChronoUnit.DAYS.between(datumFrom, datumTo) + 1;
 		
-		System.out.println(days);
+		List<Soba> sobe = sobaRepository.findSobeZaRez(cenaFrom, cenaTo, datumFrom, datumTo, days,hotelId);
 		
-		return sobaRepository.findSobeZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojKreveta, days);
+		List<Soba> filtSobe = new ArrayList<>();
+		
+		if(sobe == null)
+			return null;
+		
+		for (Soba s : sobe) {
+			if(jed==true && s.getBrojKreveta()==1) {
+				filtSobe.add(s);
+				continue;
+			}
+			if(dvo==true && s.getBrojKreveta()==2) {
+				filtSobe.add(s);
+				continue;
+			}
+			if(tro==true && s.getBrojKreveta()==3) {
+				filtSobe.add(s);
+				continue;
+			}
+			if(cet==true && s.getBrojKreveta()==4) {
+				filtSobe.add(s);
+				continue;
+			}
+		}
+		
+		return filtSobe;
+	}
+	
+	@Override
+	public Hotel addHotel(HotelDTO hotel) {
+		Hotel hotelNew = new Hotel();
+
+		hotelNew.setNaziv(hotel.getNaziv());
+		hotelNew.setAdresa(hotel.getAdresa());
+		hotelNew.setOpis(hotel.getOpis());
+		hotelNew.setProsecnaOcena(0.0);
+		
+        hotelRepository.save(hotelNew);
+        
+        return hotelNew;
 	}
 }

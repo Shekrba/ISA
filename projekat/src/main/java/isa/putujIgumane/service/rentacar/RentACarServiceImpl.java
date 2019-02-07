@@ -1,17 +1,27 @@
 package isa.putujIgumane.service.rentacar;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+import isa.putujIgumane.dto.rentacar.FilijalaDTO;
+import isa.putujIgumane.dto.rentacar.RentACarDTO;
+import isa.putujIgumane.dto.rentacar.VoziloDTO;
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+import isa.putujIgumane.model.hotel.Hotel;
+import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.model.rentACar.Filijala;
 import isa.putujIgumane.model.rentACar.RentACar;
 import isa.putujIgumane.model.rentACar.StatusVozila;
 import isa.putujIgumane.model.rentACar.Vozilo;
+import isa.putujIgumane.repository.korisnik.OcenaRepository;
 import isa.putujIgumane.repository.rentacar.FilijalaRepository;
 import isa.putujIgumane.repository.rentacar.RentACarRepository;
 import isa.putujIgumane.repository.rentacar.StatusVozilaRepository;
@@ -31,6 +41,9 @@ public class RentACarServiceImpl implements RentACarService{
 	
 	@Autowired
 	private StatusVozilaRepository statusVozilaRepository;
+	
+	@Autowired
+	private OcenaRepository ocenaRepository;
 
 	@Override
 	public List<RentACar> getAll() {
@@ -73,4 +86,220 @@ public class RentACarServiceImpl implements RentACarService{
 		return voziloRepository.findFreeVozila(rentacarId, from, to, days);
 	}
 
+	@Override
+	public RentACar update(RentACarDTO rentacar) throws Exception {
+		
+		RentACar r = new RentACar();
+		r.setId(rentacar.getId());
+		r.setNazivServisa(rentacar.getNazivServisa());
+		r.setAdresaServisa(rentacar.getAdresaServisa());
+		r.setOpisServisa(rentacar.getOpisServisa());
+		r.setProsecnaOcenaServisa(rentacar.getProsecnaOcenaServisa());
+		rentACarRepository.save(r);
+		
+		return r;
 	}
+
+	@Override
+	public HashSet<Filijala> getSpisakFilijala(Long rentacarId) {
+		RentACar rentacar = findById(rentacarId);
+		
+		return filijalaRepository.findByRentACar(rentacar);
+	}
+
+	@Override
+	public Filijala addFilijala(FilijalaDTO filijala, Long rentacarId) {
+		Filijala filijalaNew = new Filijala();
+		filijalaNew.setGrad(filijala.getGrad());
+		filijalaNew.setDrzava(filijala.getDrzava());
+	
+		RentACar rentacar = findById(rentacarId);
+				
+		filijalaNew.setRentACar(rentacar);
+		
+		filijalaRepository.save(filijalaNew);
+      
+        return filijalaNew;
+	}
+
+	@Override
+	public Filijala getFilijala(Long id) {
+		return filijalaRepository.findOneById(id);
+	}
+
+	@Override
+	public Filijala updateFilijala(FilijalaDTO filijala) {
+		Filijala filijalaToUpdate = new Filijala();
+		filijalaToUpdate.setId(filijala.getId());
+		filijalaToUpdate.setGrad(filijala.getGrad());
+		filijalaToUpdate.setDrzava(filijala.getDrzava());
+	
+		RentACar rentacar = getFilijala(filijala.getId()).getRentACar();
+		
+		filijalaToUpdate.setRentACar(new RentACar(rentacar.getId(),rentacar.getNazivServisa(),rentacar.getAdresaServisa(),rentacar.getOpisServisa(),new HashSet<Filijala>(),new HashSet<Vozilo>(),rentacar.getProsecnaOcenaServisa()));
+
+		filijalaRepository.save(filijalaToUpdate);
+      
+        return filijalaToUpdate;
+	}
+
+	@Override
+	public HashSet<Filijala> deleteFilijala(Long id, Long rentacarId) {
+		filijalaRepository.delete(getFilijala(id));
+		
+		return getSpisakFilijala(rentacarId);
+	}
+
+	@Override
+	public HashSet<Vozilo> getNerezervisanaVozila(Long rentacarId) {
+		RentACar rentacar = findById(rentacarId);
+		
+		HashSet<Vozilo> vozila = voziloRepository.findByRentACar(rentacar);
+		
+		for (Vozilo vozilo : voziloRepository.findRezVozila(rentacarId, LocalDate.now())) {
+			vozila.remove(vozilo);
+		}
+		
+		return vozila;
+	}
+
+	@Override
+	public List<Vozilo> getRezervisanaVozila(Long rentacarId) {
+		LocalDate today = LocalDate.now();
+		return voziloRepository.findRezVozila(rentacarId, today);
+	}
+
+	@Override
+	public Vozilo getVozilo(Long id) {
+		return voziloRepository.findOneById(id);
+	}
+
+	@Override
+	public Vozilo updateVozilo(VoziloDTO vozilo) {
+		Vozilo voziloToUpdate = new Vozilo();
+		voziloToUpdate.setId(vozilo.getId());
+		voziloToUpdate.setRegistracijaVozila(vozilo.getRegistracijaVozila());
+		voziloToUpdate.setMarkaVozila(vozilo.getMarkaVozila());
+		voziloToUpdate.setModelVozila(vozilo.getModelVozila());
+		voziloToUpdate.setGodinaProizvodnje(vozilo.getGodinaProizvodnje());
+		voziloToUpdate.setBrojSedista(vozilo.getBrojSedista());
+	
+		RentACar rentacar = getVozilo(vozilo.getId()).getRentACar();
+		
+		voziloToUpdate.setRentACar(new RentACar(rentacar.getId(),rentacar.getNazivServisa(),rentacar.getAdresaServisa(),rentacar.getOpisServisa(),new HashSet<Filijala>(),new HashSet<Vozilo>(),rentacar.getProsecnaOcenaServisa()));
+
+		voziloRepository.save(voziloToUpdate);
+      
+        return voziloToUpdate;
+	}
+
+	@Override
+	public Vozilo addVozilo(VoziloDTO vozilo, Long rentacarId) {
+		Vozilo voziloToUpdate = new Vozilo();
+
+		voziloToUpdate.setRegistracijaVozila(vozilo.getRegistracijaVozila());
+		voziloToUpdate.setMarkaVozila(vozilo.getMarkaVozila());
+		voziloToUpdate.setModelVozila(vozilo.getModelVozila());
+		voziloToUpdate.setGodinaProizvodnje(vozilo.getGodinaProizvodnje());
+		voziloToUpdate.setBrojSedista(vozilo.getBrojSedista());
+		
+		RentACar rentacar = findById(rentacarId);
+				
+		voziloToUpdate.setRentACar(rentacar);
+		
+		voziloRepository.save(voziloToUpdate);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate datum = LocalDate.parse("2019-01-01", formatter);
+        
+        for(int i = 0; i < 365; i++) {
+        	StatusVozila sv = new StatusVozila();
+        	sv.setVozilo(voziloToUpdate);
+        	sv.setDatum(datum);
+        	sv.setVoziloJeIznajmljeno(false);
+        	sv.setCena(2500);
+        	sv.setPopust((short)0);
+        	statusVozilaRepository.save(sv);
+        	
+        	datum = datum.plusDays(1);
+        }
+      
+        return voziloToUpdate;
+	}
+
+	@Override
+	public HashSet<Vozilo> deleteVozilo(Long id, Long rentacarId) {
+		voziloRepository.delete(getVozilo(id));
+		
+		return getNerezervisanaVozila(rentacarId);
+	}
+
+	@Override
+	public List<Ocena> getOceneRentacar(RentACar rentacar) {
+		return ocenaRepository.findByRentACar(rentacar);
+	}
+
+	@Override
+	public List<Ocena> getOceneVozila(Vozilo vozilo) {
+		return ocenaRepository.findByVozilo(vozilo);
+	}
+
+	@Override
+	public Double getPrihode(Long rentacarId, LocalDate from, LocalDate to) {
+		return voziloRepository.findPrihodiRentacar(rentacarId, from, to);
+	}
+
+	@Override
+	public List<StatusVozila> setStatuse(Long voziloId, Double cena, Short popust, LocalDate from, LocalDate to) {
+		List<StatusVozila> statusiVozila = statusVozilaRepository.findInDateByVozilo(voziloId,from,to);
+		
+		for (StatusVozila sv : statusiVozila) {
+			sv.setCena(cena);
+			sv.setPopust(popust);
+			
+			statusVozilaRepository.save(sv);
+		}
+		
+		return statusiVozila;
+	}
+
+	@Override
+	public List<Vozilo> getVoziloZaRez(Double cenaFrom, Double cenaTo, LocalDate datumFrom, LocalDate datumTo,
+			int brojSedista) {
+		Long days = ChronoUnit.DAYS.between(datumFrom, datumTo) + 1;
+		
+		System.out.println(days);
+		
+		return voziloRepository.findVozilaZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojSedista, days);
+	}
+	
+	@Override
+	public RentACar addRent(RentACarDTO rent) {
+		RentACar rentNew = new RentACar();
+
+		rentNew.setNazivServisa(rent.getNazivServisa());
+		rentNew.setAdresaServisa(rent.getAdresaServisa());
+		rentNew.setOpisServisa(rent.getOpisServisa());
+		rentNew.setProsecnaOcenaServisa(0.0);
+		
+        rentACarRepository.save(rentNew);
+        
+        return rentNew;
+	}
+	
+	@Override
+	public List<RentACar> getAllNull() {
+		
+		List<RentACar> rent = rentACarRepository.findAll();
+		
+		List<RentACar> rentNull = new ArrayList<>();
+		
+		for (RentACar r : rent) {
+			if(r.getAdmin()==null) {
+				rentNull.add(r);
+			}
+		}
+		
+		return rentNull;
+	}
+}

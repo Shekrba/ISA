@@ -13,4 +13,6 @@ public interface RentACarRepository extends JpaRepository<RentACar, Long> {
 	Page<RentACar> findAll(Pageable pageable);
 	
 	RentACar findOneById(Long id);
+	
+	RentACar findOneByNazivServisa(String nazivServisa);
 }

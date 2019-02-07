@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,11 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+import isa.putujIgumane.dto.hotel.HAdminDTO;
+import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
+import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
+import isa.putujIgumane.dto.korisnik.AdminRentDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.ZahtevDTO;
+import isa.putujIgumane.dto.rentacar.RAdminDTO;
+import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.korisnik.Authority;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Zahtev;
+import isa.putujIgumane.model.rentACar.Vozilo;
 import isa.putujIgumane.service.korisnik.KorisnikServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -75,6 +83,11 @@ public class KorisnikController{
 	@RequestMapping(value="/data", method=RequestMethod.GET)
 	public ResponseEntity<?> getUserData() {
 		Korisnik k=korisnikService.getKorisnik(SecurityContextHolder.getContext().getAuthentication().getName());
+		if(k.getAuthorities().isEmpty()) {
+			KorisnikDTO kDTO=ObjectMapperUtils.map(k, KorisnikDTO.class);
+			return new ResponseEntity<KorisnikDTO>(kDTO,HttpStatus.OK);
+		} else {
+		
 		Authority a=((List<Authority>)k.getAuthorities()).get(0);
 		switch(a.getName()) {
 		case "ROLE_USER":{
@@ -88,8 +101,82 @@ public class KorisnikController{
 			AKAdminDTO akaDTO=ObjectMapperUtils.map(k, AKAdminDTO.class);
 			return new ResponseEntity<AKAdminDTO>(akaDTO,HttpStatus.OK);
 		}
+		
+		case "ROLE_HADMIN":{
+			HAdminDTO haDTO=ObjectMapperUtils.map(k, HAdminDTO.class);
+			return new ResponseEntity<HAdminDTO>(haDTO,HttpStatus.OK);
+		}
+		
+		case "ROLE_RADMIN":{
+			RAdminDTO raDTO=ObjectMapperUtils.map(k, RAdminDTO.class);
+			return new ResponseEntity<RAdminDTO>(raDTO,HttpStatus.OK);
+		}
 		}
 		return new ResponseEntity<String>("Error",HttpStatus.OK);
+		}
 	}
 	
+	@RequestMapping(value="/addKorisnik", method=RequestMethod.PUT)
+	public ResponseEntity<?> addKorisnik(@RequestBody KorisnikDTO korisnik){
+		
+		Korisnik addedKorisnik = null;
+		
+		try {
+			addedKorisnik = korisnikService.addKorisnik(korisnik);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		KorisnikDTO korisnikDTO=ObjectMapperUtils.map(addedKorisnik, KorisnikDTO.class);
+		
+		return new ResponseEntity<>(korisnikDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/add/admin/hotel", method=RequestMethod.PUT)
+	public ResponseEntity<?> addAdminHotel(@RequestBody AdminHotelaDTO admin){
+		
+		Korisnik addedAdmin = null;
+		
+		try {
+			addedAdmin = korisnikService.addAdminHotel(admin);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		AdminHotelaDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminHotelaDTO.class);
+		
+		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/add/admin/aviokompanija", method=RequestMethod.PUT)
+	public ResponseEntity<?> addAdminAvio(@RequestBody AdminAvioDTO admin){
+		
+		Korisnik addedAdmin = null;
+		
+		try {
+			addedAdmin = korisnikService.addAdminAvio(admin);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		AdminAvioDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminAvioDTO.class);
+		
+		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/add/admin/rentacar", method=RequestMethod.PUT)
+	public ResponseEntity<?> addAdminRent(@RequestBody AdminRentDTO admin){
+		
+		Korisnik addedAdmin = null;
+		
+		try {
+			addedAdmin = korisnikService.addAdminRent(admin);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		AdminRentDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminRentDTO.class);
+		
+		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
+	}
 }

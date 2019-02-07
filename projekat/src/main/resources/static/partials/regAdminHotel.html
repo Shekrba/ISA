@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Registracija administratora hotela</title>
+</head>
+<body>
+<div ng-Controller="regAdminHotelController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Registracija administratora hotela</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Korisničko ime:</label>
+				<input type="text" class="form-control" ng-model="admin.username"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Lozinka:</label>
+				<input type="password" class="form-control" ng-model="admin.password"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Ime:</label>
+				<input type="text" class="form-control" ng-model="admin.ime"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Prezime:</label>
+				<input type="text" class="form-control" ng-model="admin.prezime"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">E-mail:</label>
+				<input type="text" class="form-control" ng-model="admin.email"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Hotel:</label>
+				<select class="form-control" id="sel" ng-model="nazivHotela">
+    				<option ng-repeat="h in hoteli">{{h.naziv}}</option>
+  				</select>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="regAdmin(admin)">Registruj</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -20,6 +20,7 @@ import isa.putujIgumane.model.korisnik.Ocena;
 public interface HotelService {
 	
 	public abstract List<Hotel> getAll();
+	public abstract List<Hotel> getAllNull();
 	public abstract Hotel findById(Long id);
 	public abstract HashSet<Soba> getSveSobe(Hotel hotel);
 	public abstract HashSet<StatusSobe> findStatusBySoba(Soba soba);
@@ -40,5 +41,6 @@ public interface HotelService {
 	public abstract List<Ocena> getOceneSobe(Soba soba);
 	public abstract Double getPrihode(Long hotelId, LocalDate from, LocalDate to);
 	public abstract List<StatusSobe> setStatuse(Long sobaId,Double cena, Short popust, LocalDate from, LocalDate to);
-	public abstract List<Soba> getSobeZaRez(Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo, int brojKreveta);
+	public abstract List<Soba> getSobeZaRez(Long hotelId, Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo,boolean jen,boolean dvo,boolean tro,boolean cet);
+	public abstract Hotel addHotel(HotelDTO hotel);
 }

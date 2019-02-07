@@ -12,4 +12,5 @@ import isa.putujIgumane.model.rentACar.RentACar;
 public interface FilijalaRepository  extends JpaRepository<Filijala, Long> {
 
 	HashSet<Filijala> findByRentACar(RentACar rentacar);
+	Filijala findOneById(Long id);
 }

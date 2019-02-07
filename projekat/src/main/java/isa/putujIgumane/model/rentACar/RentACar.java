@@ -11,7 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Ocena;
 
 @Entity
@@ -27,29 +29,39 @@ public class RentACar {
 	@Column(name = "opisServisa", unique = false, nullable = true)
 	private String opisServisa;
 	
-	@OneToMany(mappedBy = "rentACar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "rentACar", fetch = FetchType.EAGER)
 	private Set<Filijala> filijale = new HashSet<Filijala>();
 	
 	@Column(name = "prosecnaOcenaServisa", unique = false, nullable = true)
 	private Double prosecnaOcenaServisa;
 	
-	//PREMESTITI U FILIJALU
 	@Column(name = "adresaServisa", unique = false, nullable = false)
 	private String adresaServisa;
 	
-	@OneToMany(mappedBy = "rentACar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)//"filijala"
+	@OneToMany(mappedBy = "rentACar", fetch = FetchType.EAGER)
 	private Set<Vozilo> listaVozila = new HashSet<Vozilo>();
-	//
 	
 	@OneToMany(mappedBy="rentACar",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Ocena> ocene=new HashSet<Ocena>();
 
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, optional=true)
+	private Korisnik admin;
 	
 	public RentACar() {
 		
 	}
 	
 	
+	public Korisnik getAdmin() {
+		return admin;
+	}
+
+
+	public void setAdmin(Korisnik admin) {
+		this.admin = admin;
+	}
+
+
 	public Set<Ocena> getOcene() {
 		return ocene;
 	}

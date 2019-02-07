@@ -15,4 +15,5 @@ public interface AvioKompanijaRepository extends JpaRepository<AvioKompanija, In
 
 	public Page<AvioKompanija> findAll(Pageable pageable);
 	public List<AvioKompanija> findAll();
+	public AvioKompanija findOneByNaziv(String naziv);
 }

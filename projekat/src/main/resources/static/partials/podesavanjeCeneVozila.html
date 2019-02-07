@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Podesavanje cene vozila</title>
+</head>
+<body>
+<div ng-Controller="podesavanjeCeneVozilaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Podešavanje cene vozila</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+			<label class="textColor ml-4">Vremenski period podešavanja cene vozila {{vozilo.registracijaVozila}}</label>
+				<form>
+				<div class="form-group ml-4">
+					<label class="textColor">Od:</label>
+					<input id="from" name="from" type="date"  class="form-control" ng-model="from"/>
+					<label class="textColor">Do:</label>
+					<input id="to" name="to" type="date" class="form-control" ng-model="to"/>
+				</div>
+				</form>
+			</div>
+		</div>
+		<form ng-app="" name="myForm" ng-init="cena = '0'">
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Cena vozila:</label>
+				<input id="cena" name="cena" type="text" class="form-control" ng-model="cena"/>
+			</div>
+		</div>
+		</form>
+		<form ng-app="" name="myForm1" ng-init="popust = '0'">
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Popust:</label>
+				<input id="popust" name="popust" type="text" class="form-control" ng-model="popust"/>
+			</div>
+		</div>
+		</form>
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="podesiVozilo(cena,popust,from,to)">Podesi</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

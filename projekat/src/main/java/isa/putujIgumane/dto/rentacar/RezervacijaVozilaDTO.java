@@ -1,6 +1,7 @@
 package isa.putujIgumane.dto.rentacar;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.rentACar.RezervacijaVozila;
@@ -9,23 +10,16 @@ public class RezervacijaVozilaDTO {
 	
 	private Long id;
 	private VoziloDTO vozilo;
-	private Date datum;
+	private LocalDate datum;
 	private boolean otkazano;
-	private Date datumDolaska;
-	private Date datumOdlaska;
+	private LocalDate datumDolaska;
+	private LocalDate datumOdlaska;
 	private double ukupnaCena;
 	private Rezervacija rezervacija;
 	
 	
-	public RezervacijaVozilaDTO(RezervacijaVozila r) {
-		super();
-		this.id = r.getId();
-		this.datum = r.getDatum();
-		this.otkazano = r.isOtkazano();
-		this.datumDolaska = r.getDatumDolaska();
-		this.datumOdlaska = r.getDatumOdlaska();
-		this.ukupnaCena = r.getUkupnaCena();
-		this.rezervacija = r.getRezervacija();
+	public RezervacijaVozilaDTO() {
+		
 	}
 
 
@@ -49,12 +43,12 @@ public class RezervacijaVozilaDTO {
 	}
 
 
-	public Date getDatum() {
+	public LocalDate getDatum() {
 		return datum;
 	}
 
 
-	public void setDatum(Date datum) {
+	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 
@@ -69,22 +63,22 @@ public class RezervacijaVozilaDTO {
 	}
 
 
-	public Date getDatumDolaska() {
+	public LocalDate getDatumDolaska() {
 		return datumDolaska;
 	}
 
 
-	public void setDatumDolaska(Date datumDolaska) {
+	public void setDatumDolaska(LocalDate datumDolaska) {
 		this.datumDolaska = datumDolaska;
 	}
 
 
-	public Date getDatumOdlaska() {
+	public LocalDate getDatumOdlaska() {
 		return datumOdlaska;
 	}
 
 
-	public void setDatumOdlaska(Date datumOdlaska) {
+	public void setDatumOdlaska(LocalDate datumOdlaska) {
 		this.datumOdlaska = datumOdlaska;
 	}
 

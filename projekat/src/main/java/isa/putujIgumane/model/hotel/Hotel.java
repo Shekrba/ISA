@@ -11,7 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Ocena;
 
 
@@ -41,6 +44,9 @@ public class Hotel {
 	
 	@OneToMany(mappedBy="hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Ocena> ocene=new HashSet<Ocena>();
+	
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, optional=true)
+	private Korisnik admin;
 
 	
 	public Set<Ocena> getOcene() {
@@ -66,6 +72,16 @@ public class Hotel {
 		this.cenovnikUsluga = cenovnikUsluga;
 		this.prosecnaOcena = prosecnaOcena;
 	}
+	
+	
+	public Korisnik getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Korisnik admin) {
+		this.admin = admin;
+	}
+
 	public String getNaziv() {
 		return naziv;
 	}

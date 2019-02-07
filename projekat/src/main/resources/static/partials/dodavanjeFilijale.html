@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dodavanje filijale</title>
+</head>
+<body>
+<div ng-Controller="dodajFilijaluController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Dodavanje filijale</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Drzava:</label>
+				<input id="ime" name="ime" type="text" class="form-control" ng-model="filijala.drzava"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Grad:</label>
+				<input id="adresa" name="adresa" type="text" class="form-control" ng-model="filijala.grad"/>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="dodavanjeFilijale(filijala)">Dodaj</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

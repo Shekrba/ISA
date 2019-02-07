@@ -18,6 +18,10 @@ public class Authority implements GrantedAuthority {
 
     @Column(name="name")
     String name;
+    
+    public Authority() {
+    	
+    }
 
     @Override
     public String getAuthority() {

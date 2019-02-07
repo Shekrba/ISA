@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Registracija hotela</title>
+</head>
+<body>
+<div ng-Controller="dodavanjeHotelaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Registracija hotela</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Naziv:</label>
+				<input id="ime" name="ime" type="text" class="form-control" ng-model="hotel.naziv"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Adresa:</label>
+				<input id="adresa" name="adresa" type="text" class="form-control" ng-model="hotel.adresa"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Promotivni opis:</label>
+				<input id="opis" name="opis" type="text" class="form-control" ng-model="hotel.opis"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="dodavanjeHotela(hotel)">Registruj</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -26,6 +26,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+import isa.putujIgumane.model.hotel.Hotel;
+import isa.putujIgumane.model.rentACar.RentACar;
 
 import javax.persistence.JoinColumn;
 
@@ -87,6 +89,12 @@ public class Korisnik implements UserDetails{
 	
 	@OneToOne(mappedBy="admin",fetch=FetchType.EAGER, cascade=CascadeType.ALL, optional=true)
 	private AvioKompanija avioKompanija;
+	
+	@OneToOne(mappedBy="admin",fetch=FetchType.EAGER, cascade=CascadeType.ALL, optional=true)
+	private Hotel hotel;
+	
+	@OneToOne(mappedBy="admin",fetch=FetchType.EAGER, cascade=CascadeType.ALL, optional=true)
+	private RentACar rentACar;
 	
 	public Korisnik() {
 		
@@ -207,6 +215,24 @@ public class Korisnik implements UserDetails{
 		this.avioKompanija = avioKompanija;
 	}
 	
+	
+	
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public RentACar getRentACar() {
+		return rentACar;
+	}
+
+	public void setRentACar(RentACar rentACar) {
+		this.rentACar = rentACar;
+	}
+
 	@Override
 	public boolean isEnabled() {
 		return enabled;

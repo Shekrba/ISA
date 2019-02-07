@@ -1,6 +1,7 @@
 package isa.putujIgumane.model.rentACar;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,16 +25,16 @@ public class RezervacijaVozila {
 	private Vozilo vozilo;
 	
 	@Column(name = "datum", unique = false, nullable = false)
-	private Date datum;
+	private LocalDate datum;
 	
 	@Column(name = "otkazano", unique = false, nullable = false)
 	private boolean otkazano;
 	
 	@Column(name = "datumDolaska", unique = false, nullable = false)
-	private Date datumDolaska;
+	private LocalDate datumDolaska;
 	
 	@Column(name = "datumOdlaska", unique = false, nullable = false)
-	private Date datumOdlaska;
+	private LocalDate datumOdlaska;
 	
 	@Column(name = "ukupnaCena", unique = false, nullable = false)
 	private double ukupnaCena;
@@ -46,7 +47,7 @@ public class RezervacijaVozila {
 		
 	}
 	
-	public RezervacijaVozila(Long id, Vozilo vozilo, Date datum, boolean otkazano, Date datumDolaska, Date datumOdlaska,
+	public RezervacijaVozila(Long id, Vozilo vozilo, LocalDate datum, boolean otkazano, LocalDate datumDolaska, LocalDate datumOdlaska,
 			double ukupnaCena, Rezervacija rezervacija) {
 		super();
 		this.id = id;
@@ -80,12 +81,12 @@ public class RezervacijaVozila {
 	}
 
 
-	public Date getDatum() {
+	public LocalDate getDatum() {
 		return datum;
 	}
 
 
-	public void setDatum(Date datum) {
+	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 
@@ -100,22 +101,22 @@ public class RezervacijaVozila {
 	}
 
 
-	public Date getDatumDolaska() {
+	public LocalDate getDatumDolaska() {
 		return datumDolaska;
 	}
 
 
-	public void setDatumDolaska(Date datumDolaska) {
+	public void setDatumDolaska(LocalDate datumDolaska) {
 		this.datumDolaska = datumDolaska;
 	}
 
 
-	public Date getDatumOdlaska() {
+	public LocalDate getDatumOdlaska() {
 		return datumOdlaska;
 	}
 
 
-	public void setDatumOdlaska(Date datumOdlaska) {
+	public void setDatumOdlaska(LocalDate datumOdlaska) {
 		this.datumOdlaska = datumOdlaska;
 	}
 

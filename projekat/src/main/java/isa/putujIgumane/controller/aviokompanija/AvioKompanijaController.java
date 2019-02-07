@@ -22,11 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.aviokompanija.AdresaDTO;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+
 import isa.putujIgumane.dto.aviokompanija.LetDTO;
 import isa.putujIgumane.dto.aviokompanija.SegmentDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.avioKompanija.Let;
 import isa.putujIgumane.model.avioKompanija.Segment;
+
+import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+import isa.putujIgumane.model.hotel.Hotel;
+
 import isa.putujIgumane.service.aviokompanija.AvioKompanijaServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -54,6 +60,7 @@ public class AvioKompanijaController {
 		return new ResponseEntity<AvioKompanijaDTO>(ObjectMapperUtils.map(ret, AvioKompanijaDTO.class),HttpStatus.OK);
 	}
 	
+
 	@RequestMapping(value="/new/flight", method=RequestMethod.GET)
 	@PreAuthorize("hasRole('AKADMIN')")
 	public ResponseEntity<?> getNewFlight() {
@@ -87,4 +94,29 @@ public class AvioKompanijaController {
 		return new ResponseEntity<String>("Let je uspesno kreiran",HttpStatus.OK);
 	}
 	
+
+	@RequestMapping(value="/add/aviokompanija", method=RequestMethod.PUT)
+	public ResponseEntity<?> addAvio(@RequestBody AvioKompanijaDTO avio){
+		
+		AvioKompanija addedAvio = null;
+		
+		try {
+			addedAvio = akService.addAvio(avio);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		AvioKompanijaDTO avioDTO=ObjectMapperUtils.map(addedAvio, AvioKompanijaDTO.class);
+		
+		return new ResponseEntity<>(avioDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/null/a", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllHotelsNull() {
+		
+		List<AvioKompanijaDTO> avioDTO=ObjectMapperUtils.mapAll(akService.getAllNull(), AvioKompanijaDTO.class);
+		
+		return new ResponseEntity<>(avioDTO, HttpStatus.OK);
+	}
+
 }

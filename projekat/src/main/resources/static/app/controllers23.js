@@ -7,6 +7,7 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
 
   $scope.login = function() {
     // We are using formLogin in our backend, so here we need to serialize our form data
+	  $location.path("/");
     $http({
       url: 'auth/login',
       method: 'POST',
@@ -24,6 +25,15 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
     	 if(response.data.avioKompanija!=undefined){
     		 $rootScope.avioKompanija=response.data.avioKompanija;
     		 $location.path("/izmena/ak"); 
+    	 };
+    	 if(response.data.hotel!=undefined){
+    		 $rootScope.hotel=response.data.hotel;
+    		 $log.log($rootScope.hotel);
+    		 $location.path("/hoteli/editHotel/"+response.data.hotel.id); 
+    	 };
+    	 if(response.data.rentacar!=undefined){
+    		 $rootScope.rentacar=response.data.rentacar;
+    		 $location.path("/rentacar/editRentacar/"+response.data.rentacar.id); 
     	 };
       });
     })

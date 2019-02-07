@@ -10,6 +10,7 @@ public class CenovnikUslugaHotelaDTO {
 	
 	private Double cena;
 	
+	private boolean dodata = false;
 	
 	
 	public CenovnikUslugaHotelaDTO() {
@@ -41,4 +42,17 @@ public class CenovnikUslugaHotelaDTO {
 	public void setCena(Double cena) {
 		this.cena = cena;
 	}
+
+
+
+	public boolean isDodata() {
+		return dodata;
+	}
+
+
+
+	public void setDodata(boolean dodata) {
+		this.dodata = dodata;
+	}
+	
 }

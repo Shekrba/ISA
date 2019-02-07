@@ -1,6 +1,8 @@
 package isa.putujIgumane.model.avioKompanija;
 
 import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,23 +29,23 @@ public class Let {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private AvioKompanija avioKompanija;
 	
 	@OneToMany(mappedBy="let",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Segment> segmenti=new HashSet<Segment>();
 	
 	@Column(name = "vremePoletanja", unique = false, nullable = false)
-	private Date vremePoletanja;
+	private LocalDateTime vremePoletanja;
 	
 	@Column(name = "vremeSletanja", unique = false, nullable = false)
-	private Date vremeSletanja;
+	private LocalDateTime vremeSletanja;
 	
 	@Column(name = "vremePutovanja", unique = false, nullable = false)
-	private Time vremePutovanja;
+	private Duration vremePutovanja;
 	
 	@Column(name = "duzinaPutovanja", unique = false, nullable = false)
-	private int duzinaPutovanja;
+	private double duzinaPutovanja;
 	
 	@ManyToMany
     @JoinTable(name = "presedanja",
@@ -88,35 +90,36 @@ public class Let {
 		this.segmenti = segmenti;
 	}
 
-	public Date getVremePoletanja() {
+
+	public LocalDateTime getVremePoletanja() {
 		return vremePoletanja;
 	}
 
-	public void setVremePoletanja(Date vremePoletanja) {
+	public void setVremePoletanja(LocalDateTime vremePoletanja) {
 		this.vremePoletanja = vremePoletanja;
 	}
 
-	public Date getVremeSletanja() {
+	public LocalDateTime getVremeSletanja() {
 		return vremeSletanja;
 	}
 
-	public void setVremeSletanja(Date vremeSletanja) {
+	public void setVremeSletanja(LocalDateTime vremeSletanja) {
 		this.vremeSletanja = vremeSletanja;
 	}
 
-	public Time getVremePutovanja() {
+	public Duration getVremePutovanja() {
 		return vremePutovanja;
 	}
 
-	public void setVremePutovanja(Time vremePutovanja) {
+	public void setVremePutovanja(Duration vremePutovanja) {
 		this.vremePutovanja = vremePutovanja;
 	}
 
-	public int getDuzinaPutovanja() {
+	public double getDuzinaPutovanja() {
 		return duzinaPutovanja;
 	}
 
-	public void setDuzinaPutovanja(int duzinaPutovanja) {
+	public void setDuzinaPutovanja(double duzinaPutovanja) {
 		this.duzinaPutovanja = duzinaPutovanja;
 	}
 

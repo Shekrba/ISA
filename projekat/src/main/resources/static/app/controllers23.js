@@ -149,7 +149,7 @@ webApp.controller('avioKompanijaIzmenaController', function($rootScope,$scope, $
 	
 	function init(){
 		
-    		$scope.locations=[];
+    		$rootScope.locations=[];
 		//$scope.showingMap={ control : {}, };
 		
 		
@@ -168,8 +168,8 @@ webApp.controller('avioKompanijaIzmenaController', function($rootScope,$scope, $
         		    {placeId: i.place_id},
         		    function(results, status) {
         		    	$log.log(results);
-        		    	$scope.locations.push(results);
-        		    	$scope.$apply();
+        		    	$rootScope.locations.push(results);
+        		    	$rootScope.$apply();
         		    }
         		);
 
@@ -179,7 +179,7 @@ webApp.controller('avioKompanijaIzmenaController', function($rootScope,$scope, $
 	
 	
 	$scope.confirmEdit=function(){
-		$rootScope.avioKompanija.destinacijePoslovanja=$scope.locations;
+		$rootScope.avioKompanija.destinacijePoslovanja=$rootScope.locations;
 		akFactory.editAk($rootScope.avioKompanija).then(function success(response){
 			toast("Uspesno izmenjeno");
 			$rootScope.avioKompanija=response.data;
@@ -249,7 +249,7 @@ webApp.controller('avioKompanijaIzmenaController', function($rootScope,$scope, $
 
 
 
-webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', function ($scope, $log, GoogleMapApi) {
+webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi','$rootScope', function ($scope, $log, GoogleMapApi,$rootScope) {
 	angular.extend($scope, {
         map: {center: 
           {
@@ -329,7 +329,7 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
       });
     
 	$scope.addLocation= function(){
-		$scope.locations.push($scope.location);
+		$rootScope.locations.push($scope.location);
 		$('.modal').modal('hide');
 		
 	};
@@ -340,9 +340,31 @@ webApp.controller('gmapsController', ['$scope', '$log', 'uiGmapGoogleMapApi', fu
   }]);
 
 
-webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $location,$routeParams,$window,$log, korisnikFactory,$log) {
+
+webApp.filter('range', function() {
+	  return function(input, total) {
+	    total = parseInt(total);
+
+	    for (var i=0; i<total; i++) {
+	      input.push(i);
+	    }
+
+	    return input;
+	  };
+	});
+
+
+webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, $location,$routeParams,$window,$log, korisnikFactory,$log,akFactory) {
 	
 	function init(){
+		akFactory.getNewFlight().then(function success(response){
+			$scope.flight=response.data;
+			$scope.cities=$rootScope.locations.slice();
+			$scope.flight.presedanja.push({name:"Izaberi"});
+			$scope.flight.presedanja.push({name:"Izaberi"});
+			$log.log($scope.flight);
+		});
+		
 		var canvas = new fabric.Canvas('canvas');
 		var canvasWidth = document.getElementById('canvas').width;
 		var canvasHeight = document.getElementById('canvas').height;
@@ -580,12 +602,32 @@ webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $locat
 		});
 
 		
+		
 		$scope.canvas=canvas;
 		$scope.rbr=1;
+
+		
 		
 	};
 	
 	init();
+	
+	$scope.addStart=function(x){
+		$scope.flight.presedanja[0]=x;
+	};
+	
+	$scope.addPresedanje=function(){
+		$scope.flight.presedanja.splice($scope.flight.presedanja.length-2, 0, {name:"Izaberi"});
+	};
+	
+	$scope.selectPresedanje=function(x,i){
+		$scope.flight.presedanja[i]=x;
+		//$scope.$apply();
+	};
+	
+	$scope.addFinish=function(x){
+		$scope.flight.presedanja[$scope.flight.presedanja.length - 1]=x;
+	};
 	
 	$scope.addSegment=function(){
 		
@@ -612,7 +654,7 @@ webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $locat
 		*/
 		
 		
-		var t1 = new fabric.Textbox($scope.rbr.toString(), {
+		var t1 = new fabric.Textbox($scope.rbr.toString()+"\n"+$scope.rows+"x"+$scope.columns, {
 			height: 30*$scope.rows,
 		    width: 20*$scope.columns,
 		    top: 0,
@@ -626,7 +668,18 @@ webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $locat
 			originY: 'center'
 		});
 		
-		var group=new fabric.Group([rect,t1],{top:0,left:0});
+		var group=new fabric.Group([rect,t1],{top:0,left:0,
+			  redovi: $scope.rows,
+			  kolone: $scope.columns,
+			  cena: $scope.price,
+			  rbr:$scope.rbr});
+		
+		group.on('mousedown',function(){
+			$scope.rowsMod=this.redovi;
+			$scope.columnsMod=this.kolone;
+			$scope.priceMod=this.cena;
+			$scope.$apply();
+		});
 		
 		group.lockScalingX=true;
 		group.lockScalingY=true;
@@ -634,7 +687,7 @@ webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $locat
 		group.lockRotation=true;
 		
 		var flag=true;
-		obj = $scope.canvas._objects;
+		var obj = $scope.canvas._objects;
 		if(obj!=undefined){
 			
 			obj.forEach(function(i,x) {
@@ -651,8 +704,92 @@ webApp.controller('avioKompanijaIzmenaLetovaController', function($scope, $locat
 			$scope.rbr++;
 		}
 		
-		//$scope.$apply();
+		
+		
+		
+	};
+	
+	$scope.addFlight=function(){
+		var obj = $scope.canvas._objects;
+		if(obj!=undefined){
+			obj.forEach(function(i,x) {
+				var segment={'id':null,'rbr':x,'cena':100,'x':i.left,'y':i.top,'redovi':i.redovi,'kolone':i.kolone};
+				$scope.flight.segmenti[x]=segment;
+			});
+		}
+		akFactory.addFlight($rootScope.avioKompanija.id,$scope.flight).then(function success(response){
+			toast(response.data);
+		});
+	};
+	
+	$scope.editSegment=function(){
+		var activeObj=$scope.canvas._activeObject;
+		
+		var rect = new fabric.Rect({
+			  left: activeObj._objects[0].left,
+			  top: activeObj._objects[0].top,
+			  fill: 'white',
+			  width: 30*$scope.columnsMod,
+			  height: 30*$scope.rowsMod,
+			  originX: 'center',
+			  originY: 'center'
+			});
+		
+		var t1 = new fabric.Textbox(activeObj.rbr.toString()+"\n"+$scope.rowsMod+"x"+$scope.columnsMod, {
+			height: 30*$scope.rowsMod,
+		    width: 20*$scope.columnsMod,
+		    top: activeObj._objects[1].top,
+		    left: activeObj._objects[1].left,
+		    fontSize: 16,
+		    textAlign: 'center',
+		    backgroundColor: 'white',
+		    editable: false, 
+		    cursorWidth: 0,
+		    originX: 'center',
+			originY: 'center'
+		});
+		var group=new fabric.Group([rect,t1],{top:activeObj.top,left:activeObj.left,
+			  redovi: $scope.rowsMod,
+			  kolone: $scope.columnsMod,
+			  cena: $scope.priceMod,
+			  rbr:activeObj.rbr});
+		
+		group.on('mousedown',function(){
+			$scope.rowsMod=this.redovi;
+			$scope.columnsMod=this.kolone;
+			$scope.priceMod=this.cena;
+			$scope.$apply();
+		});
+		
+		group.lockScalingX=true;
+		group.lockScalingY=true;
+		group.lockUniScaling=true;
+		group.lockRotation=true;
+		$scope.canvas.remove($scope.canvas._activeObject);
+		$scope.canvas.add(group);
+		$scope.canvas.setActiveObject(group);
 	};
 	
 });
+
+
+webApp.controller('avioKompanijaIzmenaLetovaController', function($scope,$rootScope, $location,$routeParams, akFactory,$log) {
+	
+	function init(){
+		akFactory.getAllAKFlights($rootScope.avioKompanija.id).then(function success(response){
+			$scope.letovi=response.data;
+		});
+		
+	};
+	
+	init();
+	
+	$scope.formatDate=function(d){
+		var date = new Date();
+		return date.toLocaleString("sr-RS");
+	}
+	
+});
+
+
 

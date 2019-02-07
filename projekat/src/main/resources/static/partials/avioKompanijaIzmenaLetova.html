@@ -2,34 +2,65 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-#canvas {
-  background-color: grey;
-  margin-top: 10px;
-}
-
-</style>
-<script src="../js/fabric.min.js"></script>
-
-<title>Avio kompanije</title>
+<title>Izmena letova</title>
 </head>
 <body>
-
 <div ng-Controller="avioKompanijaIzmenaLetovaController">
 	<div class="container">
-		<div class="col-lg-4"></div>
-			<div class="col-lg-4">
-				<input type="text" ng-model="rows"/>
-				<input type="text" ng-model="columns"/>
-				<button ng-click="addSegment()">Dodaj Segment</button>
-				<canvas id="canvas" width="800" height="600"></canvas>
-			</div>	
-			<div class="col-lg-4"></div>
-		
-		
-
-	</div>
+		<div class="row">
+			<div class="col-lg-4 text-center">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izmena Letova</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				
+				<a class="btn btn-primary" href="#/izmena/letovi/novi" > Dodaj novi let</a>
+								
+				<table class="table">
+					<tr class="head">
+						<td colspan="6" align="center"><b>Letovi</b></td>
+					</tr>
+					<tr class="head">
+						<td align="center">
+							Vreme Poletanja:
+						</td>
+						<td align="center">
+							Vreme Sletanja:
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr ng-repeat="l in letovi">
+						<td align="center">
+							{{formatDate(l.vremePoletanja)}}
+						</td>
+						<td align="center">
+							{{formatDate(l.vremeSletanja)}}
+						</td>
+						<td align="center">
+							{{formatCities(l.presedanja)}}
+						</td>
+						<td align="right">
+							<button class="btn btn-secondary btn-sm" ng-click="izmenaSobe(l.id)"><i class="fa fa-edit"></i></button>
+						</td>
+						<td align="left">
+							<button class="btn btn-danger btn-sm" ng-click="brisanjeSobe(l.id)"><i class="fa fa-remove"></i></button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
 </div>
-
+</div>
 </body>
 </html>

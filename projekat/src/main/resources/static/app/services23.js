@@ -100,7 +100,16 @@ webApp.factory('akFactory', function($http) {
 	factory.editAk = function(ak) {
 		return $http.put('/PutujIgumane/api/aviokompanije/edit',ak);
 	};
-
+	factory.getNewFlight = function() {
+		return $http.get('/PutujIgumane/api/aviokompanije/new/flight');
+	};
+	factory.addFlight = function(id,flight) {
+		return $http.post('/PutujIgumane/api/aviokompanije/add/flight/'+id,flight);
+	};
+	factory.getAllAKFlights = function(id) {
+		return $http.get('/PutujIgumane/api/aviokompanije/flights/'+id);
+	};
+	
 	
 	
 	return factory;

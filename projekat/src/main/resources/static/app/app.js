@@ -1,6 +1,5 @@
 // napravimo modul
-var webApp = angular.module('webApp', ['ngRoute','uiGmapgoogle-maps','lvl.directives.dragdrop']);
-
+var webApp = angular.module('webApp', ['ngRoute','uiGmapgoogle-maps','jkuri.datepicker']);
 
 
 webApp.config(function($routeProvider) {
@@ -65,6 +64,10 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/zahtevi.html'
 	}).when('/izmena/ak',{
 		templateUrl: 'partials/avioKompanijaIzmena.html'
+	}).when('/izmena/letovi',{
+		templateUrl: 'partials/avioKompanijaIzmenaLetova.html'
+	}).when('/izmena/letovi/novi',{
+		templateUrl: 'partials/avioKompanijaNoviLet.html'
 	}).when('/izmena/letovi',{
 		templateUrl: 'partials/avioKompanijaIzmenaLetova.html'
 	});

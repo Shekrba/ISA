@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<style>
+
+#canvas {
+  background-color: grey;
+  margin-top: 10px;
+}
+
+</style>
+<script src="../js/fabric.min.js"></script>
+
+<title>Avio kompanije</title>
+</head>
+<body>
+
+<div ng-Controller="avioKompanijaNoviLetController">
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Novi Let</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+	</div>
+	</div>
+
+	<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+			{{flight.vremePoletanja}}
+				 <input class="form-control" type="datetime-local"  id="dateTimeInput1" ng-model="flight.vremePoletanja">
+			</div>
+	</div>
+	
+	<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Datum i vreme sletanja:</label>
+				<input class="form-control" type="datetime-local"  id="dateTimeInput2" ng-model="flight.vremeSletanja">
+			</div>
+	</div>
+	
+
+	<div class="row">
+		<div class="col-lg-4"></div>
+			<div class="col-lg-4">
+				<input type="number" ng-model="rows"/>
+				<input type="number" ng-model="columns"/>
+				<input type="number" ng-model="price"/>
+				<button ng-click="addSegment()">Dodaj Segment</button>
+				<canvas id="canvas" width="800" height="600"></canvas>
+			</div>	
+			<div class="col-lg-4"></div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-4"></div>
+			<div class="col-lg-4">
+				<input type="number" ng-model="rowsMod"/>
+				<input type="number" ng-model="columnsMod"/>
+				<input type="number" ng-model="priceMod"/>
+				<button ng-click="editSegment()">Potvrdi Izmene</button>
+			</div>	
+			<div class="col-lg-4"></div>
+	</div>
+	
+	<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				<button ng-click="addPresedanje()" class="btn btn-primary">Dodaj presedanje</button>
+	  </div>
+	</div>
+	
+	<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				<div class="btn-group">
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				   {{flight.presedanja[0].name}}
+				  </button>
+				  <div class="dropdown-menu">
+				    <a ng-repeat="x in cities" class="dropdown-item" ng-click="addStart(x)" style="cursor: pointer;">{{x.formatted_address}}</a>
+				  </div>
+				</div>
+	  </div>
+	</div>
+	
+	<div class="row" ng-repeat="i in [] | range:flight.presedanja.length-2">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				<div class="btn-group">
+				  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				   {{flight.presedanja[i+1].name}}
+				  </button>
+				  <div class="dropdown-menu">
+				    <a ng-repeat="x in cities" class="dropdown-item" ng-click="selectPresedanje(x,i+1)" style="cursor: pointer;">{{x.formatted_address}}</a>
+				  </div>
+				</div>
+	  </div>
+	</div>
+	
+	
+	<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				<div class="btn-group">
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    {{flight.presedanja[flight.presedanja.length - 1].name}}
+				  </button>
+				  <div class="dropdown-menu">
+				    <a ng-repeat="x in cities" class="dropdown-item" ng-click="addFinish(x)" style="cursor: pointer;">{{x.formatted_address}}</a>
+				  </div>
+				</div>
+	  </div>
+	</div>
+	
+	
+	<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				<button class="btn btn-success" ng-click="addFlight()">Potvrdi</button>
+			</div>
+	</div>
+</div>
+
+</body>
+</html>

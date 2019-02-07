@@ -32,6 +32,51 @@ public class Segment {
 	
 	@Column(name = "cena", unique = false, nullable = false)
 	private Double cena;
+	
+	@Column(name = "x", unique = false, nullable = false)
+	private Double x;
+	
+	@Column(name = "y", unique = false, nullable = false)
+	private Double y;
+	
+	@Column(name = "redovi", unique = false, nullable = false)
+	private Integer redovi;
+	
+	@Column(name = "kolone", unique = false, nullable = false)
+	private Integer kolone;
+
+	public Double getX() {
+		return x;
+	}
+
+	public void setX(Double x) {
+		this.x = x;
+	}
+
+	public Double getY() {
+		return y;
+	}
+
+	public void setY(Double y) {
+		this.y = y;
+	}
+
+
+	public Integer getRedovi() {
+		return redovi;
+	}
+
+	public void setRedovi(Integer redovi) {
+		this.redovi = redovi;
+	}
+
+	public Integer getKolone() {
+		return kolone;
+	}
+
+	public void setKolone(Integer kolone) {
+		this.kolone = kolone;
+	}
 
 	public Segment() {
 		

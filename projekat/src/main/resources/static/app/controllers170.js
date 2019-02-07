@@ -493,6 +493,42 @@ webApp.controller('dodavanjeHotelaController', function($scope, $location, hotel
 	}
 });
 
+webApp.controller('dodavanjeAvioController', function($scope, $location, avioKompanijeFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.dodavanjeAvio=function(a){
+		avioKompanijeFactory.addAvio(a).then(function success(response) {
+    		$scope.addedAvio=response.data;
+    		$location.path("/#/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('dodavanjeRentacarController', function($scope, $location, rentFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.dodavanjeRentacar=function(r){
+		rentFactory.addRentacar(r).then(function success(response) {
+    		$scope.addedRentacar=response.data;
+    		$location.path("/#/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
 webApp.controller('regAdminHotelController', function($scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
@@ -513,6 +549,70 @@ webApp.controller('regAdminHotelController', function($scope, $location, hotelFa
     	}, function error(response) {
 			$scope.error="Greska";
 		});
+	}
+});
+
+webApp.controller('regAdminAvioController', function($scope, $location, avioKompanijeFactory,$routeParams) {
+	
+    function init() {
+    	avioKompanijeFactory.getAvioNull().then(function success(response) {
+			$scope.aviokompanije=response.data;
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.regAdmin=function(a){
+		a['avioNaz'] = $scope.nazivAvio;
+		avioKompanijeFactory.addAdminAvio(a).then(function success(response) {
+    		$scope.addedAdmin=response.data;
+    		$location.path("/#/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('regAdminRentController', function($scope, $location, rentFactory,$routeParams) {
+	
+    function init() {
+    	rentFactory.getRentNull().then(function success(response) {
+			$scope.rentacar=response.data;
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.regAdmin=function(a){
+		a['rentNaz'] = $scope.nazivRent;
+		rentFactory.addAdminRent(a).then(function success(response) {
+    		$scope.addedAdmin=response.data;
+    		$location.path("/#/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('regAdminSisController', function($scope, $location, sisFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.regAdmin=function(a){
+		/*sisFactory.addAdminSis(a).then(function success(response) {
+    		$scope.addedAdmin=response.data;
+    		$location.path("/#/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});*/
 	}
 });
 

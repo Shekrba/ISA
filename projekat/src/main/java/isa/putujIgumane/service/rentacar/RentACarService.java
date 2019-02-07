@@ -47,5 +47,6 @@ public interface RentACarService {
 	public abstract Double getPrihode(Long rentacarId, LocalDate from, LocalDate to);
 	public abstract List<StatusVozila> setStatuse(Long voziloId,Double cena, Short popust, LocalDate from, LocalDate to);
 	public abstract List<Vozilo> getVoziloZaRez(Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo, int brojSedista);
-
+	public abstract RentACar addRent(RentACarDTO rent);
+	public abstract List<RentACar> getAllNull();
 }

@@ -41,8 +41,18 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/podesavanjeCeneSobe.html'
 	}).when('/add/hotel',{
 		templateUrl: 'partials/dodavanjeHotela.html'
+	}).when('/add/aviokompanija',{
+		templateUrl: 'partials/dodavanjeAvio.html'
+	}).when('/add/rentacar',{
+		templateUrl: 'partials/dodavanjeRentacar.html'
 	}).when('/add/admin/hotel',{
 		templateUrl: 'partials/regAdminHotel.html'
+	}).when('/add/admin/aviokompanija',{
+		templateUrl: 'partials/regAdminAvio.html'
+	}).when('/add/admin/rentacar',{
+		templateUrl: 'partials/regAdminRent.html'
+	}).when('/add/admin/sistem',{
+		templateUrl: 'partials/regAdminSis.html'
 	}).when('/rezervacija/',{
 		templateUrl: 'partials/tabs.html'
 	}).when('/rezervacija/hotel/',{

@@ -105,6 +105,50 @@ webApp.factory('avioKompanijeFactory', function($http) {
 		return $http.get('/PutujIgumane/api/avioKompanije/');
 	};
 	
+	factory.addAvio = function(avio){
+		return $http.put('/PutujIgumane/api/aviokompanije/add/aviokompanija/',avio);
+	};
+	
+	factory.getAvioNull = function() {
+		return $http.get('/PutujIgumane/api/aviokompanije/null/a');
+	};
+	
+	factory.addAdminAvio = function(admin){
+		return $http.put('/PutujIgumane/api/korisnik/add/admin/aviokompanija',admin);
+	};
+	
+	return factory;
+	
+});
+
+webApp.factory('rentFactory', function($http) {
+		
+	var factory = {};	
+	factory.addRentacar = function(rentacar){
+		return $http.put('/PutujIgumane/api/rentacar/add/rent/',rentacar);
+	};
+
+	factory.getRentNull = function() {
+		return $http.get('/PutujIgumane/api/rentacar/null/r');
+	};
+	
+	factory.addAdminRent = function(admin){
+		return $http.put('/PutujIgumane/api/korisnik/add/admin/rentacar',admin);
+	};
+	
+	return factory;
+	
+});
+
+webApp.factory('sisFactory', function($http) {
+	
+	var factory = {};	
+	
+	/*
+	factory.addAdminSis = function(admin){
+		return $http.put('/PutujIgumane/api/korisnik/add/admin/sistem',admin);
+	};*/
+	
 	return factory;
 	
 });

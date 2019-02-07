@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
+import isa.putujIgumane.dto.korisnik.AdminRentDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.ZahtevDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
@@ -130,6 +132,38 @@ public class KorisnikController{
 		}
 		
 		AdminHotelaDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminHotelaDTO.class);
+		
+		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/add/admin/aviokompanija", method=RequestMethod.PUT)
+	public ResponseEntity<?> addAdminAvio(@RequestBody AdminAvioDTO admin){
+		
+		Korisnik addedAdmin = null;
+		
+		try {
+			addedAdmin = korisnikService.addAdminAvio(admin);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		AdminAvioDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminAvioDTO.class);
+		
+		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/add/admin/rentacar", method=RequestMethod.PUT)
+	public ResponseEntity<?> addAdminRent(@RequestBody AdminRentDTO admin){
+		
+		Korisnik addedAdmin = null;
+		
+		try {
+			addedAdmin = korisnikService.addAdminRent(admin);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		AdminRentDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminRentDTO.class);
 		
 		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
 	}

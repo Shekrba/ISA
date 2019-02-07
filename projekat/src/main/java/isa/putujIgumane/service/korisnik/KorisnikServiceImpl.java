@@ -11,18 +11,24 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
+import isa.putujIgumane.dto.korisnik.AdminRentDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
-
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.korisnik.Authority;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.StatusZahteva;
 import isa.putujIgumane.model.korisnik.Zahtev;
+import isa.putujIgumane.model.rentACar.RentACar;
+import isa.putujIgumane.repository.aviokompanija.AvioKompanijaRepository;
 import isa.putujIgumane.repository.hotel.HotelRepository;
 import isa.putujIgumane.repository.korisnik.KorisnikRepository;
 import isa.putujIgumane.repository.korisnik.ZahtevRepository;
+import isa.putujIgumane.repository.rentacar.RentACarRepository;
 
 @Service
 public class KorisnikServiceImpl implements KorisnikService{
@@ -38,6 +44,12 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Autowired
 	HotelRepository hotelRepo;
+	
+	@Autowired
+	AvioKompanijaRepository avioRepo;
+	
+	@Autowired
+	RentACarRepository rentRepo;
 	
 	@Override
 	public Korisnik getKorisnik(Long id) {
@@ -131,5 +143,53 @@ public class KorisnikServiceImpl implements KorisnikService{
         
         return adminNew;
 	}
+	
+	@Override
+	public Korisnik addAdminAvio(AdminAvioDTO admin) {
+		Korisnik adminNew = new Korisnik();
+		
+		adminNew.setUsername(admin.getUsername());
+		adminNew.setPassword(admin.getPassword());
+		adminNew.setIme(admin.getIme());
+		adminNew.setPrezime(admin.getPrezime());
+		adminNew.setEmail(admin.getEmail());
+		adminNew.setVerifikovan(true);
+		adminNew.setEnabled(true);
+		
+		AvioKompanija avio = avioRepo.findOneByNaziv(admin.getAvioNaz());
+		
+		adminNew.setAvioKompanija(avio);
+		
+        korisnikRepo.save(adminNew);
+        
+        avio.setAdmin(adminNew);
+        avioRepo.save(avio);
+        
+        return adminNew;
+	}
 
+	@Override
+	public Korisnik addAdminRent(AdminRentDTO admin) {
+		Korisnik adminNew = new Korisnik();
+		
+		adminNew.setUsername(admin.getUsername());
+		adminNew.setPassword(admin.getPassword());
+		adminNew.setIme(admin.getIme());
+		adminNew.setPrezime(admin.getPrezime());
+		adminNew.setEmail(admin.getEmail());
+		adminNew.setVerifikovan(true);
+		adminNew.setEnabled(true);
+		
+		RentACar rent = rentRepo.findOneByNazivServisa(admin.getRentNaz());
+		
+		adminNew.setRentACar(rent);
+		
+        korisnikRepo.save(adminNew);
+        
+        rent.setAdmin(adminNew);
+        rentRepo.save(rent);
+        
+        return adminNew;
+	}
+	
 }

@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.rentacar.FilijalaDTO;
 import isa.putujIgumane.dto.rentacar.OcenaRentacarDTO;
 import isa.putujIgumane.dto.rentacar.RentACarDTO;
 import isa.putujIgumane.dto.rentacar.StatusVozilaDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.model.rentACar.Filijala;
 import isa.putujIgumane.model.rentACar.RentACar;
@@ -283,6 +286,30 @@ public class RentACarController {
 		}
 		
 		return new ResponseEntity<>(vozilaDTO, HttpStatus.OK); 
+	}
+	
+	@RequestMapping(value="/add/rent", method=RequestMethod.PUT)
+	public ResponseEntity<?> addRent(@RequestBody RentACarDTO rent){
+		
+		RentACar addedRent = null;
+		
+		try {
+			addedRent = rentacarServiceImpl.addRent(rent);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		RentACarDTO rentDTO=ObjectMapperUtils.map(addedRent, RentACarDTO.class);
+		
+		return new ResponseEntity<>(rentDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/null/r", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllRentNull() {
+		
+		List<RentACarDTO> rentDTO=ObjectMapperUtils.mapAll(rentacarServiceImpl.getAllNull(), RentACarDTO.class);
+		
+		return new ResponseEntity<>(rentDTO, HttpStatus.OK);
 	}
 	
 }

@@ -3,15 +3,19 @@ package isa.putujIgumane.service.rentacar;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.rentacar.FilijalaDTO;
 import isa.putujIgumane.dto.rentacar.RentACarDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.model.rentACar.Filijala;
 import isa.putujIgumane.model.rentACar.RentACar;
@@ -268,5 +272,34 @@ public class RentACarServiceImpl implements RentACarService{
 		
 		return voziloRepository.findVozilaZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojSedista, days);
 	}
+	
+	@Override
+	public RentACar addRent(RentACarDTO rent) {
+		RentACar rentNew = new RentACar();
 
+		rentNew.setNazivServisa(rent.getNazivServisa());
+		rentNew.setAdresaServisa(rent.getAdresaServisa());
+		rentNew.setOpisServisa(rent.getOpisServisa());
+		rentNew.setProsecnaOcenaServisa(0.0);
+		
+        rentACarRepository.save(rentNew);
+        
+        return rentNew;
 	}
+	
+	@Override
+	public List<RentACar> getAllNull() {
+		
+		List<RentACar> rent = rentACarRepository.findAll();
+		
+		List<RentACar> rentNull = new ArrayList<>();
+		
+		for (RentACar r : rent) {
+			if(r.getAdmin()==null) {
+				rentNull.add(r);
+			}
+		}
+		
+		return rentNull;
+	}
+}

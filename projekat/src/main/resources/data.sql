@@ -8,7 +8,7 @@ insert into rentacar (id, naziv_servisa, adresa_servisa, opis_servisa, prosecna_
 
 
 
-/*
+
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena,admin_id) values (1, 'Fontana', 'Kralja Petra I 21, Novi Sad, Srbija','Hotel ima veliko dvoriste',0,null);
 insert into hotel (id, naziv, adresa, opis, prosecna_ocena,admin_id) values (2, 'Vojvodina', 'Sutjeska 12, Herceg Novi, Crna Gora','Hotel je veoma popularan leti',0,null);
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena,admin_id) values (3, 'Four Seasons', 'Boticelijeva 52c, Firenca, Italija','Veoma blizu autobuske stanice',0,null);

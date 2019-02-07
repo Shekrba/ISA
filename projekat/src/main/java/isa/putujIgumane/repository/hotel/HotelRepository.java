@@ -16,5 +16,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
 	Page<Hotel> findAll(Pageable pageable);
 	
 	Hotel findOneById(Long id);
+	
+	Hotel findOneByNaziv(String naziv);
 
 }

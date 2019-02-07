@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Zahtev;
@@ -28,4 +29,6 @@ public interface KorisnikService {
 	public abstract List<Zahtev> getFriendsRequests(String username);
 	
 	public abstract Korisnik addKorisnik(KorisnikDTO korisnik);
+	
+	public abstract Korisnik addAdminHotel(AdminHotelaDTO admin);
 }

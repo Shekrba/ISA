@@ -1,18 +1,15 @@
 
+
 /*
+insert into hotel (id, naziv, adresa, opis, prosecna_ocena,admin_id) values (1, 'Fontana', 'Kralja Petra I 21, Novi Sad, Srbija','Hotel ima veliko dvoriste',0,null);
+insert into hotel (id, naziv, adresa, opis, prosecna_ocena,admin_id) values (2, 'Vojvodina', 'Sutjeska 12, Herceg Novi, Crna Gora','Hotel je veoma popularan leti',0,null);
+insert into hotel (id, naziv, adresa, opis, prosecna_Ocena,admin_id) values (3, 'Four Seasons', 'Boticelijeva 52c, Firenca, Italija','Veoma blizu autobuske stanice',0,null);
+insert into hotel (id, naziv, adresa, opis, prosecna_Ocena,admin_id) values (4, 'Beli Dvor', 'Marsala Tita 55, Sarajevo, Bosna i Hercegovina','Hotel je skoro renoviran',0,null);
 
-insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (1, 'Fontana', 'Kralja Petra I 21, Novi Sad, Srbija','Hotel ima veliko dvoriste',0);
-insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (2, 'Vojvodina', 'Sutjeska 12, Herceg Novi, Crna Gora','Hotel je veoma popularan leti',0);
-insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (3, 'Four Seasons', 'Boticelijeva 52c, Firenca, Italija','Veoma blizu autobuske stanice',0);
-insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (4, 'Beli Dvor', 'Marsala Tita 55, Sarajevo, Bosna i Hercegovina','Hotel je skoro renoviran',0);
-
-insert into rentacar (id, naziv_servisa, adresa_servisa, opis_servisa, prosecna_Ocena_servisa) values (1, 'Get Your Ride', 'Terazije 14, Beograd, Srbija','Veliki broj novih modela Fijata',0);
+insert into rentacar (id, naziv_servisa, adresa_servisa, opis_servisa, prosecna_Ocena_servisa,admin_id) values (1, 'Get Your Ride', 'Terazije 14, Beograd, Srbija','Veliki broj novih modela Fijata',0,null);
 insert into filijala (id, drzava, grad, rentacar_id) values (1, 'Srbija', 'Beograd', 1);
 insert into filijala (id, drzava, grad, rentacar_id) values (2, 'Srbija', 'Novi Sad', 1);
 insert into filijala (id, drzava, grad, rentacar_id) values (3, 'Srbija', 'Subotica', 1);
-insert into vozilo (id, broj_sedista, godina_proizvodnje, marka_vozila, model_vozila, prosecna_ocena_vozila, registracija_vozila, rentacar_id) values (1, 4, 2011, 'reno', 'megan', 0, 'NS050-NN', 1);
-insert into vozilo (id, broj_sedista, godina_proizvodnje, marka_vozila, model_vozila, prosecna_ocena_vozila, registracija_vozila, rentacar_id) values (2, 5, 2015, 'audi', 'q7', 0, 'BG150-NF', 1);
-insert into vozilo (id, broj_sedista, godina_proizvodnje, marka_vozila, model_vozila, prosecna_ocena_vozila, registracija_vozila, rentacar_id) values (3, 5, 2017, 'bmw', 'x6', 0, 'SU254-DG', 1);
 insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (12131, 500, 'Klima',1);
 insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (55553, 150, 'Wi-Fi',1);
 insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id) values (23123, 3000, 'Djakuzi',3);
@@ -1152,6 +1149,7 @@ insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (6845,
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (6846, 1125, '2019-12-30', 0, 2500, 0);
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (6847, 1125, '2019-12-31', 0, 2500, 0);
 
+/*
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (1, 1, '2019-01-01', 0, 1500, 0);
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (2, 1, '2019-01-02', 0, 1500, 0);
 insert into status_vozila(id, vozilo_id, datum, vozilo_je_iznajmljeno, cena, popust) values (3, 1, '2019-01-03', 0, 1500, 0);

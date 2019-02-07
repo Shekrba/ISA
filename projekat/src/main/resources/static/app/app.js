@@ -39,6 +39,10 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/uvidPrihodaHotela.html'
 	}).when('/hoteli/setStatuse/:sobaId',{
 		templateUrl: 'partials/podesavanjeCeneSobe.html'
+	}).when('/add/hotel',{
+		templateUrl: 'partials/dodavanjeHotela.html'
+	}).when('/add/admin/hotel',{
+		templateUrl: 'partials/regAdminHotel.html'
 	}).when('/rezervacija/',{
 		templateUrl: 'partials/tabs.html'
 	}).when('/rezervacija/hotel/',{

@@ -7,10 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
+import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.StatusZahteva;
 import isa.putujIgumane.model.korisnik.Zahtev;
+import isa.putujIgumane.repository.hotel.HotelRepository;
 import isa.putujIgumane.repository.korisnik.KorisnikRepository;
 import isa.putujIgumane.repository.korisnik.ZahtevRepository;
 
@@ -22,6 +26,9 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Autowired 
 	ZahtevRepository zahtevRepo;
+	
+	@Autowired
+	HotelRepository hotelRepo;
 	
 	@Override
 	public Korisnik getKorisnik(Long id) {
@@ -91,6 +98,28 @@ public class KorisnikServiceImpl implements KorisnikService{
         return korisnikToAdd;
 	}
 
-	
+	@Override
+	public Korisnik addAdminHotel(AdminHotelaDTO admin) {
+		Korisnik adminNew = new Korisnik();
+		
+		adminNew.setUsername(admin.getUsername());
+		adminNew.setPassword(admin.getPassword());
+		adminNew.setIme(admin.getIme());
+		adminNew.setPrezime(admin.getPrezime());
+		adminNew.setEmail(admin.getEmail());
+		adminNew.setVerifikovan(true);
+		adminNew.setEnabled(true);
+		
+		Hotel hotel = hotelRepo.findOneByNaziv(admin.getHotelNaz());
+		
+		adminNew.setHotel(hotel);
+		
+        korisnikRepo.save(adminNew);
+        
+        hotel.setAdmin(adminNew);
+        hotelRepo.save(hotel);
+        
+        return adminNew;
+	}
 
 }

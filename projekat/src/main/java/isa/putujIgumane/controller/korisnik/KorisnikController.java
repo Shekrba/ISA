@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.ZahtevDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
@@ -111,4 +112,19 @@ public class KorisnikController{
 		return new ResponseEntity<>(korisnikDTO, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/add/admin/hotel", method=RequestMethod.PUT)
+	public ResponseEntity<?> addAdminHotel(@RequestBody AdminHotelaDTO admin){
+		
+		Korisnik addedAdmin = null;
+		
+		try {
+			addedAdmin = korisnikService.addAdminHotel(admin);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		AdminHotelaDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminHotelaDTO.class);
+		
+		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
+	}
 }

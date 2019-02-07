@@ -12,7 +12,7 @@
 			</div>
 			<div class="col-lg-4">	
 				<div class="page-header">
-					<h2>Rezervacija soba hotela {{hotelRezervacija}}</h2>
+					<h2>Rezervacija soba hotela {{hotelRezervacija.naziv}}</h2>
 				</div>
 			</div>
 			<div class="col-lg-4">	
@@ -45,9 +45,41 @@
 			</div>
 		</div>
 		<div class="row">
+				<div class="col-lg-4 ml-auto mr-auto">
+					<label class="textColor">Tipovi soba :</label>
+				</div>
+		</div>
+		<div class="row">
 			<div class="col-lg-4 ml-auto mr-auto">
-				<label class="textColor">Broj kreveta po sobi :</label>
-				<input  type="text" class="form-control" ng-model="$root.brKreveta"/>
+					
+				<form class="was-validated">
+					<div class="custom-control custom-checkbox mb-3 ml-4">
+				    	<input ng-model="$root.jed" type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+				    	<label class="custom-control-label" for="customControlValidation1">Jednokrevetne</label>
+					</div>
+				</form>
+				
+				<form class="was-validated">
+					<div class="custom-control custom-checkbox mb-3 ml-4">
+				    	<input ng-model="$root.dvo" type="checkbox" class="custom-control-input" id="customControlValidation2" required>
+				    	<label class="custom-control-label" for="customControlValidation2">Dvokrevetne</label>
+					</div>
+				</form>
+				
+				<form class="was-validated">
+					<div class="custom-control custom-checkbox mb-3 ml-4">
+				    	<input ng-model="$root.tro" type="checkbox" class="custom-control-input" id="customControlValidation3" required>
+				    	<label class="custom-control-label" for="customControlValidation3">Trokrevetne</label>
+					</div>
+				</form>
+				
+				<form class="was-validated">
+					<div class="custom-control custom-checkbox mb-3 ml-4">
+				    	<input ng-model="$root.cet" type="checkbox" class="custom-control-input" id="customControlValidation4" required>
+				    	<label class="custom-control-label" for="customControlValidation4">Četvokrevetne</label>
+					</div>
+				</form>
+				
 			</div>
 		</div>
 		<div class="row">

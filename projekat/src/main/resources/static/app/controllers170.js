@@ -349,8 +349,8 @@ webApp.controller('rezervacijaHotelaController', function($rootScope,$scope, $lo
 
 	init();
 	
-	$scope.izaberiHotel=function(hId){
-		$rootScope.hotelRezervacija=hId;
+	$scope.izaberiHotel=function(hotel){
+		$rootScope.hotelRezervacija=hotel;
 		$rootScope.putanja='partials/rezervacijaSoba.html'
 	};
 });
@@ -358,7 +358,10 @@ webApp.controller('rezervacijaHotelaController', function($rootScope,$scope, $lo
 webApp.controller('rezervacijaSobaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
 	function init() {
-		
+		$rootScope.jed=false;
+		$rootScope.dvo=false;
+		$rootScope.tro=false;
+		$rootScope.cet=false;
     };
 
 	init();
@@ -368,19 +371,149 @@ webApp.controller('rezervacijaSobaController', function($rootScope,$scope, $loca
 	};
 });
 
-webApp.controller('rezervacijaSoba2Controller', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
 	function init() {
 		
-		hotelFactory.getSobeZaRez($rootScope.cenaOd,$rootScope.cenaDo,$rootScope.datumDolaskaHotel,$rootScope.datumOdlaskaHotel,$rootScope.brKreveta).then(function success(response) {
-			$scope.sobeZaRez=response.data;
+		$scope.selektovaneSobe = 0;
+		$scope.selektovaniKreveti = 0;
+		
+		$scope.classSobe = 'fa fa-times-circle';
+		$scope.styleSobe = {color:'#CA2727'};
+		$scope.classKreveti = 'fa fa-times-circle';
+		$scope.styleKreveti = {color:'#CA2727'};
+		$scope.disabledButton = true;
+		
+		
+		var kreveti = [$rootScope.jed,$rootScope.dvo,$rootScope.tro,$rootScope.cet]
+		
+		hotelFactory.getSobeZaRez($rootScope.hotelRezervacija['id'],$rootScope.cenaOd,$rootScope.cenaDo,$rootScope.datumDolaskaHotel,$rootScope.datumOdlaskaHotel,kreveti)
+		.then(function success(response) {
+			$scope.sobeZaRez=(response.data)
 		}, function error(response) {
 			$scope.error="Greska";
 		});
 		
     };
+    
+    init();
+    
+    $scope.dodajSobu=function(s){
+    	$scope.selektovaneSobe++;
+    	$scope.selektovaniKreveti+= 1 * s['brojKreveta'];
+    	
+    	if($scope.selektovaneSobe == $rootScope.brSoba){
+    		$scope.classSobe = 'fa fa-check-circle';
+    		$scope.styleSobe = {color:'#99CA27'};
+    	}else{
+    		$scope.classSobe = 'fa fa-times-circle';
+    		$scope.styleSobe = {color:'#CA2727'};
+    	}
+    	
+    	if($scope.selektovaniKreveti == $rootScope.brojGostijuHotel){
+    		$scope.classKreveti = 'fa fa-check-circle';
+    		$scope.styleKreveti = {color:'#99CA27'};
+    	}else{
+    		$scope.classKreveti = 'fa fa-times-circle';
+    		$scope.styleKreveti = {color:'#CA2727'};
+    	}
+    	
+    	if($scope.selektovaniKreveti*1 == $rootScope.brojGostijuHotel*1 && $scope.selektovaneSobe == $rootScope.brSoba){
+    		$scope.disabledButton = false;
+    	}else{
+    		$scope.disabledButton = true;
+    	}
+    	
+    	return true;
+    }
+    
+    $scope.izbaciSobu=function(s){
+    	$scope.selektovaneSobe--;
+    	$scope.selektovaniKreveti-= 1 * s['brojKreveta'];
+    	
+    	if($scope.selektovaneSobe == $rootScope.brSoba){
+    		$scope.classSobe = 'fa fa-check-circle';
+    		$scope.styleSobe = {color:'#99CA27'};
+    	}else{
+    		$scope.classSobe = 'fa fa-times-circle';
+    		$scope.styleSobe = {color:'#CA2727'};
+    	}
+    	
+    	if($scope.selektovaniKreveti*1 == $rootScope.brojGostijuHotel*1){
+    		$scope.classKreveti = 'fa fa-check-circle';
+    		$scope.styleKreveti = {color:'#99CA27'};
+    	}else{
+    		$scope.classKreveti = 'fa fa-times-circle';
+    		$scope.styleKreveti = {color:'#CA2727'};
+    	}
+    	
+    	if($scope.selektovaniKreveti*1 == $rootScope.brojGostijuHotel*1 && $scope.selektovaneSobe == $rootScope.brSoba){
+    		$scope.disabledButton = false;
+    	}else{
+    		$scope.disabledButton = true;
+    	}
+    	
+    	return false;
+    }
+    
+    $scope.finishRez = function(){
+    	$rootScope.putanja='partials/hotelFinishRez.html'
+    }
+	
+});
+
+webApp.controller('hotelFinishRezController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
 
 	init();
+	
+	$scope.zavrsiRez=function(){
+		$location.path("/#/");
+	};
+});
+
+webApp.controller('dodavanjeHotelaController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.dodavanjeHotela=function(h){
+		hotelFactory.addHotel(h).then(function success(response) {
+    		$scope.addedHotel=response.data;
+    		$location.path("/#/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
+});
+
+webApp.controller('regAdminHotelController', function($scope, $location, hotelFactory,$routeParams) {
+	
+    function init() {
+    	hotelFactory.getHotelsNull().then(function success(response) {
+			$scope.hoteli=response.data;
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.regAdmin=function(a){
+		a['hotelNaz'] = $scope.nazivHotela;
+		hotelFactory.addAdminHotel(a).then(function success(response) {
+    		$scope.addedAdmin=response.data;
+    		$location.path("/#/");
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+	}
 });
 
 webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {

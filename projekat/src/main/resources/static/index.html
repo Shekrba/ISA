@@ -25,7 +25,24 @@
   		</form>
   			
 			<ul class="navbar-nav ml-auto">
-			
+				
+				<li ng-if="authenticated" class="nav-item">
+					<a href="#/rezervacija" class="nav-link">Napravi rezervaciju</a>
+				</li>
+				
+				<li class="nav-item dropdown" ng-if="authenticated">
+  					<a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target">Registracije <span class="caret"></span></a>
+  					<div class="dropdown-menu" aria-labelledby="dropdown_targt">
+  						<a href="#/add/aviokompanija" class="dropdown-item">Registracija aviokompanije</a>
+  						<a href="#/add/hotel" class="dropdown-item">Registracija hotela</a>
+  						<a href="#/add/rentacar" class="dropdown-item">Registracija rent a car</a>
+  						<a href="#/add/admin/aviokompanija" class="dropdown-item">Registracija administratora aviokompanije</a>
+  						<a href="#/add/admin/hotel" class="dropdown-item">Registracija administratora hotela</a>
+  						<a href="#/add/admin/rentacar" class="dropdown-item">Registracija administratora rentacar</a>
+  						<a href="#/add/admin/sistem" class="dropdown-item">Registracija administratora sistema</a>
+  					</div>
+  				</li>
+				
 				<li class="nav-item dropdown" ng-if="authenticated">
   					<a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target">Rent a car <span class="caret"></span></a>
   					<div class="dropdown-menu" aria-labelledby="dropdown_targt">
@@ -51,7 +68,7 @@
   				</li>
 				<li ng-if="authenticated" class="nav-item">
 					<a href="#/izmena/letovi" class="nav-link">Letovi</a>
-				</li>		
+				</li>	
 				<li ng-if="!authenticated" class="nav-item">
 					<a href="#/login" class="nav-link">Prijava</a>
 				</li>

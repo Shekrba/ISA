@@ -457,6 +457,36 @@ webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scop
     }
     
     $scope.finishRez = function(){
+    	$rootScope.putanja='partials/rezUslugeHotela.html'
+    }
+	
+});
+
+webApp.controller('rezUslugaController', function($route,$rootScope,$scope, $location, hotelFactory,$routeParams) {
+	
+	function init() {
+		
+		hotelFactory.getCenovnik($rootScope.hotelRezervacija['id']).then(function success(response) {
+    		$scope.cenovnik=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+		
+    };
+    
+    init();
+    
+    $scope.dodajUslugu=function(s){
+   
+    	return true;
+    }
+    
+    $scope.izbaciUslugu=function(s){
+    	
+    	return false;
+    }
+    
+    $scope.finishRez = function(){
     	$rootScope.putanja='partials/hotelFinishRez.html'
     }
 	

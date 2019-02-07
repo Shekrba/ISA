@@ -125,7 +125,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		Korisnik adminNew = new Korisnik();
 		
 		adminNew.setUsername(admin.getUsername());
-		adminNew.setPassword(admin.getPassword());
+		adminNew.setPassword(passwordEncoder.encode(admin.getPassword()));
 		adminNew.setIme(admin.getIme());
 		adminNew.setPrezime(admin.getPrezime());
 		adminNew.setEmail(admin.getEmail());
@@ -149,7 +149,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		Korisnik adminNew = new Korisnik();
 		
 		adminNew.setUsername(admin.getUsername());
-		adminNew.setPassword(admin.getPassword());
+		adminNew.setPassword(passwordEncoder.encode(admin.getPassword()));
 		adminNew.setIme(admin.getIme());
 		adminNew.setPrezime(admin.getPrezime());
 		adminNew.setEmail(admin.getEmail());
@@ -173,7 +173,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		Korisnik adminNew = new Korisnik();
 		
 		adminNew.setUsername(admin.getUsername());
-		adminNew.setPassword(admin.getPassword());
+		adminNew.setPassword(passwordEncoder.encode(admin.getPassword()));
 		adminNew.setIme(admin.getIme());
 		adminNew.setPrezime(admin.getPrezime());
 		adminNew.setEmail(admin.getEmail());

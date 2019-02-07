@@ -29,6 +29,13 @@ INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last
 INSERT INTO AUTHORITY (id, name) VALUES (3, 'ROLE_AKADMIN');
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 3);
 
+INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (22, 'hadmin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Sima', 'Simic', 'hadmin@example.com', true, '2017-10-01 21:58:58',true);
+INSERT INTO AUTHORITY (id, name) VALUES (4, 'ROLE_HADMIN');
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (22, 4);
+
+insert into hotel (id, naziv, adresa, opis, prosecna_Ocena,admin_id) values (99, 'Divcibare', 'Mose Pijade 25, Divcibare, Srbija','Najbolji na Divcibarama',0,22);
+
+
 INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (3, 'user1', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pera', 'Peric', 'user1@example.com', true, '2017-10-01 21:58:58',true);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
 

@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+import isa.putujIgumane.dto.hotel.HAdminDTO;
 import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.AdminRentDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.ZahtevDTO;
+import isa.putujIgumane.dto.rentacar.RAdminDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.korisnik.Authority;
 import isa.putujIgumane.model.korisnik.Korisnik;
@@ -98,6 +100,16 @@ public class KorisnikController{
 		case "ROLE_AKADMIN":{
 			AKAdminDTO akaDTO=ObjectMapperUtils.map(k, AKAdminDTO.class);
 			return new ResponseEntity<AKAdminDTO>(akaDTO,HttpStatus.OK);
+		}
+		
+		case "ROLE_HADMIN":{
+			HAdminDTO haDTO=ObjectMapperUtils.map(k, HAdminDTO.class);
+			return new ResponseEntity<HAdminDTO>(haDTO,HttpStatus.OK);
+		}
+		
+		case "ROLE_RADMIN":{
+			RAdminDTO raDTO=ObjectMapperUtils.map(k, RAdminDTO.class);
+			return new ResponseEntity<RAdminDTO>(raDTO,HttpStatus.OK);
 		}
 		}
 		return new ResponseEntity<String>("Error",HttpStatus.OK);

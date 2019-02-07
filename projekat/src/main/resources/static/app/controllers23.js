@@ -26,6 +26,15 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
     		 $rootScope.avioKompanija=response.data.avioKompanija;
     		 $location.path("/izmena/ak"); 
     	 };
+    	 if(response.data.hotel!=undefined){
+    		 $rootScope.hotel=response.data.hotel;
+    		 $log.log($rootScope.hotel);
+    		 $location.path("/hoteli/editHotel/"+response.data.hotel.id); 
+    	 };
+    	 if(response.data.rentacar!=undefined){
+    		 $rootScope.rentacar=response.data.rentacar;
+    		 $location.path("/rentacar/editRentacar/"+response.data.rentacar.id); 
+    	 };
       });
     })
     .catch(function() {

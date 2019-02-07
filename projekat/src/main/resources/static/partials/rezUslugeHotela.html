@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rezervacija usluga</title>
+</head>
+<body>
+<div ng-Controller="rezUslugaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izaberite usluge hotela</h2>
+					<div class="row">
+						<div class="col-lg-4 ml-auto">
+							<button class="btn btn-dark" ng-click="finishRez()">Završi</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+								
+				<table class="table">
+					<tr class="head">
+						<td colspan="3" align="center"><b>CENOVNIK</b></td>
+					</tr>
+					<tr class="head">
+						<td align="center">
+							Usluga:
+						</td>
+						<td align="center">
+							Cena:
+						</td>
+						<td></td>
+					</tr>
+					<tr ng-repeat="c in cenovnik">
+						<td align="center">
+							{{c.usluga}}
+						</td>
+						<td align="center">
+							{{c.cena}}
+						</td>
+						<td align="right">
+							<button ng-if="c.dodata==false" class="btn btn-outline-success my-2 my-sm-0" ng-click="c.dodata=dodajUslugu(c)">Dodaj</button>
+							<button ng-if="c.dodata==true" class="btn btn-outline-danger my-2 my-sm-0" ng-click="c.dodata=izbaciUslugu(c)">Izbaci</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</div>
+</body>
+</html>

@@ -16,6 +16,7 @@ import isa.putujIgumane.dto.rentacar.RentACarDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.hotel.Hotel;
+import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.model.rentACar.Filijala;
 import isa.putujIgumane.model.rentACar.RentACar;
@@ -264,13 +265,12 @@ public class RentACarServiceImpl implements RentACarService{
 	}
 
 	@Override
-	public List<Vozilo> getVoziloZaRez(Double cenaFrom, Double cenaTo, LocalDate datumFrom, LocalDate datumTo,
-			int brojSedista) {
+	public List<Vozilo> getVoziloZaRez(Double cenaFrom, Double cenaTo, LocalDate datumFrom, LocalDate datumTo, int brojSedista) {
 		Long days = ChronoUnit.DAYS.between(datumFrom, datumTo) + 1;
 		
-		System.out.println(days);
+		List<Vozilo> vozila = voziloRepository.findVozilaZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojSedista, days);
 		
-		return voziloRepository.findVozilaZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojSedista, days);
+		return vozila;
 	}
 	
 	@Override

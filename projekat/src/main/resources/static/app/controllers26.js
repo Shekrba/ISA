@@ -351,7 +351,12 @@ webApp.controller('rezervacijaVozila2Controller', function($rootScope,$scope, $l
 	
 	function init() {
 		
-		rentacarFactory.getVoziloZaRez($rootScope.cenaOd,$rootScope.cenaDo,$rootScope.datumDolaskaRentacar,$rootScope.datumOdlaskaRentacar,$rootScope.brSedista).then(function success(response) {
+		$scope.selektovaneVozila = 0;
+		$scope.classVozila = 'fa fa-times-circle';
+		$scope.styleVozila = {color:'#CA2727'};
+		$scope.disabledButton = true;
+		
+		rentacarFactory.getVoziloZaRez($rootScope.cenaOd,$rootScope.cenaDo,$rootScope.datumDolaskaRentacar,$rootScope.datumOdlaskaRentacar, $rootScope.brSedista).then(function success(response) {
 			$scope.voziloZaRez=response.data;
 		}, function error(response) {
 			$scope.error="Greska";
@@ -360,4 +365,62 @@ webApp.controller('rezervacijaVozila2Controller', function($rootScope,$scope, $l
     };
 
 	init();
+	
+	$scope.dodajVozilo=function(v){
+    	$scope.selektovaneVozila++;
+    	
+    	if($scope.selektovaneVozila == 1){
+    		$scope.classVozila = 'fa fa-check-circle';
+    		$scope.styleVozila = {color:'#99CA27'};
+    	}else{
+    		$scope.classVozila = 'fa fa-times-circle';
+    		$scope.styleVozila = {color:'#CA2727'};
+    	}
+    	
+    	if($scope.selektovaneVozila >= 1){
+    		$scope.disabledButton = false;
+    	}else{
+    		$scope.disabledButton = true;
+    	}
+    	
+    	return true;
+    }
+	
+	$scope.izbaciVozilo=function(v){
+    	$scope.selektovaneVozila--;
+    	
+    	if($scope.selektovaneVozila == 1){
+    		$scope.classVozila = 'fa fa-check-circle';
+    		$scope.styleVozila = {color:'#99CA27'};
+    	}else{
+    		$scope.classVozila = 'fa fa-times-circle';
+    		$scope.styleVozila = {color:'#CA2727'};
+    	}
+    	
+    	if($scope.selektovaneVozila >= 1){
+    		$scope.disabledButton = false;
+    	}else{
+    		$scope.disabledButton = true;
+    	}
+    	
+    	return false;
+    }
+	
+	$scope.finishRez = function(){
+    	$rootScope.putanja='partials/rentacarKrajRezervacije.html'
+    }
+	
+});
+
+webApp.controller('rentacarFinishRezController', function($rootScope,$scope, $location, rentacarFactory,$routeParams) {
+	
+    function init() {
+    	
+    };
+
+	init();
+	
+	$scope.zavrsiRez=function(){
+		$location.path("/#/");
+	};
 });

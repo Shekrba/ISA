@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izbor rezervacije</title>
+</head>
+<body>
+<div ng-Controller="biranjeRezervacijeRentacarController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izaberite tip rezervacije</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<div class="card" ng-click="regularna()">
+					<h3 align="center">Regularna rezervacija</h3>
+				</div>
+		
+				<div class="card mt-3" ng-click="brza()">
+					<h3 align="center">Brza rezervacija</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rezervacija vozila</title>
+
+<style>
+	
+</style>
+</head>
+<body>
+<div ng-Controller="rezervacijaVozila2Controller">
+	
+	<div class="container">
+		<div class="page-header">
+			<h2>Izbor vozila za rezervacuju</h2>
+		</div>
+		
+		<div class="col-lg-4 ml-auto">
+					<button class="btn btn-dark" ng-disabled="disabledButton" ng-click="finishRez()">Dodaj u rezervaciju</button>
+				</div>
+		
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="v in voziloZaRez">
+				<div class="card">
+					<h3 align="center">Registracija: {{v.registracijaVozila}}</h3>
+					<p>Marka: {{v.markaVozila}}</p>
+					<p>Model: {{v.modelVozila}}</p>
+					<p>Broj sedista: {{v.brojSedista}}</p>
+					<button ng-if="v.dodata==false" class="btn btn-outline-success my-2 my-sm-0" ng-click="v.dodata=dodajVozilo(v)">Dodaj</button>
+					<button ng-if="v.dodata==true" class="btn btn-outline-danger my-2 my-sm-0" ng-click="v.dodata=izbaciVozilo(v)">Izbaci</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

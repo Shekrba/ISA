@@ -79,6 +79,11 @@ public class KorisnikController{
 	@RequestMapping(value="/data", method=RequestMethod.GET)
 	public ResponseEntity<?> getUserData() {
 		Korisnik k=korisnikService.getKorisnik(SecurityContextHolder.getContext().getAuthentication().getName());
+		if(k.getAuthorities().isEmpty()) {
+			KorisnikDTO kDTO=ObjectMapperUtils.map(k, KorisnikDTO.class);
+			return new ResponseEntity<KorisnikDTO>(kDTO,HttpStatus.OK);
+		} else {
+		
 		Authority a=((List<Authority>)k.getAuthorities()).get(0);
 		switch(a.getName()) {
 		case "ROLE_USER":{
@@ -94,6 +99,7 @@ public class KorisnikController{
 		}
 		}
 		return new ResponseEntity<String>("Error",HttpStatus.OK);
+		}
 	}
 	
 	@RequestMapping(value="/addKorisnik", method=RequestMethod.PUT)

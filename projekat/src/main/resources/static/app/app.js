@@ -47,6 +47,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/tabs.html'
 	}).when('/rezervacija/hotel/',{
 		templateUrl: 'partials/biranjeRezervacijeHotela.html'
+	}).when('/rezervacija/rentacar/',{
+		templateUrl: 'partials/biranjeRezervacijeRentacara.html'
 	}).when('/rentacar/:id',{
 		templateUrl: 'partials/rentacarProfil.html'
 	}).when('/rentacar/editRentacar/:id',{
@@ -77,18 +79,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/login.html'
 	}).when('/korisnik/addKorisnik',{
 		templateUrl: 'partials/registracija.html'
-	}).when('/regUserMainPage',{
-		templateUrl: 'partials/regUserMainPage.html'
-	}).when('/regUserHoteli',{
-		templateUrl: 'partials/regUserHoteli.html'
-	}).when('/regUserHoteli/:id',{
-		templateUrl: 'partials/regUserHotelProfil.html'
-	}).when('/regUserAvioKompanije',{
-		templateUrl: 'partials/regUserAvioKompanije.html'
-	}).when('/regUserRentacar',{
-		templateUrl: 'partials/regUserRentacar.html'
-	}).when('/regUserRentacar/:id',{
-		templateUrl: 'partials/regUserRentacarProfil.html'
+	}).when('/korisnik/uspesnaRegistracija',{
+		templateUrl: 'partials/postRegistracija.html'
 	}).when('/users/:name',{
 		templateUrl: 'partials/pretragaKorisnika.html'
 	}).when('/zahtevi',{

@@ -2,7 +2,7 @@
  * 
  */
 
-webApp.controller('dodavanjeKorisnikaController', function($scope, $location, korisnikFactory,$routeParams) {
+webApp.controller('dodavanjeKorisnikaController', function($scope, $location, korisnik1Factory,$routeParams) {
 	
     function init() {
     	
@@ -10,10 +10,10 @@ webApp.controller('dodavanjeKorisnikaController', function($scope, $location, ko
 
 	init();
 	
-	$scope.dodavanjeKorisnika=function(k){
-		korisnikFactory.addKorisnik(k).then(function success(response) {
+	$scope.dodavanjeKorisnika=function(korisnik){
+		korisnik1Factory.addKorisnik(korisnik).then(function success(response) {
     		$scope.addedKorisnik=response.data;
-    		$location.path("/rentacar/vozila/1");
+    		$location.path("/korisnik/uspesnaRegistracija");
     	}, function error(response) {
 			$scope.error="Greska";
 		});

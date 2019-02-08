@@ -339,6 +339,17 @@ webApp.controller('biranjeRezervacijeHotelaController', function($rootScope,$sco
 		$rootScope.hotelBrza=true;
 		$rootScope.putanja='partials/rezervacijaHotel.html'
 	};
+	
+	$scope.preskoci=function(){
+		
+		$rootScope.letClass = 'nav-link disabled';
+		
+		$rootScope.hotelClass = 'nav-link disabled';
+		
+		$rootScope.rentClass = 'nav-link active';
+		
+		$rootScope.putanja='partials/biranjeRezervacijeRentacara.html'
+	};
 });
 
 webApp.controller('rezervacijaHotelaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
@@ -396,7 +407,7 @@ webApp.controller('rezervacijaSobaController', function($rootScope,$scope, $loca
 	};
 });
 
-webApp.controller('rezervacijaSobaBrzaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+webApp.controller('rezervacijaSobaBrzaController', function($rootScope,$scope, $location, hotelFactory,$routeParams,rezFactory) {
 	
 	function init() {
 		hotelFactory.getSobeBrza($rootScope.hotelRezervacija['id'],$rootScope.datumDolaska,$rootScope.datumPovratka)
@@ -409,8 +420,19 @@ webApp.controller('rezervacijaSobaBrzaController', function($rootScope,$scope, $
 
 	init();
 	
-	$scope.rezervisi=function(){
-		$location.path("/#/");
+	$scope.rezervisi=function(s){
+		
+		var rs = {'id':null,'soba':{'id':s.id,'brojSobe':s.brojSobe,'sprat':s.sprat,'brojKreveta':s.brojKreveta},'datumDolaska':$rootScope.datumDolaska,'datumOdlaska':$rootScope.datumPovratka};
+    	
+    	$rootScope.rezervacija.rezervacijaSobe.push(rs);
+		
+    	rezFactory.makeRez($rootScope.rezervacija).then(function success(response) {
+    		$scope.madeRez=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+    	
+    	$location.path("/#/");
 	};
 });
 
@@ -577,7 +599,7 @@ webApp.controller('hotelFinishRezController', function($rootScope,$scope, $locat
 		
 		$rootScope.rentClass = 'nav-link active';
 		
-		$rootScope.putanja='partials/rezervacijaRentacar.html'
+		$rootScope.putanja='partials/biranjeRezervacijeRentacara.html'
 	};
 });
 

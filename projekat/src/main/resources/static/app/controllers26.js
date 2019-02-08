@@ -369,6 +369,10 @@ webApp.controller('rezervacijaVozila2Controller', function($rootScope,$scope, $l
 	$scope.dodajVozilo=function(v){
     	$scope.selektovaneVozila++;
     	
+    	var rv = {'id':null,'vozilo':v,'datumDolaska':$rootScope.datumDolaskaRentacar,'datumOdlaska':$rootScope.datumOdlaskaRentacar};
+    	
+    	$rootScope.rezervacija.rezervacijaVozila.push(rv);
+    	
     	if($scope.selektovaneVozila == 1){
     		$scope.classVozila = 'fa fa-check-circle';
     		$scope.styleVozila = {color:'#99CA27'};
@@ -388,6 +392,16 @@ webApp.controller('rezervacijaVozila2Controller', function($rootScope,$scope, $l
 	
 	$scope.izbaciVozilo=function(v){
     	$scope.selektovaneVozila--;
+    	
+    	var i = 0;
+    	for ( var rv in $rootScope.rezervacija.rezervacijaVozila) {
+			if(rv.vozilo.id==v.id){
+				$rootScope.rezervacija.rezervacijaVozila.splice(i, 1);
+				break;
+			}
+			i++;
+		}
+    	
     	
     	if($scope.selektovaneVozila == 1){
     		$scope.classVozila = 'fa fa-check-circle';
@@ -412,7 +426,7 @@ webApp.controller('rezervacijaVozila2Controller', function($rootScope,$scope, $l
 	
 });
 
-webApp.controller('rentacarFinishRezController', function($rootScope,$scope, $location, rentacarFactory,$routeParams) {
+webApp.controller('rentacarFinishRezController', function($rootScope,$scope, $location, rentacarFactory,$routeParams, rezFactory) {
 	
     function init() {
     	
@@ -421,6 +435,12 @@ webApp.controller('rentacarFinishRezController', function($rootScope,$scope, $lo
 	init();
 	
 	$scope.zavrsiRez=function(){
+		rezFactory.makeRez($rootScope.rezervacija).then(function success(response) {
+    		$scope.madeRez=response.data;
+    	}, function error(response) {
+			$scope.error="Greska";
+		});
+		
 		$location.path("/#/");
 	};
 });

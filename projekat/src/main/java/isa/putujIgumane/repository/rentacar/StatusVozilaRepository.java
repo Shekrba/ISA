@@ -18,4 +18,7 @@ public interface StatusVozilaRepository  extends JpaRepository<StatusVozila, Lon
 	
 	@Query("select sv from StatusVozila sv where sv.vozilo.id=?1 and datum>=?2 and datum<=?3")
 	List<StatusVozila> findInDateByVozilo(Long voziloId, LocalDate from, LocalDate to);
+	
+	@Query("select sum(sv.cena) from StatusVozila sv where sv.vozilo.id = ?1 and sv.datum>=?2 and sv.datum<=?3 group by sv.cena")
+	Double findUkupnaCena(Long voziloId, LocalDate from, LocalDate to);
 }

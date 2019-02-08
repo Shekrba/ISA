@@ -5,7 +5,11 @@ insert into hotel (id, naziv, adresa, opis, prosecna_ocena) values (2, 'Vojvodin
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (3, 'Four Seasons', 'Boticelijeva 52c, Firenca, Italija','Veoma blizu autobuske stanice',0);
 insert into hotel (id, naziv, adresa, opis, prosecna_Ocena) values (4, 'Beli Dvor', 'Marsala Tita 55, Sarajevo, Bosna i Hercegovina','Hotel je skoro renoviran',0);
 insert into rentacar (id, naziv_servisa, adresa_servisa, opis_servisa, prosecna_Ocena_servisa) values (1, 'Get Your Ride', 'Terazije 14, Beograd, Srbija','Veliki broj novih modela Fijata',0);
+insert into vozilo (id, broj_sedista, godina_proizvodnje, marka_vozila, model_vozila, registracija_vozila, rentacar_id) values (1, 4, 2011, 'reno', 'megan', 'NS050-NN', 1);
 
+insert into vozilo (id, broj_sedista, godina_proizvodnje, marka_vozila, model_vozila, registracija_vozila, rentacar_id) values (2, 5, 2015, 'audi', 'q7', 'BG150-NF', 1);
+
+insert into vozilo (id, broj_sedista, godina_proizvodnje, marka_vozila, model_vozila, registracija_vozila, rentacar_id) values (3, 5, 2017, 'bmw', 'x6', 'SU254-DG', 1);
 
 
 

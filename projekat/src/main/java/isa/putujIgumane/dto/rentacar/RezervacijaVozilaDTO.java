@@ -7,11 +7,8 @@ public class RezervacijaVozilaDTO {
 	
 	private Long id;
 	private VoziloDTO vozilo;
-	private LocalDate datum;
-	private boolean otkazano;
 	private LocalDate datumDolaska;
 	private LocalDate datumOdlaska;
-	private double ukupnaCena;
 	
 	
 	public RezervacijaVozilaDTO() {
@@ -39,26 +36,6 @@ public class RezervacijaVozilaDTO {
 	}
 
 
-	public LocalDate getDatum() {
-		return datum;
-	}
-
-
-	public void setDatum(LocalDate datum) {
-		this.datum = datum;
-	}
-
-
-	public boolean isOtkazano() {
-		return otkazano;
-	}
-
-
-	public void setOtkazano(boolean otkazano) {
-		this.otkazano = otkazano;
-	}
-
-
 	public LocalDate getDatumDolaska() {
 		return datumDolaska;
 	}
@@ -76,16 +53,6 @@ public class RezervacijaVozilaDTO {
 
 	public void setDatumOdlaska(LocalDate datumOdlaska) {
 		this.datumOdlaska = datumOdlaska;
-	}
-
-
-	public double getUkupnaCena() {
-		return ukupnaCena;
-	}
-
-
-	public void setUkupnaCena(double ukupnaCena) {
-		this.ukupnaCena = ukupnaCena;
 	}
 	
 	

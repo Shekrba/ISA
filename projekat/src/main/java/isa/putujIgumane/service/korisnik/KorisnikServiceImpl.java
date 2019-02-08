@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import isa.putujIgumane.dto.aviokompanija.KartaDTO;
+
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
+
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.RezervacijaSobeDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
@@ -31,7 +35,11 @@ import isa.putujIgumane.dto.rentacar.RezervacijaVozilaDTO;
 import isa.putujIgumane.dto.rentacar.StatusVozilaDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+
+import isa.putujIgumane.model.avioKompanija.Karta;
+
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
+
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.RezervacijaSobe;
 import isa.putujIgumane.model.hotel.Soba;
@@ -45,7 +53,11 @@ import isa.putujIgumane.model.rentACar.RezervacijaVozila;
 import isa.putujIgumane.model.rentACar.StatusVozila;
 import isa.putujIgumane.model.rentACar.Vozilo;
 import isa.putujIgumane.repository.aviokompanija.AvioKompanijaRepository;
+
+import isa.putujIgumane.repository.aviokompanija.KartaRepository;
+
 import isa.putujIgumane.repository.hotel.CenovnikUslugaHotelaRepository;
+
 import isa.putujIgumane.repository.hotel.HotelRepository;
 import isa.putujIgumane.repository.hotel.SobaRepository;
 import isa.putujIgumane.repository.hotel.StatusSobeRepository;
@@ -95,7 +107,11 @@ public class KorisnikServiceImpl implements KorisnikService{
 	VoziloRepository voziloRepo;
 	
 	@Autowired
+	KartaRepository kartaRepo;
+	
+	@Autowired
 	CenovnikUslugaHotelaRepository cenovnikRepo;
+
 	
 	@Override
 	public Korisnik getKorisnik(Long id) {
@@ -254,6 +270,14 @@ public class KorisnikServiceImpl implements KorisnikService{
 		}
 		
 		
+		for(KartaDTO k : rez.getKarte()) {
+			Karta karta=kartaRepo.findOne(k.getId());
+			karta.setKupljena(true);
+			if(k.getVersion()!=karta.getVersion()) {
+				throw new OptimisticLockException();
+			}
+		}
+		
 		for (RezervacijaSobeDTO rs : rez.getRezervacijaSobe()) {
 			SobaDTO sDTO=rs.getSoba();
 			RezervacijaSobe rsNew = new RezervacijaSobe();
@@ -301,34 +325,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 			
 			
 		}
-		/*
-		for (RezervacijaVozilaDTO rv : rez.getRezervacijaVozila()) {
-			RezervacijaVozila rvNew = new RezervacijaVozila();
-			rvNew.setDatum(LocalDate.now());
-			rvNew.setDatumDolaska(rv.getDatumDolaska());
-			rvNew.setDatumOdlaska(rv.getDatumOdlaska());
-			rvNew.setOtkazano(false);
-			
-			Vozilo vozilo = voziloRepo.findOneById(rv.getVozilo().getId());
 		
-			for (StatusVozila sv : vozilo.getStatusVozila()) {
-				if(sv.getDatum().isEqual(rvNew.getDatumDolaska()) || (sv.getDatum().isAfter(rvNew.getDatumDolaska()) && sv.getDatum().isBefore(rvNew.getDatumOdlaska())) || sv.getDatum().isEqual(rvNew.getDatumOdlaska())) {
-					sv.setVoziloJeIznajmljeno(true);
-				}
-			}
-			
-			rvNew.setVozilo(vozilo);
-			vozilo.getRezervacije().add(rvNew);
-			rvNew.setUkupnaCena(statusVozilaRepo.findUkupnaCena(vozilo.getId(),rvNew.getDatumDolaska(),rvNew.getDatumOdlaska()));
-			rvNew.setRezervacija(rezNew);
-			
-			rezNew.getRezervacijaVozila().add(rvNew);
-			
-			
-		}
-		
-        
-		k.getRezervacije().add(rezNew);*/
 		
 		for (RezervacijaVozilaDTO rv : rez.getRezervacijaVozila()) {
 			VoziloDTO vDTO=rv.getVozilo();

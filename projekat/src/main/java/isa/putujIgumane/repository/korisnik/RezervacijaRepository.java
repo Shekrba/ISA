@@ -9,4 +9,5 @@ import isa.putujIgumane.model.korisnik.Rezervacija;
 
 public interface RezervacijaRepository  extends JpaRepository<Rezervacija, Long>{
 	
+
 }

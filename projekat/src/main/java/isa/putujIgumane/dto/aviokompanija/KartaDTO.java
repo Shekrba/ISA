@@ -12,6 +12,8 @@ public class KartaDTO {
 	
 	private Double cena;
 	
+	private long version;
+	
 	public KartaDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -20,6 +22,18 @@ public class KartaDTO {
 
 	public Double getCena() {
 		return cena;
+	}
+
+
+
+	public long getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 

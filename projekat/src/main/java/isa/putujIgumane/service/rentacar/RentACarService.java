@@ -55,4 +55,5 @@ public interface RentACarService {
 	public double getUkupnaCena(Long voziloId, LocalDate from, LocalDate to);
 	public List<VozilaBrzaDTO> getVozilaBrza(LocalDate from, LocalDate to);
 
+
 }

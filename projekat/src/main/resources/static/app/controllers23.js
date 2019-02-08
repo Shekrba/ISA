@@ -989,7 +989,7 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 		
 		$rootScope.datumDolaska=$scope.flight.vremePoletanja;
 		
-		$rootScope.putanja='partials/biranjeRezervacijaHotela.html';
+		$rootScope.putanja='partials/biranjeRezervacijeHotela.html';
 		
 		$rootScope.letClass = 'nav-link disabled';
 		

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+import isa.putujIgumane.model.avioKompanija.Karta;
 import isa.putujIgumane.model.avioKompanija.Let;
 
 
@@ -17,16 +18,16 @@ public interface AvioKompanijaService {
 	public AvioKompanija editAk(AvioKompanija ak);
 
 
-	public abstract Let addLet(Let l,Integer akID);
-	public abstract List<Let> getAllAKLet(Integer akID);
+	public  Let addLet(Let l,Integer akID);
+	public  List<Let> getAllAKLet(Integer akID);
 	
-	public abstract List<Let> getAllLet();
+	public  List<Let> getAllLet();
 
-	public abstract AvioKompanija addAvio(AvioKompanijaDTO avio);
-	public abstract List<AvioKompanija> getAllNull();
+	public AvioKompanija addAvio(AvioKompanijaDTO avio);
+	public  List<AvioKompanija> getAllNull();
 	
-	public abstract Let getLet(Long id);
+	public Let getLet(Long id);
 	
-
+	public List<Karta> getForBrza();
 
 }

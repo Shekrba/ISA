@@ -14,11 +14,25 @@ public class KartaDTO {
 	
 	private long version;
 	
+	private SedisteDTO sediste;
+	
 	public KartaDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
+
+	public SedisteDTO getSediste() {
+		return sediste;
+	}
+
+
+
+	public void setSediste(SedisteDTO sediste) {
+		this.sediste = sediste;
+	}
+
+
 
 	public Double getCena() {
 		return cena;

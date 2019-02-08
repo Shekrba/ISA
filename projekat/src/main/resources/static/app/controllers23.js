@@ -35,6 +35,10 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
     		 $rootScope.rentacar=response.data.rentacar;
     		 $location.path("/rentacar/editRentacar/"+response.data.rentacar.id); 
     	 };
+    	 if(response.data.isAdmin!=undefined){
+    		 $rootScope.adminSys=1;
+    		 $location.path("/");
+    	 };
       });
     })
     .catch(function() {
@@ -1006,6 +1010,38 @@ webApp.controller('prijateljiController', function($scope,$rootScope, korisnikFa
 			$scope.korisnici=response.data;
 		});
 		
+	};
+	
+	init();
+	
+});
+
+webApp.controller('biranjeRezervacijeKarteController', function($scope,$rootScope, korisnikFactory) {
+	
+	function init(){
+	};
+	
+	init();
+	
+	$scope.regularna=function(){
+		
+		$rootScope.hotelBrza=false;
+		$rootScope.putanja='partials/letoviSvi.html'
+	};
+
+	$scope.brza=function(){
+		
+		$rootScope.hotelBrza=true;
+		$rootScope.putanja='partials/karteBrza.html'
+	};
+});
+
+webApp.controller('pretragaKarataController', function($scope,$rootScope, akFactory) {
+	
+	function init(){
+		akFactory.getKarteBrza().then(function success(response){
+			$scope.karte=response.data;
+		});
 	};
 	
 	init();

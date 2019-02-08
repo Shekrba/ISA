@@ -122,7 +122,9 @@ webApp.factory('akFactory', function($http) {
 	factory.getFlight = function(id) {
 		return $http.get('/PutujIgumane/api/aviokompanije/flight/'+id);
 	};
-	
+	factory.getKarteBrza = function() {
+		return $http.get('/PutujIgumane/api/aviokompanije/karte/brza');
+	};
 	
 	
 	return factory;

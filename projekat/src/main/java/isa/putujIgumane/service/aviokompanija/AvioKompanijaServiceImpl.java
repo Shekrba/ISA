@@ -1,6 +1,8 @@
 package isa.putujIgumane.service.aviokompanija;
 
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
 import java.util.ArrayList;
 
 import java.util.List;
@@ -13,12 +15,13 @@ import org.springframework.stereotype.Service;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
-
+import isa.putujIgumane.model.avioKompanija.Karta;
 import isa.putujIgumane.model.avioKompanija.Let;
 
 import isa.putujIgumane.model.hotel.Hotel;
 
 import isa.putujIgumane.repository.aviokompanija.AvioKompanijaRepository;
+import isa.putujIgumane.repository.aviokompanija.KartaRepository;
 import isa.putujIgumane.repository.aviokompanija.LetRepository;
 
 @Service
@@ -29,6 +32,9 @@ public class AvioKompanijaServiceImpl implements AvioKompanijaService{
 	
 	@Autowired 
 	LetRepository letRepo; 
+	
+	@Autowired 
+	KartaRepository kartaRepo; 
 	
 	@Override
 	public Page<AvioKompanija> getAll(Pageable pageable) {
@@ -93,6 +99,11 @@ public class AvioKompanijaServiceImpl implements AvioKompanijaService{
 	@Override
 	public Let getLet(Long id) {
 		return letRepo.findOne(id);
+	}
+	
+	@Override
+	public List<Karta> getForBrza(){
+		return kartaRepo.findAllForBrza();
 	}
 	
 }

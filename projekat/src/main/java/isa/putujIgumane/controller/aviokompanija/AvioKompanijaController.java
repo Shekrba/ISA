@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import isa.putujIgumane.dto.aviokompanija.AdresaDTO;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
-
+import isa.putujIgumane.dto.aviokompanija.KartaDTO;
 import isa.putujIgumane.dto.aviokompanija.LetDTO;
 import isa.putujIgumane.dto.aviokompanija.SegmentDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
@@ -45,6 +45,7 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 @RequestMapping(value="api/aviokompanije")
 public class AvioKompanijaController {
 
+	private static final List<LetDTO> KartaDTO = null;
 	@Autowired AvioKompanijaService akService;
 	
 	@RequestMapping(value="/{pageNumber}", method=RequestMethod.GET)
@@ -80,6 +81,13 @@ public class AvioKompanijaController {
 	public ResponseEntity<?> getAllAKFlights(@PathVariable("id") Integer akID) {
 		List<LetDTO> letoviDTO=ObjectMapperUtils.mapAll(akService.getAllAKLet(akID), LetDTO.class);
 		return new ResponseEntity<List<LetDTO>>(letoviDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/karte/brza", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> getForBrza() {
+		List<KartaDTO> kartaDTO=ObjectMapperUtils.mapAll(akService.getForBrza(), KartaDTO.class);
+		return new ResponseEntity<List<KartaDTO>>(kartaDTO,HttpStatus.OK);
 	}
 	
 	

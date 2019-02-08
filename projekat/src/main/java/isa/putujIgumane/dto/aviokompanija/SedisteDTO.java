@@ -10,9 +10,22 @@ public class SedisteDTO {
 	
 	private KartaDTO karta;
 	
+	private SegmentDTO segment;
+	
 	public SedisteDTO() {
 		
 	}
+	
+
+	public SegmentDTO getSegment() {
+		return segment;
+	}
+
+
+	public void setSegment(SegmentDTO segment) {
+		this.segment = segment;
+	}
+
 
 	public Integer getId() {
 		return id;

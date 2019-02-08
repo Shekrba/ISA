@@ -19,18 +19,18 @@
 		<a href="#" class="navbar-brand">Putuj Igumane</a>
 		
 		<div class="collapse navbar-collapse navbar-light">
-		<form ng-if="authenticated" class="form-inline">
+		<form ng-if="authenticated && $root.hotel == null && $root.avioKompanija == null && $root.rentacar == null && $root.adminSys == null" class="form-inline">
     			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchName">
    				<button class="btn btn-outline-success my-2 my-sm-0" ng-click="searchUsers(searchName)"><i class="fa fa-search"></i></button>
   		</form>
   			
 			<ul class="navbar-nav ml-auto">
 				
-				<li ng-if="authenticated" class="nav-item">
+				<li ng-if="authenticated && $root.hotel == null && $root.avioKompanija == null && $root.rentacar == null && $root.adminSys == null" class="nav-item">
 					<a href="#/rezervacija" class="nav-link">Napravi rezervaciju</a>
 				</li>
 				
-				<li class="nav-item dropdown" ng-if="authenticated">
+				<li class="nav-item dropdown" ng-if="authenticated && $root.adminSys != null">
   					<a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target">Registracije <span class="caret"></span></a>
   					<div class="dropdown-menu" aria-labelledby="dropdown_targt">
   						<a href="#/add/aviokompanija" class="dropdown-item">Registracija aviokompanije</a>
@@ -43,7 +43,7 @@
   					</div>
   				</li>
 				
-				<li class="nav-item dropdown" ng-if="authenticated">
+				<li class="nav-item dropdown" ng-if="authenticated && $root.rentacar != null">
   					<a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target">Rent a car <span class="caret"></span></a>
   					<div class="dropdown-menu" aria-labelledby="dropdown_targt">
   						<a href="#/rentacar/editRentacar/1" class="dropdown-item">Izmena servisa</a>
@@ -55,18 +55,18 @@
   					</div>
   				</li>
 				
-				<li class="nav-item dropdown" ng-if="authenticated">
+				<li class="nav-item dropdown" ng-if="authenticated && $root.hotel != null">
   					<a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target">Menadžment hotela <span class="caret"></span></a>
   					<div class="dropdown-menu" aria-labelledby="dropdown_targt">
-  						<a href="#/hoteli/editHotel/1" class="dropdown-item">Izmena informacija hotela</a>
-  						<a href="#/hoteli/cenovnik/1" class="dropdown-item">Izmena cenovnika usluga</a>
-  						<a href="#/hoteli/sobe/1" class="dropdown-item">Izmena soba</a>
-  						<a href="#/hoteli/oceneHotela/1" class="dropdown-item">Izveštaj prosečne ocene hotela</a>
-  						<a href="#/hoteli/oceneSobaHotela/1" class="dropdown-item">Izveštaj prosečne ocene soba</a>
-  						<a href="#/hoteli/prihodi/1" class="dropdown-item">Uvid u prihode</a>
+  						<a ng-href="#/hoteli/editHotel/{{$root.hotel.id}}" class="dropdown-item">Izmena informacija hotela</a>
+  						<a ng-href="#/hoteli/cenovnik/{{$root.hotel.id}}" class="dropdown-item">Izmena cenovnika usluga</a>
+  						<a ng-href="#/hoteli/sobe/{{$root.hotel.id}}" class="dropdown-item">Izmena soba</a>
+  						<a ng-href="#/hoteli/oceneHotela/{{$root.hotel.id}}" class="dropdown-item">Izveštaj prosečne ocene hotela</a>
+  						<a ng-href="#/hoteli/oceneSobaHotela/{{$root.hotel.id}}" class="dropdown-item">Izveštaj prosečne ocene soba</a>
+  						<a ng-href="#/hoteli/prihodi/{{$root.hotel.id}}" class="dropdown-item">Uvid u prihode</a>
   					</div>
   				</li>
-				<li ng-if="authenticated" class="nav-item">
+				<li ng-if="authenticated && $root.avioKompanija != null" class="nav-item">
 					<a href="#/izmena/letovi" class="nav-link">Letovi</a>
 				</li>	
 				<li ng-if="!authenticated" class="nav-item">
@@ -75,10 +75,10 @@
 				<li ng-if="!authenticated" class="nav-item">
 					<a href="#/korisnik/addKorisnik" class="nav-link">Registracija</a>
 				</li>
-				<li ng-if="authenticated" class="nav-item">
+				<li ng-if="authenticated && $root.hotel == null && $root.avioKompanija == null && $root.rentacar == null && $root.adminSys == null" class="nav-item">
 					<a href="#/prijatelji" class="nav-link">Prijatelji</a>
 				</li>
-				<li ng-if="authenticated" class="nav-item">
+				<li ng-if="authenticated && $root.hotel == null && $root.avioKompanija == null && $root.rentacar == null && $root.adminSys == null" class="nav-item">
 					<a href="#/zahtevi" class="nav-link">Zahtevi za prijateljstvo</a>
 				</li>
 				<li ng-if="authenticated" class="nav-item" style="cursor: pointer;">

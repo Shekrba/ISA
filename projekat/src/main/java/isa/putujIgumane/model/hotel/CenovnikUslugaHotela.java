@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+
 
 @Entity
 public class CenovnikUslugaHotela {
@@ -25,7 +27,8 @@ public class CenovnikUslugaHotela {
 	@Column(name = "cena", unique = false, nullable = false)
 	private Double cena;
 	
-	
+	@Version
+	private long version;
 	
 	public CenovnikUslugaHotela(Long id, Hotel hotel, String usluga, Double cena) {
 		super();
@@ -39,6 +42,22 @@ public class CenovnikUslugaHotela {
 	
 	public CenovnikUslugaHotela() {
 		super();
+	}
+
+
+
+	
+
+
+
+	public long getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 

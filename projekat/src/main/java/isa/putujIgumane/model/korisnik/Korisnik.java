@@ -72,7 +72,7 @@ public class Korisnik implements UserDetails{
 	@OneToMany(mappedBy="korisnik",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Ocena> ocene = new HashSet<Ocena>();
 	
-	@OneToMany(mappedBy="korisnik",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="korisnik",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Rezervacija> rezervacije = new HashSet<Rezervacija>();
 	
 	@Column(name = "last_password_reset_date")

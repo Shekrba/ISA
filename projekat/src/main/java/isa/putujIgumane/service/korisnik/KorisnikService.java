@@ -15,32 +15,33 @@ import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.korisnik.Zahtev;
 
-@Service
+
 public interface KorisnikService {
 
-	public abstract Korisnik getKorisnik(Long id);
+	public Korisnik getKorisnik(Long id);
 	
-	public abstract Korisnik getKorisnik(String username);
+	public Korisnik getKorisnik(String username);
 	
-	public abstract Page<Korisnik> getKorisnikLike(Pageable pageable,String s,String loggedUser);
+	public Page<Korisnik> getKorisnikLike(Pageable pageable,String s,String loggedUser);
 	
-	public abstract void sendFriendRequest(String username,Long friend) throws Exception;
+	public void sendFriendRequest(String username,Long friend) throws Exception;
 	
-	public abstract List<Long> getFriendsAndRequests(String username);
+	public List<Long> getFriendsAndRequests(String username);
 	
-	public abstract void answerRequest(Long id,boolean flag);
+	public void answerRequest(Long id,boolean flag);
 	
-	public abstract List<Zahtev> getFriendsRequests(String username);
+	public List<Zahtev> getFriendsRequests(String username);
 	
-	public abstract Korisnik addKorisnik(KorisnikDTO korisnik);
+	public Korisnik addKorisnik(KorisnikDTO korisnik);
 	
-	public abstract Korisnik addAdminHotel(AdminHotelaDTO admin);
+	public Korisnik addAdminHotel(AdminHotelaDTO admin);
 	
-	public abstract Korisnik addAdminAvio(AdminAvioDTO admin);
+	public Korisnik addAdminAvio(AdminAvioDTO admin);
 	
-	public abstract Korisnik addAdminRent(AdminRentDTO admin);
-	
-	public abstract Rezervacija makeRez(RezervacijaDTO rez,Korisnik k);
-	
+	public Korisnik addAdminRent(AdminRentDTO admin);
+		
 	public abstract List<Korisnik> getFriends(String username);
+
+	public Rezervacija makeRez(RezervacijaDTO rez) throws Exception;
+
 }

@@ -1,5 +1,7 @@
 package isa.putujIgumane.dto.hotel;
 
+import java.util.Set;
+
 public class SobaZaRezDTO {
 	
 	private Long id;
@@ -11,6 +13,12 @@ public class SobaZaRezDTO {
 	private int brojKreveta;
 	
 	private boolean dodata = false;
+	
+	private double cena;
+	
+	private Long version;
+	
+	private Set<StatusSobeDTO> statusSobe;
 	
 	public SobaZaRezDTO() {
 		
@@ -26,6 +34,24 @@ public class SobaZaRezDTO {
 
 	public int getBrojSobe() {
 		return brojSobe;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
+	
+
+	public Set<StatusSobeDTO> getStatusSobe() {
+		return statusSobe;
+	}
+
+	public void setStatusSobe(Set<StatusSobeDTO> statusSobe) {
+		this.statusSobe = statusSobe;
 	}
 
 	public void setBrojSobe(int brojSobe) {
@@ -55,6 +81,15 @@ public class SobaZaRezDTO {
 	public void setDodata(boolean dodata) {
 		this.dodata = dodata;
 	}
+
+	public double getCena() {
+		return cena;
+	}
+
+	public void setCena(double cena) {
+		this.cena = cena;
+	}
+	
 	
 	
 }

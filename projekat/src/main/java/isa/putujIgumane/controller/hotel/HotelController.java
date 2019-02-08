@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.OcenaHotelaDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
 import isa.putujIgumane.dto.hotel.SobaZaRezDTO;
+import isa.putujIgumane.dto.hotel.SobeBrzaDTO;
 import isa.putujIgumane.dto.hotel.StatusSobeDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
@@ -31,6 +33,8 @@ import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.hotel.StatusSobe;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Ocena;
+import isa.putujIgumane.repository.hotel.HotelRepository;
+import isa.putujIgumane.service.hotel.HotelService;
 import isa.putujIgumane.service.hotel.HotelServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -39,7 +43,7 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 @RequestMapping(value="api/hoteli", produces="application/json;charset=UTF-8")
 public class HotelController {
 	@Autowired
-	private HotelServiceImpl hotelServiceImpl;
+	private HotelService hotelServiceImpl;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAllHotels() {
@@ -80,6 +84,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/editHotel", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> updateHotel(@RequestBody HotelDTO hotel){
 		
 		Hotel updatedHotel = null;
@@ -103,7 +108,9 @@ public class HotelController {
 		return new ResponseEntity<>(cuhDTO, HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping(value="/editUsluga/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> getUsluga(@PathVariable("id")Long id){
 		
 		CenovnikUslugaHotela cuh = hotelServiceImpl.getUsluga(id);
@@ -119,6 +126,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/updateUsluga", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> updateCenovnik(@RequestBody CenovnikUslugaHotelaDTO cuh){
 		
 		CenovnikUslugaHotela updatedCuh = null;
@@ -133,6 +141,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/addUsluga/{hotelId}", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> addCenovnik(@PathVariable("hotelId")Long hotelId,@RequestBody CenovnikUslugaHotelaDTO cuh){
 		
 		CenovnikUslugaHotela addedCuh = null;
@@ -149,6 +158,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value = "/delete/usluga", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> deleteCenovnik(@RequestParam("id") Long id,@RequestParam("hotelId") Long hotelId) {
 		
 		HashSet<CenovnikUslugaHotela> cuh = hotelServiceImpl.deleteCenovnik(id,hotelId);
@@ -175,6 +185,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/editSoba/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> getSoba(@PathVariable("id")Long id){
 		
 		Soba soba = hotelServiceImpl.getSoba(id);
@@ -190,6 +201,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/updateSoba", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> updateSoba(@RequestBody SobaDTO soba){
 		
 		Soba updatedSoba = null;
@@ -204,15 +216,14 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/addSoba/{hotelId}", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> addSoba(@PathVariable("hotelId")Long hotelId,@RequestBody SobaDTO soba){
 		
 		Soba addedSoba = null;
 		
-		try {
-			addedSoba = hotelServiceImpl.addSoba(soba,hotelId);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-		}
+	
+		addedSoba = hotelServiceImpl.addSoba(soba,hotelId);
+		
 		
 		SobaDTO sobaDTO=ObjectMapperUtils.map(addedSoba, SobaDTO.class);
 		
@@ -220,6 +231,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value = "/delete/soba", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> deleteSoba(@RequestParam("id") Long id,@RequestParam("hotelId") Long hotelId) {
 		
 		HashSet<Soba> soba = hotelServiceImpl.deleteSoba(id,hotelId);
@@ -230,6 +242,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/ocene/hotel/{hotelId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> getOceneHotela(@PathVariable("hotelId")Long hotelId){
 		
 		Hotel h = new Hotel();
@@ -248,6 +261,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/ocene/soba/{sobaId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> getOceneSobe(@PathVariable("sobaId")Long sobaId){
 		
 		Soba s = new Soba();
@@ -266,6 +280,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/prihodi/{hotelId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> getPrihode(@PathVariable("hotelId")Long hotelId,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate toDate){
 		
 		Double prihodi = hotelServiceImpl.getPrihode(hotelId,fromDate,toDate);
@@ -277,6 +292,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="/setStatusi/{sobaId}", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('HADMIN')")
 	public ResponseEntity<?> setStatuse(@PathVariable("sobaId")Long sobaId, @RequestParam("cena") Double cena,@RequestParam("popust") Short popust,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to){
 		
 		
@@ -297,7 +313,19 @@ public class HotelController {
 		
 		List<SobaZaRezDTO> sobeZaRezDTO=ObjectMapperUtils.mapAll(hotelServiceImpl.getSobeZaRez(hotelId,cenaFrom, cenaTo, datumFrom, datumTo,jed,dvo,tro,cet), SobaZaRezDTO.class);
 		
+		for (SobaZaRezDTO s : sobeZaRezDTO) {
+			s.setCena(hotelServiceImpl.getUkupnaCena(s.getId(),datumFrom,datumTo));
+		}
+		
 		return new ResponseEntity<>(sobeZaRezDTO, HttpStatus.OK); 
+	}
+	
+	@RequestMapping(value="/sobe/brza", method=RequestMethod.GET)
+	public ResponseEntity<?> getSobeBrza(@RequestParam("hotelId") Long hotelId,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to){
+		
+		List<SobeBrzaDTO> sobeDTO = hotelServiceImpl.getSobeBrza(hotelId,from,to);		
+		
+		return new ResponseEntity<>(sobeDTO, HttpStatus.OK); 
 	}
 	
 	@RequestMapping(value="/add/hotel", method=RequestMethod.PUT)

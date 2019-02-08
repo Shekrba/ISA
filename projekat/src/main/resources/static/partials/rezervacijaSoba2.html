@@ -31,6 +31,7 @@
 					<h3 align="center">Broj sobe: {{s.brojSobe}}</h3>
 					<p>Sprat: {{s.sprat}}</p>
 					<p>Broj kreveta: {{s.brojKreveta}}</p>
+					<p>Ukupna cena: {{s.cena}}</p>
 					<button ng-if="s.dodata==false" class="btn btn-outline-success my-2 my-sm-0" ng-click="s.dodata=dodajSobu(s)">Dodaj</button>
 					<button ng-if="s.dodata==true" class="btn btn-outline-danger my-2 my-sm-0" ng-click="s.dodata=izbaciSobu(s)">Izbaci</button>
 				</div>

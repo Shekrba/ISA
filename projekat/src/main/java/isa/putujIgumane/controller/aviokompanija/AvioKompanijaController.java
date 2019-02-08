@@ -35,7 +35,7 @@ import isa.putujIgumane.model.avioKompanija.Segment;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.hotel.Hotel;
-
+import isa.putujIgumane.service.aviokompanija.AvioKompanijaService;
 import isa.putujIgumane.service.aviokompanija.AvioKompanijaServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -45,7 +45,7 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 @RequestMapping(value="api/aviokompanije")
 public class AvioKompanijaController {
 
-	@Autowired AvioKompanijaServiceImpl akService;
+	@Autowired AvioKompanijaService akService;
 	
 	@RequestMapping(value="/{pageNumber}", method=RequestMethod.GET)
 	public ResponseEntity<List<AvioKompanijaDTO>> getAksPage(@PathVariable("pageNumber") int pageNumber) {

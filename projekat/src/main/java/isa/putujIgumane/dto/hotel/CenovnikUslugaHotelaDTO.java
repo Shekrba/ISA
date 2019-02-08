@@ -12,6 +12,7 @@ public class CenovnikUslugaHotelaDTO {
 	
 	private boolean dodata = false;
 	
+	private Long version;
 	
 	public CenovnikUslugaHotelaDTO() {
 		
@@ -28,6 +29,18 @@ public class CenovnikUslugaHotelaDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
+	public Long getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 
 
 	public String getUsluga() {

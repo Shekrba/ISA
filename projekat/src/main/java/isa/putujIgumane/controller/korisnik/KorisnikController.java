@@ -36,6 +36,7 @@ import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.korisnik.Zahtev;
 import isa.putujIgumane.model.rentACar.Vozilo;
+import isa.putujIgumane.service.korisnik.KorisnikService;
 import isa.putujIgumane.service.korisnik.KorisnikServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -44,7 +45,7 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 public class KorisnikController{
 
 	@Autowired
-	private KorisnikServiceImpl korisnikService;
+	private KorisnikService korisnikService;
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	@PreAuthorize("hasRole('USER')")
@@ -211,15 +212,18 @@ public class KorisnikController{
 	}
 	
 	@RequestMapping(value="/makeRez", method=RequestMethod.PUT)
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<?> makeRez(@RequestBody RezervacijaDTO rez){
 		
 		Rezervacija madeRez = null;
 		
-		Korisnik k=korisnikService.getKorisnik(SecurityContextHolder.getContext().getAuthentication().getName());
 		
-		
-		madeRez = korisnikService.makeRez(rez,k);
+		try {
+			madeRez = korisnikService.makeRez(rez);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		RezervacijaDTO rezDTO=ObjectMapperUtils.map(madeRez, RezervacijaDTO.class);

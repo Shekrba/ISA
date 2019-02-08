@@ -5,15 +5,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import javax.swing.border.SoftBevelBorder;
+
 import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
+import isa.putujIgumane.dto.hotel.SobeBrzaDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
@@ -26,6 +32,7 @@ import isa.putujIgumane.repository.hotel.StatusSobeRepository;
 import isa.putujIgumane.repository.korisnik.OcenaRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class HotelServiceImpl implements HotelService {
 	
 	@Autowired
@@ -89,6 +96,7 @@ public class HotelServiceImpl implements HotelService {
 		return sobaRepository.findFreeSobe(hotelId, from, to,days);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Hotel update(HotelDTO hotel) throws Exception {
 		
@@ -115,12 +123,14 @@ public class HotelServiceImpl implements HotelService {
 		return cenovnikUslugaHotelaRepository.findOneById(id);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public CenovnikUslugaHotela updateCenovnik(CenovnikUslugaHotelaDTO cenovnik) {
 		CenovnikUslugaHotela cenovnikToUpdate = new CenovnikUslugaHotela();
 		cenovnikToUpdate.setId(cenovnik.getId());
 		cenovnikToUpdate.setCena(cenovnik.getCena());
 		cenovnikToUpdate.setUsluga(cenovnik.getUsluga());
+		cenovnikToUpdate.setVersion(cenovnik.getVersion());
 	
 		Hotel hotel = getUsluga(cenovnik.getId()).getHotel();
 		
@@ -131,6 +141,7 @@ public class HotelServiceImpl implements HotelService {
         return cenovnikToUpdate;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public HashSet<CenovnikUslugaHotela> deleteCenovnik(Long id,Long hotelId) {
 		
@@ -139,6 +150,7 @@ public class HotelServiceImpl implements HotelService {
 		return getCenovnik(hotelId);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public CenovnikUslugaHotela addCenovnik(CenovnikUslugaHotelaDTO cenovnik,Long hotelId) {
 		CenovnikUslugaHotela cenovnikNew = new CenovnikUslugaHotela();
@@ -180,6 +192,7 @@ public class HotelServiceImpl implements HotelService {
 		return sobaRepository.findOneById(id);
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Soba updateSoba(SobaDTO soba) {
 		Soba sobaToUpdate = new Soba();
@@ -187,6 +200,7 @@ public class HotelServiceImpl implements HotelService {
 		sobaToUpdate.setBrojSobe(soba.getBrojSobe());
 		sobaToUpdate.setSprat(soba.getSprat());
 		sobaToUpdate.setBrojKreveta(soba.getBrojKreveta());
+		sobaToUpdate.setVersion(soba.getVersion());
 	
 		Hotel hotel = getSoba(soba.getId()).getHotel();
 		
@@ -197,6 +211,7 @@ public class HotelServiceImpl implements HotelService {
         return sobaToUpdate;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Soba addSoba(SobaDTO soba,Long hotelId) {
 		Soba sobaNew = new Soba();
@@ -204,7 +219,7 @@ public class HotelServiceImpl implements HotelService {
 		sobaNew.setBrojSobe(soba.getBrojSobe());
 		sobaNew.setSprat(soba.getSprat());
 		sobaNew.setBrojKreveta(soba.getBrojKreveta());
-	
+		
 		Hotel hotel = hotelRepository.findOneById(hotelId);
 		
 		sobaNew.setHotel(hotel);
@@ -229,6 +244,7 @@ public class HotelServiceImpl implements HotelService {
         return sobaNew;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public HashSet<Soba> deleteSoba(Long id,Long hotelId) {
 		
@@ -252,6 +268,7 @@ public class HotelServiceImpl implements HotelService {
 		return sobaRepository.findPrihodeHotela(hotelId, from, to);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public List<StatusSobe> setStatuse(Long sobaId,Double cena, Short popust, LocalDate from, LocalDate to){
 		
@@ -302,6 +319,33 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	@Override
+	public List<SobeBrzaDTO> getSobeBrza(Long hotelId,LocalDate from, LocalDate to){
+		
+		Long days = ChronoUnit.DAYS.between(from, to) + 1;
+		
+		List<Soba> sobe = sobaRepository.findSobeBrza(hotelId,from,to,days);
+		
+		List<SobeBrzaDTO> sobeDTO = new ArrayList<>();
+		
+		for (Soba s : sobe) {
+			SobeBrzaDTO sDTO = new SobeBrzaDTO();
+			sDTO.setBrojSobe(s.getBrojSobe());
+			sDTO.setBrojKreveta(s.getBrojKreveta());
+			sDTO.setSprat(s.getSprat());
+			sDTO.setId(s.getId());
+			sDTO.setPopust(statusSobeReposatory.findPopust(s.getId(), from));
+			sDTO.setCena(statusSobeReposatory.findUkupnaCena(s.getId(), from, to));
+			
+			sobeDTO.add(sDTO);
+		}
+		
+		
+		
+		return sobeDTO;
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Override
 	public Hotel addHotel(HotelDTO hotel) {
 		Hotel hotelNew = new Hotel();
 
@@ -313,5 +357,10 @@ public class HotelServiceImpl implements HotelService {
         hotelRepository.save(hotelNew);
         
         return hotelNew;
+	}
+	
+	@Override
+	public double getUkupnaCena(Long sobaId, LocalDate from, LocalDate to) {
+		return statusSobeReposatory.findUkupnaCena(sobaId, from, to);
 	}
 }

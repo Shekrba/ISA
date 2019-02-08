@@ -8,13 +8,13 @@ import isa.putujIgumane.model.rentACar.Vozilo;
 public class VoziloDTO {
 
 	private Long id;
-	private RentACarDTO rentACar;
+	//private RentACarDTO rentACar;
 	private String registracijaVozila;
 	private String markaVozila;
 	private String modelVozila;
 	private int godinaProizvodnje;
 	private int brojSedista;
-	private Double prosecnaOcenaVozila;
+	//private Double prosecnaOcenaVozila;
 	/*private Set<StatusVozilaDTO> statusVozila = new HashSet<StatusVozilaDTO>();
 	private Set<RezervacijaVozilaDTO> rezervacije = new HashSet<RezervacijaVozilaDTO>();
 	*/
@@ -33,7 +33,7 @@ public class VoziloDTO {
 		this.id = id;
 	}
 
-
+/*
 	public RentACarDTO getRentACar() {
 		return rentACar;
 	}
@@ -43,7 +43,7 @@ public class VoziloDTO {
 		this.rentACar = rentACar;
 	}
 
-
+*/
 	public String getRegistracijaVozila() {
 		return registracijaVozila;
 	}
@@ -93,7 +93,7 @@ public class VoziloDTO {
 		this.brojSedista = brojSedista;
 	}
 
-
+/*
 	public Double getProsecnaOcenaVozila() {
 		return prosecnaOcenaVozila;
 	}
@@ -103,7 +103,7 @@ public class VoziloDTO {
 		this.prosecnaOcenaVozila = prosecnaOcenaVozila;
 	}
 
-
+*/
 
 	/*public Set<RezervacijaVozilaDTO> getRezervacije() {
 		return rezervacije;

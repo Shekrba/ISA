@@ -42,7 +42,6 @@ public class RezervacijaSobe {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Rezervacija rezervacija;
 	
-	
 	public RezervacijaSobe(Long id, Soba soba, LocalDate datum, boolean otkazano, LocalDate datumDolaska, LocalDate datumOdlaska,
 			double ukupnaCena, Rezervacija rezervacija) {
 		super();

@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,8 +25,8 @@ public class Rezervacija {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,optional=false)
-	private Korisnik korisnik;
+	@ManyToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Korisnik> korisnici;
 	
 	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RezervacijaSobe> rezervacijaSobe = new HashSet<RezervacijaSobe>();
@@ -46,7 +47,7 @@ public class Rezervacija {
 		this.id = id;
 		this.avionskaKarta = avionskaKarta;
 		this.rezervacijaSobe = rezervacijaSobe;
-		//this.rezervacijaVozila = rezervacijaVozila;
+		this.rezervacijaVozila = rezervacijaVozila;
 	}
 	public Long getId() {
 		return id;
@@ -66,20 +67,22 @@ public class Rezervacija {
 	public void setRezervacijaSobe(Set<RezervacijaSobe> rezervacijaSobe) {
 		this.rezervacijaSobe = rezervacijaSobe;
 	}
-	/*public Set<RezervacijaVozila> getRezervacijaVozila() {
+	public Set<RezervacijaVozila> getRezervacijaVozila() {
 		return rezervacijaVozila;
 	}
 	public void setRezervacijaVozila(Set<RezervacijaVozila> rezervacijaVozila) {
 		this.rezervacijaVozila = rezervacijaVozila;
-	}*/
-
-	public Korisnik getKorisnik() {
-		return korisnik;
 	}
 
-	public void setKorisnik(Korisnik korisnik) {
-		this.korisnik = korisnik;
+	public Set<Korisnik> getKorisnici() {
+		return korisnici;
 	}
+
+	public void setKorisnici(Set<Korisnik> korisnici) {
+		this.korisnici = korisnici;
+	}
+
+	
 	
 	
 	

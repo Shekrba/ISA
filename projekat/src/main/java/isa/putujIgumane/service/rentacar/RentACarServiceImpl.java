@@ -13,15 +13,18 @@ import org.springframework.stereotype.Service;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.rentacar.FilijalaDTO;
 import isa.putujIgumane.dto.rentacar.RentACarDTO;
+import isa.putujIgumane.dto.rentacar.VozilaBrzaDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
+import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.model.rentACar.Filijala;
 import isa.putujIgumane.model.rentACar.RentACar;
 import isa.putujIgumane.model.rentACar.StatusVozila;
 import isa.putujIgumane.model.rentACar.Vozilo;
+import isa.putujIgumane.repository.korisnik.KorisnikRepository;
 import isa.putujIgumane.repository.korisnik.OcenaRepository;
 import isa.putujIgumane.repository.rentacar.FilijalaRepository;
 import isa.putujIgumane.repository.rentacar.RentACarRepository;
@@ -45,6 +48,9 @@ public class RentACarServiceImpl implements RentACarService{
 	
 	@Autowired
 	private OcenaRepository ocenaRepository;
+	
+	@Autowired
+	private KorisnikRepository korisnikRepository;
 
 	@Override
 	public List<RentACar> getAll() {
@@ -301,5 +307,53 @@ public class RentACarServiceImpl implements RentACarService{
 		}
 		
 		return rentNull;
+	}
+
+	@Override
+	public Ocena addOcenaRentacar(Long korisnikId, RentACarDTO rentacar, int ocena) {
+		// TODO Auto-generated method stub
+		Ocena ocenaNew = new Ocena();
+		ocenaNew.setVrednost((byte)ocena);
+	
+		RentACar rent = findById(rentacar.getId());
+		Korisnik kor = korisnikRepository.findById(korisnikId);
+		
+		ocenaNew.setRentACar(rent);
+		ocenaNew.setKorisnik(kor);
+		
+		ocenaRepository.save(ocenaNew);
+      
+        return ocenaNew;
+		
+	}
+
+	@Override
+	public double getUkupnaCena(Long voziloId, LocalDate from, LocalDate to) {
+		return statusVozilaRepository.findUkupnaCena(voziloId, from, to);
+	}
+
+	@Override
+	public List<VozilaBrzaDTO> getVozilaBrza(LocalDate from, LocalDate to) {
+		Long days = ChronoUnit.DAYS.between(from, to) + 1;
+
+		List<Vozilo> vozila = voziloRepository.findVozilaBrza(from,to,days);
+
+		List<VozilaBrzaDTO> vozilaDTO = new ArrayList<>();
+
+		for (Vozilo v : vozila) {
+			VozilaBrzaDTO vDTO = new VozilaBrzaDTO();
+			vDTO.setRegistracijaVozila(v.getRegistracijaVozila());
+			vDTO.setBrojSedista(v.getBrojSedista());
+			vDTO.setMarkaVozila(v.getMarkaVozila());
+			vDTO.setModelVozila(v.getModelVozila());
+			vDTO.setId(v.getId());
+			vDTO.setPopust(statusVozilaRepository.findPopust(v.getId(), from));
+			vDTO.setCena(statusVozilaRepository.findUkupnaCena(v.getId(), from, to));
+
+			vozilaDTO.add(vDTO);
+		}
+
+
+		return vozilaDTO;
 	}
 }

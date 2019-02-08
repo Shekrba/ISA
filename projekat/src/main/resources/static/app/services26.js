@@ -80,6 +80,10 @@ webApp.factory('rentacarFactory', function($http) {
 		 });
 	};
 	
+	factory.getVozilaBrza = function(rentacarId,from,to){
+		return $http.get('/PutujIgumane/api/rentacar/vozilo/brza/',{params: {rentacarId:rentacarId, from:from, to:to}});
+	};
+	
 	return factory;
 	
 });

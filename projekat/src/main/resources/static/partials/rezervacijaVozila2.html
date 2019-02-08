@@ -27,6 +27,7 @@
 					<p>Marka: {{v.markaVozila}}</p>
 					<p>Model: {{v.modelVozila}}</p>
 					<p>Broj sedista: {{v.brojSedista}}</p>
+					<p>Ukupna cena: {{v.cena}}</p>
 					<button ng-if="v.dodata==false" class="btn btn-outline-success my-2 my-sm-0" ng-click="v.dodata=dodajVozilo(v)">Dodaj</button>
 					<button ng-if="v.dodata==true" class="btn btn-outline-danger my-2 my-sm-0" ng-click="v.dodata=izbaciVozilo(v)">Izbaci</button>
 				</div>

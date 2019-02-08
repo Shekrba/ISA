@@ -10,7 +10,7 @@ import isa.putujIgumane.model.avioKompanija.Let;
 
 public interface KartaRepository extends JpaRepository<Karta, Integer> {
 
-	@Query("SELECT k FROM Karta k WHERE k.popust>0 AND k.kupljena=false")
+	@Query("FROM Karta k WHERE k.popust>0 AND k.kupljena=false")
 	List<Karta> findAllForBrza();
 	
 }

@@ -26,6 +26,7 @@ import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.aviokompanija.KartaDTO;
 import isa.putujIgumane.dto.aviokompanija.LetDTO;
 import isa.putujIgumane.dto.aviokompanija.SegmentDTO;
+import isa.putujIgumane.model.avioKompanija.Adresa;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.avioKompanija.Karta;
 import isa.putujIgumane.model.avioKompanija.Let;
@@ -33,8 +34,11 @@ import isa.putujIgumane.model.avioKompanija.Sediste;
 import isa.putujIgumane.model.avioKompanija.Segment;
 
 import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.dto.hotel.OcenaHotelaDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.hotel.Hotel;
+import isa.putujIgumane.model.hotel.Soba;
+import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.service.aviokompanija.AvioKompanijaService;
 import isa.putujIgumane.service.aviokompanija.AvioKompanijaServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
@@ -45,7 +49,6 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 @RequestMapping(value="api/aviokompanije")
 public class AvioKompanijaController {
 
-	private static final List<LetDTO> KartaDTO = null;
 	@Autowired AvioKompanijaService akService;
 	
 	@RequestMapping(value="/{pageNumber}", method=RequestMethod.GET)
@@ -56,12 +59,51 @@ public class AvioKompanijaController {
 		
 	}
 	
+
 	@RequestMapping(value="/a/b/c/d",method = RequestMethod.GET)
 	public ResponseEntity<?> getAllAvio() {
 	
 		List<AvioKompanijaDTO> avioDTO=ObjectMapperUtils.mapAll(akService.getAllAvio(), AvioKompanijaDTO.class);
 
 		return new ResponseEntity<>(avioDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/ocene/hotel/{hotelId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('HADMIN')")
+	public ResponseEntity<?> getOceneHotela(@PathVariable("akId")Integer akId){
+		
+		AvioKompanija ak = new AvioKompanija();
+		ak.setId(akId);
+		
+		List<Ocena> ocene = akService.getOceneAK(ak);
+		
+		List<OcenaHotelaDTO> oceneDTO = new ArrayList<>();
+		
+		for (Ocena ocena : ocene) {
+			OcenaHotelaDTO ocenaDTO = new OcenaHotelaDTO(ocena.getKorisnik().getUsername(),ocena.getVrednost());
+			oceneDTO.add(ocenaDTO);
+		}
+		
+		return new ResponseEntity<>(oceneDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/ocene/soba/{sobaId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('HADMIN')")
+	public ResponseEntity<?> getOceneSobe(@PathVariable("letId")Long letId){
+		
+		Let s = new Let();
+		s.setId(letId);
+		
+		List<Ocena> ocene = akService.getOceneLet(s);
+		
+		List<OcenaHotelaDTO> oceneDTO = new ArrayList<>();
+		
+		for (Ocena ocena : ocene) {
+			OcenaHotelaDTO ocenaDTO = new OcenaHotelaDTO(ocena.getKorisnik().getUsername(),ocena.getVrednost());
+			oceneDTO.add(ocenaDTO);
+		}
+		
+		return new ResponseEntity<>(oceneDTO, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/edit", method=RequestMethod.PUT)
@@ -94,8 +136,7 @@ public class AvioKompanijaController {
 	@RequestMapping(value="/karte/brza", method=RequestMethod.GET)
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getForBrza() {
-		List<KartaDTO> kartaDTO=ObjectMapperUtils.mapAll(akService.getForBrza(), KartaDTO.class);
-		return new ResponseEntity<List<KartaDTO>>(kartaDTO,HttpStatus.OK);
+		return new ResponseEntity<List<Karta>>(akService.getForBrza(),HttpStatus.OK);
 	}
 	
 	
@@ -105,6 +146,7 @@ public class AvioKompanijaController {
 		Let let=new Let();
 		let.setVremePoletanja(letDTO.getVremePoletanja());
 		let.setVremeSletanja(letDTO.getVremeSletanja());
+		let.setPresedanja(new HashSet<Adresa>(ObjectMapperUtils.mapAll(letDTO.getPresedanja(), Adresa.class)));
 		Duration d=Duration.between(let.getVremePoletanja(), let.getVremeSletanja());
 		let.setVremePutovanja(d);
 		let.setDuzinaPutovanja(100);
@@ -127,6 +169,11 @@ public class AvioKompanijaController {
 					sed.setRbr((short)(i*s.getKolone()+j));
 					sed.setSegment(seg);
 					Karta k=new Karta();
+					k.setOdMesta(((AdresaDTO)(letDTO.getPresedanja().toArray()[0])).getName());
+					System.out.println(letDTO.getPresedanja().size()-1);
+					k.setDoMesta(((AdresaDTO)(letDTO.getPresedanja().toArray()[letDTO.getPresedanja().size()-1])).getName());
+					k.setVremePoletanja(letDTO.getVremePoletanja());
+					k.setVremeSletanja(letDTO.getVremeSletanja());
 					k.setKupljena(false);
 					k.setPopust(s.getPopust());
 					k.setCena(s.getCena());

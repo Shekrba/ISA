@@ -341,6 +341,7 @@ webApp.controller('biranjeRezervacijeHotelaController', function($rootScope,$sco
 	};
 	
 	$scope.preskoci=function(){
+		$rootScope.rezervacijaSobe=null;
 		
 		$rootScope.letClass = 'nav-link disabled';
 		

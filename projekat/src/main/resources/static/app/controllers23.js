@@ -802,6 +802,7 @@ webApp.controller('avioKompanijaIzmenaLetovaController', function($scope,$rootSc
 	
 	init();
 	
+	
 	$scope.formatDate=function(d){
 		var date=new Date(d);
 		return date.toLocaleString("sr-RS");
@@ -814,19 +815,30 @@ webApp.controller('pretragaLetovaController', function($scope,$rootScope, $locat
 	function init(){
 		akFactory.getAllFlights().then(function success(response){
 			$scope.letovi=response.data;
+			$log.log($scope.letovi);
 		});
-		
 	};
 	
 	init();
 	
 	$scope.formatDate=function(d){
-		return d.toLocaleString("sr-RS");
+		var date=new Date(d);
+		return date.toLocaleString("sr-RS");
+	};
+	
+	$scope.ispis=function(){
+		$log.log($scope.vremePoletanja);
 	};
 	
 	$scope.reserveFlight=function(id){
 		$rootScope.putanja='partials/letRezervacija.html';
 		$rootScope.flightid=id;
+	};
+	
+	$scope.greaterThan = function(prop, val,val1){
+	    return function(item){
+	      return (item[prop]>val) && (item[prop]<val1);
+	    }
 	};
 });
 
@@ -881,6 +893,12 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 					for(var x=0 ; x<row ; x++){
 						for(var y=0 ; y<col ; y++){
 							var sed=sedista[x*col+y];
+							if(s.popust>0)
+								$scope.color='yellow';
+							else
+								$scope.color='white';
+							if(sed.karta.kupljena)
+								$scope.color='red';
 							var rect=new fabric.Rect({
 								  left: 0,
 								  top: 0,
@@ -915,7 +933,7 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 							group1.selectable=false;
 							
 							group1.on('mousedown',function(){
-								if(this._objects[0].fill!='yellow'){
+								if(this._objects[0].fill!='red' && this._objects[0].fill!='yellow'){
 									if(this._objects[0].fill=='white'){
 										this._objects[0].set('fill','green');
 										this._objects[1].set('backgroundColor','green');
@@ -929,7 +947,7 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 									}else{
 										this._objects[0].set('fill','white');
 										this._objects[1].set('backgroundColor','white');
-										delete $scope.oznSedista[this.sediste.id];
+										
 										$scope.numOzn--;
 										delete $scope.oznSedista[this.sediste.id];
 										if($scope.numOzn>=2){
@@ -938,7 +956,7 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 										$scope.$apply();
 										
 									}
-								}else if(this._objects[0].fill!='yellow'=='red'){
+								}else if(this._objects[0].fill=='red'){
 									toast('Sediste je zauzeto!');
 								}else{
 									toast('Ova sedista su za brzu rezervaciju!');
@@ -984,14 +1002,12 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 		}
 		
 		for(var key in $scope.oznSedista){
-			$rootScope.rezervacija.karte.push($scope.oznSedista[key]);
+			$rootScope.rezervacija.karte.push($scope.oznSedista[key].karta);
 		}
 		
-		$log.log($rootScope.rezervacija);
+		$log.log($rootScope.rezervacija.karte);
 		
-		$scope.karte
-		
-		$rootScope.datumDolaska=$scope.flight.vremePoletanja;
+		$rootScope.datumDolaska=$scope.flight.vremeSletanja;
 		
 		$rootScope.putanja='partials/biranjeRezervacijeHotela.html';
 		
@@ -1036,7 +1052,7 @@ webApp.controller('biranjeRezervacijeKarteController', function($scope,$rootScop
 	};
 });
 
-webApp.controller('pretragaKarataController', function($scope,$rootScope, akFactory) {
+webApp.controller('pretragaKarataController', function($scope,$rootScope,$location, akFactory,rezFactory) {
 	
 	function init(){
 		akFactory.getKarteBrza().then(function success(response){
@@ -1046,6 +1062,34 @@ webApp.controller('pretragaKarataController', function($scope,$rootScope, akFact
 	
 	init();
 	
+	$scope.formatDate=function(d){
+		var date=new Date(d);
+		return date.toLocaleString("sr-RS");
+	};
+	
+	$scope.reserveFastFlight=function(k){
+		$rootScope.rezervacija.karte.push(k);
+		$rootScope.rezervacija.rezervacijaSobe=null;
+		$rootScope.rezervacija.rezervacijaVozila=null;
+		rezFactory.makeRez($rootScope.rezervacija).then(function success(response){
+			toast('Rezervisano!');
+			$location.path("/");
+		});
+	}
+});
+
+webApp.controller('izvestajOcenaAKController', function($scope, $location, akFactory,$rootScope) {
+	
+    function init() {
+    	
+    	akFactory.getOceneAK($rootScope.avioKompanija.id).then(function success(response) {
+    		$scope.ocene=response.data;
+    	}, function error(response) {
+    		$scope.error="Greska";
+    	});
+    };
+
+	init();
 });
 
 

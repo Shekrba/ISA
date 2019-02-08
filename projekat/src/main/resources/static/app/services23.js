@@ -125,8 +125,15 @@ webApp.factory('akFactory', function($http) {
 	factory.getKarteBrza = function() {
 		return $http.get('/PutujIgumane/api/aviokompanije/karte/brza');
 	};
-	
+	factory.getOceneAK = function(akId){
+		return $http.get('/PutujIgumane/api/aviokompanije/ocene/ak/'+hotelId);
+	};
+
+	factory.getOceneLet = function(letId){
+		return $http.get('/PutujIgumane/api/aviokompanije/ocene/let/'+letId);
+	};
 	
 	return factory;
 	
 });
+

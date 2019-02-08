@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+import isa.putujIgumane.model.avioKompanija.Let;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.korisnik.Ocena;
@@ -17,4 +19,7 @@ public interface OcenaRepository extends JpaRepository<Ocena, Long> {
 	
 	List<Ocena> findByRentACar(RentACar rentacar);
 	List<Ocena> findByVozilo(Vozilo vozilo);
+	
+	List<Ocena> findByAvioKompanija(AvioKompanija ak);
+	List<Ocena> findByLet(Let let);
 }

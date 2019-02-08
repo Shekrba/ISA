@@ -11,10 +11,18 @@
 			<h1>Letovi</h1>
 		</div>
 		<div class="row">
-			<div class="col-lg-4" ng-repeat="l in letovi">
+			<div class="col-lg-4  mr-auto ml-auto text-center">
+					<label>Vreme poletanja:<input class="form-control" type="datetime-local"  id="dateTimeInput1" ng-model="vremePoletanja" ng-click="ispis()"></label>
+					<label>Vreme sletanja:<input class="form-control" type="datetime-local"  id="dateTimeInput1" ng-model="vremePoletanjaDo"></label>
+			</div>
+		</div>	
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="l in letovi|filter:greaterThan('vremePoletanja',vremePoletanja,vremePoletanjaDo)">
 				<div class="card">
-					<p>Vreme poletanja: {{l.vremePoletanja}}</p>
-					<p>Vreme sletanja: {{l.vremeSletanja}}</p>
+					<p>Od: {{l.presedanja[0].name}}</p>
+					<p>Do: {{l.presedanja[1].name}}</p>
+					<p>Vreme poletanja: {{formatDate(l.vremePoletanja)}}</p>
+					<p>Vreme sletanja: {{formatDate(l.vremeSletanja)}}</p>
 					<p><button class="btn btn-secondary" ng-click="reserveFlight(l.id)">Rezerviši</button></p>
 				</div>
 			</div>

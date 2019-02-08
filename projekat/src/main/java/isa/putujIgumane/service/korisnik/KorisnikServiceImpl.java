@@ -331,90 +331,92 @@ public class KorisnikServiceImpl implements KorisnikService{
 				throw new OptimisticLockException();
 			}
 		}
-		
-		for (RezervacijaSobeDTO rs : rez.getRezervacijaSobe()) {
-			SobaDTO sDTO=rs.getSoba();
-			RezervacijaSobe rsNew = new RezervacijaSobe();
-			rsNew.setDatum(LocalDate.now());
-			rsNew.setDatumDolaska(rs.getDatumDolaska());
-			rsNew.setDatumOdlaska(rs.getDatumOdlaska());
-			rsNew.setOtkazano(false);
-			
-			
-			Double ukupnaCenaCenovnika = 0.0;
-			
-			for (CenovnikUslugaHotelaDTO cenovnikDTO : rs.getCenovnici()) {
-				CenovnikUslugaHotela cenovnik = cenovnikRepo.findOneById(cenovnikDTO.getId());
+		if(rez.getRezervacijaSobe()!=null) {
+			for (RezervacijaSobeDTO rs : rez.getRezervacijaSobe()) {
+				SobaDTO sDTO=rs.getSoba();
+				RezervacijaSobe rsNew = new RezervacijaSobe();
+				rsNew.setDatum(LocalDate.now());
+				rsNew.setDatumDolaska(rs.getDatumDolaska());
+				rsNew.setDatumOdlaska(rs.getDatumOdlaska());
+				rsNew.setOtkazano(false);
 				
-				cenovnik.getRezervacijeSobe().add(rsNew);
-				rsNew.getCenovnici().add(cenovnik);
 				
-				ukupnaCenaCenovnika+=cenovnik.getCena();
-			}
-			
-			Soba soba = sobaRepo.findOneById(rs.getSoba().getId());
-			
-			for (StatusSobeDTO ssDTO :sDTO.getStatusSobe()) {
-				if(ssDTO.getDatum().isEqual(rsNew.getDatumDolaska()) || (ssDTO.getDatum().isAfter(rsNew.getDatumDolaska()) && ssDTO.getDatum().isBefore(rsNew.getDatumOdlaska()))) {
-					StatusSobe ssNew = statusSobeRepo.findOne(ssDTO.getId());
+				Double ukupnaCenaCenovnika = 0.0;
+				
+				for (CenovnikUslugaHotelaDTO cenovnikDTO : rs.getCenovnici()) {
+					CenovnikUslugaHotela cenovnik = cenovnikRepo.findOneById(cenovnikDTO.getId());
 					
-					ssNew.setZauzeto(true);
+					cenovnik.getRezervacijeSobe().add(rsNew);
+					rsNew.getCenovnici().add(cenovnik);
 					
-					if(ssNew.getVersion()!=ssDTO.getVersion()) {
-						throw new OptimisticLockException();
-					}
-					
-					soba.getStatusSobe().add(ssNew);
-					
-					//System.out.println(ss.getVersion());
+					ukupnaCenaCenovnika+=cenovnik.getCena();
 				}
+				
+				Soba soba = sobaRepo.findOneById(rs.getSoba().getId());
+				
+				for (StatusSobeDTO ssDTO :sDTO.getStatusSobe()) {
+					if(ssDTO.getDatum().isEqual(rsNew.getDatumDolaska()) || (ssDTO.getDatum().isAfter(rsNew.getDatumDolaska()) && ssDTO.getDatum().isBefore(rsNew.getDatumOdlaska()))) {
+						StatusSobe ssNew = statusSobeRepo.findOne(ssDTO.getId());
+						
+						ssNew.setZauzeto(true);
+						
+						if(ssNew.getVersion()!=ssDTO.getVersion()) {
+							throw new OptimisticLockException();
+						}
+						
+						soba.getStatusSobe().add(ssNew);
+						
+						//System.out.println(ss.getVersion());
+					}
+				}
+				
+				rsNew.setSoba(soba);
+				soba.getRezervacije().add(rsNew);
+				rsNew.setUkupnaCena(ukupnaCenaCenovnika + statusSobeRepo.findUkupnaCena(soba.getId(),rsNew.getDatumDolaska(),rsNew.getDatumOdlaska()));
+				rsNew.setRezervacija(rezNew);
+				
+				rezNew.getRezervacijaSobe().add(rsNew);
+				
+				
 			}
-			
-			rsNew.setSoba(soba);
-			soba.getRezervacije().add(rsNew);
-			rsNew.setUkupnaCena(ukupnaCenaCenovnika + statusSobeRepo.findUkupnaCena(soba.getId(),rsNew.getDatumDolaska(),rsNew.getDatumOdlaska()));
-			rsNew.setRezervacija(rezNew);
-			
-			rezNew.getRezervacijaSobe().add(rsNew);
-			
-			
 		}
 		
-		
-		for (RezervacijaVozilaDTO rv : rez.getRezervacijaVozila()) {
-			VoziloDTO vDTO=rv.getVozilo();
-			RezervacijaVozila rvNew = new RezervacijaVozila();
-			rvNew.setDatum(LocalDate.now());
-			rvNew.setDatumDolaska(rv.getDatumDolaska());
-			rvNew.setDatumOdlaska(rv.getDatumOdlaska());
-			rvNew.setOtkazano(false);
-			
-			Vozilo vozilo = voziloRepo.findOneById(rv.getVozilo().getId());
-			
-			for (StatusVozilaDTO svDTO :vDTO.getStatusVozila()) {
-				if(svDTO.getDatum().isEqual(rvNew.getDatumDolaska()) || (svDTO.getDatum().isAfter(rvNew.getDatumDolaska()) && svDTO.getDatum().isBefore(rvNew.getDatumOdlaska()))) {
-					StatusVozila svNew = statusVozilaRepo.findOne(svDTO.getId());
-					
-					svNew.setVoziloJeIznajmljeno(true);
-					
-					if(svNew.getVersion()!=svDTO.getVersion()) {
-						throw new OptimisticLockException();
+		if(rez.getRezervacijaVozila()!=null) {
+			for (RezervacijaVozilaDTO rv : rez.getRezervacijaVozila()) {
+				VoziloDTO vDTO=rv.getVozilo();
+				RezervacijaVozila rvNew = new RezervacijaVozila();
+				rvNew.setDatum(LocalDate.now());
+				rvNew.setDatumDolaska(rv.getDatumDolaska());
+				rvNew.setDatumOdlaska(rv.getDatumOdlaska());
+				rvNew.setOtkazano(false);
+				
+				Vozilo vozilo = voziloRepo.findOneById(rv.getVozilo().getId());
+				
+				for (StatusVozilaDTO svDTO :vDTO.getStatusVozila()) {
+					if(svDTO.getDatum().isEqual(rvNew.getDatumDolaska()) || (svDTO.getDatum().isAfter(rvNew.getDatumDolaska()) && svDTO.getDatum().isBefore(rvNew.getDatumOdlaska()))) {
+						StatusVozila svNew = statusVozilaRepo.findOne(svDTO.getId());
+						
+						svNew.setVoziloJeIznajmljeno(true);
+						
+						if(svNew.getVersion()!=svDTO.getVersion()) {
+							throw new OptimisticLockException();
+						}
+						
+						vozilo.getStatusVozila().add(svNew);
+						
+						//System.out.println(ss.getVersion());
 					}
-					
-					vozilo.getStatusVozila().add(svNew);
-					
-					//System.out.println(ss.getVersion());
 				}
+				
+				rvNew.setVozilo(vozilo);
+				vozilo.getRezervacije().add(rvNew);
+				rvNew.setUkupnaCena(statusVozilaRepo.findUkupnaCena(vozilo.getId(),rvNew.getDatumDolaska(),rvNew.getDatumOdlaska()));
+				rvNew.setRezervacija(rezNew);
+				
+				rezNew.getRezervacijaVozila().add(rvNew);
+				
+				
 			}
-			
-			rvNew.setVozilo(vozilo);
-			vozilo.getRezervacije().add(rvNew);
-			rvNew.setUkupnaCena(statusVozilaRepo.findUkupnaCena(vozilo.getId(),rvNew.getDatumDolaska(),rvNew.getDatumOdlaska()));
-			rvNew.setRezervacija(rezNew);
-			
-			rezNew.getRezervacijaVozila().add(rvNew);
-			
-			
 		}
 		
 		if(rezNew.getKorisnici().size() > 1) {

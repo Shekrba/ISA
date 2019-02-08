@@ -10,7 +10,10 @@ import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.avioKompanija.Karta;
 import isa.putujIgumane.model.avioKompanija.Let;
+
 import isa.putujIgumane.model.hotel.Hotel;
+
+import isa.putujIgumane.model.korisnik.Ocena;
 
 
 public interface AvioKompanijaService {
@@ -32,5 +35,8 @@ public interface AvioKompanijaService {
 	public Let getLet(Long id);
 	
 	public List<Karta> getForBrza();
+	
+	public List<Ocena> getOceneAK(AvioKompanija ak);
+	public List<Ocena> getOceneLet(Let let);
 
 }

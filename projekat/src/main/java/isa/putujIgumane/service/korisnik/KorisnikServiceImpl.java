@@ -233,10 +233,16 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public Rezervacija makeRez(RezervacijaDTO rez,Korisnik k) throws Exception {
+	public Rezervacija makeRez(RezervacijaDTO rez) throws Exception {
 		Rezervacija rezNew = new Rezervacija();
 		
-		rezNew.setKorisnik(k);
+		for (KorisnikDTO korisnikDTO : rez.getKorisnici()) {
+			Korisnik korisnik = korisnikRepo.findById(korisnikDTO.getId());
+			
+			korisnik.getRezervacije().add(rezNew);
+			rezNew.getKorisnici().add(korisnik);
+		}
+		
 		
 		for (RezervacijaSobeDTO rs : rez.getRezervacijaSobe()) {
 			SobaDTO sDTO=rs.getSoba();
@@ -273,7 +279,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 			
 			
 		}
-		
+		/*
 		for (RezervacijaVozilaDTO rv : rez.getRezervacijaVozila()) {
 			RezervacijaVozila rvNew = new RezervacijaVozila();
 			rvNew.setDatum(LocalDate.now());
@@ -300,7 +306,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		}
 		
         
-		k.getRezervacije().add(rezNew);
+		k.getRezervacije().add(rezNew);*/
 		
         return rezRepo.save(rezNew);
 	}

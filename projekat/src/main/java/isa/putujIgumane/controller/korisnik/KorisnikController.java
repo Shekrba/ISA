@@ -199,11 +199,9 @@ public class KorisnikController{
 		
 		Rezervacija madeRez = null;
 		
-		Korisnik k=korisnikService.getKorisnik(SecurityContextHolder.getContext().getAuthentication().getName());
-		
 		
 		try {
-			madeRez = korisnikService.makeRez(rez,k);
+			madeRez = korisnikService.makeRez(rez);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

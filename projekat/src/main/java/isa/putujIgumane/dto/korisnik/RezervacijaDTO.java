@@ -14,6 +14,7 @@ public class RezervacijaDTO {
 	
 	private Set<RezervacijaSobeDTO> rezervacijaSobe = new HashSet<>();
 	private Set<RezervacijaVozilaDTO> rezervacijaVozila = new HashSet<>();
+	private Set<KorisnikDTO> korisnici = new HashSet<>();
 	
 	public RezervacijaDTO() {
 		
@@ -41,6 +42,14 @@ public class RezervacijaDTO {
 
 	public void setRezervacijaVozila(Set<RezervacijaVozilaDTO> rezervacijaVozila) {
 		this.rezervacijaVozila = rezervacijaVozila;
+	}
+
+	public Set<KorisnikDTO> getKorisnici() {
+		return korisnici;
+	}
+
+	public void setKorisnici(Set<KorisnikDTO> korisnici) {
+		this.korisnici = korisnici;
 	}
 	
 }

@@ -36,6 +36,7 @@ import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.korisnik.Zahtev;
 import isa.putujIgumane.model.rentACar.Vozilo;
+import isa.putujIgumane.service.korisnik.KorisnikService;
 import isa.putujIgumane.service.korisnik.KorisnikServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -44,7 +45,7 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 public class KorisnikController{
 
 	@Autowired
-	private KorisnikServiceImpl korisnikService;
+	private KorisnikService korisnikService;
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	@PreAuthorize("hasRole('USER')")

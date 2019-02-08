@@ -30,6 +30,7 @@ import isa.putujIgumane.model.rentACar.Filijala;
 import isa.putujIgumane.model.rentACar.RentACar;
 import isa.putujIgumane.model.rentACar.StatusVozila;
 import isa.putujIgumane.model.rentACar.Vozilo;
+import isa.putujIgumane.service.rentacar.RentACarService;
 import isa.putujIgumane.service.rentacar.RentACarServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -37,7 +38,7 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 @RequestMapping(value="api/rentacar", produces="application/json;charset=UTF-8")
 public class RentACarController {
 	@Autowired
-	private RentACarServiceImpl rentacarServiceImpl;
+	private RentACarService rentacarServiceImpl;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAllRentACars() {

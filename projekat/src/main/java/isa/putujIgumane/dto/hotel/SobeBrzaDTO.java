@@ -14,6 +14,8 @@ public class SobeBrzaDTO {
 	
 	private short popust;
 	
+	private Long version;
+	
 	public SobeBrzaDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -36,6 +38,15 @@ public class SobeBrzaDTO {
 
 	public int getSprat() {
 		return sprat;
+	}
+	
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public void setSprat(int sprat) {

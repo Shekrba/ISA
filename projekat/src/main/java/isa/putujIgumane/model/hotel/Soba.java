@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import isa.putujIgumane.model.korisnik.Ocena;
 
@@ -43,6 +44,8 @@ public class Soba {
 	@OneToMany(mappedBy="soba",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Ocena> ocene=new HashSet<Ocena>();
 
+	@Version
+	private long version;
 	
 	public Set<Ocena> getOcene() {
 		return ocene;
@@ -72,6 +75,18 @@ public class Soba {
 	
 	public Soba() {
 		super();
+	}
+
+
+
+	public long getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 

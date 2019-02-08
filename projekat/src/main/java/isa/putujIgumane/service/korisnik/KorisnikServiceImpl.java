@@ -1,8 +1,10 @@
 package isa.putujIgumane.service.korisnik;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.RezervacijaSobeDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
+import isa.putujIgumane.dto.hotel.StatusSobeDTO;
 import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.AdminRentDTO;
@@ -233,6 +236,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		rezNew.setKorisnik(k);
 		
 		for (RezervacijaSobeDTO rs : rez.getRezervacijaSobe()) {
+			SobaDTO sDTO=rs.getSoba();
 			RezervacijaSobe rsNew = new RezervacijaSobe();
 			rsNew.setDatum(LocalDate.now());
 			rsNew.setDatumDolaska(rs.getDatumDolaska());
@@ -240,10 +244,17 @@ public class KorisnikServiceImpl implements KorisnikService{
 			rsNew.setOtkazano(false);
 			
 			Soba soba = sobaRepo.findOneById(rs.getSoba().getId());
-		
-			for (StatusSobe ss : soba.getStatusSobe()) {
+			
+			for (StatusSobe ss :soba.getStatusSobe()) {
 				if(ss.getDatum().isEqual(rsNew.getDatumDolaska()) || (ss.getDatum().isAfter(rsNew.getDatumDolaska()) && ss.getDatum().isBefore(rsNew.getDatumOdlaska()))) {
 					ss.setZauzeto(true);
+					for (StatusSobeDTO ssDTO :sDTO.getStatusSobe()) {
+						if(ss.getDatum().isEqual(rsNew.getDatumDolaska()) || (ss.getDatum().isAfter(rsNew.getDatumDolaska()) && ss.getDatum().isBefore(rsNew.getDatumOdlaska()))) {
+							ss.setVersion(ssDTO.getVersion());
+							//statusSobeRepo.save(ss);
+							System.out.println(ss.getVersion());
+						}
+					}
 				}
 			}
 			

@@ -466,8 +466,8 @@ webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scop
     $scope.dodajSobu=function(s){
     	$scope.selektovaneSobe++;
     	$scope.selektovaniKreveti+= 1 * s['brojKreveta'];
-    	
-    	var rs = {'id':null,'soba':{'id':s.id,'brojSobe':s.brojSobe,'sprat':s.sprat,'brojKreveta':s.brojKreveta},'datumDolaska':$rootScope.datumDolaskaHotel,'datumOdlaska':$rootScope.datumOdlaskaHotel};
+    	$log.log(s);
+    	var rs = {'id':null,'soba':s,'datumDolaska':$rootScope.datumDolaskaHotel,'datumOdlaska':$rootScope.datumOdlaskaHotel};
     	
     	$rootScope.rezervacija.rezervacijaSobe.push(rs);
     	

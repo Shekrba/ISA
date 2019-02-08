@@ -17,6 +17,18 @@ public class StatusSobeDTO {
 	private double cena;
 	
 	private short popust;
+	
+	private Long version;
+	
+	
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 
 	public StatusSobeDTO() {
 		

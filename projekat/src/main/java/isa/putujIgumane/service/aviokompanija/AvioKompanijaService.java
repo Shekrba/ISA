@@ -10,16 +10,16 @@ import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.avioKompanija.Let;
 
-@Service
+
 public interface AvioKompanijaService {
 
-	public abstract Page<AvioKompanija> getAll(Pageable pageable);
-	public abstract AvioKompanija editAk(AvioKompanija ak);
+	public Page<AvioKompanija> getAll(Pageable pageable);
+	public AvioKompanija editAk(AvioKompanija ak);
 
-	public abstract Let addLet(Let l,Integer akID);
-	public abstract List<Let> getAllAKLet(Integer akID);
+	public Let addLet(Let l,Integer akID);
+	public List<Let> getAllAKLet(Integer akID);
 
-	public abstract AvioKompanija addAvio(AvioKompanijaDTO avio);
-	public abstract List<AvioKompanija> getAllNull();
+	public AvioKompanija addAvio(AvioKompanijaDTO avio);
+	public List<AvioKompanija> getAllNull();
 
 }

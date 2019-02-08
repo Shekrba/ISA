@@ -13,6 +13,8 @@ import java.time.temporal.ChronoUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
@@ -30,6 +32,7 @@ import isa.putujIgumane.repository.hotel.StatusSobeRepository;
 import isa.putujIgumane.repository.korisnik.OcenaRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class HotelServiceImpl implements HotelService {
 	
 	@Autowired
@@ -93,6 +96,7 @@ public class HotelServiceImpl implements HotelService {
 		return sobaRepository.findFreeSobe(hotelId, from, to,days);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Hotel update(HotelDTO hotel) throws Exception {
 		
@@ -119,12 +123,14 @@ public class HotelServiceImpl implements HotelService {
 		return cenovnikUslugaHotelaRepository.findOneById(id);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public CenovnikUslugaHotela updateCenovnik(CenovnikUslugaHotelaDTO cenovnik) {
 		CenovnikUslugaHotela cenovnikToUpdate = new CenovnikUslugaHotela();
 		cenovnikToUpdate.setId(cenovnik.getId());
 		cenovnikToUpdate.setCena(cenovnik.getCena());
 		cenovnikToUpdate.setUsluga(cenovnik.getUsluga());
+		cenovnikToUpdate.setVersion(cenovnik.getVersion());
 	
 		Hotel hotel = getUsluga(cenovnik.getId()).getHotel();
 		
@@ -135,6 +141,7 @@ public class HotelServiceImpl implements HotelService {
         return cenovnikToUpdate;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public HashSet<CenovnikUslugaHotela> deleteCenovnik(Long id,Long hotelId) {
 		
@@ -143,6 +150,7 @@ public class HotelServiceImpl implements HotelService {
 		return getCenovnik(hotelId);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public CenovnikUslugaHotela addCenovnik(CenovnikUslugaHotelaDTO cenovnik,Long hotelId) {
 		CenovnikUslugaHotela cenovnikNew = new CenovnikUslugaHotela();
@@ -184,6 +192,7 @@ public class HotelServiceImpl implements HotelService {
 		return sobaRepository.findOneById(id);
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Soba updateSoba(SobaDTO soba) {
 		Soba sobaToUpdate = new Soba();
@@ -191,6 +200,7 @@ public class HotelServiceImpl implements HotelService {
 		sobaToUpdate.setBrojSobe(soba.getBrojSobe());
 		sobaToUpdate.setSprat(soba.getSprat());
 		sobaToUpdate.setBrojKreveta(soba.getBrojKreveta());
+		sobaToUpdate.setVersion(soba.getVersion());
 	
 		Hotel hotel = getSoba(soba.getId()).getHotel();
 		
@@ -201,6 +211,7 @@ public class HotelServiceImpl implements HotelService {
         return sobaToUpdate;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Soba addSoba(SobaDTO soba,Long hotelId) {
 		Soba sobaNew = new Soba();
@@ -208,7 +219,7 @@ public class HotelServiceImpl implements HotelService {
 		sobaNew.setBrojSobe(soba.getBrojSobe());
 		sobaNew.setSprat(soba.getSprat());
 		sobaNew.setBrojKreveta(soba.getBrojKreveta());
-	
+		
 		Hotel hotel = hotelRepository.findOneById(hotelId);
 		
 		sobaNew.setHotel(hotel);
@@ -233,6 +244,7 @@ public class HotelServiceImpl implements HotelService {
         return sobaNew;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public HashSet<Soba> deleteSoba(Long id,Long hotelId) {
 		
@@ -256,6 +268,7 @@ public class HotelServiceImpl implements HotelService {
 		return sobaRepository.findPrihodeHotela(hotelId, from, to);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public List<StatusSobe> setStatuse(Long sobaId,Double cena, Short popust, LocalDate from, LocalDate to){
 		
@@ -331,6 +344,7 @@ public class HotelServiceImpl implements HotelService {
 		return sobeDTO;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Hotel addHotel(HotelDTO hotel) {
 		Hotel hotelNew = new Hotel();

@@ -34,6 +34,7 @@ import isa.putujIgumane.model.hotel.StatusSobe;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.repository.hotel.HotelRepository;
+import isa.putujIgumane.service.hotel.HotelService;
 import isa.putujIgumane.service.hotel.HotelServiceImpl;
 import isa.putujIgumane.utils.ObjectMapperUtils;
 
@@ -42,7 +43,7 @@ import isa.putujIgumane.utils.ObjectMapperUtils;
 @RequestMapping(value="api/hoteli", produces="application/json;charset=UTF-8")
 public class HotelController {
 	@Autowired
-	private HotelServiceImpl hotelServiceImpl;
+	private HotelService hotelServiceImpl;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAllHotels() {
@@ -220,11 +221,9 @@ public class HotelController {
 		
 		Soba addedSoba = null;
 		
-		try {
-			addedSoba = hotelServiceImpl.addSoba(soba,hotelId);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-		}
+	
+		addedSoba = hotelServiceImpl.addSoba(soba,hotelId);
+		
 		
 		SobaDTO sobaDTO=ObjectMapperUtils.map(addedSoba, SobaDTO.class);
 		

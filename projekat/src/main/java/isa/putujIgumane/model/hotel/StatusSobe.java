@@ -1,6 +1,5 @@
 package isa.putujIgumane.model.hotel;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
@@ -11,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+
+
 
 
 
@@ -36,6 +38,8 @@ public class StatusSobe {
 	@Column(name = "popust", unique = false, nullable = false)
 	private short popust;
 
+	@Version
+	private long version;
 	
 	public StatusSobe() {
 		super();
@@ -49,6 +53,16 @@ public class StatusSobe {
 		this.zauzeto = zauzeto;
 		this.cena = cena;
 		this.popust = popust;
+	}
+
+	
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 	public Soba getSoba() {

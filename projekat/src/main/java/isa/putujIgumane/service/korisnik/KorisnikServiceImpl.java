@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.OptimisticLockException;
+
+import org.apache.hadoop.mapred.gethistory_jsp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -230,7 +233,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public Rezervacija makeRez(RezervacijaDTO rez,Korisnik k) {
+	public Rezervacija makeRez(RezervacijaDTO rez,Korisnik k) throws Exception {
 		Rezervacija rezNew = new Rezervacija();
 		
 		rezNew.setKorisnik(k);
@@ -245,16 +248,19 @@ public class KorisnikServiceImpl implements KorisnikService{
 			
 			Soba soba = sobaRepo.findOneById(rs.getSoba().getId());
 			
-			for (StatusSobe ss :soba.getStatusSobe()) {
-				if(ss.getDatum().isEqual(rsNew.getDatumDolaska()) || (ss.getDatum().isAfter(rsNew.getDatumDolaska()) && ss.getDatum().isBefore(rsNew.getDatumOdlaska()))) {
-					ss.setZauzeto(true);
-					for (StatusSobeDTO ssDTO :sDTO.getStatusSobe()) {
-						if(ss.getDatum().isEqual(rsNew.getDatumDolaska()) || (ss.getDatum().isAfter(rsNew.getDatumDolaska()) && ss.getDatum().isBefore(rsNew.getDatumOdlaska()))) {
-							ss.setVersion(ssDTO.getVersion());
-							//statusSobeRepo.save(ss);
-							System.out.println(ss.getVersion());
-						}
+			for (StatusSobeDTO ssDTO :sDTO.getStatusSobe()) {
+				if(ssDTO.getDatum().isEqual(rsNew.getDatumDolaska()) || (ssDTO.getDatum().isAfter(rsNew.getDatumDolaska()) && ssDTO.getDatum().isBefore(rsNew.getDatumOdlaska()))) {
+					StatusSobe ssNew = statusSobeRepo.findOne(ssDTO.getId());
+					
+					ssNew.setZauzeto(true);
+					
+					if(ssNew.getVersion()!=ssDTO.getVersion()) {
+						throw new OptimisticLockException();
 					}
+					
+					soba.getStatusSobe().add(ssNew);
+					
+					//System.out.println(ss.getVersion());
 				}
 			}
 			

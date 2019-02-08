@@ -40,5 +40,5 @@ public interface KorisnikService {
 	
 	public Korisnik addAdminRent(AdminRentDTO admin);
 	
-	public Rezervacija makeRez(RezervacijaDTO rez,Korisnik k);
+	public Rezervacija makeRez(RezervacijaDTO rez,Korisnik k) throws Exception;
 }

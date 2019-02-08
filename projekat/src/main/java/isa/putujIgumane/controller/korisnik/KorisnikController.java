@@ -202,7 +202,12 @@ public class KorisnikController{
 		Korisnik k=korisnikService.getKorisnik(SecurityContextHolder.getContext().getAuthentication().getName());
 		
 		
-		madeRez = korisnikService.makeRez(rez,k);
+		try {
+			madeRez = korisnikService.makeRez(rez,k);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		RezervacijaDTO rezDTO=ObjectMapperUtils.map(madeRez, RezervacijaDTO.class);

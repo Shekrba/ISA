@@ -20,15 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 import isa.putujIgumane.dto.aviokompanija.AKAdminDTO;
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.hotel.HAdminDTO;
+import isa.putujIgumane.dto.hotel.HotelDTO;
+import isa.putujIgumane.dto.hotel.RezervacijaSobeDTO;
 import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.AdminRentDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
+import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
 import isa.putujIgumane.dto.korisnik.ZahtevDTO;
 import isa.putujIgumane.dto.rentacar.RAdminDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
+import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.korisnik.Authority;
 import isa.putujIgumane.model.korisnik.Korisnik;
+import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.korisnik.Zahtev;
 import isa.putujIgumane.model.rentACar.Vozilo;
 import isa.putujIgumane.service.korisnik.KorisnikServiceImpl;
@@ -178,5 +183,29 @@ public class KorisnikController{
 		AdminRentDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminRentDTO.class);
 		
 		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/newRez", method=RequestMethod.GET)
+	public ResponseEntity<?> getEmptyRezervacija(){
+		
+		RezervacijaDTO rDTO=new RezervacijaDTO();
+		return new ResponseEntity<>(rDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/makeRez", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> makeRez(@RequestBody RezervacijaDTO rez){
+		
+		Rezervacija madeRez = null;
+		
+		Korisnik k=korisnikService.getKorisnik(SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		
+		madeRez = korisnikService.makeRez(rez,k);
+		
+		
+		RezervacijaDTO rezDTO=ObjectMapperUtils.map(madeRez, RezervacijaDTO.class);
+		
+		return new ResponseEntity<>(rezDTO, HttpStatus.OK);
 	}
 }

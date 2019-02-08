@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rezervacija vozila</title>
+</head>
+<body>
+<div ng-Controller="rezervacijaVozilaController">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Rezervacija vozila servisa {{rentacarRezervacija}}</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Datum dolaska:</label>
+				<input  type="date" class="form-control" ng-model="$root.datumDolaskaRentacar"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Datum odlaska:</label>
+				<input  type="date" class="form-control" ng-model="$root.datumOdlaskaRentacar"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Broj sedista :</label>
+				<input  type="text" class="form-control" ng-model="$root.brSedista"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Cena od :</label>
+				<input  type="text" class="form-control" ng-model="$root.cenaOd"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Cena do :</label>
+				<input  type="text" class="form-control" ng-model="$root.cenaDo"/>
+			</div>
+		</div>
+				
+		<div class="row">
+			<div class="col-lg-4">
+				
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="prikazi()">Prikaži</button>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="v in freeVozila">
+				<div class="card">
+					<h3 align="center">Registracija: {{v.registracijaVozila}}</h3>
+					<p>Marka: {{v.markaVozila}}</p>
+					<p>Model: {{v.modelVozila}}</p>
+					<p>Broj sedista: {{v.brojSedista}}</p>
+					<p>Godina proizvodnje: {{v.godinaProizvodnje}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

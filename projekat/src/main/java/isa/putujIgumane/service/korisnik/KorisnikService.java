@@ -10,7 +10,9 @@ import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.AdminRentDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
+import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
 import isa.putujIgumane.model.korisnik.Korisnik;
+import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.korisnik.Zahtev;
 
 @Service
@@ -37,4 +39,6 @@ public interface KorisnikService {
 	public abstract Korisnik addAdminAvio(AdminAvioDTO admin);
 	
 	public abstract Korisnik addAdminRent(AdminRentDTO admin);
+	
+	public abstract Rezervacija makeRez(RezervacijaDTO rez,Korisnik k);
 }

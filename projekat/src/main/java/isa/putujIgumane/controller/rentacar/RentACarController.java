@@ -23,6 +23,7 @@ import isa.putujIgumane.dto.rentacar.OcenaRentacarDTO;
 import isa.putujIgumane.dto.rentacar.RentACarDTO;
 import isa.putujIgumane.dto.rentacar.StatusVozilaDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
+import isa.putujIgumane.dto.rentacar.VoziloZaRezDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.korisnik.Ocena;
 import isa.putujIgumane.model.rentACar.Filijala;
@@ -278,10 +279,10 @@ public class RentACarController {
 	
 	@RequestMapping(value="/vozilo/rez", method=RequestMethod.GET)
 	public ResponseEntity<?> getVoziloZaRez(@RequestParam("cenaFrom") Double cenaFrom,@RequestParam("cenaTo") Double cenaTo,@RequestParam("datumFrom") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumFrom,@RequestParam("datumTo") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumTo,@RequestParam("brojSedista") int brojSedista){
-		List<VoziloDTO> vozilaDTO=ObjectMapperUtils.mapAll(rentacarServiceImpl.getVoziloZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojSedista), VoziloDTO.class);
+		List<VoziloZaRezDTO> vozilaDTO=ObjectMapperUtils.mapAll(rentacarServiceImpl.getVoziloZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojSedista), VoziloZaRezDTO.class);
 	
 		
-		for (VoziloDTO voziloDTO : vozilaDTO) {
+		for (VoziloZaRezDTO voziloDTO : vozilaDTO) {
 			System.out.println(voziloDTO.getId());
 		}
 		

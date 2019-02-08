@@ -1,29 +1,17 @@
 package isa.putujIgumane.dto.hotel;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
-import isa.putujIgumane.model.hotel.RezervacijaSobe;
-import isa.putujIgumane.model.hotel.Soba;
-import isa.putujIgumane.model.korisnik.Rezervacija;
 
 public class RezervacijaSobeDTO {
 	
 	private Long id;
 	
-	private Soba soba;
+	private SobaDTO soba;
 	
-	private Date datum;
+	private LocalDate datumDolaska;
 	
-	private boolean otkazano;
-	
-	private Date datumDolaska;
-	
-	private Date datumOdlaska;
-	
-	private double ukupnaCena;
-	
-	private Rezervacija rezervacija;
-	
+	private LocalDate datumOdlaska;
 	
 	public RezervacijaSobeDTO() {
 		
@@ -40,51 +28,36 @@ public class RezervacijaSobeDTO {
 	}
 
 
-	public Soba getSoba() {
+	public SobaDTO getSoba() {
 		return soba;
 	}
-	public void setSoba(Soba soba) {
+
+
+	public void setSoba(SobaDTO soba) {
 		this.soba = soba;
 	}
-	public Date getDatum() {
-		return datum;
-	}
-	public void setDatum(Date datum) {
-		this.datum = datum;
-	}
-	public boolean isOtkazano() {
-		return otkazano;
-	}
-	public void setOtkazano(boolean otkazano) {
-		this.otkazano = otkazano;
-	}
-	public Date getDatumDolaska() {
+
+
+	public LocalDate getDatumDolaska() {
 		return datumDolaska;
 	}
-	public void setDatumDolaska(Date datumDolaska) {
+
+
+	public void setDatumDolaska(LocalDate datumDolaska) {
 		this.datumDolaska = datumDolaska;
 	}
-	public Date getDatumOdlaska() {
+
+
+	public LocalDate getDatumOdlaska() {
 		return datumOdlaska;
 	}
-	public void setDatumOdlaska(Date datumOdlaska) {
+
+
+	public void setDatumOdlaska(LocalDate datumOdlaska) {
 		this.datumOdlaska = datumOdlaska;
 	}
-	public double getUkupnaCena() {
-		return ukupnaCena;
-	}
-	public void setUkupnaCena(double ukupnaCena) {
-		this.ukupnaCena = ukupnaCena;
-	}
 
 
-	public Rezervacija getRezervacija() {
-		return rezervacija;
-	}
-
-
-	public void setRezervacija(Rezervacija rezervacija) {
-		this.rezervacija = rezervacija;
-	}
+	
 	
 }

@@ -30,8 +30,8 @@ public class Rezervacija {
 	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RezervacijaSobe> rezervacijaSobe = new HashSet<RezervacijaSobe>();
 	
-	/*@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<RezervacijaVozila> rezervacijaVozila = new HashSet<RezervacijaVozila>();*/
+	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<RezervacijaVozila> rezervacijaVozila = new HashSet<RezervacijaVozila>();
 	
 	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Karta> avionskaKarta = new HashSet<Karta>();
@@ -72,6 +72,16 @@ public class Rezervacija {
 	public void setRezervacijaVozila(Set<RezervacijaVozila> rezervacijaVozila) {
 		this.rezervacijaVozila = rezervacijaVozila;
 	}*/
+
+	public Korisnik getKorisnik() {
+		return korisnik;
+	}
+
+	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
+	}
+	
+	
 	
 	
 }

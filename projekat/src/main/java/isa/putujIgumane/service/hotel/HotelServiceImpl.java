@@ -105,7 +105,7 @@ public class HotelServiceImpl implements HotelService {
 	
 	@Override
 	public HashSet<CenovnikUslugaHotela> getCenovnik(Long hotelId){
-		Hotel hotel = findById(hotelId);
+		Hotel hotel = hotelRepository.findOneById(hotelId);
 		
 		return cenovnikUslugaHotelaRepository.findByHotel(hotel);
 	}
@@ -145,7 +145,7 @@ public class HotelServiceImpl implements HotelService {
 		cenovnikNew.setCena(cenovnik.getCena());
 		cenovnikNew.setUsluga(cenovnik.getUsluga());
 	
-		Hotel hotel = findById(hotelId);
+		Hotel hotel = hotelRepository.findOneById(hotelId);
 	
 		cenovnikNew.setHotel(hotel);
 		
@@ -205,7 +205,7 @@ public class HotelServiceImpl implements HotelService {
 		sobaNew.setSprat(soba.getSprat());
 		sobaNew.setBrojKreveta(soba.getBrojKreveta());
 	
-		Hotel hotel = findById(hotelId);
+		Hotel hotel = hotelRepository.findOneById(hotelId);
 		
 		sobaNew.setHotel(hotel);
 		

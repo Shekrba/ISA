@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rezervacija rent a car servisa</title>
+</head>
+<body>
+<div ng-Controller="rezervacijaRentacarController">
+	<div class="container">
+		<div class="page-header">
+			<h1>Rent a car servisi</h1>
+		</div>
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="r in rentacars">
+				<div class="card" ng-click="izaberiRentacar(r.id)">
+					<h3 align="center">Rent a car: {{r.nazivServisa}}</h3>
+					<p>Adresa: {{r.adresaServisa}}</p>
+					<p>Opis: {{r.opisServisa}}</p>
+					<p>Prosečna ocena: {{r.prosecnaOcenaServisa}}</p>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+</body>
+</html>

@@ -26,7 +26,7 @@ public class Rezervacija {
 	private Long id;
 	
 	@ManyToMany(mappedBy="rezervacije",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Korisnik> korisnici;
+	private Set<Korisnik> korisnici=new HashSet<Korisnik>();
 	
 	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RezervacijaSobe> rezervacijaSobe = new HashSet<RezervacijaSobe>();

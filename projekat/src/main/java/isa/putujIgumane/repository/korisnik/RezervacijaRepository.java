@@ -9,7 +9,5 @@ import isa.putujIgumane.model.korisnik.Rezervacija;
 
 public interface RezervacijaRepository  extends JpaRepository<Rezervacija, Long>{
 	
-	@Query("SELECT r FROM Rezervacija r WHERE korisnik.id =?1")
-	List<Rezervacija> findRezervacijeKorisnika(Long korisnikId);
-
+	
 }

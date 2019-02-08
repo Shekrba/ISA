@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
 import isa.putujIgumane.model.korisnik.Rezervacija;
 
@@ -35,12 +36,28 @@ public class Karta {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Rezervacija rezervacija;
 	
+	@Version
+	private long version;
+	
+	
 	public Karta() {
 		
 	}
 	
 	
 	
+	public long getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
+
+
 	public Double getCena() {
 		return cena;
 	}

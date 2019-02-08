@@ -402,7 +402,7 @@ webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scop
     	$scope.selektovaneSobe++;
     	$scope.selektovaniKreveti+= 1 * s['brojKreveta'];
     	
-    	var rs = {'id'=null,'soba':s,'datumDolaska':$rootScope.datumDolaskaHotel,'datumOdlaska':$rootScope.datumOdlaskaHotel};
+    	var rs = {'id':null,'soba':s,'datumDolaska':$rootScope.datumDolaskaHotel,'datumOdlaska':$rootScope.datumOdlaskaHotel};
     	
     	$rootScope.rezervacija.rezervacijaSobe.push(rs);
     	

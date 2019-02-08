@@ -72,6 +72,16 @@ public class Rezervacija {
 	public void setRezervacijaVozila(Set<RezervacijaVozila> rezervacijaVozila) {
 		this.rezervacijaVozila = rezervacijaVozila;
 	}*/
+
+	public Korisnik getKorisnik() {
+		return korisnik;
+	}
+
+	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
+	}
+	
+	
 	
 	
 }

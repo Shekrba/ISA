@@ -1,6 +1,7 @@
 package isa.putujIgumane.service.korisnik;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import isa.putujIgumane.model.korisnik.Zahtev;
 import isa.putujIgumane.model.rentACar.RentACar;
 import isa.putujIgumane.repository.aviokompanija.AvioKompanijaRepository;
 import isa.putujIgumane.repository.hotel.HotelRepository;
+import isa.putujIgumane.repository.hotel.SobaRepository;
 import isa.putujIgumane.repository.hotel.StatusSobeRepository;
 import isa.putujIgumane.repository.korisnik.KorisnikRepository;
 import isa.putujIgumane.repository.korisnik.RezervacijaRepository;
@@ -65,6 +67,9 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Autowired
 	StatusSobeRepository statusSobeRepo;
+	
+	@Autowired
+	SobaRepository sobaRepo;
 	
 	@Override
 	public Korisnik getKorisnik(Long id) {
@@ -210,8 +215,10 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public Rezervacija makeRez(RezervacijaDTO rez) {
+	public Rezervacija makeRez(RezervacijaDTO rez,Korisnik k) {
 		Rezervacija rezNew = new Rezervacija();
+		
+		rezNew.setKorisnik(k);
 		
 		for (RezervacijaSobeDTO rs : rez.getRezervacijaSobe()) {
 			RezervacijaSobe rsNew = new RezervacijaSobe();
@@ -219,14 +226,25 @@ public class KorisnikServiceImpl implements KorisnikService{
 			rsNew.setDatumDolaska(rs.getDatumDolaska());
 			rsNew.setDatumOdlaska(rs.getDatumOdlaska());
 			rsNew.setOtkazano(false);
-			Soba soba = ObjectMapperUtils.map(rs.getSoba(), Soba.class);
+			
+			Soba soba = sobaRepo.findOneById(rs.getSoba().getId());
+		
+			for (StatusSobe ss : soba.getStatusSobe()) {
+				ss.setZauzeto(true);
+			}
+			
 			rsNew.setSoba(soba);
+			soba.getRezervacije().add(rsNew);
 			rsNew.setUkupnaCena(statusSobeRepo.findUkupnaCena(soba.getId(),rsNew.getDatumDolaska(),rsNew.getDatumOdlaska()));
 			rsNew.setRezervacija(rezNew);
 			
 			rezNew.getRezervacijaSobe().add(rsNew);
+			
+			
 		}
         
+		k.getRezervacije().add(rezNew);
+		
         return rezRepo.save(rezNew);
 	}
 	

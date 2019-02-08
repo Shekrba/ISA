@@ -9,7 +9,6 @@ webApp.controller('tabController', function($rootScope,$scope, $location, $log, 
 		
 		$rootScope.rentClass = 'nav-link disabled';
 		
-		
 	    rezFactory.getEmptyRez().then(function success(response) {
 			$rootScope.rezervacija=response.data;
 			$log.log(response.data);

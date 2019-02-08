@@ -190,6 +190,11 @@ public class KorisnikServiceImpl implements KorisnikService{
 		korisnikToAdd.setEnabled(true);
 					        
 		
+		Authority authority = autorityRepo.findOne(1L);
+		List<Authority> authorities = new ArrayList<>();
+		authorities.add(authority);
+		korisnikToAdd.setAuthorities(authorities);
+		
 		korisnikRepo.save(korisnikToAdd);
 		
         return korisnikToAdd;

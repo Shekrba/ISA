@@ -58,10 +58,10 @@ webApp.controller('hotelProfilController', function($scope, $location, hotelFact
 	}
 });
 
-webApp.controller('hotelIzmenaInfController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('hotelIzmenaInfController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
-    	hotelFactory.getHotel($routeParams.id).then(function success(response) {
+    	hotelFactory.getHotel($rootScope.hotel.id).then(function success(response) {
     		$scope.hotel=response.data;
     	}, function error(response) {
 			$scope.error="Greska";
@@ -80,10 +80,10 @@ webApp.controller('hotelIzmenaInfController', function($scope, $location, hotelF
 	}
 });
 
-webApp.controller('izmenaCenovnikaController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('izmenaCenovnikaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
-    	hotelFactory.getCenovnik($routeParams.hotelId).then(function success(response) {
+    	hotelFactory.getCenovnik($rootScope.hotel.id).then(function success(response) {
     		$scope.cenovnik=response.data;
     	}, function error(response) {
 			$scope.error="Greska";
@@ -101,7 +101,7 @@ webApp.controller('izmenaCenovnikaController', function($scope, $location, hotel
 	}
 	
 	$scope.brisanjeUsluge=function(id){
-		hotelFactory.deleteUsluga(id,$routeParams.hotelId).then(function success(response) {
+		hotelFactory.deleteUsluga(id,$rootScope.hotel.id).then(function success(response) {
     		$scope.cenovnik=response.data;
     	}, function error(response) {
 			$scope.error="Greska";
@@ -109,7 +109,7 @@ webApp.controller('izmenaCenovnikaController', function($scope, $location, hotel
 	}
 });
 
-webApp.controller('cenovnikIzmenaUslugeController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('cenovnikIzmenaUslugeController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
     	hotelFactory.getUsluga($routeParams.uslugaId).then(function success(response) {
@@ -124,14 +124,14 @@ webApp.controller('cenovnikIzmenaUslugeController', function($scope, $location, 
 	$scope.izmenaUsluge=function(u){
 		hotelFactory.updateUsluga(u).then(function success(response) {
     		$scope.updatedUsluga=response.data;
-    		$location.path("/hoteli/cenovnik/1");
+    		$location.path("/hoteli/cenovnik/"+$rootScope.hotel.id);
     	}, function error(response) {
 			$scope.error="Greska";
 		});
 	}
 });
 
-webApp.controller('cenovnikDodajUsluguController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('cenovnikDodajUsluguController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
     	
@@ -140,16 +140,16 @@ webApp.controller('cenovnikDodajUsluguController', function($scope, $location, h
 	init();
 	
 	$scope.dodavanjeUsluge=function(u){
-		hotelFactory.addUsluga(u,1).then(function success(response) {
+		hotelFactory.addUsluga(u,$rootScope.hotel.id).then(function success(response) {
     		$scope.addedUsluga=response.data;
-    		$location.path("/hoteli/cenovnik/1");
+    		$location.path("/hoteli/cenovnik/"+$rootScope.hotel.id);
     	}, function error(response) {
 			$scope.error="Greska";
 		});
 	}
 });
 
-webApp.controller('konfSobaController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('konfSobaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
     	hotelFactory.getSobe($routeParams.hotelId).then(function success(response) {
@@ -166,11 +166,11 @@ webApp.controller('konfSobaController', function($scope, $location, hotelFactory
 	}
 	
 	$scope.dodavanjeSobe=function(){
-		$location.path("/hoteli/addSoba/"+$routeParams.hotelId);
+		$location.path("/hoteli/addSoba/"+$rootScope.hotel.id);
 	}
 	
 	$scope.brisanjeSobe=function(id){
-		hotelFactory.deleteSoba(id,$routeParams.hotelId).then(function success(response) {
+		hotelFactory.deleteSoba(id,$rootScope.hotel.id).then(function success(response) {
     		$scope.sobe[0]=response.data;
     	}, function error(response) {
 			$scope.error="Greska";
@@ -182,7 +182,7 @@ webApp.controller('konfSobaController', function($scope, $location, hotelFactory
 	}
 });
 
-webApp.controller('izmenaSobeController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('izmenaSobeController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
     	hotelFactory.getSoba($routeParams.sobaId).then(function success(response) {
@@ -197,14 +197,14 @@ webApp.controller('izmenaSobeController', function($scope, $location, hotelFacto
 	$scope.izmenaSobe=function(s){
 		hotelFactory.updateSoba(s).then(function success(response) {
     		$scope.updatedUsluga=response.data;
-    		$location.path("/hoteli/sobe/1");
+    		$location.path("/hoteli/sobe/"+$rootScope.hotel.id);
     	}, function error(response) {
 			$scope.error="Greska";
 		});
 	}
 });
 
-webApp.controller('dodavanjeSobeController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('dodavanjeSobeController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
     	
@@ -213,25 +213,25 @@ webApp.controller('dodavanjeSobeController', function($scope, $location, hotelFa
 	init();
 	
 	$scope.dodavanjeSobe=function(s){
-		hotelFactory.addSoba(s,1).then(function success(response) {
+		hotelFactory.addSoba(s,$rootScope.hotel.id).then(function success(response) {
     		$scope.addedSoba=response.data;
-    		$location.path("/hoteli/sobe/1");
+    		$location.path("/hoteli/sobe/"+$rootScope.hotel.id);
     	}, function error(response) {
 			$scope.error="Greska";
 		});
 	}
 });
 
-webApp.controller('izvestajOcenaHotelaController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('izvestajOcenaHotelaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
-    	hotelFactory.getHotel($routeParams.hotelId).then(function success(response) {
+    	hotelFactory.getHotel($rootScope.hotel.id).then(function success(response) {
     		$scope.hotel=response.data;
     	}, function error(response) {
 			$scope.error="Greska";
 		});
     	
-    	hotelFactory.getOceneHotela($routeParams.hotelId).then(function success(response) {
+    	hotelFactory.getOceneHotela($rootScope.hotel.id).then(function success(response) {
     		$scope.ocene=response.data;
     	}, function error(response) {
     		$scope.error="Greska";
@@ -241,10 +241,10 @@ webApp.controller('izvestajOcenaHotelaController', function($scope, $location, h
 	init();
 });
 
-webApp.controller('oceneSobaHotelaController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('oceneSobaHotelaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
-    	hotelFactory.getHotel($routeParams.hotelId).then(function success(response) {
+    	hotelFactory.getHotel($rootScope.hotel.id).then(function success(response) {
     		$scope.hotel=response.data;
     	}, function error(response) {
 			$scope.error="Greska";
@@ -277,10 +277,10 @@ webApp.controller('izvestajOcenaSobeController', function($scope, $location, hot
 	init();
 });
 
-webApp.controller('uvidPrihodaHotelaController', function($scope, $location, hotelFactory,$routeParams) {
+webApp.controller('uvidPrihodaHotelaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
 	
     function init() {
-    	hotelFactory.getHotel($routeParams.hotelId).then(function success(response) {
+    	hotelFactory.getHotel($rootScope.hotel.id).then(function success(response) {
     		$scope.hotel=response.data;
     	}, function error(response) {
 			$scope.error="Greska";
@@ -290,7 +290,7 @@ webApp.controller('uvidPrihodaHotelaController', function($scope, $location, hot
 	init();
 	
 	$scope.prikazPrihoda=function(from,to){
-		hotelFactory.getPrihode($routeParams.hotelId,from,to).then(function success(response) {
+		hotelFactory.getPrihode($rootScope.hotel.id,from,to).then(function success(response) {
     		$scope.prihodi=response.data;
     	}, function error(response) {
 			$scope.error="Greska";
@@ -316,7 +316,7 @@ webApp.controller('podesavanjeCeneSobeController', function($scope, $location, h
     	}, function error(response) {
 			$scope.error="Greska";
     	});
-		$location.path("/hoteli/sobe/"+1);
+		$location.path("/hoteli/sobe/"+$rootScope.hotel.id);
 	};
 });
 

@@ -1,5 +1,8 @@
 package isa.putujIgumane.model.hotel;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
@@ -26,6 +30,9 @@ public class CenovnikUslugaHotela {
 	
 	@Column(name = "cena", unique = false, nullable = false)
 	private Double cena;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<RezervacijaSobe> rezervacijeSobe = new HashSet<>();
 	
 	@Version
 	private long version;
@@ -47,6 +54,18 @@ public class CenovnikUslugaHotela {
 
 
 	
+
+
+	
+	public Set<RezervacijaSobe> getRezervacijeSobe() {
+		return rezervacijeSobe;
+	}
+
+
+
+	public void setRezervacijeSobe(Set<RezervacijaSobe> rezervacijeSobe) {
+		this.rezervacijeSobe = rezervacijeSobe;
+	}
 
 
 

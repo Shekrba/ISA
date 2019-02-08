@@ -377,5 +377,5 @@ public class RentACarServiceImpl implements RentACarService{
 		return vozilaDTO;
 	}
 
-	
+
 }

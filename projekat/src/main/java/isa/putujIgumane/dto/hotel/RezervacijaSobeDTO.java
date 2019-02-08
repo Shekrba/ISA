@@ -1,6 +1,10 @@
 package isa.putujIgumane.dto.hotel;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 
 
 public class RezervacijaSobeDTO {
@@ -8,6 +12,8 @@ public class RezervacijaSobeDTO {
 	private Long id;
 	
 	private SobaDTO soba;
+	
+	private Set<CenovnikUslugaHotelaDTO> cenovnici = new HashSet<>();
 	
 	private LocalDate datumDolaska;
 	
@@ -45,6 +51,18 @@ public class RezervacijaSobeDTO {
 
 	public void setDatumDolaska(LocalDate datumDolaska) {
 		this.datumDolaska = datumDolaska;
+	}
+
+
+	
+	
+	public Set<CenovnikUslugaHotelaDTO> getCenovnici() {
+		return cenovnici;
+	}
+
+
+	public void setCenovnici(Set<CenovnikUslugaHotelaDTO> cenovnici) {
+		this.cenovnici = cenovnici;
 	}
 
 

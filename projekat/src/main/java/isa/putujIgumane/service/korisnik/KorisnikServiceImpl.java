@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import isa.putujIgumane.dto.aviokompanija.KartaDTO;
+
+import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
+
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.RezervacijaSobeDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
@@ -31,7 +35,11 @@ import isa.putujIgumane.dto.rentacar.RezervacijaVozilaDTO;
 import isa.putujIgumane.dto.rentacar.StatusVozilaDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+
 import isa.putujIgumane.model.avioKompanija.Karta;
+
+import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
+
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.RezervacijaSobe;
 import isa.putujIgumane.model.hotel.Soba;
@@ -45,7 +53,11 @@ import isa.putujIgumane.model.rentACar.RezervacijaVozila;
 import isa.putujIgumane.model.rentACar.StatusVozila;
 import isa.putujIgumane.model.rentACar.Vozilo;
 import isa.putujIgumane.repository.aviokompanija.AvioKompanijaRepository;
+
 import isa.putujIgumane.repository.aviokompanija.KartaRepository;
+
+import isa.putujIgumane.repository.hotel.CenovnikUslugaHotelaRepository;
+
 import isa.putujIgumane.repository.hotel.HotelRepository;
 import isa.putujIgumane.repository.hotel.SobaRepository;
 import isa.putujIgumane.repository.hotel.StatusSobeRepository;
@@ -96,6 +108,10 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Autowired
 	KartaRepository kartaRepo;
+	
+	@Autowired
+	CenovnikUslugaHotelaRepository cenovnikRepo;
+
 	
 	@Override
 	public Korisnik getKorisnik(Long id) {
@@ -270,6 +286,18 @@ public class KorisnikServiceImpl implements KorisnikService{
 			rsNew.setDatumOdlaska(rs.getDatumOdlaska());
 			rsNew.setOtkazano(false);
 			
+			
+			Double ukupnaCenaCenovnika = 0.0;
+			
+			for (CenovnikUslugaHotelaDTO cenovnikDTO : rs.getCenovnici()) {
+				CenovnikUslugaHotela cenovnik = cenovnikRepo.findOneById(cenovnikDTO.getId());
+				
+				cenovnik.getRezervacijeSobe().add(rsNew);
+				rsNew.getCenovnici().add(cenovnik);
+				
+				ukupnaCenaCenovnika+=cenovnik.getCena();
+			}
+			
 			Soba soba = sobaRepo.findOneById(rs.getSoba().getId());
 			
 			for (StatusSobeDTO ssDTO :sDTO.getStatusSobe()) {
@@ -290,7 +318,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 			
 			rsNew.setSoba(soba);
 			soba.getRezervacije().add(rsNew);
-			rsNew.setUkupnaCena(statusSobeRepo.findUkupnaCena(soba.getId(),rsNew.getDatumDolaska(),rsNew.getDatumOdlaska()));
+			rsNew.setUkupnaCena(ukupnaCenaCenovnika + statusSobeRepo.findUkupnaCena(soba.getId(),rsNew.getDatumDolaska(),rsNew.getDatumOdlaska()));
 			rsNew.setRezervacija(rezNew);
 			
 			rezNew.getRezervacijaSobe().add(rsNew);

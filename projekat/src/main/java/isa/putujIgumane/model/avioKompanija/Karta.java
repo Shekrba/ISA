@@ -27,7 +27,10 @@ public class Karta {
 	private Sediste sediste;
 	
 	@Column(name = "popust", unique = false, nullable = false)
-	private Double popust;
+	private Short popust;
+	
+	@Column(name = "cena", unique = false, nullable = false)
+	private Double cena;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Rezervacija rezervacija;
@@ -36,6 +39,20 @@ public class Karta {
 		
 	}
 	
+	
+	
+	public Double getCena() {
+		return cena;
+	}
+
+
+
+	public void setCena(Double cena) {
+		this.cena = cena;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -60,13 +77,23 @@ public class Karta {
 		this.sediste = sediste;
 	}
 
-	public Double getPopust() {
+	public Short getPopust() {
 		return popust;
 	}
 
-	public void setPopust(Double popust) {
+	public void setPopust(Short popust) {
 		this.popust = popust;
 	}
+
+	public Rezervacija getRezervacija() {
+		return rezervacija;
+	}
+
+	public void setRezervacija(Rezervacija rezervacija) {
+		this.rezervacija = rezervacija;
+	}
+
+	
 	
 	
 	

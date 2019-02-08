@@ -36,7 +36,7 @@
 
 	<div class="row">
 			<div class="col-lg-4 ml-auto mr-auto">
-			{{flight.vremePoletanja}}
+			 <label class="textColor">Datum i vreme poletanja:</label>
 				 <input class="form-control" type="datetime-local"  id="dateTimeInput1" ng-model="flight.vremePoletanja">
 			</div>
 	</div>
@@ -55,6 +55,7 @@
 				<input type="number" ng-model="rows"/>
 				<input type="number" ng-model="columns"/>
 				<input type="number" ng-model="price"/>
+				<input type="number" ng-model="discount"/>
 				<button ng-click="addSegment()">Dodaj Segment</button>
 				<canvas id="canvas" width="800" height="600"></canvas>
 			</div>	
@@ -67,6 +68,7 @@
 				<input type="number" ng-model="rowsMod"/>
 				<input type="number" ng-model="columnsMod"/>
 				<input type="number" ng-model="priceMod"/>
+				<input type="number" ng-model="discountMod"/>
 				<button ng-click="editSegment()">Potvrdi Izmene</button>
 			</div>	
 			<div class="col-lg-4"></div>

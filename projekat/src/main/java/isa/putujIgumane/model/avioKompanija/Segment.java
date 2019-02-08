@@ -40,10 +40,22 @@ public class Segment {
 	private Double y;
 	
 	@Column(name = "redovi", unique = false, nullable = false)
-	private Integer redovi;
+	private Short redovi;
 	
 	@Column(name = "kolone", unique = false, nullable = false)
-	private Integer kolone;
+	private Short kolone;
+	
+	@Column(name = "popust", unique = false, nullable = false)
+	private Short popust;
+	
+
+	public Short getPopust() {
+		return popust;
+	}
+
+	public void setPopust(Short popust) {
+		this.popust = popust;
+	}
 
 	public Double getX() {
 		return x;
@@ -61,20 +73,20 @@ public class Segment {
 		this.y = y;
 	}
 
-
-	public Integer getRedovi() {
+	
+	public Short getRedovi() {
 		return redovi;
 	}
 
-	public void setRedovi(Integer redovi) {
+	public void setRedovi(Short redovi) {
 		this.redovi = redovi;
 	}
 
-	public Integer getKolone() {
+	public Short getKolone() {
 		return kolone;
 	}
 
-	public void setKolone(Integer kolone) {
+	public void setKolone(Short kolone) {
 		this.kolone = kolone;
 	}
 

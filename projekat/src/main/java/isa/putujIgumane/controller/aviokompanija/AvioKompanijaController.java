@@ -2,6 +2,7 @@ package isa.putujIgumane.controller.aviokompanija;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +27,9 @@ import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.dto.aviokompanija.LetDTO;
 import isa.putujIgumane.dto.aviokompanija.SegmentDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
+import isa.putujIgumane.model.avioKompanija.Karta;
 import isa.putujIgumane.model.avioKompanija.Let;
+import isa.putujIgumane.model.avioKompanija.Sediste;
 import isa.putujIgumane.model.avioKompanija.Segment;
 
 import isa.putujIgumane.dto.hotel.HotelDTO;
@@ -66,8 +69,8 @@ public class AvioKompanijaController {
 	public ResponseEntity<?> getNewFlight() {
 		LetDTO letDTO=new LetDTO();
 		letDTO.setSegmenti(new HashSet<SegmentDTO>());
-		letDTO.setVremePoletanja(LocalDateTime.now());
-		letDTO.setVremeSletanja(LocalDateTime.now());
+		letDTO.setVremePoletanja(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+		letDTO.setVremeSletanja(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
 		letDTO.setPresedanja(new HashSet<AdresaDTO>());
 		return new ResponseEntity<LetDTO>(letDTO,HttpStatus.OK);
 	}
@@ -90,6 +93,20 @@ public class AvioKompanijaController {
 		let.setVremePutovanja(d);
 		let.setDuzinaPutovanja(100);
 		let.setSegmenti(new HashSet<Segment>(ObjectMapperUtils.mapAll(letDTO.getSegmenti(), Segment.class)));
+		for (Segment s : let.getSegmenti()) {
+			for(Short i=0; i<s.getRedovi();i++) {
+				for(Short j=0; j<s.getKolone();j++) {
+					Sediste sed=new Sediste();
+					sed.setRbr((short)(i*s.getKolone()+j));
+					sed.setSegment(s);
+					Karta k=new Karta();
+					k.setKupljena(false);
+					k.setPopust(s.getPopust());
+					k.setCena(s.getCena());
+					sed.setKarta(k);
+				}
+			}
+		}
 		akService.addLet(let, akID);
 		return new ResponseEntity<String>("Let je uspesno kreiran",HttpStatus.OK);
 	}

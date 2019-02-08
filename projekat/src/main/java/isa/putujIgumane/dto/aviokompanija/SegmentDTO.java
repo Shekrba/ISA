@@ -15,13 +15,29 @@ public class SegmentDTO {
 	
 	private Double y;
 	
-	private Integer redovi;
+	private Short popust;
 	
-	private Integer kolone;
+	private Short redovi;
+	
+	private Short kolone;
 	
 	public SegmentDTO() {
 		
 	}
+
+	
+	
+	public Short getPopust() {
+		return popust;
+	}
+
+
+
+	public void setPopust(Short popust) {
+		this.popust = popust;
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -63,19 +79,19 @@ public class SegmentDTO {
 		this.y = y;
 	}
 
-	public Integer getRedovi() {
+	public Short getRedovi() {
 		return redovi;
 	}
 
-	public void setRedovi(Integer redovi) {
+	public void setRedovi(Short redovi) {
 		this.redovi = redovi;
 	}
 
-	public Integer getKolone() {
+	public Short getKolone() {
 		return kolone;
 	}
 
-	public void setKolone(Integer kolone) {
+	public void setKolone(Short kolone) {
 		this.kolone = kolone;
 	}
 

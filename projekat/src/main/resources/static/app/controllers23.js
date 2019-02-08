@@ -385,32 +385,7 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 		canvas.selection = false;
 		
 
-		function plusrect(top, left, width, height, fill) {
-			var rect = new fabric.Rect({
-				top: 300,
-				name: 'rectangle ' + counter,
-				left: 0 + rectLeft,
-				width: 100,
-				height: 100,
-				fill: 'rgba(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ', 0.75)',
-				lockRotation: true,
-				originX: 'left',
-				originY: 'top',
-				cornerSize: 15,
-				hasRotatingPoint: false,
-				perPixelTargetFind: true,
-				minScaleLimit: 1,
-				maxWidth: canvasWidth,
-				maxHeight: canvasHeight
-			});
-
-			rect.custom = {};
-			rect.custom.counter = counter;
-
-			canvas.add(rect);
-			counter++;
-			rectLeft += 200;
-		}
+		
 
 		function findNewPos(distX, distY, target, obj) {
 			// See whether to focus on X or Y axis
@@ -615,7 +590,7 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 		
 		$scope.canvas=canvas;
 		$scope.rbr=1;
-
+		$scope.discount=0;
 		
 		
 	};
@@ -641,11 +616,16 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 	
 	$scope.addSegment=function(){
 		
+		if($scope.discount>0)
+			$scope.color='yellow';
+		else
+			$scope.color='white';
+		
 		
 		var rect = new fabric.Rect({
 		  left: 0,
 		  top: 0,
-		  fill: 'white',
+		  fill: $scope.color,
 		  width: 30*$scope.columns,
 		  height: 30*$scope.rows,
 		  originX: 'center',
@@ -671,7 +651,7 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 		    left: 0,
 		    fontSize: 16,
 		    textAlign: 'center',
-		    backgroundColor: 'white',
+		    backgroundColor: $scope.color,
 		    editable: false, 
 		    cursorWidth: 0,
 		    originX: 'center',
@@ -682,12 +662,14 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 			  redovi: $scope.rows,
 			  kolone: $scope.columns,
 			  cena: $scope.price,
+			  popust: $scope.discount,
 			  rbr:$scope.rbr});
 		
 		group.on('mousedown',function(){
 			$scope.rowsMod=this.redovi;
 			$scope.columnsMod=this.kolone;
 			$scope.priceMod=this.cena;
+			$scope.discountMod=this.popust;
 			$scope.$apply();
 		});
 		
@@ -723,7 +705,7 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 		var obj = $scope.canvas._objects;
 		if(obj!=undefined){
 			obj.forEach(function(i,x) {
-				var segment={'id':null,'rbr':x,'cena':100,'x':i.left,'y':i.top,'redovi':i.redovi,'kolone':i.kolone};
+				var segment={'id':null,'rbr':x,'cena':100,'x':i.left,'y':i.top,'redovi':i.redovi,'kolone':i.kolone,'popust':i.popust};
 				$scope.flight.segmenti[x]=segment;
 			});
 		}
@@ -733,12 +715,18 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 	};
 	
 	$scope.editSegment=function(){
+		
+		if($scope.discountMod>0)
+			$scope.color='yellow';
+		else
+			$scope.color='white';
+		
 		var activeObj=$scope.canvas._activeObject;
 		
 		var rect = new fabric.Rect({
 			  left: activeObj._objects[0].left,
 			  top: activeObj._objects[0].top,
-			  fill: 'white',
+			  fill: $scope.color,
 			  width: 30*$scope.columnsMod,
 			  height: 30*$scope.rowsMod,
 			  originX: 'center',
@@ -752,7 +740,7 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 		    left: activeObj._objects[1].left,
 		    fontSize: 16,
 		    textAlign: 'center',
-		    backgroundColor: 'white',
+		    backgroundColor: $scope.color,
 		    editable: false, 
 		    cursorWidth: 0,
 		    originX: 'center',
@@ -762,12 +750,14 @@ webApp.controller('avioKompanijaNoviLetController', function($scope,$rootScope, 
 			  redovi: $scope.rowsMod,
 			  kolone: $scope.columnsMod,
 			  cena: $scope.priceMod,
+			  popust: $scope.discountMod,
 			  rbr:activeObj.rbr});
 		
 		group.on('mousedown',function(){
 			$scope.rowsMod=this.redovi;
 			$scope.columnsMod=this.kolone;
 			$scope.priceMod=this.cena;
+			$scope.discountMod=this.popust;
 			$scope.$apply();
 		});
 		

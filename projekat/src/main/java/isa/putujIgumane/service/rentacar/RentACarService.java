@@ -54,6 +54,5 @@ public interface RentACarService {
 	public Ocena addOcenaRentacar(Long korisnikId, RentACarDTO rentacar, int ocena);
 	public double getUkupnaCena(Long voziloId, LocalDate from, LocalDate to);
 	public List<VozilaBrzaDTO> getVozilaBrza(LocalDate from, LocalDate to);
-	public List<RezervacijaDTO> getRezervacijeKorisnika(Long korisnikId);
 
 }

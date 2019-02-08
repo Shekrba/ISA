@@ -2,6 +2,8 @@ package isa.putujIgumane.model.hotel;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import isa.putujIgumane.model.korisnik.Rezervacija;
@@ -21,7 +26,7 @@ public class RezervacijaSobe {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Soba soba;
 	
 	@Column(name = "datum", unique = false, nullable = false)
@@ -42,19 +47,11 @@ public class RezervacijaSobe {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Rezervacija rezervacija;
 	
-	public RezervacijaSobe(Long id, Soba soba, LocalDate datum, boolean otkazano, LocalDate datumDolaska, LocalDate datumOdlaska,
-			double ukupnaCena, Rezervacija rezervacija) {
-		super();
-		this.id = id;
-		this.soba = soba;
-		this.datum = datum;
-		this.otkazano = otkazano;
-		this.datumDolaska = datumDolaska;
-		this.datumOdlaska = datumOdlaska;
-		this.ukupnaCena = ukupnaCena;
-		this.rezervacija = rezervacija;
-	}
-	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "rezervacijeCenovnika",
+    joinColumns = @JoinColumn(name="rezervacija_sobe_id", referencedColumnName="id"),
+    inverseJoinColumns = @JoinColumn(name="cenovnik_usluga_hotela_id", referencedColumnName="id"))
+	private Set<CenovnikUslugaHotela> cenovnici = new HashSet<>();
 	
 	
 	public RezervacijaSobe() {
@@ -114,6 +111,18 @@ public class RezervacijaSobe {
 	public Rezervacija getRezervacija() {
 		return rezervacija;
 	}
+
+
+	public Set<CenovnikUslugaHotela> getCenovnici() {
+		return cenovnici;
+	}
+
+
+
+	public void setCenovnici(Set<CenovnikUslugaHotela> cenovnici) {
+		this.cenovnici = cenovnici;
+	}
+
 
 
 	public void setRezervacija(Rezervacija rezervacija) {

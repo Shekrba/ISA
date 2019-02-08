@@ -377,19 +377,4 @@ public class RentACarServiceImpl implements RentACarService{
 		return vozilaDTO;
 	}
 
-	@Override
-	public List<RezervacijaDTO> getRezervacijeKorisnika(Long korisnikId) {
-		// TODO Auto-generated method stub
-		
-		List<RezervacijaDTO> rDTO = new ArrayList<>();
-		List<Rezervacija> rezervacije = rezervacijaRepository.findRezervacijeKorisnika(korisnikId);
-		
-		for(Rezervacija r : rezervacije) {
-			RezervacijaDTO rd = new RezervacijaDTO();
-
-			
-		}
-		
-		return null;
-	}
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Prijatelji</title>
+</head>
+<body>
+<div ng-Controller="prijateljiController">
+   <div class="container">
+		
+		<div class="row" ng-repeat="k in korisnici">
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title" align="center">{{k.username}}:{{k.ime}} {{k.prezime}}</h5>
+					</div>
+				</div>
+			</div>	
+			<div class="col-lg-4"></div>
+		</div>	
+	</div>
+</div>
+</body>
+</html>

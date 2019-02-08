@@ -84,5 +84,15 @@ public class AvioKompanijaServiceImpl implements AvioKompanijaService{
 		
 		return avioNull;
 	}
+
+	@Override
+	public List<Let> getAllLet() {
+		return letRepo.findAll();
+	}
+
+	@Override
+	public Let getLet(Long id) {
+		return letRepo.findOne(id);
+	}
 	
 }

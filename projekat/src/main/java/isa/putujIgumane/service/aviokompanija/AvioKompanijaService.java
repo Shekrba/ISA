@@ -18,8 +18,12 @@ public interface AvioKompanijaService {
 
 	public abstract Let addLet(Let l,Integer akID);
 	public abstract List<Let> getAllAKLet(Integer akID);
+	
+	public abstract List<Let> getAllLet();
 
 	public abstract AvioKompanija addAvio(AvioKompanijaDTO avio);
 	public abstract List<AvioKompanija> getAllNull();
-
+	
+	public abstract Let getLet(Long id);
+	
 }

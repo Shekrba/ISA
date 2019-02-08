@@ -81,6 +81,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		return korisnikRepo.searchByFullName(s, loggedUser,pageable );
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void sendFriendRequest(String username, Long friend) throws Exception{
 		Korisnik k1=korisnikRepo.findByUsername(username);
@@ -102,6 +103,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		return sent;
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void answerRequest(Long id,boolean flag) {
 		Zahtev z=zahtevRepo.findOne(id);
@@ -246,6 +248,14 @@ public class KorisnikServiceImpl implements KorisnikService{
 		k.getRezervacije().add(rezNew);
 		
         return rezRepo.save(rezNew);
+	}
+
+	@Override
+	public List<Korisnik> getFriends(String username) {
+		List<Korisnik> sent = zahtevRepo.findSentFriends(username);
+		List<Korisnik> rec= zahtevRepo.findRecievedFriends(username);
+		sent.addAll(rec);
+		return sent;
 	}
 	
 }

@@ -1,11 +1,6 @@
 package isa.putujIgumane.dto.aviokompanija;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
 
-import isa.putujIgumane.model.avioKompanija.Sediste;
 
 public class KartaDTO {
 	
@@ -15,9 +10,25 @@ public class KartaDTO {
 	
 	private Double popust;
 	
+	private Double cena;
+	
 	public KartaDTO() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public Double getCena() {
+		return cena;
+	}
+
+
+
+	public void setCena(Double cena) {
+		this.cena = cena;
+	}
+
+
 
 	public Integer getId() {
 		return id;

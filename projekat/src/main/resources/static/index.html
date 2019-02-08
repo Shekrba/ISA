@@ -4,7 +4,6 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.css">
 	<link rel="stylesheet" href="css/Style.css">
@@ -75,6 +74,9 @@
 				</li>
 				<li ng-if="!authenticated" class="nav-item">
 					<a href="#/korisnik/addKorisnik" class="nav-link">Registracija</a>
+				</li>
+				<li ng-if="authenticated" class="nav-item">
+					<a href="#/prijatelji" class="nav-link">Prijatelji</a>
 				</li>
 				<li ng-if="authenticated" class="nav-item">
 					<a href="#/zahtevi" class="nav-link">Zahtevi za prijateljstvo</a>

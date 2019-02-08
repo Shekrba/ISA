@@ -1,6 +1,6 @@
 package isa.putujIgumane.dto.aviokompanija;
 
-
+import java.util.Set;
 
 public class SegmentDTO {
 
@@ -21,12 +21,26 @@ public class SegmentDTO {
 	
 	private Short kolone;
 	
+	private Set<SedisteDTO> sedista;
+	
 	public SegmentDTO() {
 		
 	}
 
 	
 	
+	public Set<SedisteDTO> getSedista() {
+		return sedista;
+	}
+
+
+
+	public void setSedista(Set<SedisteDTO> sedista) {
+		this.sedista = sedista;
+	}
+
+
+
 	public Short getPopust() {
 		return popust;
 	}

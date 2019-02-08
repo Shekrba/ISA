@@ -102,6 +102,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/avioKompanijaNoviLet.html'
 	}).when('/izmena/letovi',{
 		templateUrl: 'partials/avioKompanijaIzmenaLetova.html'
+	}).when('/prijatelji',{
+		templateUrl: 'partials/prijatelji.html'
 	});
 	$routeProvider.otherwise({redirectTo: '/'});
 });

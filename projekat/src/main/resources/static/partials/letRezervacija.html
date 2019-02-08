@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<style>
+
+#canvas {
+  background-color: grey;
+  margin-top: 10px;
+}
+
+
+
+
+</style>
+<script src="../js/fabric.min.js"></script>
+
+<title>Let</title>
+</head>
+<body>
+
+<div ng-Controller="rezervacijaLetaController">
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Let</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+	</div>
+	<div class="row">
+				<canvas id="canvas" width="800" height="600"></canvas>
+	</div>
+	
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto text-center">
+				<div ng-repeat="i in [] | range:numOzn-1">
+						Unesi Ime:<input type="text" ng-model="drugariSaPuta[i].ime"/>
+						Unesi Prezime:<input type="text" ng-model="drugariSaPuta[i].prezime"/>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prijateljModal" ng-click="setSel(i)">Izaberi prijatelja</button>
+						<!-- Modal -->
+				
+				</div>
+						
+						
+						<div  class="modal fade" id="prijateljModal" tabindex="-1" role="dialog"  aria-labelledby="exampleModal1Label" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModal1Label">Prijatelji</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      
+				      <div class="modal-body">
+				        	<button ng-repeat="f in friends" type="button" class="btn btn-primary" data-dismiss="modal" ng-click="setFriend(f)">{{f.ime}} {{f.prezime}} : {{f.username}}</button>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+				        
+						</div>
+				      </div>
+				    </div>
+				  </div>
+						
+						
+						
+						
+				</div>
+			</div>
+		</div>
+		
+		
+		
+	</div>
+	
+
+	
+</div>	
+</body>
+</html>

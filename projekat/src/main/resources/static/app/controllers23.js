@@ -122,7 +122,21 @@ webApp.controller('zahteviController', function($scope, $location,$routeParams, 
 		
 	};
 	
+	
+	
 	init();
+	
+	$scope.confirmRequest=function(id){
+		korisnikFactory.answerFriend(id,true).then(function success(response){
+			toast(response.data);
+		});
+	};
+	
+	$scope.declineRequest=function(id){
+		korisnikFactory.answerFriend(id,false).then(function success(response){
+			toast(response.data);
+		});
+	}
 	
 	
 });
@@ -785,11 +799,188 @@ webApp.controller('avioKompanijaIzmenaLetovaController', function($scope,$rootSc
 	init();
 	
 	$scope.formatDate=function(d){
-		var date = new Date();
+		var date=new Date(d);
 		return date.toLocaleString("sr-RS");
-	}
+	};
 	
 });
 
+webApp.controller('pretragaLetovaController', function($scope,$rootScope, $location,$routeParams, akFactory,$log) {
+	
+	function init(){
+		akFactory.getAllFlights().then(function success(response){
+			$scope.letovi=response.data;
+		});
+		
+	};
+	
+	init();
+	
+	$scope.formatDate=function(d){
+		return d.toLocaleString("sr-RS");
+	};
+	
+	$scope.reserveFlight=function(id){
+		$rootScope.putanja='partials/letRezervacija.html';
+		$rootScope.flightid=id;
+	};
+});
+
+webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $location,$routeParams, akFactory,korisnikFactory,$log) {
+	
+	function init(){
+		korisnikFactory.getFriends().then(function success(response1){
+			akFactory.getFlight($rootScope.flightid).then(function success(response){
+				$scope.friends=response1.data;
+				$rootScope.drugariSaPuta={};
+				$scope.flight=response.data;
+				$scope.oznSedista={};
+				$scope.numOzn=0;
+				var canvas = new fabric.Canvas('canvas',{  hoverCursor: 'pointer', selection: false });
+				
+				canvas.selection=false;
+				
+				$scope.flight.segmenti.forEach(function(s,i){
+					if(s.popust>0)
+						$scope.color='yellow';
+					else
+						$scope.color='white';
+					
+					var group=new fabric.Group([],{top:300,left:300});
+					
+					group.lockScalingX=true;
+					group.lockScalingY=true;
+					group.lockUniScaling=true;
+					group.lockRotation=true;
+					group.lockMovementX=true;
+					group.lockMovementY=true;
+					
+					
+			
+					var col=s.kolone;
+					var row=s.redovi;
+					sedista=s.sedista;
+					function compare(a, b) {
+						  // Use toUpperCase() to ignore character casing
+						  const genreA = a.rbr;
+						  const genreB = b.rbr;
+
+						  let comparison = 0;
+						  if (genreA > genreB) {
+						    comparison = 1;
+						  } else if (genreA < genreB) {
+						    comparison = -1;
+						  }
+						  return comparison;
+						};
+					sedista.sort(compare);
+					for(var x=0 ; x<row ; x++){
+						for(var y=0 ; y<col ; y++){
+							var sed=sedista[x*col+y];
+							var rect=new fabric.Rect({
+								  left: 0,
+								  top: 0,
+								  fill: $scope.color,
+								  width: 30,
+								  height: 30,
+								  originX: 'center',
+								  originY: 'center',
+								  id: sed.id
+							});
+							var t1 = new fabric.Textbox(sed.rbr.toString(), {
+								height: 30,
+							    width: 20,
+							    top: 0,
+							    left: 0,
+							    fontSize: 12,
+							    textAlign: 'center',
+							    backgroundColor: $scope.color,
+							    editable: false, 
+							    cursorWidth: 0,
+							    originX: 'center',
+								originY: 'center'
+							});
+							var group1=new fabric.Group([rect,t1],{top:s.y+x*30,left:s.x+y*30,sediste:sed});
+							group1.lockScalingX=true;
+							group1.lockScalingY=true;
+							group1.lockUniScaling=true;
+							group1.lockRotation=true;
+							group1.lockMovementX=true;
+							group1.lockMovementY=true;
+							
+							group1.selectable=false;
+							
+							group1.on('mousedown',function(){
+								if(this._objects[0].fill!='yellow'){
+									if(this._objects[0].fill=='white'){
+										this._objects[0].set('fill','green');
+										this._objects[1].set('backgroundColor','green');
+										$scope.numOzn++;
+										if($scope.numOzn>=2){
+											$rootScope.drugariSaPuta[$scope.numOzn-2]={ime:"",prezime:""};
+										}
+										$scope.$apply();	
+										//$scope.$apply();
+									}else{
+										this._objects[0].set('fill','white');
+										this._objects[1].set('backgroundColor','white');
+										delete $scope.oznSedista[this.sediste.id];
+										$scope.numOzn--;
+										if($scope.numOzn>=2){
+											delete $rootScope.drugariSaPuta[$scope.numOzn-1];
+										}
+										$scope.$apply();
+										
+									}
+								}else if(this._objects[0].fill!='yellow'=='red'){
+									toast('Sediste je zauzeto!');
+								}else{
+									toast('Ova sedista su za brzu rezervaciju!');
+								}
+							});
+							canvas.add(group1);
+							
+					}
+				}
+					
+					//group.left=s.x;
+					//group.top=s.y;
+					//$log.log(group);
+					//canvas.add(group);
+					//$scope.$apply();
+					
+				});
+				$scope.canvas=canvas;
+				
+			});
+		});
+		
+		
+	};
+	
+	init();
+	
+
+	$scope.setSel=function(x){
+		$scope.i=x;
+	};
+	
+	$scope.setFriend=function(f){
+		$rootScope.drugariSaPuta[$scope.i]=f;
+	};
+});
+
+webApp.controller('prijateljiController', function($scope,$rootScope, korisnikFactory) {
+	
+	function init(){
+		korisnikFactory.getFriends().then(function success(response){
+			$scope.korisnici=response.data;
+		});
+		
+	};
+	
+	init();
+	
+});
 
 

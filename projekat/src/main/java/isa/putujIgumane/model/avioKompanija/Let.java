@@ -32,7 +32,7 @@ public class Let {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private AvioKompanija avioKompanija;
 	
-	@OneToMany(mappedBy="let",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="let",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Segment> segmenti=new HashSet<Segment>();
 	
 	@Column(name = "vremePoletanja", unique = false, nullable = false)

@@ -89,6 +89,13 @@ webApp.factory('korisnikFactory', function($http) {
 	factory.getUserData = function() {
 		return $http.get('/PutujIgumane/api/korisnik/data');
 	};
+	factory.answerFriend = function(id,flag) {
+		return $http.put('/PutujIgumane/api/korisnik/answer/request',{},              
+		          { params: { id: id, flag : flag } } );
+	};
+	factory.getFriends = function() {
+		return $http.get('/PutujIgumane/api/korisnik/friends/all');
+	};
 	
 	return factory;
 	
@@ -108,6 +115,12 @@ webApp.factory('akFactory', function($http) {
 	};
 	factory.getAllAKFlights = function(id) {
 		return $http.get('/PutujIgumane/api/aviokompanije/flights/'+id);
+	};
+	factory.getAllFlights = function() {
+		return $http.get('/PutujIgumane/api/aviokompanije/flights');
+	};
+	factory.getFlight = function(id) {
+		return $http.get('/PutujIgumane/api/aviokompanije/flight/'+id);
 	};
 	
 	

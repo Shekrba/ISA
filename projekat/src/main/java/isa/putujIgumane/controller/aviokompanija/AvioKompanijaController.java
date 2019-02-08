@@ -92,24 +92,54 @@ public class AvioKompanijaController {
 		Duration d=Duration.between(let.getVremePoletanja(), let.getVremeSletanja());
 		let.setVremePutovanja(d);
 		let.setDuzinaPutovanja(100);
-		let.setSegmenti(new HashSet<Segment>(ObjectMapperUtils.mapAll(letDTO.getSegmenti(), Segment.class)));
-		for (Segment s : let.getSegmenti()) {
+		let.setSegmenti(new HashSet<Segment>());
+		for (SegmentDTO s : letDTO.getSegmenti()) {
+			Segment seg=new Segment();
+			seg.setCena(s.getCena());
+			seg.setKolone(s.getKolone());
+			seg.setLet(let);
+			seg.setPopust(s.getPopust());
+			seg.setRbr(s.getRbr());
+			seg.setRedovi(s.getRedovi());
+			seg.setX(s.getX());
+			seg.setY(s.getY());
+			seg.setSedista(new HashSet<Sediste>());
+			
 			for(Short i=0; i<s.getRedovi();i++) {
 				for(Short j=0; j<s.getKolone();j++) {
 					Sediste sed=new Sediste();
 					sed.setRbr((short)(i*s.getKolone()+j));
-					sed.setSegment(s);
+					sed.setSegment(seg);
 					Karta k=new Karta();
 					k.setKupljena(false);
 					k.setPopust(s.getPopust());
 					k.setCena(s.getCena());
 					sed.setKarta(k);
+					k.setSediste(sed);
+					seg.getSedista().add(sed);
 				}
 			}
+			let.getSegmenti().add(seg);
 		}
 		akService.addLet(let, akID);
 		return new ResponseEntity<String>("Let je uspesno kreiran",HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/flights", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> getAllFlights() {
+		List<LetDTO> letoviDTO=ObjectMapperUtils.mapAll(akService.getAllLet(), LetDTO.class);
+		return new ResponseEntity<List<LetDTO>>(letoviDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/flight/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> getFlight(@PathVariable("id") Long id) {
+		LetDTO letDTO=ObjectMapperUtils.map(akService.getLet(id), LetDTO.class);
+		return new ResponseEntity<LetDTO>(letDTO,HttpStatus.OK);
+	}
+	
+	
 	
 
 	@RequestMapping(value="/add/aviokompanija", method=RequestMethod.PUT)

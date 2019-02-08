@@ -68,6 +68,24 @@ public class KorisnikController{
 		return new ResponseEntity<String>("Zahtev je uspešno poslat!",HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/answer/request", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> answerFriend(@RequestParam("id") Long id,@RequestParam("flag") boolean flag){
+		korisnikService.answerRequest(id, flag);
+		if(flag)
+			return new ResponseEntity<String>("Zahtev je prihvacen!",HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("Zahtev je odbijen!",HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/friends/all", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> getFriends(){
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		return new ResponseEntity<List<KorisnikDTO>>(ObjectMapperUtils.mapAll(korisnikService.getFriends(username), KorisnikDTO.class),HttpStatus.OK);
+	}
+	
+	
 	@RequestMapping(value="/friendship", method=RequestMethod.GET)
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getFriendsAndRequests(){

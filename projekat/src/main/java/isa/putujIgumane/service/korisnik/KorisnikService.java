@@ -41,4 +41,6 @@ public interface KorisnikService {
 	public abstract Korisnik addAdminRent(AdminRentDTO admin);
 	
 	public abstract Rezervacija makeRez(RezervacijaDTO rez,Korisnik k);
+	
+	public abstract List<Korisnik> getFriends(String username);
 }

@@ -6,7 +6,22 @@
 </head>
 <body>
 <div ng-Controller="zahteviController">
-    {{zahtevi}}
+   <div class="container">
+		
+		<div class="row" ng-repeat="z in zahtevi">
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title" align="center">{{z.salje.username}}:{{z.salje.ime}} {{z.salje.prezime}}</h5>
+						<button class="btn btn-success" ng-click="confirmRequest(z.id)">Potvrdi</button>
+						<button class="btn btn-danger" ng-click="declineRequest(z.id)">Odbij</button>
+					</div>
+				</div>
+			</div>	
+			<div class="col-lg-4"></div>
+		</div>	
+	</div>
 </div>
 </body>
 </html>

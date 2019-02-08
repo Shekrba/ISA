@@ -1,11 +1,11 @@
 webApp.controller('tabController', function($rootScope,$scope, $location, $log, rezFactory) {
 	
 	function init() {
-		$rootScope.putanja='partials/biranjeRezervacijeHotela.html';
+		$rootScope.putanja='partials/letoviSvi.html';
 		
-		$rootScope.letClass = 'nav-link disabled';
+		$rootScope.letClass = 'nav-link active';
 		
-		$rootScope.hotelClass = 'nav-link active';
+		$rootScope.hotelClass = 'nav-link disabled';
 		
 		$rootScope.rentClass = 'nav-link disabled';
 		

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.AdminRentDTO;
+import isa.putujIgumane.dto.korisnik.AdminSisDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
 import isa.putujIgumane.model.korisnik.Korisnik;
@@ -43,5 +44,7 @@ public interface KorisnikService {
 	public abstract List<Korisnik> getFriends(String username);
 
 	public Rezervacija makeRez(RezervacijaDTO rez) throws Exception;
+	
+	public Korisnik addAdminSis(AdminSisDTO admin);
 
 }

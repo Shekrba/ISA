@@ -10,9 +10,12 @@ import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.avioKompanija.Karta;
 import isa.putujIgumane.model.avioKompanija.Let;
+import isa.putujIgumane.model.hotel.Hotel;
 
 
 public interface AvioKompanijaService {
+	
+	public List<AvioKompanija> getAllAvio();
 
 	public Page<AvioKompanija> getAll(Pageable pageable);
 	public AvioKompanija editAk(AvioKompanija ak);

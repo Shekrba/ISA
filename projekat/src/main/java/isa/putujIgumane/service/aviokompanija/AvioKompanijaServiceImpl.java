@@ -40,6 +40,11 @@ public class AvioKompanijaServiceImpl implements AvioKompanijaService{
 	public Page<AvioKompanija> getAll(Pageable pageable) {
 		return avioKompRepo.findAll(pageable);
 	}
+	
+	@Override
+	public List<AvioKompanija> getAllAvio(){
+		return avioKompRepo.findAll();
+	}
 
 	@Override
 	public AvioKompanija editAk(AvioKompanija ak) {

@@ -12,7 +12,7 @@ webApp.controller('mainController', function($rootScope,$scope, $location) {
 	};
 	
 	$scope.prikazAvioKompanija=function(){
-		$location.path("/avioKompanije");
+		$location.path("/avio");
 	};
 	
 	$scope.prikazRentacar=function(){
@@ -750,20 +750,20 @@ webApp.controller('regAdminSisController', function($scope, $location, sisFactor
 	init();
 	
 	$scope.regAdmin=function(a){
-		/*sisFactory.addAdminSis(a).then(function success(response) {
+		sisFactory.addAdminSis(a).then(function success(response) {
     		$scope.addedAdmin=response.data;
     		$location.path("/#/");
     	}, function error(response) {
 			$scope.error="Greska";
-		});*/
+		});
 	}
 });
 
-webApp.controller('avioKompanijeController', function($scope, $location, avioKompanijeFactory) {
+webApp.controller('avioController', function($scope, $location, avioKompanijeFactory) {
 	
 	function init() {
     	avioKompanijeFactory.getAll().then(function success(response) {
-    		$scope.avioKompanije=response.data;
+    		$scope.avio=response.data;
 		}, function error(response) {
 			$scope.error="Greska";
 		});

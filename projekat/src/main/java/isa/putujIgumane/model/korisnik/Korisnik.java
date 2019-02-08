@@ -248,7 +248,6 @@ public class Korisnik implements UserDetails{
 	        return this.authorities;
 	}
 
-	
 
 	@JsonIgnore
     @Override

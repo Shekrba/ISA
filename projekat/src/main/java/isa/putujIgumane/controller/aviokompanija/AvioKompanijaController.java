@@ -56,6 +56,14 @@ public class AvioKompanijaController {
 		
 	}
 	
+	@RequestMapping(value="/a/b/c/d",method = RequestMethod.GET)
+	public ResponseEntity<?> getAllAvio() {
+	
+		List<AvioKompanijaDTO> avioDTO=ObjectMapperUtils.mapAll(akService.getAllAvio(), AvioKompanijaDTO.class);
+
+		return new ResponseEntity<>(avioDTO, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/edit", method=RequestMethod.PUT)
 	@PreAuthorize("hasRole('AKADMIN')")
 	public ResponseEntity<?> editAk(@RequestBody AvioKompanijaDTO akDTO) {

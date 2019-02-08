@@ -106,7 +106,7 @@ webApp.factory('avioKompanijeFactory', function($http) {
 	
 	var factory = {};
 	factory.getAll = function() {
-		return $http.get('/PutujIgumane/api/avioKompanije/');
+		return $http.get('/PutujIgumane/api/aviokompanije/a/b/c/d');
 	};
 	
 	factory.addAvio = function(avio){
@@ -148,10 +148,10 @@ webApp.factory('sisFactory', function($http) {
 	
 	var factory = {};	
 	
-	/*
+	
 	factory.addAdminSis = function(admin){
-		return $http.put('/PutujIgumane/api/korisnik/add/admin/sistem',admin);
-	};*/
+		return $http.put('/PutujIgumane/api/korisnik/add/admin/sis',admin);
+	};
 	
 	return factory;
 	

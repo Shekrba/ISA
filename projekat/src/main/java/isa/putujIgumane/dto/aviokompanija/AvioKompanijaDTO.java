@@ -12,6 +12,7 @@ public class AvioKompanijaDTO {
 	private String naziv;
 	private String adresa;
 	private String promotivniOpis;
+	private Double prosecnaOcena;
 	private Set<AdresaDTO> destinacijePoslovanja;
 	
 	
@@ -22,6 +23,19 @@ public class AvioKompanijaDTO {
 
 	public Integer getId() {
 		return id;
+	}
+
+
+	
+
+
+	public Double getProsecnaOcena() {
+		return prosecnaOcena;
+	}
+
+
+	public void setProsecnaOcena(Double prosecnaOcena) {
+		this.prosecnaOcena = prosecnaOcena;
 	}
 
 

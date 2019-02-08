@@ -35,7 +35,7 @@ webApp.controller('loginController', ['$scope', '$rootScope', '$http', '$locatio
     		 $rootScope.rentacar=response.data.rentacar;
     		 $location.path("/rentacar/editRentacar/"+response.data.rentacar.id); 
     	 };
-    	 if(response.data.isAdmin!=undefined){
+    	 if(response.data.admin==true){
     		 $rootScope.adminSys=1;
     		 $location.path("/");
     	 };

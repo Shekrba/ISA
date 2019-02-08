@@ -12,6 +12,11 @@ import javax.persistence.OptimisticLockException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.jaas.AuthorityGranter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,6 +34,7 @@ import isa.putujIgumane.dto.hotel.StatusSobeDTO;
 import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.AdminRentDTO;
+import isa.putujIgumane.dto.korisnik.AdminSisDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
 import isa.putujIgumane.dto.rentacar.RezervacijaVozilaDTO;
@@ -44,6 +50,7 @@ import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.RezervacijaSobe;
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.hotel.StatusSobe;
+import isa.putujIgumane.model.korisnik.Authority;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.korisnik.StatusZahteva;
@@ -61,6 +68,7 @@ import isa.putujIgumane.repository.hotel.CenovnikUslugaHotelaRepository;
 import isa.putujIgumane.repository.hotel.HotelRepository;
 import isa.putujIgumane.repository.hotel.SobaRepository;
 import isa.putujIgumane.repository.hotel.StatusSobeRepository;
+import isa.putujIgumane.repository.korisnik.AuthorityRepository;
 import isa.putujIgumane.repository.korisnik.KorisnikRepository;
 import isa.putujIgumane.repository.korisnik.RezervacijaRepository;
 import isa.putujIgumane.repository.korisnik.ZahtevRepository;
@@ -111,6 +119,9 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Autowired
 	CenovnikUslugaHotelaRepository cenovnikRepo;
+	
+	@Autowired
+	AuthorityRepository autorityRepo;
 
 	
 	@Override
@@ -184,6 +195,7 @@ public class KorisnikServiceImpl implements KorisnikService{
         return korisnikToAdd;
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Korisnik addAdminHotel(AdminHotelaDTO admin) {
 		Korisnik adminNew = new Korisnik();
@@ -195,6 +207,12 @@ public class KorisnikServiceImpl implements KorisnikService{
 		adminNew.setEmail(admin.getEmail());
 		adminNew.setVerifikovan(true);
 		adminNew.setEnabled(true);
+		
+		Authority authority = autorityRepo.findOne(4L);
+		List<Authority> authorities = new ArrayList<>();
+		authorities.add(authority);
+		adminNew.setAuthorities(authorities);
+		
 		
 		Hotel hotel = hotelRepo.findOneByNaziv(admin.getHotelNaz());
 		
@@ -208,6 +226,7 @@ public class KorisnikServiceImpl implements KorisnikService{
         return adminNew;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Korisnik addAdminAvio(AdminAvioDTO admin) {
 		Korisnik adminNew = new Korisnik();
@@ -224,6 +243,12 @@ public class KorisnikServiceImpl implements KorisnikService{
 		
 		adminNew.setAvioKompanija(avio);
 		
+		Authority authority = autorityRepo.findOne(3L);
+		List<Authority> authorities = new ArrayList<>();
+		authorities.add(authority);
+		adminNew.setAuthorities(authorities);
+		
+		
         korisnikRepo.save(adminNew);
         
         avio.setAdmin(adminNew);
@@ -232,6 +257,7 @@ public class KorisnikServiceImpl implements KorisnikService{
         return adminNew;
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Korisnik addAdminRent(AdminRentDTO admin) {
 		Korisnik adminNew = new Korisnik();
@@ -248,11 +274,39 @@ public class KorisnikServiceImpl implements KorisnikService{
 		
 		adminNew.setRentACar(rent);
 		
+		Authority authority = autorityRepo.findOne(5L);
+		List<Authority> authorities = new ArrayList<>();
+		authorities.add(authority);
+		adminNew.setAuthorities(authorities);
+		
         korisnikRepo.save(adminNew);
         
         rent.setAdmin(adminNew);
         rentRepo.save(rent);
         
+        return adminNew;
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Override
+	public Korisnik addAdminSis(AdminSisDTO admin) {
+		Korisnik adminNew = new Korisnik();
+		
+		adminNew.setUsername(admin.getUsername());
+		adminNew.setPassword(passwordEncoder.encode(admin.getPassword()));
+		adminNew.setIme(admin.getIme());
+		adminNew.setPrezime(admin.getPrezime());
+		adminNew.setEmail(admin.getEmail());
+		adminNew.setVerifikovan(true);
+		adminNew.setEnabled(true);
+		
+		Authority authority = autorityRepo.findOne(2L);
+		List<Authority> authorities = new ArrayList<>();
+		authorities.add(authority);
+		adminNew.setAuthorities(authorities);
+		
+        korisnikRepo.save(adminNew);
+     
         return adminNew;
 	}
 	
@@ -360,6 +414,10 @@ public class KorisnikServiceImpl implements KorisnikService{
 			
 			rezNew.getRezervacijaVozila().add(rvNew);
 			
+			
+		}
+		
+		if(rezNew.getKorisnici().size() > 1) {
 			
 		}
 		

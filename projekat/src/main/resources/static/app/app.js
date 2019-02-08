@@ -10,6 +10,8 @@ webApp.config(function($routeProvider) {
 		templateUrl: 'partials/hoteli.html'
 	}).when('/avioKompanije',{
 		templateUrl: 'partials/avioKompanije.html'
+	}).when('/avio',{
+		templateUrl: 'partials/avio.html'
 	}).when('/rentacar',{
 		templateUrl: 'partials/rentacar.html'
 	}).when('/hoteli/:id',{

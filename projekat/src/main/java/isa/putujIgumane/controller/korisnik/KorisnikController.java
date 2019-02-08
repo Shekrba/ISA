@@ -25,8 +25,10 @@ import isa.putujIgumane.dto.hotel.RezervacijaSobeDTO;
 import isa.putujIgumane.dto.korisnik.AdminAvioDTO;
 import isa.putujIgumane.dto.korisnik.AdminHotelaDTO;
 import isa.putujIgumane.dto.korisnik.AdminRentDTO;
+import isa.putujIgumane.dto.korisnik.AdminSisDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
+import isa.putujIgumane.dto.korisnik.SisAdminDTO;
 import isa.putujIgumane.dto.korisnik.ZahtevDTO;
 import isa.putujIgumane.dto.rentacar.RAdminDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
@@ -119,8 +121,10 @@ public class KorisnikController{
 			return new ResponseEntity<KorisnikDTO>(kDTO,HttpStatus.OK);
 		}
 		case "ROLE_ADMIN":{
-			
-		}break;
+			SisAdminDTO aDTO=ObjectMapperUtils.map(k, SisAdminDTO.class);
+			aDTO.setAdmin(true);
+			return new ResponseEntity<SisAdminDTO>(aDTO,HttpStatus.OK);
+		}
 		case "ROLE_AKADMIN":{
 			AKAdminDTO akaDTO=ObjectMapperUtils.map(k, AKAdminDTO.class);
 			return new ResponseEntity<AKAdminDTO>(akaDTO,HttpStatus.OK);
@@ -157,6 +161,7 @@ public class KorisnikController{
 	}
 	
 	@RequestMapping(value="/add/admin/hotel", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> addAdminHotel(@RequestBody AdminHotelaDTO admin){
 		
 		Korisnik addedAdmin = null;
@@ -173,6 +178,7 @@ public class KorisnikController{
 	}
 	
 	@RequestMapping(value="/add/admin/aviokompanija", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> addAdminAvio(@RequestBody AdminAvioDTO admin){
 		
 		Korisnik addedAdmin = null;
@@ -189,12 +195,30 @@ public class KorisnikController{
 	}
 	
 	@RequestMapping(value="/add/admin/rentacar", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> addAdminRent(@RequestBody AdminRentDTO admin){
 		
 		Korisnik addedAdmin = null;
 		
 		try {
 			addedAdmin = korisnikService.addAdminRent(admin);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		}
+		
+		AdminRentDTO adminDTO=ObjectMapperUtils.map(addedAdmin, AdminRentDTO.class);
+		
+		return new ResponseEntity<>(adminDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/add/admin/sis", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> addAdminSis(@RequestBody AdminSisDTO admin){
+		
+		Korisnik addedAdmin = null;
+		
+		try {
+			addedAdmin = korisnikService.addAdminSis(admin);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
 		}

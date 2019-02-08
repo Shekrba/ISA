@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Aviokompanije</title>
+<style>
+	
+	.row{
+		border-style: none;
+	}
+	.row:hover {
+	}
+}
+	
+</style>
+
+</head>
+<body>
+<div ng-Controller="avioController">
+
+	<div class="container">
+		<div class="page-header">
+			<h1>Aviokompanije</h1>
+		</div>
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="a in avio">
+				<div class="card" ng-click="prikazProfilaAvio(a.id)">
+					<h3 align="center">Aviokompanija: {{a.naziv}}</h3>
+					<p>Adresa: {{a.adresa}}</p>
+					<p>Opis: {{a.promotivniOpis}}</p>
+					<p>Prosečna ocena: {{a.prosecnaOcena}}</p>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+
+</body>
+</html>

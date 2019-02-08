@@ -1,6 +1,6 @@
 package isa.putujIgumane.dto.rentacar;
 
-public class VoziloZaRezDTO {
+public class VozilaBrzaDTO {
 
 	private Long id;
 	
@@ -14,34 +14,18 @@ public class VoziloZaRezDTO {
 	
 	private double cena;
 	
-	private boolean dodata = false;
-	
-	public VoziloZaRezDTO() {
+	private short popust;
+
+	public VozilaBrzaDTO() {
 		
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public int getBrojSedista() {
-		return brojSedista;
-	}
-
-	public void setBrojSedista(int brojSedista) {
-		this.brojSedista = brojSedista;
-	}
-
-	public boolean isDodata() {
-		return dodata;
-	}
-
-	public void setDodata(boolean dodata) {
-		this.dodata = dodata;
 	}
 
 	public String getRegistracijaVozila() {
@@ -68,6 +52,14 @@ public class VoziloZaRezDTO {
 		this.modelVozila = modelVozila;
 	}
 
+	public int getBrojSedista() {
+		return brojSedista;
+	}
+
+	public void setBrojSedista(int brojSedista) {
+		this.brojSedista = brojSedista;
+	}
+
 	public double getCena() {
 		return cena;
 	}
@@ -75,4 +67,13 @@ public class VoziloZaRezDTO {
 	public void setCena(double cena) {
 		this.cena = cena;
 	}
+
+	public short getPopust() {
+		return popust;
+	}
+
+	public void setPopust(short popust) {
+		this.popust = popust;
+	}
+	
 }

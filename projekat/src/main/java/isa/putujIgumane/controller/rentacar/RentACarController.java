@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import isa.putujIgumane.dto.rentacar.FilijalaDTO;
 import isa.putujIgumane.dto.rentacar.OcenaRentacarDTO;
 import isa.putujIgumane.dto.rentacar.RentACarDTO;
 import isa.putujIgumane.dto.rentacar.StatusVozilaDTO;
+import isa.putujIgumane.dto.rentacar.VozilaBrzaDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.dto.rentacar.VoziloZaRezDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
@@ -71,6 +73,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/editRentacar", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> updateRentacar(@RequestBody RentACarDTO rentacar){
 		
 		RentACar updatedRentacar = null;
@@ -95,6 +98,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/addFilijala/{rentacarId}", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> addFilijala(@PathVariable("rentacarId")Long rentacarId,@RequestBody FilijalaDTO f){
 		
 		Filijala addedf = null;
@@ -111,6 +115,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/editFilijala/{filijalaId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> getFilijala(@PathVariable("filijalaId")Long id){
 		
 		Filijala f = rentacarServiceImpl.getFilijala(id);
@@ -126,6 +131,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/updateFilijala", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> updateFilijala(@RequestBody FilijalaDTO f){
 		
 		Filijala updatedf = null;
@@ -140,6 +146,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value = "/delete/filijala", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> deleteFilijala(@RequestParam("id") Long id,@RequestParam("rentacarId") Long rentacarId) {
 		
 		HashSet<Filijala> f = rentacarServiceImpl.deleteFilijala(id,rentacarId);
@@ -166,6 +173,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/editVozilo/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> getVozilo(@PathVariable("id")Long id){
 		
 		Vozilo vozilo = rentacarServiceImpl.getVozilo(id);
@@ -181,6 +189,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/updateVozilo", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> updateVozilo(@RequestBody VoziloDTO vozilo){
 		
 		Vozilo updatedVozilo = null;
@@ -195,6 +204,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/addVozilo/{rentacarId}", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> addVozilo(@PathVariable("rentacarId")Long rentacarId,@RequestBody VoziloDTO vozilo){
 		
 		Vozilo addedVozilo = null;
@@ -211,6 +221,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value = "/delete/vozilo", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> deleteVozilo(@RequestParam("id") Long id,@RequestParam("rentacarId") Long rentacarId) {
 		
 		HashSet<Vozilo> vozilo = rentacarServiceImpl.deleteVozilo(id,rentacarId);
@@ -221,6 +232,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/ocene/rentacar/{rentacarId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> getOceneRentacar(@PathVariable("rentacarId")Long rentacarId){
 		
 		RentACar h = new RentACar();
@@ -239,6 +251,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/ocene/vozilo/{voziloId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> getOceneVozila(@PathVariable("voziloId")Long voziloId){
 		
 		Vozilo v = new Vozilo();
@@ -257,6 +270,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/prihodi/{rentacarId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> getPrihode(@PathVariable("rentacarId")Long rentacarId,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate toDate){
 		
 		Double prihodi = rentacarServiceImpl.getPrihode(rentacarId,fromDate,toDate);
@@ -268,6 +282,7 @@ public class RentACarController {
 	}
 	
 	@RequestMapping(value="/setStatusi/{voziloId}", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('RADMIN')")
 	public ResponseEntity<?> setStatuse(@PathVariable("voziloId")Long voziloId, @RequestParam("cena") Double cena,@RequestParam("popust") Short popust,@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to){
 			
 		List<StatusVozila> statusiVozila=rentacarServiceImpl.setStatuse(voziloId,cena,popust,from,to);
@@ -281,6 +296,10 @@ public class RentACarController {
 	public ResponseEntity<?> getVoziloZaRez(@RequestParam("cenaFrom") Double cenaFrom,@RequestParam("cenaTo") Double cenaTo,@RequestParam("datumFrom") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumFrom,@RequestParam("datumTo") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate datumTo,@RequestParam("brojSedista") int brojSedista){
 		List<VoziloZaRezDTO> vozilaDTO=ObjectMapperUtils.mapAll(rentacarServiceImpl.getVoziloZaRez(cenaFrom, cenaTo, datumFrom, datumTo, brojSedista), VoziloZaRezDTO.class);
 	
+		
+		for (VoziloZaRezDTO v : vozilaDTO) {
+			v.setCena(rentacarServiceImpl.getUkupnaCena(v.getId(),datumFrom,datumTo));
+		}
 		
 		for (VoziloZaRezDTO voziloDTO : vozilaDTO) {
 			System.out.println(voziloDTO.getId());
@@ -311,6 +330,14 @@ public class RentACarController {
 		List<RentACarDTO> rentDTO=ObjectMapperUtils.mapAll(rentacarServiceImpl.getAllNull(), RentACarDTO.class);
 		
 		return new ResponseEntity<>(rentDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/vozilo/brza", method=RequestMethod.GET)
+	public ResponseEntity<?> getVozilaBrza(@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,@RequestParam("to") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to){
+
+		List<VozilaBrzaDTO> vozilaDTO = rentacarServiceImpl.getVozilaBrza(from,to);		
+
+		return new ResponseEntity<>(vozilaDTO, HttpStatus.OK); 
 	}
 	
 }

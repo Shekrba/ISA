@@ -11,6 +11,7 @@ import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
 import isa.putujIgumane.dto.rentacar.FilijalaDTO;
 import isa.putujIgumane.dto.rentacar.RentACarDTO;
+import isa.putujIgumane.dto.rentacar.VozilaBrzaDTO;
 import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
@@ -49,4 +50,8 @@ public interface RentACarService {
 	public abstract List<Vozilo> getVoziloZaRez(Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo, int brojSedista);
 	public abstract RentACar addRent(RentACarDTO rent);
 	public abstract List<RentACar> getAllNull();
+	public abstract Ocena addOcenaRentacar(Long korisnikId, RentACarDTO rentacar, int ocena);
+	public abstract double getUkupnaCena(Long voziloId, LocalDate from, LocalDate to);
+	public abstract List<VozilaBrzaDTO> getVozilaBrza(LocalDate from, LocalDate to);
+
 }

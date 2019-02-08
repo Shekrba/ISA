@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rezervacija vozila</title>
+</head>
+<body>
+<div ng-Controller="izaberiDatumController1">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">	
+			</div>
+			<div class="col-lg-4">	
+				<div class="page-header">
+					<h2>Izaberite datum povratka</h2>
+				</div>
+			</div>
+			<div class="col-lg-4">	
+			</div>
+		</div>
+		<div class="row mt-5">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 ml-auto mr-auto">
+				<label class="textColor">Datum povratka:</label>
+				<input  type="date" class="form-control" ng-model="$root.datumPovratka"/>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-lg-4">
+
+			</div>
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-dark mt-3" ng-click="nastavi()">Nastavi</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+</body>
+</html> 

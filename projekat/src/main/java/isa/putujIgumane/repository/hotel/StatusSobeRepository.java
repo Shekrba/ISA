@@ -24,4 +24,7 @@ public interface StatusSobeRepository extends JpaRepository<StatusSobe, Long> {
 	
 	@Query("select ss from StatusSobe ss where ss.soba.id = ?1 and ss.datum>=?2 and ss.datum<=?3")
 	HashSet<StatusSobe> findFromTo(Long sobaId, LocalDate from, LocalDate to);
+	
+	@Query("select ss.popust from StatusSobe ss where ss.soba.id = ?1 and ss.datum=?2")
+	Short findPopust(Long sobaId, LocalDate from);
 }

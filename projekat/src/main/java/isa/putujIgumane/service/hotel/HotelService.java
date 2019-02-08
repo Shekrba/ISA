@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
+import isa.putujIgumane.dto.hotel.SobeBrzaDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
@@ -43,4 +44,6 @@ public interface HotelService {
 	public abstract List<StatusSobe> setStatuse(Long sobaId,Double cena, Short popust, LocalDate from, LocalDate to);
 	public abstract List<Soba> getSobeZaRez(Long hotelId, Double cenaFrom,Double cenaTo,LocalDate datumFrom, LocalDate datumTo,boolean jen,boolean dvo,boolean tro,boolean cet);
 	public abstract Hotel addHotel(HotelDTO hotel);
+	public abstract List<SobeBrzaDTO> getSobeBrza(Long hotelId,LocalDate from, LocalDate to);
+	public abstract double getUkupnaCena(Long sobaId, LocalDate from, LocalDate to);
 }

@@ -329,11 +329,15 @@ webApp.controller('biranjeRezervacijeHotelaController', function($rootScope,$sco
 	init();
 	
 	$scope.regularna=function(){
+		
+		$rootScope.hotelBrza=false;
 		$rootScope.putanja='partials/rezervacijaHotel.html'
 	};
 	
 	$scope.brza=function(){
 		
+		$rootScope.hotelBrza=true;
+		$rootScope.putanja='partials/rezervacijaHotel.html'
 	};
 });
 
@@ -351,7 +355,28 @@ webApp.controller('rezervacijaHotelaController', function($rootScope,$scope, $lo
 	
 	$scope.izaberiHotel=function(hotel){
 		$rootScope.hotelRezervacija=hotel;
-		$rootScope.putanja='partials/rezervacijaSoba.html'
+		if($rootScope.hotelBrza){
+			if($rootScope.datumPovratka!=null){
+				$rootScope.putanja='partials/rezervacijaSobaBrza.html'
+			}else{
+				$rootScope.putanja='partials/izaberiDatum.html'
+			}
+		}else{
+			$rootScope.putanja='partials/rezervacijaSoba.html'
+		}
+	};
+});
+
+webApp.controller('izaberiDatumController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+	
+	function init() {
+    	$rootScope.datumDolaska = '2019-02-01';
+    };
+
+	init();
+	
+	$scope.nastavi=function(){
+		$rootScope.putanja='partials/rezervacijaSobaBrza.html'
 	};
 });
 
@@ -371,7 +396,25 @@ webApp.controller('rezervacijaSobaController', function($rootScope,$scope, $loca
 	};
 });
 
-webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scope, $location, hotelFactory,$routeParams) {
+webApp.controller('rezervacijaSobaBrzaController', function($rootScope,$scope, $location, hotelFactory,$routeParams) {
+	
+	function init() {
+		hotelFactory.getSobeBrza($rootScope.hotelRezervacija['id'],$rootScope.datumDolaska,$rootScope.datumPovratka)
+		.then(function success(response) {
+			$scope.sobeBrza=response.data
+		}, function error(response) {
+			$scope.error="Greska";
+		});
+    };
+
+	init();
+	
+	$scope.rezervisi=function(){
+		$location.path("/#/");
+	};
+});
+
+webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scope, $location, hotelFactory,$routeParams,$log) {
 	
 	function init() {
 		
@@ -402,7 +445,7 @@ webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scop
     	$scope.selektovaneSobe++;
     	$scope.selektovaniKreveti+= 1 * s['brojKreveta'];
     	
-    	var rs = {'id':null,'soba':s,'datumDolaska':$rootScope.datumDolaskaHotel,'datumOdlaska':$rootScope.datumOdlaskaHotel};
+    	var rs = {'id':null,'soba':{'id':s.id,'brojSobe':s.brojSobe,'sprat':s.sprat,'brojKreveta':s.brojKreveta},'datumDolaska':$rootScope.datumDolaskaHotel,'datumOdlaska':$rootScope.datumOdlaskaHotel};
     	
     	$rootScope.rezervacija.rezervacijaSobe.push(rs);
     	
@@ -436,11 +479,12 @@ webApp.controller('rezervacijaSoba2Controller', function($route,$rootScope,$scop
     	$scope.selektovaniKreveti-= 1 * s['brojKreveta'];
     	
     	var i = 0;
-    	for ( var rs in $rootScope.rezervacija.rezervacijaSobe) {
-			if(rs.soba.id==s.id){
+    	for ( var rs of $rootScope.rezervacija.rezervacijaSobe) {
+			if(rs.soba.id == s.id){
 				$rootScope.rezervacija.rezervacijaSobe.splice(i, 1);
 				break;
 			}
+    		$log.log(rs.soba);
 			i++;
 		}
     	

@@ -92,6 +92,10 @@ webApp.factory('hotelFactory', function($http) {
 		 });
 	};
 	
+	factory.getSobeBrza = function(hotelId,from,to){
+		return $http.get('/PutujIgumane/api/hoteli/sobe/brza/',{params: {hotelId:hotelId, from:from, to:to}});
+	};
+	
 	
 	
 	return factory;

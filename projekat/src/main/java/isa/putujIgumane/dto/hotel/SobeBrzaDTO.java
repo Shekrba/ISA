@@ -1,6 +1,6 @@
 package isa.putujIgumane.dto.hotel;
 
-public class SobaZaRezDTO {
+public class SobeBrzaDTO {
 	
 	private Long id;
 	
@@ -10,12 +10,12 @@ public class SobaZaRezDTO {
 	
 	private int brojKreveta;
 	
-	private boolean dodata = false;
-	
 	private double cena;
 	
-	public SobaZaRezDTO() {
-		
+	private short popust;
+	
+	public SobeBrzaDTO() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -50,14 +50,6 @@ public class SobaZaRezDTO {
 		this.brojKreveta = brojKreveta;
 	}
 
-	public boolean isDodata() {
-		return dodata;
-	}
-
-	public void setDodata(boolean dodata) {
-		this.dodata = dodata;
-	}
-
 	public double getCena() {
 		return cena;
 	}
@@ -65,7 +57,14 @@ public class SobaZaRezDTO {
 	public void setCena(double cena) {
 		this.cena = cena;
 	}
-	
+
+	public short getPopust() {
+		return popust;
+	}
+
+	public void setPopust(short popust) {
+		this.popust = popust;
+	}
 	
 	
 }

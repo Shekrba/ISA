@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import javax.swing.border.SoftBevelBorder;
+
 import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
+import isa.putujIgumane.dto.hotel.SobeBrzaDTO;
 import isa.putujIgumane.model.hotel.CenovnikUslugaHotela;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
@@ -302,6 +306,32 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	@Override
+	public List<SobeBrzaDTO> getSobeBrza(Long hotelId,LocalDate from, LocalDate to){
+		
+		Long days = ChronoUnit.DAYS.between(from, to) + 1;
+		
+		List<Soba> sobe = sobaRepository.findSobeBrza(hotelId,from,to,days);
+		
+		List<SobeBrzaDTO> sobeDTO = new ArrayList<>();
+		
+		for (Soba s : sobe) {
+			SobeBrzaDTO sDTO = new SobeBrzaDTO();
+			sDTO.setBrojSobe(s.getBrojSobe());
+			sDTO.setBrojKreveta(s.getBrojKreveta());
+			sDTO.setSprat(s.getSprat());
+			sDTO.setId(s.getId());
+			sDTO.setPopust(statusSobeReposatory.findPopust(s.getId(), from));
+			sDTO.setCena(statusSobeReposatory.findUkupnaCena(s.getId(), from, to));
+			
+			sobeDTO.add(sDTO);
+		}
+		
+		
+		
+		return sobeDTO;
+	}
+	
+	@Override
 	public Hotel addHotel(HotelDTO hotel) {
 		Hotel hotelNew = new Hotel();
 
@@ -313,5 +343,10 @@ public class HotelServiceImpl implements HotelService {
         hotelRepository.save(hotelNew);
         
         return hotelNew;
+	}
+	
+	@Override
+	public double getUkupnaCena(Long sobaId, LocalDate from, LocalDate to) {
+		return statusSobeReposatory.findUkupnaCena(sobaId, from, to);
 	}
 }

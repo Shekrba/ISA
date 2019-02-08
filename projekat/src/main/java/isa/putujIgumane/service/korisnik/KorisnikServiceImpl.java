@@ -230,7 +230,9 @@ public class KorisnikServiceImpl implements KorisnikService{
 			Soba soba = sobaRepo.findOneById(rs.getSoba().getId());
 		
 			for (StatusSobe ss : soba.getStatusSobe()) {
-				ss.setZauzeto(true);
+				if(ss.getDatum().isEqual(rsNew.getDatumDolaska()) || (ss.getDatum().isAfter(rsNew.getDatumDolaska()) && ss.getDatum().isBefore(rsNew.getDatumOdlaska()))) {
+					ss.setZauzeto(true);
+				}
 			}
 			
 			rsNew.setSoba(soba);

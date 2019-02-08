@@ -210,11 +210,7 @@ public class RentACarController {
 		
 		Vozilo addedVozilo = null;
 		
-		try {
-			addedVozilo = rentacarServiceImpl.addVozilo(vozilo,rentacarId);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-		}
+		addedVozilo = rentacarServiceImpl.addVozilo(vozilo,rentacarId);
 		
 		VoziloDTO voziloDTO=ObjectMapperUtils.map(addedVozilo, VoziloDTO.class);
 		

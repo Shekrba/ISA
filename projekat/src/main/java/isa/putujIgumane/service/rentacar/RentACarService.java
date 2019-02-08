@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import isa.putujIgumane.dto.hotel.CenovnikUslugaHotelaDTO;
 import isa.putujIgumane.dto.hotel.HotelDTO;
 import isa.putujIgumane.dto.hotel.SobaDTO;
+import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
 import isa.putujIgumane.dto.rentacar.FilijalaDTO;
 import isa.putujIgumane.dto.rentacar.RentACarDTO;
 import isa.putujIgumane.dto.rentacar.VozilaBrzaDTO;
@@ -53,5 +54,6 @@ public interface RentACarService {
 	public Ocena addOcenaRentacar(Long korisnikId, RentACarDTO rentacar, int ocena);
 	public double getUkupnaCena(Long voziloId, LocalDate from, LocalDate to);
 	public List<VozilaBrzaDTO> getVozilaBrza(LocalDate from, LocalDate to);
+	public List<RezervacijaDTO> getRezervacijeKorisnika(Long korisnikId);
 
 }

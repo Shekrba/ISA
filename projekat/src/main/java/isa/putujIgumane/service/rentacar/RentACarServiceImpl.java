@@ -9,8 +9,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import isa.putujIgumane.dto.aviokompanija.AvioKompanijaDTO;
+import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
 import isa.putujIgumane.dto.rentacar.FilijalaDTO;
 import isa.putujIgumane.dto.rentacar.RentACarDTO;
 import isa.putujIgumane.dto.rentacar.VozilaBrzaDTO;
@@ -20,18 +23,21 @@ import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.Soba;
 import isa.putujIgumane.model.korisnik.Korisnik;
 import isa.putujIgumane.model.korisnik.Ocena;
+import isa.putujIgumane.model.korisnik.Rezervacija;
 import isa.putujIgumane.model.rentACar.Filijala;
 import isa.putujIgumane.model.rentACar.RentACar;
 import isa.putujIgumane.model.rentACar.StatusVozila;
 import isa.putujIgumane.model.rentACar.Vozilo;
 import isa.putujIgumane.repository.korisnik.KorisnikRepository;
 import isa.putujIgumane.repository.korisnik.OcenaRepository;
+import isa.putujIgumane.repository.korisnik.RezervacijaRepository;
 import isa.putujIgumane.repository.rentacar.FilijalaRepository;
 import isa.putujIgumane.repository.rentacar.RentACarRepository;
 import isa.putujIgumane.repository.rentacar.StatusVozilaRepository;
 import isa.putujIgumane.repository.rentacar.VoziloRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class RentACarServiceImpl implements RentACarService{
 
 	@Autowired
@@ -51,6 +57,9 @@ public class RentACarServiceImpl implements RentACarService{
 	
 	@Autowired
 	private KorisnikRepository korisnikRepository;
+	
+	@Autowired
+	private RezervacijaRepository rezervacijaRepository;
 
 	@Override
 	public List<RentACar> getAll() {
@@ -93,6 +102,7 @@ public class RentACarServiceImpl implements RentACarService{
 		return voziloRepository.findFreeVozila(rentacarId, from, to, days);
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public RentACar update(RentACarDTO rentacar) throws Exception {
 		
@@ -114,6 +124,7 @@ public class RentACarServiceImpl implements RentACarService{
 		return filijalaRepository.findByRentACar(rentacar);
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Filijala addFilijala(FilijalaDTO filijala, Long rentacarId) {
 		Filijala filijalaNew = new Filijala();
@@ -134,12 +145,14 @@ public class RentACarServiceImpl implements RentACarService{
 		return filijalaRepository.findOneById(id);
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Filijala updateFilijala(FilijalaDTO filijala) {
 		Filijala filijalaToUpdate = new Filijala();
 		filijalaToUpdate.setId(filijala.getId());
 		filijalaToUpdate.setGrad(filijala.getGrad());
 		filijalaToUpdate.setDrzava(filijala.getDrzava());
+		filijalaToUpdate.setVersion(filijala.getVersion());
 	
 		RentACar rentacar = getFilijala(filijala.getId()).getRentACar();
 		
@@ -150,6 +163,7 @@ public class RentACarServiceImpl implements RentACarService{
         return filijalaToUpdate;
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public HashSet<Filijala> deleteFilijala(Long id, Long rentacarId) {
 		filijalaRepository.delete(getFilijala(id));
@@ -181,6 +195,7 @@ public class RentACarServiceImpl implements RentACarService{
 		return voziloRepository.findOneById(id);
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Vozilo updateVozilo(VoziloDTO vozilo) {
 		Vozilo voziloToUpdate = new Vozilo();
@@ -190,7 +205,8 @@ public class RentACarServiceImpl implements RentACarService{
 		voziloToUpdate.setModelVozila(vozilo.getModelVozila());
 		voziloToUpdate.setGodinaProizvodnje(vozilo.getGodinaProizvodnje());
 		voziloToUpdate.setBrojSedista(vozilo.getBrojSedista());
-	
+		voziloToUpdate.setVersion(vozilo.getVersion());
+		
 		RentACar rentacar = getVozilo(vozilo.getId()).getRentACar();
 		
 		voziloToUpdate.setRentACar(new RentACar(rentacar.getId(),rentacar.getNazivServisa(),rentacar.getAdresaServisa(),rentacar.getOpisServisa(),new HashSet<Filijala>(),new HashSet<Vozilo>(),rentacar.getProsecnaOcenaServisa()));
@@ -200,6 +216,7 @@ public class RentACarServiceImpl implements RentACarService{
         return voziloToUpdate;
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Vozilo addVozilo(VoziloDTO vozilo, Long rentacarId) {
 		Vozilo voziloToUpdate = new Vozilo();
@@ -234,6 +251,7 @@ public class RentACarServiceImpl implements RentACarService{
         return voziloToUpdate;
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public HashSet<Vozilo> deleteVozilo(Long id, Long rentacarId) {
 		voziloRepository.delete(getVozilo(id));
@@ -256,6 +274,7 @@ public class RentACarServiceImpl implements RentACarService{
 		return voziloRepository.findPrihodiRentacar(rentacarId, from, to);
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public List<StatusVozila> setStatuse(Long voziloId, Double cena, Short popust, LocalDate from, LocalDate to) {
 		List<StatusVozila> statusiVozila = statusVozilaRepository.findInDateByVozilo(voziloId,from,to);
@@ -279,6 +298,7 @@ public class RentACarServiceImpl implements RentACarService{
 		return vozila;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public RentACar addRent(RentACarDTO rent) {
 		RentACar rentNew = new RentACar();
@@ -355,5 +375,21 @@ public class RentACarServiceImpl implements RentACarService{
 
 
 		return vozilaDTO;
+	}
+
+	@Override
+	public List<RezervacijaDTO> getRezervacijeKorisnika(Long korisnikId) {
+		// TODO Auto-generated method stub
+		
+		List<RezervacijaDTO> rDTO = new ArrayList<>();
+		List<Rezervacija> rezervacije = rezervacijaRepository.findRezervacijeKorisnika(korisnikId);
+		
+		for(Rezervacija r : rezervacije) {
+			RezervacijaDTO rd = new RezervacijaDTO();
+
+			
+		}
+		
+		return null;
 	}
 }

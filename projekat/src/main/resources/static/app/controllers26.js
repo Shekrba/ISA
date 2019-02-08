@@ -432,7 +432,8 @@ webApp.controller('rezervacijaVozila2Controller', function($rootScope,$scope, $l
     	$scope.selektovaneVozila++;
     	
     	//var rv = {'id':null,'vozilo':v,'datumDolaska':$rootScope.datumDolaskaRentacar,'datumOdlaska':$rootScope.datumOdlaskaRentacar};
-    	var rv = {'id':null,'vozilo':{'id':v.id,'registracijaVozila':v.registracijaVozila,'brojSedista':v.brojSedista},'datumDolaska':$rootScope.datumDolaskaRentacar,'datumOdlaska':$rootScope.datumOdlaskaRentacar};
+    	//var rv = {'id':null,'vozilo':{'id':v.id,'registracijaVozila':v.registracijaVozila,'brojSedista':v.brojSedista},'datumDolaska':$rootScope.datumDolaskaRentacar,'datumOdlaska':$rootScope.datumOdlaskaRentacar};
+    	var rv = {'id':null,'vozilo':v,'datumDolaska':$rootScope.datumDolaskaRentacar,'datumOdlaska':$rootScope.datumOdlaskaRentacar};
 
     	$rootScope.rezervacija.rezervacijaVozila.push(rv);
     	

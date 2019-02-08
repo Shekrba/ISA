@@ -27,6 +27,8 @@ import isa.putujIgumane.dto.korisnik.AdminRentDTO;
 import isa.putujIgumane.dto.korisnik.KorisnikDTO;
 import isa.putujIgumane.dto.korisnik.RezervacijaDTO;
 import isa.putujIgumane.dto.rentacar.RezervacijaVozilaDTO;
+import isa.putujIgumane.dto.rentacar.StatusVozilaDTO;
+import isa.putujIgumane.dto.rentacar.VoziloDTO;
 import isa.putujIgumane.model.avioKompanija.AvioKompanija;
 import isa.putujIgumane.model.hotel.Hotel;
 import isa.putujIgumane.model.hotel.RezervacijaSobe;
@@ -309,6 +311,42 @@ public class KorisnikServiceImpl implements KorisnikService{
 		
         
 		k.getRezervacije().add(rezNew);*/
+		
+		for (RezervacijaVozilaDTO rv : rez.getRezervacijaVozila()) {
+			VoziloDTO vDTO=rv.getVozilo();
+			RezervacijaVozila rvNew = new RezervacijaVozila();
+			rvNew.setDatum(LocalDate.now());
+			rvNew.setDatumDolaska(rv.getDatumDolaska());
+			rvNew.setDatumOdlaska(rv.getDatumOdlaska());
+			rvNew.setOtkazano(false);
+			
+			Vozilo vozilo = voziloRepo.findOneById(rv.getVozilo().getId());
+			
+			for (StatusVozilaDTO svDTO :vDTO.getStatusVozila()) {
+				if(svDTO.getDatum().isEqual(rvNew.getDatumDolaska()) || (svDTO.getDatum().isAfter(rvNew.getDatumDolaska()) && svDTO.getDatum().isBefore(rvNew.getDatumOdlaska()))) {
+					StatusVozila svNew = statusVozilaRepo.findOne(svDTO.getId());
+					
+					svNew.setVoziloJeIznajmljeno(true);
+					
+					if(svNew.getVersion()!=svDTO.getVersion()) {
+						throw new OptimisticLockException();
+					}
+					
+					vozilo.getStatusVozila().add(svNew);
+					
+					//System.out.println(ss.getVersion());
+				}
+			}
+			
+			rvNew.setVozilo(vozilo);
+			vozilo.getRezervacije().add(rvNew);
+			rvNew.setUkupnaCena(statusVozilaRepo.findUkupnaCena(vozilo.getId(),rvNew.getDatumDolaska(),rvNew.getDatumOdlaska()));
+			rvNew.setRezervacija(rezNew);
+			
+			rezNew.getRezervacijaVozila().add(rvNew);
+			
+			
+		}
 		
         return rezRepo.save(rezNew);
 	}

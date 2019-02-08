@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 @Entity
 public class StatusVozila {
@@ -33,6 +34,8 @@ public class StatusVozila {
 	@Column(name = "popust", unique = false, nullable = false)
 	private short popust;
 	
+	@Version
+	private long version;
 	
 	public StatusVozila() {
 		
@@ -106,5 +109,13 @@ public class StatusVozila {
 
 	public void setPopust(short popust) {
 		this.popust = popust;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 }

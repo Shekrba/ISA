@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 @Entity
 public class Filijala {
@@ -25,6 +26,8 @@ public class Filijala {
 	@Column(name = "grad", unique = false, nullable = false)
 	private String grad;
 	
+	@Version
+	private long version;
 	
 	public Filijala() {
 		
@@ -76,6 +79,16 @@ public class Filijala {
 
 	public void setGrad(String grad) {
 		this.grad = grad;
+	}
+	
+	public long getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 	
 }

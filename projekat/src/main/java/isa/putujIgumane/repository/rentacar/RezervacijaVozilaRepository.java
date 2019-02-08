@@ -8,5 +8,7 @@ import isa.putujIgumane.model.rentACar.RezervacijaVozila;
 
 @Repository
 public interface RezervacijaVozilaRepository  extends JpaRepository<RezervacijaVozila, Long> {
+	
+	
 
 }

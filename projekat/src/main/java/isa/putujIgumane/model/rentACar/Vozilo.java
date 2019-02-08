@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import isa.putujIgumane.model.korisnik.Ocena;
 
@@ -48,6 +49,9 @@ public class Vozilo {
 	
 	@OneToMany(mappedBy = "vozilo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RezervacijaVozila> rezervacije = new HashSet<RezervacijaVozila>();
+	
+	@Version
+	private long version;
 	
 	public Vozilo() {
 		
@@ -166,6 +170,12 @@ public class Vozilo {
 		this.rezervacije = rezervacije;
 	}
 	
-	
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
 	
 }

@@ -8,7 +8,7 @@ public class FilijalaDTO {
 	private long id;
 	private String drzava;
 	private String grad;
-	
+	private Long version;
 	
 	public FilijalaDTO() {
 
@@ -42,6 +42,14 @@ public class FilijalaDTO {
 
 	public void setGrad(String grad) {
 		this.grad = grad;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 }

@@ -15,6 +15,8 @@ public class VozilaBrzaDTO {
 	private double cena;
 	
 	private short popust;
+	
+	private Long version;
 
 	public VozilaBrzaDTO() {
 		
@@ -74,6 +76,14 @@ public class VozilaBrzaDTO {
 
 	public void setPopust(short popust) {
 		this.popust = popust;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	
 }

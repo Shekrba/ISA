@@ -1,5 +1,9 @@
 package isa.putujIgumane.dto.rentacar;
 
+import java.util.Set;
+
+import isa.putujIgumane.dto.hotel.StatusSobeDTO;
+
 public class VoziloZaRezDTO {
 
 	private Long id;
@@ -15,6 +19,10 @@ public class VoziloZaRezDTO {
 	private double cena;
 	
 	private boolean dodata = false;
+	
+	private Long version;
+	
+	private Set<StatusVozilaDTO> statusVozila;
 	
 	public VoziloZaRezDTO() {
 		
@@ -74,5 +82,21 @@ public class VoziloZaRezDTO {
 
 	public void setCena(double cena) {
 		this.cena = cena;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+	public Set<StatusVozilaDTO> getStatusVozila() {
+		return statusVozila;
+	}
+
+	public void setStatusVozila(Set<StatusVozilaDTO> statusVozila) {
+		this.statusVozila = statusVozila;
 	}
 }

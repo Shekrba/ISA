@@ -3,6 +3,7 @@ package isa.putujIgumane.dto.rentacar;
 import java.util.HashSet;
 import java.util.Set;
 
+import isa.putujIgumane.dto.hotel.StatusSobeDTO;
 import isa.putujIgumane.model.rentACar.Vozilo;
 
 public class VoziloDTO {
@@ -14,6 +15,10 @@ public class VoziloDTO {
 	private String modelVozila;
 	private int godinaProizvodnje;
 	private int brojSedista;
+	
+	private Long version;
+	
+	private Set<StatusVozilaDTO> statusVozila;
 	//private Double prosecnaOcenaVozila;
 	/*private Set<StatusVozilaDTO> statusVozila = new HashSet<StatusVozilaDTO>();
 	private Set<RezervacijaVozilaDTO> rezervacije = new HashSet<RezervacijaVozilaDTO>();
@@ -91,6 +96,26 @@ public class VoziloDTO {
 
 	public void setBrojSedista(int brojSedista) {
 		this.brojSedista = brojSedista;
+	}
+
+
+	public Long getVersion() {
+		return version;
+	}
+
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+
+	public Set<StatusVozilaDTO> getStatusVozila() {
+		return statusVozila;
+	}
+
+
+	public void setStatusVozila(Set<StatusVozilaDTO> statusVozila) {
+		this.statusVozila = statusVozila;
 	}
 
 /*

@@ -11,7 +11,7 @@ import isa.putujIgumane.dto.rentacar.RezervacijaVozilaDTO;
 public class RezervacijaDTO {
 	
 	private Long id;
-	
+	private Set<KartaDTO> karte = new HashSet<>();
 	private Set<RezervacijaSobeDTO> rezervacijaSobe = new HashSet<>();
 	private Set<RezervacijaVozilaDTO> rezervacijaVozila = new HashSet<>();
 	private Set<KorisnikDTO> korisnici = new HashSet<>();
@@ -30,6 +30,14 @@ public class RezervacijaDTO {
 
 	public Set<RezervacijaSobeDTO> getRezervacijaSobe() {
 		return rezervacijaSobe;
+	}
+
+	public Set<KartaDTO> getKarte() {
+		return karte;
+	}
+
+	public void setKarte(Set<KartaDTO> karte) {
+		this.karte = karte;
 	}
 
 	public void setRezervacijaSobe(Set<RezervacijaSobeDTO> rezervacijaSobe) {

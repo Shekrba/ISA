@@ -25,9 +25,7 @@ insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id,version) values (
 insert into cenovnik_usluga_hotela (id, cena, usluga, hotel_id,version) values (23123, 3000, 'Djakuzi',3,0);
 
 
-insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1123,1,1,2,4);
-insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1124,1,2,1,2);
-insert into soba(id,broj_sobe,hotel_id,sprat,broj_kreveta) values (1125,2,1,3,3);
+
 
 INSERT INTO korisnik (id, username, password, ime, prezime, email, enabled, last_password_reset_date,verifikovan) VALUES (3, 'user1', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pera', 'Peric', 'user1@example.com', true, '2017-10-01 21:58:58',true);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
@@ -55,13 +53,6 @@ insert into rezervacija_sobe(id,datum,datum_dolaska,datum_odlaska,otkazano,ukupn
 insert into rezervacija_sobe(id,datum,datum_dolaska,datum_odlaska,otkazano,ukupna_cena,rezervacija_id,soba_id) values(4,'2019-01-01','2019-01-02','2019-01-03',0,3500,null,1125);
 
 
-insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (1, 4, null,1,3,null,null,null,null);
-insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (2, 5, null,1,1,null,null,null,null);
-insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (3, 3, null,2,3,null,null,null,null);
-
-insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (4, 4, null,null,3,null,null,1123,null);
-insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (5, 2, null,null,1,null,null,1123,null);
-insert into ocena (id, vrednost, avio_kompanija_id, hotel_id, korisnik_id,let_id,rentacar_id,soba_id,vozilo_id) values (6, 3, null,null,3,null,null,1125,null);
 
 
 insert into status_sobe(id, soba_id, datum, zauzeto, cena, popust) values (1, 1123, '2019-01-01', 0, 2000, 0);

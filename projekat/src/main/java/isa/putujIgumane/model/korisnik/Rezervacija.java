@@ -25,7 +25,7 @@ public class Rezervacija {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="rezervacije",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Korisnik> korisnici;
 	
 	@OneToMany(mappedBy="rezervacija",fetch = FetchType.EAGER, cascade = CascadeType.ALL)

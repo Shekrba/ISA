@@ -916,6 +916,7 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 										this._objects[0].set('fill','green');
 										this._objects[1].set('backgroundColor','green');
 										$scope.numOzn++;
+										$scope.oznSedista[this.sediste.id]=this.sediste;
 										if($scope.numOzn>=2){
 											$rootScope.drugariSaPuta[$scope.numOzn-2]={ime:"",prezime:""};
 										}
@@ -926,6 +927,7 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 										this._objects[1].set('backgroundColor','white');
 										delete $scope.oznSedista[this.sediste.id];
 										$scope.numOzn--;
+										delete $scope.oznSedista[this.sediste.id];
 										if($scope.numOzn>=2){
 											delete $rootScope.drugariSaPuta[$scope.numOzn-1];
 										}
@@ -967,6 +969,33 @@ webApp.controller('rezervacijaLetaController', function($scope,$rootScope, $loca
 	
 	$scope.setFriend=function(f){
 		$rootScope.drugariSaPuta[$scope.i]=f;
+	};
+	
+	$scope.rezervisiLet=function(){
+		for(let i=0 ; i<$scope.numOzn-1 ; i++){
+			if($rootScope.drugariSaPuta[i].username!=undefined){
+				//broj karata!!! NEREGISTROVANI KORISNICI
+				$rootScope.rezervacija.korisnici.push($rootScope.drugariSaPuta[i]);
+			}
+		}
+		
+		for(var key in $scope.oznSedista){
+			$rootScope.rezervacija.karte.push($scope.oznSedista[key]);
+		}
+		
+		$log.log($rootScope.rezervacija);
+		
+		$scope.karte
+		
+		$rootScope.datumDolaska=$scope.flight.vremePoletanja;
+		
+		$rootScope.putanja='partials/biranjeRezervacijaHotela.html';
+		
+		$rootScope.letClass = 'nav-link disabled';
+		
+		$rootScope.hotelClass = 'nav-link active';
+		
+		$rootScope.rentClass = 'nav-link disabled';
 	};
 });
 

@@ -570,7 +570,7 @@ webApp.controller('rezUslugaController', function($route,$rootScope,$scope, $loc
     		var i = 0;
         	for ( var cenovnik of rs.cenovnici) {
     			if(cenovnik.id == c.id){
-    				rs.splice(i, 1);
+    				rs.cenovnici.splice(i, 1);
     				break;
     			}
     			i++;

@@ -214,10 +214,10 @@ public class KorisnikController{
 	@RequestMapping(value="/makeRez", method=RequestMethod.PUT)
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<?> makeRez(@RequestBody RezervacijaDTO rez){
-		
+		Korisnik k=korisnikService.getKorisnik(SecurityContextHolder.getContext().getAuthentication().getName());
 		Rezervacija madeRez = null;
 		
-		
+		rez.getKorisnici().add(ObjectMapperUtils.map(k, KorisnikDTO.class));
 		try {
 			madeRez = korisnikService.makeRez(rez);
 		} catch (Exception e) {

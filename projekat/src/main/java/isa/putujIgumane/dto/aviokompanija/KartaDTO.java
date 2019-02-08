@@ -1,6 +1,8 @@
 package isa.putujIgumane.dto.aviokompanija;
 
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 
 public class KartaDTO {
 	
@@ -14,7 +16,9 @@ public class KartaDTO {
 	
 	private long version;
 	
-	private SedisteDTO sediste;
+	private LocalDateTime vremePoletanja;
+	
+	private LocalDateTime vremeSletanja;
 	
 	public KartaDTO() {
 		// TODO Auto-generated constructor stub
@@ -22,15 +26,37 @@ public class KartaDTO {
 	
 	
 
-	public SedisteDTO getSediste() {
-		return sediste;
+
+
+	public LocalDateTime getVremePoletanja() {
+		return vremePoletanja;
 	}
 
 
 
-	public void setSediste(SedisteDTO sediste) {
-		this.sediste = sediste;
+
+
+	public void setVremePoletanja(LocalDateTime vremePoletanja) {
+		this.vremePoletanja = vremePoletanja;
 	}
+
+
+
+
+
+	public LocalDateTime getVremeSletanja() {
+		return vremeSletanja;
+	}
+
+
+
+
+
+	public void setVremeSletanja(LocalDateTime vremeSletanja) {
+		this.vremeSletanja = vremeSletanja;
+	}
+
+
 
 
 

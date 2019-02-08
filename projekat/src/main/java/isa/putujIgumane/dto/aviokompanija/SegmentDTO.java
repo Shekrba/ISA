@@ -23,23 +23,14 @@ public class SegmentDTO {
 	
 	private Set<SedisteDTO> sedista;
 	
-	private LetDTO let;
+
 	
 	public SegmentDTO() {
 		
 	}
 
 	
-	
-	public LetDTO getLet() {
-		return let;
-	}
 
-
-
-	public void setLet(LetDTO let) {
-		this.let = let;
-	}
 
 
 

@@ -16,6 +16,9 @@ public class Adresa {
 	@Id
 	private String place_id;
 	
+	@Column(name = "name", unique = false, nullable = false)
+	private String name;
+	
 	@ManyToMany(mappedBy = "presedanja")
 	private Set<Let> presedanje=new HashSet<Let>();
 	
@@ -27,6 +30,18 @@ public class Adresa {
 	}
 	
 	
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 	public String getPlace_id() {
 		return place_id;

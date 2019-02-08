@@ -11,11 +11,20 @@
 			<h1>Karte</h1>
 		</div>
 		<div class="row">
-			<div class="col-lg-4" ng-repeat="k in karte">
+			<div class="col-lg-4  mr-auto ml-auto text-center">
+					<label>Od:<input ng-model="searchText.odMesta"></label>
+					<label>Do:<input ng-model="searchText.doMesta"></label>
+			</div>
+		</div>	
+		
+		<div class="row">
+			<div class="col-lg-4" ng-repeat="k in karte | filter:searchText">
 				<div class="card">
-					<p>Vreme poletanja: {{k.sediste.segment.let.vremePoletanja}}</p>
-					<p>Vreme sletanja: {{k.sediste.segment.let.vremeSletanja}}</p>
-					<p><button class="btn btn-secondary" ng-click="reserveFlight(l.id)">Rezerviši</button></p>
+					<p>Od: {{k.odMesta}}</p>
+					<p>Do: {{k.doMesta}}</p>
+					<p>Vreme poletanja: {{formateDate(k.vremePoletanja)}}</p>
+					<p>Vreme sletanja: {{formatDate(k.vremeSletanja)}}</p>
+					<p><button class="btn btn-secondary" ng-click="reserveFastFlight(k)">Rezerviši</button></p>
 				</div>
 			</div>
 		</div>	

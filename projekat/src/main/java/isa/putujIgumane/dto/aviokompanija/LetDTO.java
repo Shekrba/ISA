@@ -2,6 +2,7 @@ package isa.putujIgumane.dto.aviokompanija;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -12,9 +13,7 @@ public class LetDTO {
 	
 	private AvioKompanijaDTO avioKompanija;
 	
-	
-	private Set<SegmentDTO> segmenti;
-	
+	private Set<SegmentDTO> segmenti=new HashSet<SegmentDTO>();
 	
 	private LocalDateTime vremePoletanja;
 	
@@ -33,6 +32,17 @@ public class LetDTO {
 		
 	}
 
+	
+	public Set<SegmentDTO> getSegmenti() {
+		return segmenti;
+	}
+
+
+	public void setSegmenti(Set<SegmentDTO> segmenti) {
+		this.segmenti = segmenti;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -49,13 +59,6 @@ public class LetDTO {
 		this.avioKompanija = avioKompanija;
 	}
 
-	public Set<SegmentDTO> getSegmenti() {
-		return segmenti;
-	}
-
-	public void setSegmenti(Set<SegmentDTO> segmenti) {
-		this.segmenti = segmenti;
-	}
 
 	public LocalDateTime getVremePoletanja() {
 		return vremePoletanja;

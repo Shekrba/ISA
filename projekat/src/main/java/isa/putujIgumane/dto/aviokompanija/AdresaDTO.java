@@ -6,9 +6,25 @@ public class AdresaDTO {
 
 	private String place_id;
 
+	private String name;
+	
 	public AdresaDTO() {
 		
 	}
+	
+	
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 	public String getPlace_id() {
 		return place_id;
